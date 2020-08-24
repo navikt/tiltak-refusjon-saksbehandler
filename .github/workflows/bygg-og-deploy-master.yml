@@ -52,7 +52,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Installer avhengigheter
-        run:  yarn install --production --ignore-scripts --no-optional
+        run:  yarn install
 
       - name: Bygg, tag og push Docker-image
         run: |

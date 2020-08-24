@@ -90,6 +90,6 @@ const loadReverseProxyConfig = () => {
 export default {
     server,
     azureAd,
-    reverseProxy: reverseProxyConfig(),
+    // reverseProxy: reverseProxyConfig(),
     redis
 };

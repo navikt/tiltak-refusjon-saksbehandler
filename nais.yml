@@ -24,7 +24,7 @@ spec:
   env:
     - name: NODE_EXTRA_CA_CERTS
       value: /etc/ssl/ca-bundle.pem
-    - AAD_REDIRECT_URL:
+    - name: AAD_REDIRECT_URL
       value: https://arbeidsgiver.dev-adeo.no/tiltak-refusjon
   accessPolicy:
     outbound:

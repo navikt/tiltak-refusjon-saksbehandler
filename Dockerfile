@@ -11,4 +11,4 @@ COPY . /usr/src/app/
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
-CMD ["node src/main.js"]
+CMD ["yarn start run"]

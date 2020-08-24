@@ -13,7 +13,7 @@ const ensureAuthenticated = async (req, res, next) => {
         next();
     } else {
         session.redirectTo = req.url;
-        res.redirect('/tiltak-refusjon-loginproxy/login');
+        res.redirect('/login');
     }
 };
 
@@ -27,7 +27,7 @@ const setup = authClient => {
         if (session.redirectTo) {
             res.redirect(session.redirectTo);
         } else {
-            res.redirect('/tiltak-refusjon-loginproxy');
+            res.redirect('/');
         }
     });
 

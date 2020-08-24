@@ -6,7 +6,7 @@ import path from 'path';
 import session from 'express-session';
 // import reverseProxy from "./proxy/reverse-proxy";
 
-const router = express.Router();
+const router = express.Router({});
 
 const ensureAuthenticated = async (req, res, next) => {
     if (req.isAuthenticated() && authUtils.hasValidAccessToken(req)) {

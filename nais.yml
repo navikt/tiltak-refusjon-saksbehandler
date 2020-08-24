@@ -16,10 +16,10 @@ spec:
     application:
       enabled: true
   liveness:
-    path: /tiltak-refusjon-loginproxy/internal/isAlive
+    path: /tiltak-refusjon-loginproxy/isAlive
     initialDelay: 5
   readiness:
-    path: /tiltak-refusjon-loginproxy/internal/isReady
+    path: /tiltak-refusjon-loginproxy/isReady
     initialDelay: 5
   env:
     - name: NODE_EXTRA_CA_CERTS

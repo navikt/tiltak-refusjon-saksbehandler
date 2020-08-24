@@ -10,8 +10,8 @@ spec:
   team: arbeidsgiver
   port: 3000
   ingresses:
-    - https://tiltak-refusjon-loginproxy.dev-adeo.no/.dev-adeo.no
-    - https://tiltak-refusjon-loginproxy.dev-adeo.no/.dev.adeo.no
+    - https://tiltak-refusjon-loginproxy.dev-adeo.no
+    - https://tiltak-refusjon-loginproxy.dev.adeo.no
   azure:
     application:
       enabled: true

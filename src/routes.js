@@ -6,14 +6,14 @@ import path from 'path';
 import session from 'express-session';
 // import reverseProxy from "./proxy/reverse-proxy";
 
-const router = express.Router({});
+const router = express.Router();
 
 const ensureAuthenticated = async (req, res, next) => {
     if (req.isAuthenticated() && authUtils.hasValidAccessToken(req)) {
         next();
     } else {
         session.redirectTo = req.url;
-        res.redirect('/login');
+        res.redirect('/tiltak-refusjon-loginproxy/login');
     }
 };
 
@@ -27,7 +27,7 @@ const setup = authClient => {
         if (session.redirectTo) {
             res.redirect(session.redirectTo);
         } else {
-            res.redirect('/');
+            res.redirect('/tiltak-refusjon-loginproxy');
         }
     });
 

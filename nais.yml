@@ -16,11 +16,11 @@ spec:
     application:
       enabled: true
   liveness:
-    path: /tiltak-refusjon-loginproxy/isAlive
-    initialDelay: 5
+    path: /isAlive
+    initialDelay: 10
   readiness:
-    path: /tiltak-refusjon-loginproxy/isReady
-    initialDelay: 5
+    path: /isReady
+    initialDelay: 10
   env:
     - name: NODE_EXTRA_CA_CERTS
       value: /etc/ssl/ca-bundle.pem

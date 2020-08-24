@@ -1,0 +1,32 @@
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
+metadata:
+  name: tiltak-refusjon-loginproxy
+  namespace: arbeidsgiver
+  labels:
+    team: arbeidsgiver
+spec:
+  image: {{image}}
+  team: arbeidsgiver
+  port: 3000
+  ingresses:
+    - https://arbeidsgiver.dev-adeo.no/tiltak-refusjon-loginproxy
+    - https://arbeidsgiver.dev.adeo.no/tiltak-refusjon-loginproxy
+  azure:
+    application:
+      enabled: true
+  liveness:
+    path: /tiltak-refusjon-loginproxy/internal/isAlive
+    initialDelay: 5
+  readiness:
+    path: /tiltak-refusjon-loginproxy/internal/isReady
+    initialDelay: 5
+  env:
+    - name: NODE_EXTRA_CA_CERTS
+      value: /etc/ssl/ca-bundle.pem
+    - AAD_REDIRECT_URL:
+      value: https://arbeidsgiver.dev-adeo.no/tiltak-refusjon
+  accessPolicy:
+    outbound:
+      external:
+        - host: login.microsoftonline.com

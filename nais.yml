@@ -26,6 +26,8 @@ spec:
       value: /etc/ssl/ca-bundle.pem
     - name: AAD_REDIRECT_URL
       value: https://arbeidsgiver.dev-adeo.no/tiltak-refusjon
+    - name: AAD_LOGOUT_REDIRECT_URL
+      value: https://arbeidsgiver.dev-adeo.no/tiltak-refusjon
     - name: SESSION_KEY
       value: tullenokkel
   accessPolicy:

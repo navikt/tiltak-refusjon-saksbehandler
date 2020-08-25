@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Example application for proxying calls with OIDC auth code flow",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --exec babel-node src/main.js"
+    "start": "NODE_ENV=development nodemon --exec babel-node src/main.js",
+    "build": "babel src -d dist",
+    "serve": "node dist/main.js"
   },
   "author": "",
   "license": "MIT",
@@ -21,8 +23,9 @@
     "tunnel": "^0.0.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/node": "^7.6.1",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.6.0",
     "morgan": "^1.9.1",
     "morgan-body": "^2.4.8",

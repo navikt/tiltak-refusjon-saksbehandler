@@ -11,4 +11,4 @@ COPY . /usr/src/app/
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
-CMD ["yarn start run"]
+CMD ["yarn serve"]

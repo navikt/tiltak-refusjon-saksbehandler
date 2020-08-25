@@ -51,10 +51,10 @@ const setup = authClient => {
     // reverseProxy.setup(router, authClient);
 
     // serve static files
-    router.use(express.static(path.join(__dirname, './tiltak-refusjon/build')));
+    router.use(express.static(path.join(__dirname, '../tiltak-refusjon/build')));
 
     router.use('*', (req, res) => {
-        res.sendFile('index.html', { root: path.join(__dirname, './tiltak-refusjon/build') });
+        res.sendFile('index.html', { root: path.join(__dirname, '../tiltak-refusjon/build') });
     });
 
     return router

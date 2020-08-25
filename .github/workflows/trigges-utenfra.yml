@@ -1,8 +1,5 @@
 name: Trigges utenfra
 
-on:
-  workflow_dispatch:
-
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/${{ github.event.repository.name }}
@@ -15,3 +12,13 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v2
+
+      - name: Sjekk ut frontend
+        uses: actions/checkout@v2
+        with:
+          repository: navikt/tiltak-refusjon
+          path: tiltak-refusjon
+      - name: Installer avhengigheter
+        run:  yarn --cwd tiltak-refusjon install --production --ignore-scripts --no-optional
+      - name: Bygg
+        run: yarn --cwd tiltak-refusjon build

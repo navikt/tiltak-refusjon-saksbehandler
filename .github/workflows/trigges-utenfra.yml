@@ -21,6 +21,7 @@ jobs:
         with:
           repository: navikt/tiltak-refusjon
           path: tiltak-refusjon
+          ref: master
       - name: Installer avhengigheter
         run:  yarn --cwd tiltak-refusjon install --production --ignore-scripts --no-optional
       - name: Bygg

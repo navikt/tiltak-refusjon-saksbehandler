@@ -1,5 +1,5 @@
 {
-  "name": "tiltak-refusjon-loginproxy",
+  "name": "tiltak-refusjon-innside",
   "version": "1.0.0",
   "description": "Example application for proxying calls with OIDC auth code flow",
   "scripts": {

@@ -10,12 +10,16 @@ env:
 
 jobs:
   bygg:
-    name: Bygg
+    name: Hent frontend-kode og bygg
     runs-on: ubuntu-latest
     steps:
+# Node innside backend
       - name: Sjekk ut kode
         uses: actions/checkout@v2
+      - name: Installer node avhengigheter (innside)
+        run: yarn install --production --ignore-scripts --no-optional
 
+# Frontend
       - name: Sjekk ut frontend
         uses: actions/checkout@v2
         with:
@@ -26,3 +30,16 @@ jobs:
         run:  yarn --cwd tiltak-refusjon install --production --ignore-scripts --no-optional
       - name: Bygg
         run: yarn --cwd tiltak-refusjon build
+      - name: Bygg, tag og push Docker-image
+        run: |
+          docker build --tag $IMAGE --tag $IMAGE_BASE:latest .
+          echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u $GITHUB_REPOSITORY --password-stdin
+          docker push $IMAGE_BASE
+      - name: Deploy til dev-gcp innside
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: nais.yml
+          PRINT_PAYLOAD: true
+          VARS: nais/dev-gcp-innside.yml

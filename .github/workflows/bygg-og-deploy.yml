@@ -38,11 +38,10 @@ jobs:
           docker build --tag $IMAGE --tag $IMAGE_BASE:latest .
           echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u $GITHUB_REPOSITORY --password-stdin
           docker push $IMAGE_BASE
-      - name: Deploy til dev-gcp innside
+      - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: nais.yml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-gcp-innside.yml

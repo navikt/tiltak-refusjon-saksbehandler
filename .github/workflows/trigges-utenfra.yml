@@ -1,6 +1,9 @@
-name: Trigges utenfra
+name: Fetch frontend, bygg og deploy 
 
 on:
+  push:
+    branches:
+      - 'master'
   workflow_dispatch:
 
 env:

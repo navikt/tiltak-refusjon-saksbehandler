@@ -34,7 +34,7 @@ const setup = authClient => {
     router.use(ensureAuthenticated);
 
     // Protected
-    router.get('/', (req, res) => {
+    router.get('/session', (req, res) => {
         res.json(req.user);
     });
     router.get('/me', (req, res) => {
@@ -51,10 +51,10 @@ const setup = authClient => {
     // reverseProxy.setup(router, authClient);
 
     // serve static files
-    router.use(express.static(path.join(__dirname, '../tiltak-refusjon/build')));
+    router.use(express.static(path.join(__dirname, '../build')));
 
     router.use('*', (req, res) => {
-        res.sendFile('index.html', { root: path.join(__dirname, '../tiltak-refusjon/build') });
+        res.sendFile('index.html', { root: path.join(__dirname, '../build') });
     });
 
     return router

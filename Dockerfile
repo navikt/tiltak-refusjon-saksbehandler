@@ -6,8 +6,9 @@ WORKDIR /usr/src/app
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
-COPY . /usr/src/app/
+COPY ./build ./build
+COPY ./dist ./dist
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
-CMD ["yarn serve"]
+CMD ["node dist/main.js"]

@@ -1,5 +1,8 @@
 name: Trigges utenfra
 
+on:
+  workflow_dispatch:
+
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/${{ github.event.repository.name }}

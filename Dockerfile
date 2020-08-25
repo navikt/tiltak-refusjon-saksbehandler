@@ -1,6 +1,5 @@
 FROM navikt/node-express:12.2.0-alpine
 
-RUN wget https://yarnpkg.com/install.sh | sh
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 

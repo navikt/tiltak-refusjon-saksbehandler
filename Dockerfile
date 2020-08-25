@@ -6,9 +6,9 @@ WORKDIR /usr/src/app
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
-COPY ./build ./build
-COPY ./dist ./dist
 COPY ./node_modules ./node_modules
+COPY ./dist ./dist
+COPY ./build ./build
 
 EXPOSE 3000
 

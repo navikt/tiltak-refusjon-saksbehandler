@@ -8,6 +8,8 @@ ENV NODE_ENV $NODE_ENV
 
 COPY ./build ./build
 COPY ./dist ./dist
+COPY ./node_modules ./node_modules
+
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]

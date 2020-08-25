@@ -12,23 +12,20 @@ jobs:
     name: Hent frontend-kode og bygg
     runs-on: ubuntu-latest
     steps:
-# Node innside backend
       - name: Sjekk ut kode
         uses: actions/checkout@v2
       - name: Installer node avhengigheter (innside)
         run: yarn install --production --ignore-scripts --no-optional
-
-# Frontend
-      - name: Sjekk ut frontend
-        uses: actions/checkout@v2
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
-          repository: navikt/tiltak-refusjon
-          path: tiltak-refusjon
-          ref: master
-      - name: Installer avhengigheter
-        run:  yarn --cwd tiltak-refusjon install --production --ignore-scripts --no-optional
-      - name: Bygg
-        run: yarn --cwd tiltak-refusjon build
+          workflow: bygg.yml
+          branch: master
+          name: tiltak-refusjon
+          repo: navikt/tiltak-refusjon
+      - uses: montudor/action-zip@v0.1.0
+        with:
+          args: unzip -qq tiltak-refusjon.zip -d .
       - name: Bygg, tag og push Docker-image
         run: |
           docker build --tag $IMAGE --tag $IMAGE_BASE:latest .

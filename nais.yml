@@ -42,7 +42,7 @@ spec:
     - name: DOWNSTREAM_API_PATH
       value: api
     - name: DOWNSTREAM_API_URL
-      value: http://tiltak-refusjon-api
+      value: http://tiltak-refusjon-api/tiltak-refusjon-api
   accessPolicy:
     outbound:
       rules:

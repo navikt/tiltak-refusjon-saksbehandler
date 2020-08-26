@@ -51,7 +51,7 @@ const setup = authClient => {
     // reverseProxy.setup(router, authClient);
 
     // serve static files
-    router.use(express.static(path.join(__dirname, "../build")));
+    router.use(express.static(path.join(__dirname, "../build"), { index: false }));
 
     router.use('*', (req, res) => {
         res.render('index.html', {

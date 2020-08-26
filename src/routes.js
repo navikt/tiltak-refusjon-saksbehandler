@@ -57,7 +57,7 @@ const setup = authClient => {
         res.render('index.html', {
             NAV_SCRIPTS: `<script src="${process.env.DECORATOR_SCRIPT}"></script>`,
             NAV_STYLES: `<link rel="stylesheet" href="${process.env.DECORATOR_STYLING}"/>`,
-            NAV_HEADING: "<script>NAVSPA.internarbeidsflatefs(document.getElementById('headerWithmenu'), { appname: 'Tiltaksgjennomføring - refusjon', toggles: { visEnhet: false, visEnhetVelger: false, visSokefelt: false, visVeilder: false }})</script>",
+            NAV_HEADING: "<div id='header'></div><script>NAVSPA.internarbeidsflatefs(document.getElementById('header'), { appname: 'Tiltaksgjennomføring - refusjon', toggles: { visEnhet: false, visEnhetVelger: false, visSokefelt: false, visVeilder: false }})</script>",
             NAV_SKIPLINKS: '',
             NAV_FOOTER: '',
         });

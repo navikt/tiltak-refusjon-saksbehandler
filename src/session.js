@@ -6,7 +6,7 @@ const SESSION_MAX_AGE_MILLISECONDS = 60 * 60 * 1000;
 
 const setup = (app) => {
     app.set('trust proxy', 1);
-    if (process.env.NODE_ENV === 'development') {
+    // if (process.env.NODE_ENV === 'development') {
         app.use(session({
             cookie: {
                 maxAge: SESSION_MAX_AGE_MILLISECONDS,
@@ -18,38 +18,38 @@ const setup = (app) => {
             resave: false,
             saveUninitialized: true,
         }));
-    } else {
-        const RedisStore = require('connect-redis')(session);
-
-        const client = redis.createClient({
-            host: config.redis.host,
-            password: config.redis.password,
-            port: config.redis.port,
-        });
-        client.unref();
-        client.on('error', console.log);
-
-        const store = new RedisStore({
-            client: client,
-            disableTouch: true,
-        });
-
-        app.use(
-            session({
-                cookie: {
-                    maxAge: SESSION_MAX_AGE_MILLISECONDS,
-                    secure: true,
-                    httpOnly: true,
-                    sameSite: 'lax'
-                },
-                name: config.server.cookieName,
-                saveUninitialized: true,
-                secret: config.server.sessionKey,
-                store: store,
-                resave: false,
-            })
-        );
-    }
+    // } else {
+    //     const RedisStore = require('connect-redis')(session);
+    //
+    //     const client = redis.createClient({
+    //         host: config.redis.host,
+    //         password: config.redis.password,
+    //         port: config.redis.port,
+    //     });
+    //     client.unref();
+    //     client.on('error', console.log);
+    //
+    //     const store = new RedisStore({
+    //         client: client,
+    //         disableTouch: true,
+    //     });
+    //
+    //     app.use(
+    //         session({
+    //             cookie: {
+    //                 maxAge: SESSION_MAX_AGE_MILLISECONDS,
+    //                 secure: true,
+    //                 httpOnly: true,
+    //                 sameSite: 'lax'
+    //             },
+    //             name: config.server.cookieName,
+    //             saveUninitialized: true,
+    //             secret: config.server.sessionKey,
+    //             store: store,
+    //             resave: false,
+    //         })
+    //     );
+    // }
 };
 
 export default { setup };

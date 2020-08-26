@@ -41,9 +41,9 @@ async function startApp()  {
         passport.serializeUser((user, done) => done(null, user));
         passport.deserializeUser((user, done) => done(null, user));
 
-        app.engine("html", mustacheExpress());
-        app.set("view engine", "mustache");
-        app.set("views", path.join(__dirname, "../../build"));
+        server.engine("html", mustacheExpress());
+        server.set("view engine", "mustache");
+        server.set("views", path.join(__dirname, "../../build"));
 
         // setup routes
         server.use('/', routes.setup(azureAuthClient));

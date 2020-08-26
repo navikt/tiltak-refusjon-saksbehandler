@@ -56,8 +56,10 @@ const setup = authClient => {
     router.use('*', (req, res) => {
         res.render('index.html', {
             NAV_SCRIPTS: `<script src="${process.env.DECORATOR_SCRIPT}"></script>`,
-            NAV_STYLING: `<link rel="stylesheet" href="${process.env.DECORATOR_STYLING}"/>`,
+            NAV_STYLES: `<link rel="stylesheet" href="${process.env.DECORATOR_STYLING}"/>`,
             NAV_HEADING: "<script>setTimeout(function() {NAVSPA.internarbeidsflatefs(document.getElementById('root'), { appname: 'Tiltaksgjennomføring - refusjon', toggles: { visEnhet: false, visEnhetVelger: false, visSokefelt: false, visVeilder: false }}); }, 1000);</script>",
+            NAV_SKIPLINKS: '',
+            NAV_FOOTER: '',
         });
     });
 

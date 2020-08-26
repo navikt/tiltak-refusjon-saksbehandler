@@ -51,10 +51,14 @@ const setup = authClient => {
     // reverseProxy.setup(router, authClient);
 
     // serve static files
-    router.use(express.static(path.join(__dirname, '../build')));
+    router.use(express.static(path.join(__dirname, "../../build")));
 
     router.use('*', (req, res) => {
-        res.sendFile('index.html', { root: path.join(__dirname, '../build') });
+        res.render('index.html', {
+            NAV_SCRIPTS: `<script src="${process.env.DECORATOR_SCRIPT}"></script>`,
+            NAV_STYLING: `<link rel="stylesheet" href="${process.env.DECORATOR_STYLING}"/>`,
+            NAV_HEADING: "<script>setTimeout(function() {NAVSPA.internarbeidsflatefs(document.getElementById('root'), { appname: 'Tiltaksgjennomføring - refusjon', toggles: { visEnhet: false, visEnhetVelger: false, visSokefelt: false, visVeilder: false }}); }, 1000);</script>",
+        });
     });
 
     return router

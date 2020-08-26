@@ -6,6 +6,8 @@ import express from 'express';
 import helmet from 'helmet';
 import passport from 'passport';
 import session from './session';
+import mustacheExpress from 'mustache-express';
+import path from "path";
 
 // for debugging during development
 // import morganBody from 'morgan-body';
@@ -38,6 +40,10 @@ async function startApp()  {
         passport.use('azureOidc', azureOidcStrategy);
         passport.serializeUser((user, done) => done(null, user));
         passport.deserializeUser((user, done) => done(null, user));
+
+        app.engine("html", mustacheExpress());
+        app.set("view engine", "mustache");
+        app.set("views", path.join(__dirname, "../../build"));
 
         // setup routes
         server.use('/', routes.setup(azureAuthClient));

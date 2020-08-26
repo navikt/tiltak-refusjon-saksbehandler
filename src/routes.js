@@ -4,7 +4,7 @@ import express from 'express';
 import passport from 'passport';
 import path from 'path';
 import session from 'express-session';
-// import reverseProxy from "./proxy/reverse-proxy";
+import reverseProxy from "./proxy/reverse-proxy";
 
 const router = express.Router();
 
@@ -48,7 +48,7 @@ const setup = authClient => {
         res.redirect(authClient.endSessionUrl({ 'post_logout_redirect_uri': config.azureAd.logoutRedirectUri }));
     });
 
-    // reverseProxy.setup(router, authClient);
+    reverseProxy.setup(router, authClient);
 
     // serve static files
     router.use(express.static(path.join(__dirname, "../build"), { index: false }));

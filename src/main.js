@@ -25,7 +25,7 @@ async function startApp()  {
         server.use(express.urlencoded({ extended: true }));
 
         // setup sane defaults for CORS and HTTP headers
-        server.use(helmet());
+        // server.use(helmet());
         server.use(cors);
 
         // initialize passport and restore authentication state, if any, from the session

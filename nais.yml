@@ -17,10 +17,10 @@ spec:
       enabled: true
   liveness:
     path: /isAlive
-    initialDelay: 10
+    initialDelay: 30
   readiness:
     path: /isReady
-    initialDelay: 10
+    initialDelay: 30
   replicas:
     min: 1
     max: 1

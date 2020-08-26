@@ -33,6 +33,10 @@ spec:
       value: https://tiltak-refusjon-innside.dev-adeo.no/oauth2/callback
     - name: SESSION_KEY
       value: tullenokkel
+    - name: DECORATOR_SCRIPT
+      value: https://navikt.github.io/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js
+    - name: DECORATOR_STYLING
+      value: https://navikt.github.io/internarbeidsflatedecorator/v2.1/static/css/main.css
   accessPolicy:
     outbound:
       external:

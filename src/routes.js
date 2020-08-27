@@ -19,8 +19,8 @@ const ensureAuthenticated = async (req, res, next) => {
 
 const setup = authClient => {
     // Unprotected
-    router.get('isAlive', (req, res) => res.send('Alive'));
-    router.get('isReady', (req, res) => res.send('Ready'));
+    router.get('/isAlive', (req, res) => res.send('Alive'));
+    router.get('/isReady', (req, res) => res.send('Ready'));
 
     router.get('/login', passport.authenticate('azureOidc', { failureRedirect: '/tiltak-refusjon/login'}));
     router.use('/oauth2/callback', passport.authenticate('azureOidc', { failureRedirect: '/tiltak-refusjon/login'}), (req, res) => {

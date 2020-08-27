@@ -36,6 +36,7 @@ jobs:
       - uses: montudor/action-zip@v0.1.0
         with:
           args: unzip -qq tiltak-refusjon.zip -d .
+      - uses: satackey/action-docker-layer-caching@v0.0.8
       - name: Bygg, tag og push Docker-image
         run: |
           docker build --tag $IMAGE --tag $IMAGE_BASE:latest .

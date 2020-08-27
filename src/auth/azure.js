@@ -5,7 +5,7 @@ import httpProxy from '../proxy/http-proxy';
 
 const metadata = {
     client_id: config.azureAd.clientId,
-    redirect_uris: config.azureAd.redirectUri,
+    redirect_uris: [config.azureAd.redirectUri],
     token_endpoint_auth_method: config.azureAd.tokenEndpointAuthMethod,
     token_endpoint_auth_signing_alg: config.azureAd.tokenEndpointAuthSigningAlg,
 };

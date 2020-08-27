@@ -37,6 +37,10 @@ jobs:
         with:
           args: unzip -qq tiltak-refusjon.zip -d .
       - uses: satackey/action-docker-layer-caching@v0.0.8
+        with:
+          key: docker-cache-{hash}
+          restore-keys: |
+            docker-cache-
       - name: Bygg, tag og push Docker-image
         run: |
           docker build --tag $IMAGE --tag $IMAGE_BASE:latest .

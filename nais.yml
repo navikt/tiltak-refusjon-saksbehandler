@@ -28,9 +28,9 @@ spec:
     - name: NODE_EXTRA_CA_CERTS
       value: /etc/ssl/ca-bundle.pem
     - name: AAD_REDIRECT_URL
-      value: https://arbeidsgiver.dev.adeo.no/tiltak-refusjon
+      value: https://arbeidsgiver.dev.adeo.no/tiltak-refusjon/oauth2/callback
     - name: AAD_LOGOUT_REDIRECT_URL
-      value: https://arbeidsgiver.dev.adeo.no/tiltak-refusjon
+      value: https://arbeidsgiver.dev.adeo.no/tiltak-refusjon/oauth2/callback
     - name: SESSION_KEY
       value: tullenokkel
     - name: DECORATOR_SCRIPT

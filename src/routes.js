@@ -13,7 +13,7 @@ const ensureAuthenticated = async (req, res, next) => {
         next();
     } else {
         session.redirectTo = req.url;
-        res.redirect('/login');
+        res.redirect('/tiltak-refusjon/login');
     }
 };
 

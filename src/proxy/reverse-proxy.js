@@ -8,10 +8,12 @@ const setup = (router, authClient) => {
         pathRewrite: {"^/tiltak-refusjon/api": "/tiltak-refusjon-api"},
         xfwd: true,
         onProxyReq: async (proxyReq, req, res) => {
+            proxyReq.socket.pause();
             const accessToken = await authUtils.getOnBehalfOfAccessToken(
                 authClient, req
             );
             proxyReq.setHeader("Authorization", `Bearer ${accessToken}`)
+            proxyReq.socket.resume();
         }
     }));
 };

@@ -3,7 +3,7 @@ import proxy from 'express-http-proxy';
 import config from '../config';
 
 const setup = (router, authClient) => {
-    router.use("/api", proxy(config.api.url,{
+    router.use("/api/*", proxy(config.api.url,{
         parseReqBody: false,
         proxyReqOptDecorator: (options, req) => {
             return new Promise(((resolve, reject) =>
@@ -17,7 +17,10 @@ const setup = (router, authClient) => {
             ))
         },
         proxyReqPathResolver: req => {
-            return req.url.replace("/tiltak-refusjon/api", "/tiltak-refusjon-api");
+            console.log("req.url: " + req.url);
+            const nyUrl = req.url.replace("/tiltak-refusjon/api", "/tiltak-refusjon-api");
+            console.log("ny path: " + nyUrl);
+            return nyUrl;
         }
     }));
 };

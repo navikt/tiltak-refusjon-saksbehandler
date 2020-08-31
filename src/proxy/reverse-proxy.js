@@ -1,8 +1,9 @@
 import authUtils from '../auth/utils';
 import proxy from 'express-http-proxy';
+import config from '../config';
 
 const setup = (router, authClient) => {
-    router.use("/api", proxy({
+    router.use("/api", proxy(config.api.url,{
         parseReqBody: false,
         proxyReqOptDecorator: (options, req) => {
             return new Promise(((resolve, reject) =>

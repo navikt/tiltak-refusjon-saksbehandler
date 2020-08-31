@@ -18,7 +18,6 @@ const setup = (router, authClient) => {
             ))
         },
         proxyReqPathResolver: req => {
-            console.log("req: " + JSON.stringify(req));
             const nyUrl = req.originalUrl.replace("/tiltak-refusjon/api", "/tiltak-refusjon-api");
             console.log("ny path: " + nyUrl);
             return nyUrl;

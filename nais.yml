@@ -38,7 +38,7 @@ spec:
     - name: API_CLIENT_ID
       value: 663b86c4-6d3d-4d00-ac7c-a34a478d0204
     - name: API_URL
-      value: http://tiltak-refusjon-api/tiltak-refusjon-api
+      value: http://tiltak-refusjon-api
   accessPolicy:
     outbound:
       rules:

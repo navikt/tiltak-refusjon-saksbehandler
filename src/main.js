@@ -44,7 +44,7 @@ async function startApp()  {
         server.set("views", path.join(__dirname, "../build"));
 
         // setup routes
-        server.use('/tiltak-refusjon', routes.setup(azureAuthClient));
+        server.use('/', routes.setup(azureAuthClient));
 
         const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));

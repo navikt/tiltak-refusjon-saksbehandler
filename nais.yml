@@ -10,25 +10,24 @@ spec:
   team: arbeidsgiver
   port: 3000
   ingresses:
-    - https://arbeidsgiver.dev-adeo.no/tiltak-refusjon
-    - https://arbeidsgiver.dev.adeo.no/tiltak-refusjon
+    - https://tiltak-refusjon.dev.adeo.no
   azure:
     application:
       enabled: true
   liveness:
-    path: /tiltak-refusjon/isAlive
+    path: /isAlive
     initialDelay: 30
   readiness:
-    path: /tiltak-refusjon/isReady
+    path: /isReady
     initialDelay: 30
   replicas:
     min: 1
     max: 1
   env:
     - name: AAD_REDIRECT_URL
-      value: https://arbeidsgiver.dev.adeo.no/tiltak-refusjon/oauth2/callback
+      value: https://tiltak-refusjon.dev.adeo.no/oauth2/callback
     - name: AAD_LOGOUT_REDIRECT_URL
-      value: https://arbeidsgiver.dev.adeo.no/tiltak-refusjon/oauth2/callback
+      value: https://tiltak-refusjon.dev.adeo.no/oauth2/callback
     - name: SESSION_KEY
       value: tullenokkel
     - name: DECORATOR_SCRIPT

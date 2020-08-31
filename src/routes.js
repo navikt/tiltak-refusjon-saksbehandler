@@ -13,7 +13,7 @@ const ensureAuthenticated = async (req, res, next) => {
         next();
     } else {
         session.redirectTo = req.originalUrl;
-        res.redirect('/tiltak-refusjon/login');
+        res.redirect('/login');
     }
 };
 
@@ -22,12 +22,12 @@ const setup = authClient => {
     router.get('/isAlive', (req, res) => res.send('Alive'));
     router.get('/isReady', (req, res) => res.send('Ready'));
 
-    router.get('/login', passport.authenticate('azureOidc', { failureRedirect: '/tiltak-refusjon/login'}));
-    router.use('/oauth2/callback', passport.authenticate('azureOidc', { failureRedirect: '/tiltak-refusjon/login'}), (req, res) => {
+    router.get('/login', passport.authenticate('azureOidc', { failureRedirect: '/login'}));
+    router.use('/oauth2/callback', passport.authenticate('azureOidc', { failureRedirect: '/login'}), (req, res) => {
         if (session.redirectTo) {
             res.redirect(session.redirectTo);
         } else {
-            res.redirect('/tiltak-refusjon');
+            res.redirect('/');
         }
     });
 

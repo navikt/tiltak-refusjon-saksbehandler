@@ -50,12 +50,12 @@ const reverseProxyConfig = () => {
 };
 
 const loadReverseProxyConfig = () => {
-    console.log(`Loading reverse proxy config from DOWNSTREAM_API_* [CLIENT_ID, URL]`);
-    const scopes = envVar({name: "DOWNSTREAM_API_SCOPES", required: false});
+    console.log(`Loading reverse proxy config from API_* [CLIENT_ID, URL]`);
+    const scopes = envVar({name: "API_SCOPES", required: false});
     return {
         'api': {
-            clientId: envVar({name: "DOWNSTREAM_API_CLIENT_ID"}),
-            url: envVar({name: "DOWNSTREAM_API_URL"}),
+            clientId: envVar({name: "API_CLIENT_ID"}),
+            url: envVar({name: "API_URL"}),
             scopes: scopes ? scopes.split(',') : []
         }
     };

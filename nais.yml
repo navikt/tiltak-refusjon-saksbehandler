@@ -35,9 +35,9 @@ spec:
       value: https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js
     - name: DECORATOR_STYLING
       value: https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css
-    - name: DOWNSTREAM_API_CLIENT_ID
+    - name: API_CLIENT_ID
       value: 663b86c4-6d3d-4d00-ac7c-a34a478d0204
-    - name: DOWNSTREAM_API_URL
+    - name: API_URL
       value: http://tiltak-refusjon-api/tiltak-refusjon-api
   accessPolicy:
     outbound:

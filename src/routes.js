@@ -12,7 +12,7 @@ const ensureAuthenticated = async (req, res, next) => {
     if (req.isAuthenticated() && authUtils.hasValidAccessToken(req)) {
         next();
     } else {
-        session.redirectTo = req.url;
+        session.redirectTo = req.originalUrl;
         res.redirect('/tiltak-refusjon/login');
     }
 };

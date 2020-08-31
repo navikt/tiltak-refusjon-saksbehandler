@@ -1,6 +1,4 @@
 import 'dotenv/config';
-import fs from 'fs';
-import path from 'path';
 
 const envVar = ({name, required = true}) => {
     if (!process.env[name] && required) {
@@ -36,34 +34,19 @@ const redis = {
     password: envVar({name: "REDIS_PASSWORD", required: false})
 };
 
-const reverseProxyConfig = () => {
-    const config = loadReverseProxyConfig();
-    if (!config.api.url) {
-        console.error(`API entry ${index} is missing 'url'`);
-        process.exit(1);
-    }
-    if (!config.api.clientId) {
-        console.error(`API entry ${index} is missing 'clientId'`);
-        process.exit(1);
-    }
-    return config;
-};
-
-const loadReverseProxyConfig = () => {
+const apiConfig = () => {
     console.log(`Loading reverse proxy config from API_* [CLIENT_ID, URL]`);
     const scopes = envVar({name: "API_SCOPES", required: false});
     return {
-        'api': {
-            clientId: envVar({name: "API_CLIENT_ID"}),
-            url: envVar({name: "API_URL"}),
-            scopes: scopes ? scopes.split(',') : []
-        }
+        clientId: envVar({name: "API_CLIENT_ID"}),
+        url: envVar({name: "API_URL"}),
+        scopes: scopes ? scopes.split(',') : []
     };
 };
 
 export default {
     server,
     azureAd,
-    reverseProxy: reverseProxyConfig(),
+    api: apiConfig(),
     redis
 };

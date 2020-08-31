@@ -1,23 +1,23 @@
 import { TokenSet } from "openid-client";
 import axios from 'axios';
-import url from 'url';
+import config from './config';
 
 const tokenSetSelfId = "self";
 
-const getOnBehalfOfAccessToken = (authClient, req, api) => {
+const getOnBehalfOfAccessToken = (authClient, req) => {
     return new Promise(((resolve, reject) => {
-        if (hasValidAccessToken(req, api.clientId)) {
+        if (hasValidAccessToken(req, config.api.clientId)) {
             const tokenSets = getTokenSetsFromSession(req);
-            resolve(tokenSets[api.clientId].access_token);
+            resolve(tokenSets[config.api.clientId].access_token);
         } else {
             authClient.grant({
                 grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
                 client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                 requested_token_use: 'on_behalf_of',
-                scope: createOnBehalfOfScope(api),
+                scope: createOnBehalfOfScope(config.api),
                 assertion: req.user.tokenSets[tokenSetSelfId].access_token
             }).then(tokenSet => {
-                req.user.tokenSets[api.clientId] = tokenSet;
+                req.user.tokenSets[config.api.clientId] = tokenSet;
                 resolve(tokenSet.access_token);
             }).catch(err => {
                 console.error(err);

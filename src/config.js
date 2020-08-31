@@ -38,53 +38,27 @@ const redis = {
 
 const reverseProxyConfig = () => {
     const config = loadReverseProxyConfig();
-    config.apis.forEach((entry, index) => {
-        if (!entry.path) {
-            console.error(`API entry ${index} is missing 'path'`);
-            process.exit(1);
-        }
-        if (!entry.url) {
-            console.error(`API entry ${index} is missing 'url'`);
-            process.exit(1);
-        }
-        if (!entry.clientId) {
-            console.error(`API entry ${index} is missing 'clientId'`);
-            process.exit(1);
-        }
-    });
+    if (!config.api.url) {
+        console.error(`API entry ${index} is missing 'url'`);
+        process.exit(1);
+    }
+    if (!config.api.clientId) {
+        console.error(`API entry ${index} is missing 'clientId'`);
+        process.exit(1);
+    }
     return config;
 };
 
 const loadReverseProxyConfig = () => {
-    const configPath = envVar({name: "DOWNSTREAM_APIS_CONFIG_PATH", required: false});
-    let config = null;
-    if (configPath) {
-        try {
-            console.log(`Loading reverse proxy config from '${configPath}' (defined by DOWNSTREAM_APIS_CONFIG_PATH)`);
-            config = JSON.parse(fs.readFileSync(path.resolve(configPath), 'utf-8'));
-        } catch (err) {
-            console.log(`Could not read config: '${err}'`);
+    console.log(`Loading reverse proxy config from DOWNSTREAM_API_* [CLIENT_ID, URL]`);
+    const scopes = envVar({name: "DOWNSTREAM_API_SCOPES", required: false});
+    return {
+        'api': {
+            clientId: envVar({name: "DOWNSTREAM_API_CLIENT_ID"}),
+            url: envVar({name: "DOWNSTREAM_API_URL"}),
+            scopes: scopes ? scopes.split(',') : []
         }
-    }
-    if (!config) {
-        const jsonConfig = envVar({name: "DOWNSTREAM_APIS_CONFIG", required: false});
-        if (jsonConfig) {
-            console.log(`Loading reverse proxy config from DOWNSTREAM_APIS_CONFIG`);
-            config = JSON.parse(jsonConfig)
-        } else {
-            console.log(`Loading reverse proxy config from DOWNSTREAM_API_* [CLIENT_ID, PATH, URL]`);
-            const scopes = envVar({name: "DOWNSTREAM_API_SCOPES", required: false});
-            config = {
-                'apis': [{
-                    clientId: envVar({name: "DOWNSTREAM_API_CLIENT_ID"}),
-                    path: envVar({name: "DOWNSTREAM_API_PATH", required: false}) || 'downstream',
-                    url: envVar({name: "DOWNSTREAM_API_URL"}),
-                    scopes: scopes ? scopes.split(',') : []
-                }]
-            };
-        }
-    }
-    return config
+    };
 };
 
 export default {

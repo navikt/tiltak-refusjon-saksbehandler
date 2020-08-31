@@ -14,7 +14,6 @@ import path from "path";
 // import morgan from 'morgan';
 
 const server = express();
-const port = config.server.port;
 
 async function startApp()  {
     try {
@@ -48,6 +47,7 @@ async function startApp()  {
         // setup routes
         server.use('/tiltak-refusjon', routes.setup(azureAuthClient));
 
+        const port = 3000;
         server.listen(port, () => console.log(`Listening on port ${port}`));
     } catch (error) {
         console.error('Error during start-up', error);

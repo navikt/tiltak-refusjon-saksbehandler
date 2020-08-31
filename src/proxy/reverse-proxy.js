@@ -1,21 +1,17 @@
 import authUtils from '../auth/utils';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import proxy from 'express-http-proxy';
 
 const setup = (router, authClient) => {
-    router.use("/api", createProxyMiddleware({
-        changeOrigin: true,
-        target: process.env.API_URL || 'http://localhost:8080',
-        pathRewrite: {"^/tiltak-refusjon/api": "/tiltak-refusjon-api"},
-        xfwd: true,
-        onProxyReq: async (proxyReq, req, res) => {
-            proxyReq.socket.pause();
-            const accessToken = await authUtils.getOnBehalfOfAccessToken(
-                authClient, req
-            );
-            proxyReq.setHeader("Authorization", `Bearer ${accessToken}`)
-            proxyReq.socket.resume();
+    router.use("/api", proxy({
+        parseReqBody: false,
+        proxyReqOptDecorator: async (options, req) => {
+            const accessToken = await authUtils.getOnBehalfOfAccessToken(authClient, req)
+            options.headers.Authorization = `Bearer ${accessToken}`;
+        },
+        proxyReqPathResolver: req => {
+            return req.url.replace("/tiltak-refusjon/api", "/tiltak-refusjon-api");
         }
     }));
 };
 
-export default { setup }
+export default {setup}

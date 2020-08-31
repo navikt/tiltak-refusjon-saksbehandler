@@ -38,7 +38,7 @@ spec:
     - name: DECORATOR_STYLING
       value: https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css
     - name: DOWNSTREAM_API_CLIENT_ID
-      value: 957b37f4-3f90-4952-b6b0-09189ba127ea
+      value: 663b86c4-6d3d-4d00-ac7c-a34a478d0204
     - name: DOWNSTREAM_API_PATH
       value: api
     - name: DOWNSTREAM_API_URL

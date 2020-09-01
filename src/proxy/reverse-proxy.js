@@ -5,6 +5,9 @@ import config from '../config';
 const setup = (router, authClient) => {
     router.use("/api", proxy(config.api.url, {
         parseReqBody: false,
+        proxyReqPathResolver: (req) => {
+            return req.originalUrl;
+        },
         proxyReqOptDecorator: (options, req) => {
             return new Promise(((resolve, reject) =>
                     authUtils.getOnBehalfOfAccessToken(

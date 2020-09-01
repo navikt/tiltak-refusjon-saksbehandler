@@ -15,9 +15,6 @@ const setup = (router, authClient) => {
                         },
                         error => reject(error))
             ))
-        },
-        proxyReqPathResolver: req => {
-            return req.originalUrl.replace("/api", "/tiltak-refusjon-api");
         }
     }));
 };

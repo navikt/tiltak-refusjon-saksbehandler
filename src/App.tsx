@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import LokalLogin from './LokalLogin/LokalLogin';
+import RefusjonOversikt from './RefusjonOversikt/RefusjonOversikt';
+import RefusjonSide from './RefusjonSide/RefusjonSide';
 import { hentInnloggetBruker } from './rest-service';
 
+export type InnloggetSaksbehandler = {
+    identifikator: string;
+};
+
 function App() {
-    const [loggetInn, setLoggetInn] = useState();
+    const [innloggetIdent, setInnloggetIdent] = useState<InnloggetSaksbehandler>();
+
     useEffect(() => {
         hentInnloggetBruker()
-            .then(() => setLoggetInn(true))
-            .catch(() => setLoggetInn(false));
+            .then((ident) => setInnloggetIdent(ident))
+            .catch(() => setInnloggetIdent(undefined));
     }, []);
     return (
-        <div className="App">
-            <header className="App-header">
-                {loggetInn === false && (
-                    <a
-                        className="App-link"
-                        href="http://localhost:8080/local/cookie?cookiename=aad-idtoken&redirect=http://localhost:3000/"
-                        rel="noopener noreferrer"
-                    >
-                        Logg inn
-                    </a>
-                )}
-                {loggetInn === true && <p>Er logget inn</p>}
-            </header>
-        </div>
+        <>
+            <BrowserRouter>
+                {process.env.NODE_ENV === 'development' && <LokalLogin ident={innloggetIdent} />}
+                <Switch>
+                    <Route exact path="/">
+                        <RefusjonOversikt />
+                    </Route>
+                    <Route exact path="/refusjon/:id">
+                        <RefusjonSide />
+                    </Route>
+                </Switch>
+            </BrowserRouter>
+        </>
     );
 }
 

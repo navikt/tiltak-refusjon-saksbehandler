@@ -1,0 +1,28 @@
+export type Refusjon = {
+    id: string;
+    deltaker: string;
+    tiltak: string;
+    deltakerFnr: string;
+    veileder: string;
+    bedrift: string;
+    bedriftnummer: string;
+    feriedager: number;
+    trekkFeriedagerBeløp: number;
+    sykedager: number;
+    sykepenger: number;
+    stillingsprosent: number;
+    månedslønn: number;
+    nettoMånedslønn: number;
+    satsOtp: number;
+    beløpOtp: number;
+    satsFeriepenger: number;
+    feriepenger: number;
+    satsArbeidsgiveravgift: number;
+    arbeidsgiveravgift: number;
+    sumUtgifterArbeidsgiver: number;
+    satsRefusjon: number;
+    refusjonPrMåned: number;
+    fraDato: string;
+    tilDato: string;
+    opprettet_tidspunkt: string;
+};

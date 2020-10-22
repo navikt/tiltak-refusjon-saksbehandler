@@ -9,8 +9,7 @@ type Props = {
 };
 
 const LokalLogin: FunctionComponent<Props> = (props) => {
-    const [subject, setSubject] = useState();
-    console.log(props.ident);
+    const [subject, setSubject] = useState('X123456');
 
     const loggUtClick = () => {
         window.location.href =
@@ -26,10 +25,13 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
                 <NavIkon />
             </div>
             <div>
-                <span>{props.ident && props.ident.identifikator}</span>
-
                 {props.ident ? (
-                    <Flatknapp onClick={loggUtClick}>Logg ut</Flatknapp>
+                    <div>
+                        <span>{props.ident.identifikator}</span>
+                        <Flatknapp style={{ marginLeft: '0.5rem' }} onClick={loggUtClick}>
+                            Logg ut
+                        </Flatknapp>
+                    </div>
                 ) : (
                     <div style={{ display: 'flex' }}>
                         <Input

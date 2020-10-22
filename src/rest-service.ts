@@ -30,3 +30,14 @@ export const useHentRefusjoner = () => {
         isError: error,
     };
 };
+
+export const useHentRefusjon = (id: string) => {
+    const { data, error } = useSWR(`/refusjon/${id}`, {
+        fetcher: axiosFetcher,
+    });
+    return {
+        refusjon: data as Refusjon,
+        isLoading: !error && !data,
+        isError: error,
+    };
+};

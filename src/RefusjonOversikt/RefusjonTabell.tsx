@@ -6,6 +6,7 @@ import { Refusjon } from '../types/refusjon';
 import bem from '../utils/bem';
 import { formatterDato } from '../utils/datoUtils';
 import './RefusjonTabell.less';
+import { Link } from 'react-router-dom';
 
 type Props = {
     refusjoner: Refusjon[];
@@ -25,7 +26,14 @@ const RefusjonTabell: FunctionComponent<Props> = (props) => {
             </div>
             <VerticalSpacer rem={1} />
             {props.refusjoner.map((r) => (
-                <LenkepanelBase className={cls.element('rad')} key={r.id}>
+                <LenkepanelBase
+                    className={cls.element('rad')}
+                    key={r.id}
+                    href={'/refusjon/' + r.id}
+                    linkCreator={(props: any) => (
+                        <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
+                    )}
+                >
                     <div>{r.bedrift}</div>
                     <div>{r.deltaker}</div>
                     <div>{r.veileder}</div>

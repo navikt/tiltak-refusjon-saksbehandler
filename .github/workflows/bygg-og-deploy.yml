@@ -26,16 +26,12 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install
       - run: yarn build
-      - name: Download artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          workflow: bygg.yml
-          branch: master
-          name: tiltak-refusjon
-          repo: navikt/tiltak-refusjon
-      - uses: montudor/action-zip@v0.1.0
-        with:
-          args: unzip -qq tiltak-refusjon.zip -d .
+      - name: Server yarn install
+        working-directory: ./server
+        run: yarn install
+      - name: Server yarn build
+        working-directory: ./server
+        run: yarn build
       - uses: satackey/action-docker-layer-caching@v0.0.8
         with:
           key: docker-cache-{hash}

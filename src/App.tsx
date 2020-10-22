@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { hentInnloggetBruker } from "./rest-service";
 
 function App() {
+  useEffect(() => {
+    hentInnloggetBruker().then(console.log)
+  }, [])
   return (
     <div className="App">
       <header className="App-header">

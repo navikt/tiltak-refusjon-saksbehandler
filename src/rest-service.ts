@@ -1,7 +1,20 @@
 import axios from 'axios';
-import useSWR from 'swr';
+import useSWR, { responseInterface } from 'swr';
 import { InnloggetSaksbehandler } from './App';
 import { Refusjon } from './types/refusjon';
+
+export type Laster = { laster: true; feil: boolean };
+export type Lastet<T> = { data: T; laster: false; feil: boolean };
+export type Nettressurs<T> = Laster | Lastet<T>;
+
+function tilNettressurs<T>({ data, error }: responseInterface<T, any>): Nettressurs<T> {
+    const laster = !error && !data;
+    if (laster) {
+        return { laster, feil: !!error };
+    } else {
+        return { data: data!, laster, feil: !!error };
+    }
+}
 
 const api = axios.create({
     baseURL: '/api',
@@ -31,13 +44,10 @@ export const useHentRefusjoner = () => {
     };
 };
 
-export const useHentRefusjon = (id: string) => {
-    const { data, error } = useSWR(`/refusjon/${id}`, {
-        fetcher: axiosFetcher,
-    });
-    return {
-        refusjon: data as Refusjon,
-        isLoading: !error && !data,
-        isError: error,
-    };
+export const useHentRefusjon = (id: string): Nettressurs<Refusjon> => {
+    return tilNettressurs(
+        useSWR<Refusjon>(`/refusjon/${id}`, {
+            fetcher: axiosFetcher,
+        })
+    );
 };

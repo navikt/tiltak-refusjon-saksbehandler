@@ -2,7 +2,6 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import HvitBoks from '../Komponenter/HvitBoks';
-import { Refusjon } from '../types/refusjon';
 import { useHentRefusjon } from '../rest-service';
 import { useParams } from 'react-router-dom';
 import NavFrontendSpinner from 'nav-frontend-spinner';
@@ -13,9 +12,8 @@ const cls = bem('refusjon-side');
 
 const RefusjonSide: FunctionComponent = () => {
     const { id } = useParams();
-    const { refusjon, isLoading } = useHentRefusjon(id);
-
-    if (isLoading) {
+    const refusjon = useHentRefusjon(id);
+    if (refusjon.laster) {
         return <NavFrontendSpinner />;
     }
 
@@ -28,7 +26,7 @@ const RefusjonSide: FunctionComponent = () => {
                         Arbeidsgiver ønsker korrigeringer i refusjonsgrunnlaget
                     </AlertStripe>
                     <Element>Type tiltak</Element>
-                    <Normaltekst>{refusjon.tiltak}</Normaltekst>
+                    <Normaltekst>{refusjon.data.tiltak}</Normaltekst>
                 </HvitBoks>
                 <HvitBoks>
                     <Undertittel>Fravær som gir trekk</Undertittel>

@@ -1,30 +1,30 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import { hentInnloggetBruker } from "./rest-service";
+import { hentInnloggetBruker } from './rest-service';
 
 function App() {
-  useEffect(() => {
-    hentInnloggetBruker().then(console.log)
-  }, [])
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [loggetInn, setLoggetInn] = useState();
+    useEffect(() => {
+        hentInnloggetBruker()
+            .then(() => setLoggetInn(true))
+            .catch(() => setLoggetInn(false));
+    }, []);
+    return (
+        <div className="App">
+            <header className="App-header">
+                {loggetInn === false && (
+                    <a
+                        className="App-link"
+                        href="http://localhost:8080/local/cookie?cookiename=aad-idtoken&redirect=http://localhost:3000/"
+                        rel="noopener noreferrer"
+                    >
+                        Logg inn
+                    </a>
+                )}
+                {loggetInn === true && <p>Er logget inn</p>}
+            </header>
+        </div>
+    );
 }
 
 export default App;

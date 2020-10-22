@@ -4,7 +4,7 @@
   "description": "Example application for proxying calls with OIDC auth code flow",
   "scripts": {
     "start": "NODE_ENV=development nodemon --exec babel-node src/main.js",
-    "build": "./node_modules/.bin/babel server/src -d dist",
+    "build": "./node_modules/.bin/babel src -d dist",
     "serve": "node ../dist/main.js"
   },
   "author": "",

@@ -3,7 +3,6 @@ import { Flatknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import { InnloggetSaksbehandler } from '../App';
-import { useHistory } from 'react-router-dom';
 
 type Props = {
     ident: InnloggetSaksbehandler | undefined;

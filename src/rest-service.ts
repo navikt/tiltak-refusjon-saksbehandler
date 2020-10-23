@@ -1,5 +1,5 @@
 import axios from 'axios';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { InnloggetSaksbehandler } from './App';
 import { Refusjon } from './types/refusjon';
 
@@ -15,6 +15,11 @@ const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
 const swrConfig = {
     fetcher: axiosFetcher,
     suspense: true,
+};
+
+export const oppdaterRefusjon = async (refusjon: Refusjon) => {
+    await api.put(`/refusjon`, refusjon);
+    await mutate(`/refusjon/${refusjon.id}`);
 };
 
 export const hentInnloggetBruker = async () => {

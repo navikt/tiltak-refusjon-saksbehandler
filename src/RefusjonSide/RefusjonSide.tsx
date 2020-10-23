@@ -4,7 +4,6 @@ import React, { FunctionComponent } from 'react';
 import HvitBoks from '../Komponenter/HvitBoks';
 import { useHentRefusjon } from '../rest-service';
 import { useParams } from 'react-router-dom';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import './RefusjonSide.less';
 import bem from '../utils/bem';
 
@@ -13,9 +12,6 @@ const cls = bem('refusjon-side');
 const RefusjonSide: FunctionComponent = () => {
     const { id } = useParams();
     const refusjon = useHentRefusjon(id);
-    if (refusjon.laster) {
-        return <NavFrontendSpinner />;
-    }
 
     return (
         <div className={cls.className}>
@@ -26,7 +22,7 @@ const RefusjonSide: FunctionComponent = () => {
                         Arbeidsgiver ønsker korrigeringer i refusjonsgrunnlaget
                     </AlertStripe>
                     <Element>Type tiltak</Element>
-                    <Normaltekst>{refusjon.data.tiltak}</Normaltekst>
+                    <Normaltekst>{refusjon.tiltak}</Normaltekst>
                 </HvitBoks>
                 <HvitBoks>
                     <Undertittel>Fravær som gir trekk</Undertittel>

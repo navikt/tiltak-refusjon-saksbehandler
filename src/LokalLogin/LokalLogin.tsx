@@ -3,6 +3,7 @@ import { Flatknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import { InnloggetSaksbehandler } from '../App';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
     ident: InnloggetSaksbehandler | undefined;
@@ -22,7 +23,11 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', padding: '0.5rem' }}>
             <div>
-                <NavIkon />
+                <NavIkon
+                    onClick={() => {
+                        window.location.href = '/';
+                    }}
+                />
             </div>
             <div>
                 {props.ident ? (

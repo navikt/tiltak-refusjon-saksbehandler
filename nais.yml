@@ -1,5 +1,5 @@
-apiVersion: 'nais.io/v1alpha1'
-kind: 'Application'
+apiVersion: nais.io/v1alpha1
+kind: Application
 metadata:
   name: tiltak-refusjon-innside
   namespace: arbeidsgiver
@@ -16,10 +16,10 @@ spec:
       enabled: true
   liveness:
     path: /isAlive
-    initialDelay: 30
+    initialDelay: 10
   readiness:
     path: /isReady
-    initialDelay: 30
+    initialDelay: 10
   replicas:
     min: 1
     max: 1
@@ -28,8 +28,6 @@ spec:
       value: https://tiltak-refusjon.dev.adeo.no/oauth2/callback
     - name: AAD_LOGOUT_REDIRECT_URL
       value: https://tiltak-refusjon.dev.adeo.no/oauth2/callback
-    - name: SESSION_KEY
-      value: tullenokkel
     - name: DECORATOR_SCRIPT
       value: https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js
     - name: DECORATOR_STYLING
@@ -44,3 +42,5 @@ spec:
         - application: tiltak-refusjon-api
       external:
         - host: login.microsoftonline.com
+  envFrom:
+    - secret: tiltak-refusjon-session-encrypt-key

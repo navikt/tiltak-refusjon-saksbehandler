@@ -3,20 +3,28 @@ import { Flatknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import { InnloggetSaksbehandler } from '../App';
+import axios from 'axios';
 
 type Props = {
     ident: InnloggetSaksbehandler | undefined;
 };
 
+const COOKIE_NAME = `aad-idtoken`;
+
 const LokalLogin: FunctionComponent<Props> = (props) => {
     const [subject, setSubject] = useState('X123456');
 
     const loggUtClick = () => {
-        window.location.href =
-            'http://localhost:8080/local/cookie?cookiename=aad-idtoken&expiry=-1&redirect=http://localhost:3000/';
+        document.cookie = COOKIE_NAME + '=;expires=Tue, 15 Jan 2000 21:47:38 GMT;domain=localhost;path=/';
+        window.location.reload();
     };
-    const loggInnKnapp = (subject: string) => {
-        window.location.href = `http://localhost:8080/local/cookie?cookiename=aad-idtoken&subject=${subject}&redirect=http://localhost:3000/`;
+    const loggInnKnapp = async (subject: string) => {
+        const response = await axios.get(
+            `https://tiltak-fakelogin.labs.nais.io/token?aud=aud-localhost&iss=aad&sub=${subject}`
+        );
+        document.cookie =
+            COOKIE_NAME + '=' + response.data + ';expires=Tue, 15 Jan 2044 21:47:38 GMT;domain=localhost;path=/';
+        window.location.reload();
     };
 
     return (

@@ -1,15 +1,15 @@
 import { ReactComponent as NavIkon } from '@/ikoner/navikon.svg';
+import axios from 'axios';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import { InnloggetSaksbehandler } from '../App';
-import axios from 'axios';
 
 type Props = {
     ident: InnloggetSaksbehandler | undefined;
 };
 
-const COOKIE_NAME = `aad-idtoken`;
+const COOKIE_NAME = `aad-token`;
 
 const LokalLogin: FunctionComponent<Props> = (props) => {
     const [subject, setSubject] = useState('X123456');

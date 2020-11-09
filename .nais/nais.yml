@@ -30,6 +30,8 @@ spec:
     {{/each}}
     - name: API_URL
       value: http://tiltak-refusjon-api
+    - name: REDIS_HOST
+      value: tiltak-refusjon-innside-redis
   accessPolicy:
     outbound:
       rules:
@@ -38,3 +40,4 @@ spec:
         - host: login.microsoftonline.com
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
+    - secret: tiltak-refusjon-innside-redis

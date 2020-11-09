@@ -9,7 +9,7 @@ env:
 
 jobs:
   bygg:
-    name: Hent frontend-kode og bygg
+    name: Bygg og deploy
     runs-on: ubuntu-latest
     steps:
       - name: Sjekk ut kode

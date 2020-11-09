@@ -36,6 +36,7 @@ spec:
     outbound:
       rules:
         - application: tiltak-refusjon-api
+        - application: tiltak-refusjon-innside-redis
       external:
         - host: login.microsoftonline.com
   envFrom:

@@ -14,6 +14,7 @@ spec:
   azure:
     application:
       enabled: true
+      tenant: {{tenant}}
   liveness:
     path: /isAlive
     initialDelay: 10

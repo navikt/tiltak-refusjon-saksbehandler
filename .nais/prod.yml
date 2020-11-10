@@ -6,3 +6,4 @@ env:
   DECORATOR_STYLING: https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css
   API_CLIENT_ID: c3251b3e-1ee1-4f60-b409-0475cdf014d6
 slack_alert_channel: arbeidsgiver-notifications
+tenant: nav.no

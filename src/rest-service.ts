@@ -23,8 +23,8 @@ export const oppdaterRefusjon = async (refusjon: Refusjon) => {
 };
 
 export const hentInnloggetBruker = async () => {
-    const response = await api.get('/innlogget-saksbehandler');
-    return response.data as InnloggetSaksbehandler;
+    const response = await api.get<InnloggetSaksbehandler>('/innlogget-bruker');
+    return response.data;
 };
 
 export const useHentRefusjoner = () => {

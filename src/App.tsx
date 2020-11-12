@@ -7,6 +7,7 @@ import RefusjonSide from './RefusjonSide/RefusjonSide';
 import { hentInnloggetBruker } from './rest-service';
 import VerticalSpacer from './Komponenter/VerticalSpacer';
 import ErrorOgSuspenseHandler from './ErrorOgSuspenseHandler';
+import InternflateDekoratør from './InternflateDekoratør';
 
 export type InnloggetSaksbehandler = {
     identifikator: string;
@@ -25,6 +26,7 @@ function App() {
             {process.env.NODE_ENV === 'development' && <LokalLogin ident={innloggetIdent} />}
             {innloggetIdent !== undefined && (
                 <>
+                    <InternflateDekoratør />
                     <VerticalSpacer rem={1} />
                     <BrowserRouter>
                         <Switch>

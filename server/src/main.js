@@ -2,11 +2,8 @@ import azure from './auth/azure';
 import routes from './routes';
 import cors from './cors';
 import express from 'express';
-import helmet from 'helmet';
 import passport from 'passport';
 import session from './session';
-import mustacheExpress from 'mustache-express';
-import path from "path";
 
 // for debugging during development
 // import morganBody from 'morgan-body';
@@ -14,7 +11,7 @@ import path from "path";
 
 const server = express();
 
-async function startApp()  {
+async function startApp() {
     try {
         // morganBody(server);
         // morgan('dev');
@@ -39,10 +36,6 @@ async function startApp()  {
         passport.serializeUser((user, done) => done(null, user));
         passport.deserializeUser((user, done) => done(null, user));
 
-        server.engine("html", mustacheExpress());
-        server.set("view engine", "mustache");
-        server.set("views", path.join(__dirname, "../build"));
-
         // setup routes
         server.use('/', routes.setup(azureAuthClient));
 
@@ -53,4 +46,4 @@ async function startApp()  {
     }
 }
 
-startApp().catch(err => console.log(err));
+startApp().catch((err) => console.log(err));

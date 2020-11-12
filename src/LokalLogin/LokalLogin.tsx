@@ -1,4 +1,3 @@
-import { ReactComponent as NavIkon } from '@/ikoner/navikon.svg';
 import axios from 'axios';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
@@ -13,29 +12,23 @@ const COOKIE_NAME = `aad-token`;
 
 const LokalLogin: FunctionComponent<Props> = (props) => {
     const [subject, setSubject] = useState('X123456');
+    const domene = window.location.hostname;
 
     const loggUtClick = () => {
-        document.cookie = COOKIE_NAME + '=;expires=Tue, 15 Jan 2000 21:47:38 GMT;domain=localhost;path=/';
+        document.cookie = `${COOKIE_NAME}=;expires=Tue, 15 Jan 2000 21:47:38 GMT;domain=${domene};path=/`;
         window.location.reload();
     };
     const loggInnKnapp = async (subject: string) => {
         const response = await axios.get(
             `https://tiltak-fakelogin.labs.nais.io/token?aud=aud-localhost&iss=aad&sub=${subject}&NAVident=${subject}`
         );
-        document.cookie =
-            COOKIE_NAME + '=' + response.data + ';expires=Tue, 15 Jan 2044 21:47:38 GMT;domain=localhost;path=/';
+        document.cookie = `${COOKIE_NAME}=${response.data};expires=Tue, 15 Jan 2044 21:47:38 GMT;domain=${domene};path=/`;
         window.location.reload();
     };
 
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', padding: '0.5rem' }}>
-            <div>
-                <NavIkon
-                    onClick={() => {
-                        window.location.href = '/';
-                    }}
-                />
-            </div>
+            <div />
             <div>
                 {props.ident ? (
                     <div>

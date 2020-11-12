@@ -2,8 +2,6 @@ ingress: https://tiltak-refusjon.dev.adeo.no
 env:
   AAD_REDIRECT_URL: https://tiltak-refusjon.dev.adeo.no/oauth2/callback
   AAD_LOGOUT_REDIRECT_URL: https://tiltak-refusjon.dev.adeo.no/oauth2/callback
-  DECORATOR_SCRIPT: https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js
-  DECORATOR_STYLING: https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css
   API_CLIENT_ID: 01123ad4-9c25-43f4-a59d-dc902a44b15b
 slack_alert_channel: arbeidsgiver-notifications-test
 tenant: trygdeetaten.no

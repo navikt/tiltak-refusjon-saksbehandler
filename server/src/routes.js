@@ -56,7 +56,7 @@ const setup = (authClient) => {
     // serve static files
     router.use(express.static(path.join(__dirname, '../build'), { index: false }));
 
-    router.use('*', express.static('../build/index.html'));
+    router.use('*', express.static(path.join(__dirname, '../build/index.html')));
 
     return router;
 };

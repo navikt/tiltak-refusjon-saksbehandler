@@ -41,6 +41,9 @@ spec:
         - application: tiltak-refusjon-api
         - application: tiltak-refusjon-innside-redis
       external:
+      {{#each host}}
+        - host: "{{this}}"
+      {{/each }}
         - host: login.microsoftonline.com
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key

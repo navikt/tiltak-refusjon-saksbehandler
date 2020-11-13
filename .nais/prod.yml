@@ -1,9 +1,10 @@
-ingress: https://tiltak-refusjon.intern.nav.no
+ingress: https://tiltak-refusjon.adeo.no
 env:
-  AAD_REDIRECT_URL: https://tiltak-refusjon.intern.nav.no/oauth2/callback
-  AAD_LOGOUT_REDIRECT_URL: https://tiltak-refusjon.intern.nav.no/oauth2/callback
-  DECORATOR_SCRIPT: https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js
-  DECORATOR_STYLING: https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css
+  AAD_REDIRECT_URL: https://tiltak-refusjon.adeo.no/oauth2/callback
+  AAD_LOGOUT_REDIRECT_URL: https://tiltak-refusjon.adeo.no/oauth2/callback
   API_CLIENT_ID: c3251b3e-1ee1-4f60-b409-0475cdf014d6
+  DECORATOR_HOST: https://internarbeidsflatedecorator.nais.adeo.no
+host:
+  - internarbeidsflatedecorator.nais.adeo.no
 slack_alert_channel: arbeidsgiver-notifications
 tenant: nav.no

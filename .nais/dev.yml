@@ -3,5 +3,8 @@ env:
   AAD_REDIRECT_URL: https://tiltak-refusjon.dev.adeo.no/oauth2/callback
   AAD_LOGOUT_REDIRECT_URL: https://tiltak-refusjon.dev.adeo.no/oauth2/callback
   API_CLIENT_ID: 01123ad4-9c25-43f4-a59d-dc902a44b15b
+  DECORATOR_HOST: https://internarbeidsflatedecorator-q0.dev.adeo.no
+host:
+  - internarbeidsflatedecorator-q0.dev.adeo.no
 slack_alert_channel: arbeidsgiver-notifications-test
 tenant: trygdeetaten.no

@@ -38,12 +38,6 @@ const setup = (authClient) => {
     router.get('/session', (req, res) => {
         res.json(req.user);
     });
-    router.get('/me', (req, res) => {
-        authUtils
-            .getUserInfoFromGraphApi(authClient, req)
-            .then((userinfo) => res.json(userinfo))
-            .catch((err) => res.status(500).json(err));
-    });
 
     router.get('/logout', (req, res) => {
         req.logOut();
@@ -51,7 +45,7 @@ const setup = (authClient) => {
     });
 
     apiProxy.setup(router, authClient);
-    decoratorProxy.setup(router);
+    decoratorProxy.setup(router, authClient);
 
     // serve static files
     router.use(express.static(path.join(__dirname, '../build'), { index: false }));

@@ -44,9 +44,14 @@ const apiConfig = () => {
     };
 };
 
+const decorator = {
+    host: envVar({ name: 'DECORATOR_HOST' }),
+};
+
 export default {
     server,
     azureAd,
     api: apiConfig(),
     redis,
+    decorator,
 };

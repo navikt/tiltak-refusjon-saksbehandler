@@ -57,8 +57,13 @@ export type FnrContextvalue = Contextvalue<FnrDisplay>;
 
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
 
+interface Enhet {
+    enhetId: string;
+    navn: string;
+}
+
 const InternflateDekoratør: FunctionComponent = () => {
-    return <InternflateDecorator appname="Tiltaksrefusjon" toggles={{ visVeileder: true }} useProxy={true} />;
+    return <InternflateDecorator appname="Tiltaksrefusjon" toggles={{ visVeileder: true }} />;
 };
 
 export default InternflateDekoratør;

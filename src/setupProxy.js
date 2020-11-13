@@ -10,11 +10,7 @@ module.exports = function (app, apiHostname, decoratorHostName) {
             changeOrigin: true,
         })
     );
-    app.use(
-        '/internarbeidsflatedecorator',
-        createProxyMiddleware({
-            target: 'https://navikt.github.io',
-            changeOrigin: true,
-        })
-    );
+    app.use('/internarbeidsflatedecorator', (req, res) => {
+        res.redirect('https://navikt.github.io' + req.originalUrl);
+    });
 };

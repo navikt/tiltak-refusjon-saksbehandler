@@ -24,7 +24,9 @@ const setup = (router, authClient) => {
         })
     );
 
-    router.use('/internarbeidsflatedecorator', proxy(config.decorator.host));
+    router.use('/internarbeidsflatedecorator', (req, res) => {
+        res.redirect(config.decorator.host + req.originalUrl);
+    });
 };
 
 export default { setup };

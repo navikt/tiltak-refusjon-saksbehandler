@@ -63,7 +63,7 @@ interface Enhet {
 }
 
 const InternflateDekoratør: FunctionComponent = () => {
-    return <InternflateDecorator appname="Tiltaksrefusjon" toggles={{ visVeileder: true }} />;
+    return <InternflateDecorator appname="Tiltaksrefusjon" toggles={{ visVeileder: true }} useProxy={true} />;
 };
 
 export default InternflateDekoratør;

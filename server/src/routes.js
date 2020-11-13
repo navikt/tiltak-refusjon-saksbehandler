@@ -48,9 +48,7 @@ const setup = (authClient) => {
     decoratorProxy.setup(router, authClient);
 
     // serve static files
-    router.use(express.static(path.join(__dirname, '../build'), { index: false }));
-
-    router.use('*', express.static(path.join(__dirname, '../build/index.html')));
+    router.use(express.static(path.join(__dirname, '../build')));
 
     return router;
 };

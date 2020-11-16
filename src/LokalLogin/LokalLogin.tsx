@@ -2,27 +2,26 @@ import axios from 'axios';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
-import { InnloggetSaksbehandler } from '../App';
-
-type Props = {
-    ident: InnloggetSaksbehandler | undefined;
-};
+import { useCookies } from 'react-cookie';
 
 const COOKIE_NAME = `aad-token`;
 
-const LokalLogin: FunctionComponent<Props> = (props) => {
+const LokalLogin: FunctionComponent = () => {
     const [subject, setSubject] = useState('X123456');
-    const domene = window.location.hostname;
+
+    const [cookies, setCookie, removeCookie] = useCookies();
+
+    const erLoggetInn = cookies[COOKIE_NAME] !== undefined;
 
     const loggUtClick = () => {
-        document.cookie = `${COOKIE_NAME}=;expires=Tue, 15 Jan 2000 21:47:38 GMT;domain=${domene};path=/`;
+        removeCookie(COOKIE_NAME);
         window.location.reload();
     };
     const loggInnKnapp = async (subject: string) => {
         const response = await axios.get(
             `https://tiltak-fakelogin.labs.nais.io/token?aud=aud-localhost&iss=aad&sub=${subject}&NAVident=${subject}`
         );
-        document.cookie = `${COOKIE_NAME}=${response.data};expires=Tue, 15 Jan 2044 21:47:38 GMT;domain=${domene};path=/`;
+        setCookie(COOKIE_NAME, response.data);
         window.location.reload();
     };
 
@@ -30,9 +29,8 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', padding: '0.5rem' }}>
             <div />
             <div>
-                {props.ident ? (
+                {erLoggetInn ? (
                     <div>
-                        <span>{props.ident.identifikator}</span>
                         <Flatknapp style={{ marginLeft: '0.5rem' }} onClick={loggUtClick}>
                             Logg ut
                         </Flatknapp>

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import useSWR, { mutate } from 'swr';
-import { InnloggetSaksbehandler } from './App';
 import { Refusjon } from './types/refusjon';
 
 const api = axios.create({
@@ -20,11 +19,6 @@ const swrConfig = {
 export const oppdaterRefusjon = async (refusjon: Refusjon) => {
     await api.put(`/refusjon`, refusjon);
     await mutate(`/refusjon/${refusjon.id}`);
-};
-
-export const hentInnloggetBruker = async () => {
-    const response = await api.get<InnloggetSaksbehandler>('/innlogget-bruker');
-    return response.data;
 };
 
 export const useHentRefusjoner = () => {

@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { Flatknapp } from 'nav-frontend-knapper';
+import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import VerticalSpacer from '../Komponenter/VerticalSpacer';
+import { Element } from 'nav-frontend-typografi';
 
 const COOKIE_NAME = `aad-token`;
 
@@ -25,33 +27,36 @@ const LokalLogin: FunctionComponent = () => {
         window.location.reload();
     };
 
-    return (
+    return erLoggetInn ? (
         <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', padding: '0.5rem' }}>
             <div />
-            <div>
-                {erLoggetInn ? (
-                    <div>
-                        <Flatknapp style={{ marginLeft: '0.5rem' }} onClick={loggUtClick}>
-                            Logg ut
-                        </Flatknapp>
-                    </div>
-                ) : (
-                    <div style={{ display: 'flex' }}>
-                        <Input
-                            placeholder="Logg inn som"
-                            value={subject}
-                            onChange={(event) => setSubject(event.currentTarget.value)}
-                        />
-                        <Flatknapp
-                            style={{ marginLeft: '0.5rem' }}
-                            disabled={!subject}
-                            onClick={() => loggInnKnapp(subject)}
-                        >
-                            Logg inn
-                        </Flatknapp>
-                    </div>
-                )}
+            <Flatknapp style={{ marginLeft: '0.5rem' }} onClick={loggUtClick}>
+                Logg ut
+            </Flatknapp>
+        </div>
+    ) : (
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            <VerticalSpacer rem={2} />
+            <Element>Logg inn med NAV-ident</Element>
+            <VerticalSpacer rem={1} />
+            <div style={{ display: 'flex' }}>
+                <Input
+                    placeholder="Logg inn som"
+                    value={subject}
+                    onChange={(event) => setSubject(event.currentTarget.value)}
+                />
+                <Hovedknapp style={{ marginLeft: '0.5rem' }} disabled={!subject} onClick={() => loggInnKnapp(subject)}>
+                    Logg inn
+                </Hovedknapp>
             </div>
+            <VerticalSpacer rem={2} />
         </div>
     );
 };

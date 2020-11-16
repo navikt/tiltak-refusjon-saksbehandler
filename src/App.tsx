@@ -11,8 +11,8 @@ import InternflateDekoratør from './InternflateDekoratør';
 function App() {
     return (
         <>
-            {process.env.NODE_ENV === 'development' && <LokalLogin />}
             <InternflateDekoratør />
+            {process.env.NODE_ENV === 'development' && <LokalLogin />}
             <VerticalSpacer rem={1} />
             <BrowserRouter>
                 <Switch>

@@ -6,24 +6,26 @@ import { useCookies } from 'react-cookie';
 import VerticalSpacer from '../Komponenter/VerticalSpacer';
 import { Element } from 'nav-frontend-typografi';
 
-const COOKIE_NAME = `aad-token`;
+const AAD_COOKIE_NAME = `aad-token`;
+const TOKENX_COOKIE_NAME = `tokenx-token`;
 
 const LokalLogin: FunctionComponent = () => {
     const [subject, setSubject] = useState('X123456');
 
     const [cookies, setCookie, removeCookie] = useCookies();
 
-    const erLoggetInn = cookies[COOKIE_NAME] !== undefined;
+    const erLoggetInn = cookies[AAD_COOKIE_NAME] !== undefined;
 
     const loggUtClick = () => {
-        removeCookie(COOKIE_NAME);
+        removeCookie(AAD_COOKIE_NAME);
+        removeCookie(TOKENX_COOKIE_NAME);
         window.location.reload();
     };
     const loggInnKnapp = async (subject: string) => {
         const response = await axios.get(
             `https://tiltak-fakelogin.labs.nais.io/token?aud=aud-localhost&iss=aad&sub=${subject}&NAVident=${subject}`
         );
-        setCookie(COOKIE_NAME, response.data);
+        setCookie(AAD_COOKIE_NAME, response.data);
         window.location.reload();
     };
 

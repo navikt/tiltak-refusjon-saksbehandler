@@ -37,7 +37,7 @@ const RefusjonTabell: FunctionComponent<Props> = (props) => {
                     <div>{r.bedrift}</div>
                     <div>{r.deltaker}</div>
                     <div>{r.veileder}</div>
-                    <div>{formatterDato(r.opprettet_tidspunkt)}</div>
+                    <div>{formatterDato(r.opprettetTidspunkt)}</div>
                 </LenkepanelBase>
             ))}
         </div>

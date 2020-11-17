@@ -22,7 +22,7 @@ const RefusjonSide: FunctionComponent = () => {
                         Arbeidsgiver ønsker korrigeringer i refusjonsgrunnlaget
                     </AlertStripe>
                     <Element>Type tiltak</Element>
-                    <Normaltekst>{refusjon.tiltak}</Normaltekst>
+                    <Normaltekst>{refusjon.tiltakstype}</Normaltekst>
                 </HvitBoks>
                 <HvitBoks>
                     <Undertittel>Fravær som gir trekk</Undertittel>

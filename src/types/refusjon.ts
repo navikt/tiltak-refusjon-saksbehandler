@@ -1,7 +1,7 @@
 export type Refusjon = {
     id: string;
     deltaker: string;
-    tiltak: string;
+    tiltakstype: 'MIDLERTIDLIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD';
     deltakerFnr: string;
     veileder: string;
     bedrift: string;
@@ -24,5 +24,5 @@ export type Refusjon = {
     refusjonPrMåned: number;
     fraDato: string;
     tilDato: string;
-    opprettet_tidspunkt: string;
+    opprettetTidspunkt: string;
 };

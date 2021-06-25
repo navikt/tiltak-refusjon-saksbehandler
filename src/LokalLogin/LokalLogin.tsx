@@ -23,7 +23,7 @@ const LokalLogin: FunctionComponent = () => {
     };
     const loggInnKnapp = async (subject: string) => {
         const response = await axios.get(
-            `https://tiltak-fakelogin.labs.nais.io/token?aud=aud-localhost&iss=aad&sub=${subject}&NAVident=${subject}`
+            `https://tiltak-fakelogin.labs.nais.io/token?aud=aud-aad&iss=aad&sub=${subject}&NAVident=${subject}`
         );
         setCookie(AAD_COOKIE_NAME, response.data);
         window.location.reload();

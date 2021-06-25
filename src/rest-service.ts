@@ -3,7 +3,7 @@ import useSWR, { mutate } from 'swr';
 import { Refusjon } from './types/refusjon';
 
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: '/api/saksbehandler',
     timeout: 5000,
     withCredentials: true,
     headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache' },

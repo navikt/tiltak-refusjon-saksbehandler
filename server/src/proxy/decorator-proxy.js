@@ -8,7 +8,7 @@ const setup = (router, authClient) => {
         proxy(config.api.url, {
             parseReqBody: false,
             proxyReqPathResolver: (req) => {
-                return '/api/innlogget-bruker';
+                return '/api/saksbehandler/innlogget-bruker';
             },
             proxyReqOptDecorator: (options, req) => {
                 return new Promise((resolve, reject) =>

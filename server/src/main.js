@@ -4,6 +4,7 @@ import cors from './cors';
 import express from 'express';
 import passport from 'passport';
 import session from './session';
+import logger from './logger';
 
 // for debugging during development
 // import morganBody from 'morgan-body';
@@ -40,10 +41,10 @@ async function startApp() {
         server.use('/', routes.setup(azureAuthClient));
 
         const port = 3000;
-        server.listen(port, () => console.log(`Listening on port ${port}`));
+        server.listen(port, () => logger.info(`Listening on port ${port}`));
     } catch (error) {
-        console.error('Error during start-up', error);
+        logger.error('Error during start-up', error);
     }
 }
 
-startApp().catch((err) => console.log(err));
+startApp().catch((err) => logger.error(err));

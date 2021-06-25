@@ -1,6 +1,7 @@
 import config from './config';
 import redis from 'redis';
 import session from 'express-session';
+import logger from './logger';
 
 const SESSION_MAX_AGE_MILLISECONDS = 60 * 60 * 1000;
 
@@ -34,7 +35,7 @@ const setupRedis = () => {
         port: config.redis.port,
     });
     client.unref();
-    client.on('error', console.log);
+    client.on('error', logger.error);
 
     return new RedisStore({
         client: client,

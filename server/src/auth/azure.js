@@ -1,4 +1,4 @@
-import {custom, Issuer, Strategy} from 'openid-client';
+import { custom, Issuer, Strategy } from 'openid-client';
 import authUtils from './utils';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
@@ -13,25 +13,25 @@ const metadata = {
 const client = async () => {
     if (httpProxy.agent) {
         custom.setHttpOptionsDefaults({
-            agent: httpProxy.agent
+            agent: httpProxy.agent,
         });
     }
     const issuer = await Issuer.discover(config.azureAd.discoveryUrl);
-    console.log(`Discovered issuer ${issuer.issuer}`);
-    const jwks = config.azureAd.clientJwks
+    logger.log(`Discovered issuer ${issuer.issuer}`);
+    const jwks = config.azureAd.clientJwks;
     return new issuer.Client(metadata, jwks);
 };
 
-const strategy = client => {
+const strategy = (client) => {
     const verify = (tokenSet, done) => {
         if (tokenSet.expired()) {
-            return done(null, false)
+            return done(null, false);
         }
         const user = {
-            'tokenSets': {
-                [authUtils.tokenSetSelfId]: tokenSet
+            tokenSets: {
+                [authUtils.tokenSetSelfId]: tokenSet,
             },
-            'claims': tokenSet.claims()
+            claims: tokenSet.claims(),
         };
         return done(null, user);
     };
@@ -40,10 +40,10 @@ const strategy = client => {
         params: {
             response_types: config.azureAd.responseTypes,
             response_mode: config.azureAd.responseMode,
-            scope: `openid ${authUtils.appendDefaultScope(config.azureAd.clientId)}`
+            scope: `openid ${authUtils.appendDefaultScope(config.azureAd.clientId)}`,
         },
         passReqToCallback: false,
-        usePKCE: 'S256'
+        usePKCE: 'S256',
     };
     return new Strategy(options, verify);
 };

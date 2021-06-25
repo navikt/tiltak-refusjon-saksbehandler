@@ -22,7 +22,7 @@ const getOnBehalfOfAccessToken = (authClient, req) => {
                     resolve(tokenSet.access_token);
                 })
                 .catch((err) => {
-                    console.error(err);
+                    logger.error(err);
                     reject(err);
                 });
         }

@@ -1,8 +1,9 @@
 import 'dotenv/config';
+import logger from './logger';
 
 const envVar = ({ name, required = true }) => {
     if (!process.env[name] && required) {
-        console.error(`Missing required environment variable '${name}'`);
+        logger.error(`Missing required environment variable '${name}'`);
         process.exit(1);
     }
     return process.env[name];
@@ -35,7 +36,7 @@ const redis = {
 };
 
 const apiConfig = () => {
-    console.log(`Loading reverse proxy config from API_* [CLIENT_ID, URL]`);
+    logger.info(`Loading reverse proxy config from API_* [CLIENT_ID, URL]`);
     const scopes = envVar({ name: 'API_SCOPES', required: false });
     return {
         clientId: envVar({ name: 'API_CLIENT_ID' }),

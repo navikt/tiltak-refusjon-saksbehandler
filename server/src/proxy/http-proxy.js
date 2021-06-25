@@ -14,7 +14,7 @@ const agent = () => {
             },
         });
     } else {
-        logger.log(`Environment variable HTTP_PROXY is not set, not proxying requests for openid-client`);
+        logger.info(`Environment variable HTTP_PROXY is not set, not proxying requests for openid-client`);
         return null;
     }
 };

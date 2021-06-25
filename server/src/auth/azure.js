@@ -2,6 +2,7 @@ import { custom, Issuer, Strategy } from 'openid-client';
 import authUtils from './utils';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
+import logger from '../logger';
 
 const metadata = {
     client_id: config.azureAd.clientId,
@@ -17,7 +18,7 @@ const client = async () => {
         });
     }
     const issuer = await Issuer.discover(config.azureAd.discoveryUrl);
-    logger.log(`Discovered issuer ${issuer.issuer}`);
+    logger.info(`Discovered issuer ${issuer.issuer}`);
     const jwks = config.azureAd.clientJwks;
     return new issuer.Client(metadata, jwks);
 };

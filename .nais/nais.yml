@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: tiltak-refusjon-innside
+  name: tiltak-refusjon-saksbehandler
   namespace: arbeidsgiver
   labels:
     team: arbeidsgiver
@@ -32,14 +32,14 @@ spec:
     - name: API_URL
       value: http://tiltak-refusjon-api
     - name: REDIS_HOST
-      value: tiltak-refusjon-innside-redis
+      value: tiltak-refusjon-saksbehandler-redis
     - name: HOST
       value: {{ingress}}
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-refusjon-api
-        - application: tiltak-refusjon-innside-redis
+        - application: tiltak-refusjon-saksbehandler-redis
       external:
       {{#each host}}
         - host: "{{this}}"
@@ -47,4 +47,4 @@ spec:
         - host: login.microsoftonline.com
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
-    - secret: tiltak-refusjon-innside-redis
+    - secret: tiltak-refusjon-saksbehandler-redis

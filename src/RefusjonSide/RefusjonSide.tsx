@@ -10,7 +10,7 @@ const RefusjonSide: FunctionComponent = () => {
     const { id } = useParams();
     const refusjon = useHentRefusjon(id);
 
-    return <div className={cls.className}></div>;
+    return <div className={cls.className}>{refusjon.id}</div>;
 };
 
 export default RefusjonSide;

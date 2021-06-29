@@ -50,6 +50,7 @@ const LokalLogin: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <div style={{ display: 'flex' }}>
                 <Input
+                    label="Logg inn som"
                     placeholder="Logg inn som"
                     value={subject}
                     onChange={(event) => setSubject(event.currentTarget.value)}

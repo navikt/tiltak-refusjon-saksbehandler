@@ -7,13 +7,14 @@ import RefusjonSide from './RefusjonSide/RefusjonSide';
 import VerticalSpacer from './Komponenter/VerticalSpacer';
 import ErrorOgSuspenseHandler from './ErrorOgSuspenseHandler';
 import InternflateDekoratør from './InternflateDekoratør';
+import Banner from './Komponenter/banner/Banner';
 
 function App() {
     return (
         <>
             <InternflateDekoratør />
             {process.env.NODE_ENV === 'development' && <LokalLogin />}
-            <VerticalSpacer rem={1} />
+            <Banner tekst={'Tiltaksrefusjon'} />
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/">

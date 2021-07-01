@@ -1,34 +1,35 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import './App.css';
-import LokalLogin from './LokalLogin/LokalLogin';
-import RefusjonOversikt from './RefusjonOversikt/RefusjonOversikt';
-import RefusjonSide from './RefusjonSide/RefusjonSide';
+import { BrukerProvider } from './bruker/BrukerContext';
 import ErrorOgSuspenseHandler from './ErrorOgSuspenseHandler';
-import InternflateDekoratør from './InternflateDekoratør';
-import Banner from './Komponenter/banner/Banner';
+import ScrollToTop from './komponenter/ScrollToTop';
+import OversiktSide from './refusjon/OversiktSide/OversiktSide';
+import Refusjon from './refusjon/RefusjonSide/Refusjon';
 
 function App() {
     return (
-        <>
-            <InternflateDekoratør />
-            {process.env.NODE_ENV === 'development' && <LokalLogin />}
-            <Banner tekst={'Tiltaksrefusjon'} />
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/">
-                        <ErrorOgSuspenseHandler>
-                            <RefusjonOversikt />
-                        </ErrorOgSuspenseHandler>
-                    </Route>
-                    <Route exact path="/refusjon/:id">
-                        <ErrorOgSuspenseHandler>
-                            <RefusjonSide />
-                        </ErrorOgSuspenseHandler>
-                    </Route>
-                </Switch>
-            </BrowserRouter>
-        </>
+        <BrowserRouter>
+            <ScrollToTop />
+            <AdvarselBannerTestversjon />
+            <Switch>
+                <BrukerProvider>
+                    <div style={{ minHeight: '10rem', padding: '0.5rem' }}>
+                        <Route exact path="/">
+                            <ErrorOgSuspenseHandler>
+                                <OversiktSide />
+                            </ErrorOgSuspenseHandler>
+                        </Route>
+                        <Route path="/refusjon/:refusjonId">
+                            <ErrorOgSuspenseHandler>
+                                <Refusjon />
+                            </ErrorOgSuspenseHandler>
+                        </Route>
+                    </div>
+                </BrukerProvider>
+            </Switch>
+        </BrowserRouter>
     );
 }
 

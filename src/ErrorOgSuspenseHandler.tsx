@@ -1,7 +1,7 @@
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, Suspense } from 'react';
 import ErrorBoundary from './ErrorBoundary';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 
 interface Props {}
 

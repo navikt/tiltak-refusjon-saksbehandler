@@ -1,6 +1,6 @@
 import { Status } from './refusjon';
 
-export const avtaleStatusTekst: { [key in Status]: string } = {
+export const statusTekst: { [key in Status]: string } = {
     KLAR_FOR_INNSENDING: 'Klar for innsending',
     ANNULLERT: 'Annullert',
     SENDT_KRAV: 'Sendt krav',

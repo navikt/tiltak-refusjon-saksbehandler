@@ -6,7 +6,6 @@ import React, { FormEvent, FunctionComponent, useState } from 'react';
 import { validerFnr } from '../../utils/fnrUtils';
 import { validerOrgnr } from '../../utils/orgnrUtils';
 import { Filter } from './Filter';
-import { SøkeInput } from './SøkeInput';
 import { FiltreringProps } from './Filtrering';
 
 type Validering = (verdi: string) => SkjemaelementFeil | undefined;
@@ -26,9 +25,9 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
     const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
     //const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    const navEnhetValgt = props.navEnheter?.length !== 0 ? props.navEnheter?.sort()![0] : '';
+    //const navEnhetValgt = props.navEnheter?.length !== 0 ? props.navEnheter?.sort()![0] : '';
 
-    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
+    //const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
     const søk = {
         egne: {
             placeholder: '',
@@ -70,8 +69,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
         }
     };
 
-    const aktueltSøk = søk[aktivSøketype];
-    const visSøkefelt: boolean = aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte';
+    //const aktueltSøk = søk[aktivSøketype];
+    //const visSøkefelt: boolean = aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte';
     const visNAVEnheterVelgeren: boolean = aktivSøketype === 'ufordelte';
 
     return (
@@ -104,7 +103,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
                     label=""
                     name={'enheter'}
                     onChange={(event) => {
-                        const nyEnhet = event.currentTarget.value;
+                        //const nyEnhet = event.currentTarget.value;
                         //props.endreSøk({ ...tomt, navEnhet: nyEnhet });
                     }}
                     aria-label="filtere på NAV enhet"

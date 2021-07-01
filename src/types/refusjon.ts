@@ -61,6 +61,22 @@ export type TiltaksType =
     | 'MENTOR'
     | 'SOMMERJOBB';
 
+export enum Tiltak {
+    MENTOR = 'MENTOR',
+    MIDLERTIDIG_LØNNSTILSKUDD = 'MIDLERTIDIG_LONNSTILSKUDD',
+    VARIG_LØNNSTILSKUDD = 'VARIG_LONNSTILSKUDD',
+    SOMMERJOBB = 'SOMMERJOBB',
+}
+/*
+export enum Status {
+    KLAR_FOR_INNSENDING = 'KLAR_FOR_INNSENDING',
+    FOR_TIDLIG = 'FOR_TIDLIG',
+    SENDT_KRAV = 'SENDT_KRAV',
+    UTBETALT = 'UTBETALT',
+    UTGÅTT = 'UTGÅTT',
+    ANNULLERT = 'ANNULLERT',
+}
+*/
 /*
 bedriftKontonummer: null
 bedriftNr: "999999999"

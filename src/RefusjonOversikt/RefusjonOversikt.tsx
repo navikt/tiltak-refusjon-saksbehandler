@@ -14,7 +14,7 @@ const RefusjonOversikt: FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('refusjonoversikt');
     const layout = useAvtaleOversiktLayout();
 
-    const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>();
+    const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>({});
 
     const endreSøk = (endredeSøkekriterier: Søkekriterier) => {
         setSøkekriterier({ ...søkekriterier, ...endredeSøkekriterier });

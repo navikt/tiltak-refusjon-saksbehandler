@@ -7,6 +7,7 @@ import BEMHelper from '../utils/bem';
 import { formatterDato } from '../utils/datoUtils';
 import './RefusjonTabell.less';
 import { Link } from 'react-router-dom';
+import StatusTekst from '../Komponenter/StatusTekst/StatusTekst';
 
 type Props = {
     refusjoner: Refusjon[];
@@ -15,7 +16,6 @@ type Props = {
 const cls = BEMHelper('refusjon-tabell');
 
 const RefusjonTabell: FunctionComponent<Props> = (props) => {
-    console.log('RT refusjoner', props.refusjoner);
     return (
         <div className={cls.className}>
             <VerticalSpacer rem={1} />
@@ -41,7 +41,12 @@ const RefusjonTabell: FunctionComponent<Props> = (props) => {
                     <div>{refusjon.tilskuddsgrunnlag.deltakerFornavn}</div>
                     <div>{refusjon.tilskuddsgrunnlag.bedriftNavn}</div>
                     <div>enhet</div>
-                    <div>{refusjon.status}</div>
+
+                    <StatusTekst
+                        status={refusjon.status}
+                        tilskuddFom={refusjon.tilskuddsgrunnlag.tilskuddFom}
+                        tilskuddTom={refusjon.tilskuddsgrunnlag.tilskuddTom}
+                    />
                     <div>{formatterDato(refusjon.opprettetTidspunkt)}</div>
                 </LenkepanelBase>
             ))}

@@ -4,7 +4,6 @@ import './App.css';
 import LokalLogin from './LokalLogin/LokalLogin';
 import RefusjonOversikt from './RefusjonOversikt/RefusjonOversikt';
 import RefusjonSide from './RefusjonSide/RefusjonSide';
-import VerticalSpacer from './Komponenter/VerticalSpacer';
 import ErrorOgSuspenseHandler from './ErrorOgSuspenseHandler';
 import InternflateDekoratør from './InternflateDekoratør';
 import Banner from './Komponenter/banner/Banner';

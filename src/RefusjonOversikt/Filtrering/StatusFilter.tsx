@@ -1,7 +1,7 @@
 import { Radio } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import { Status } from '../../types/refusjon';
-import { avtaleStatusTekst } from '../../types/messages';
+import { statusTekst } from '../../types/messages';
 import { Filter } from './Filter';
 import { FiltreringProps } from './Filtrering';
 
@@ -19,13 +19,12 @@ const StatusFilter: FunctionComponent<FiltreringProps> = (props) => {
         'UTGÅTT',
         'FOR_TIDLIG',
     ];
-
     return (
         <Filter tittel="Status">
             {alleStatuser.map((s) => (
                 <Radio
                     key={s}
-                    label={s === '' ? 'Alle Statuser' : avtaleStatusTekst[s]}
+                    label={s === '' ? 'Alle Statuser' : statusTekst[s]}
                     name={'status'}
                     value={s}
                     checked={s === valgtStatus}

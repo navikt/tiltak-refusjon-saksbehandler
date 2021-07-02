@@ -7,12 +7,14 @@ import ErrorOgSuspenseHandler from './ErrorOgSuspenseHandler';
 import ScrollToTop from './komponenter/ScrollToTop';
 import OversiktSide from './refusjon/OversiktSide/OversiktSide';
 import Refusjon from './refusjon/RefusjonSide/Refusjon';
+import InternflateDekoratør from './InternflateDekoratør';
 
 function App() {
     return (
         <BrowserRouter>
             <ScrollToTop />
             <AdvarselBannerTestversjon />
+            <InternflateDekoratør />
             <Switch>
                 <BrukerProvider>
                     <div style={{ minHeight: '10rem', padding: '0.5rem' }}>

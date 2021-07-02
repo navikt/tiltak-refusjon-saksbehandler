@@ -14,7 +14,7 @@ const AdvarselBannerTestversjon = () => {
                     <br />
                     Her kan du bli bedre kjent med løsningen for tiltaksrefusjon.
                     <br />
-                    Hvis du er arbeidsgiver logger du deg på her: tiltak-refusjon.nav.no
+                    Hvis du er saksbehandler logger du deg på her: tiltak-refusjon.intern.nav.no
                 </AlertStripeAdvarsel>
             )}
         </>

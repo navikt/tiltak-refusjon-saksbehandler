@@ -13,7 +13,7 @@ type Props = {
 };
 
 const LokalLogin: FunctionComponent<Props> = (props) => {
-    const [subject, setSubject] = useState('15000000000');
+    const [subject, setSubject] = useState('X123456');
 
     const loggInnKnapp = async (subject: string) => {
         const response = await axios.get(
@@ -30,13 +30,14 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <VerticalSpacer rem={2} />
-            <Element>Logg inn med fødselsnummer</Element>
+            <Element>Logg inn med NAV-ident</Element>
             <VerticalSpacer rem={1} />
             <div style={{ display: 'flex' }}>
                 <Input
                     placeholder="Logg inn som"
                     value={subject}
                     onChange={(event) => setSubject(event.currentTarget.value)}
+                    maxLength={7}
                 />
                 <Hovedknapp style={{ marginLeft: '0.5rem' }} disabled={!subject} onClick={() => loggInnKnapp(subject)}>
                     Logg inn

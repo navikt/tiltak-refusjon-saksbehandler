@@ -1,12 +1,14 @@
 import axios from 'axios';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import { Element } from 'nav-frontend-typografi';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
+import { useCookies } from 'react-cookie';
 
-const AAD_COOKIE_NAME = `aad-token`;
+const AAD_COOKIE_NAME = `aad-token`,
+    TOKENX_COOKIE_NAME = `tokenx-token`;
 
 type Props = {
     innloggetBruker: InnloggetBruker | undefined;
@@ -14,6 +16,7 @@ type Props = {
 
 const LokalLogin: FunctionComponent<Props> = (props) => {
     const [subject, setSubject] = useState('X123456');
+    const [, , removeCookie] = useCookies();
 
     const loggInnKnapp = async (subject: string) => {
         const response = await axios.get(
@@ -23,8 +26,20 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
         window.location.reload();
     };
 
+    const loggUtClick = () => {
+        removeCookie(AAD_COOKIE_NAME);
+        removeCookie(TOKENX_COOKIE_NAME);
+        window.location.reload();
+    };
+
     if (props.innloggetBruker !== undefined) {
-        return null;
+        return (
+            <div style={{ display: 'flex', justifyContent: 'flex-end', backgroundColor: 'white', padding: '0.5rem' }}>
+                <Flatknapp style={{ marginLeft: '0.5rem' }} onClick={loggUtClick}>
+                    Logg ut
+                </Flatknapp>
+            </div>
+        );
     }
 
     return (

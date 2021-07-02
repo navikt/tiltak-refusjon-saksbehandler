@@ -30,7 +30,7 @@ spec:
     - name: AAD_LOGOUT_REDIRECT_URL
       value: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
     - name: API_CLIENT_ID
-      value: 01123ad4-9c25-43f4-a59d-dc902a44b15b
+      value: "dev-gcp:arbeidsgiver:tiltak-refusjon-api"
     - name: DECORATOR_HOST
       value: https://internarbeidsflatedecorator-q0.dev.adeo.no
     - name: API_URL

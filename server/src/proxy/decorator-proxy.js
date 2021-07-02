@@ -1,26 +1,17 @@
-import proxy from 'express-http-proxy';
 import config from '../config';
 import authUtils from '../auth/utils';
+import axios from 'axios';
+const asyncHandler = require('express-async-handler');
 
 const setup = (router, authClient) => {
     router.use(
         '/modiacontextholder/api/decorator',
-        proxy(config.api.url, {
-            parseReqBody: false,
-            proxyReqPathResolver: (req) => {
-                return '/api/saksbehandler/innlogget-bruker';
-            },
-            proxyReqOptDecorator: (options, req) => {
-                return new Promise((resolve, reject) =>
-                    authUtils.getOnBehalfOfAccessToken(authClient, req).then(
-                        (access_token) => {
-                            options.headers.Authorization = `Bearer ${access_token}`;
-                            resolve(options);
-                        },
-                        (error) => reject(error)
-                    )
-                );
-            },
+        asyncHandler(async (req, res) => {
+            const accessToken = await authUtils.getOnBehalfOfAccessToken(authClient, req);
+            const response = await axios.get('/api/saksbehandler/innlogget-bruker', {
+                headers: { ...req.headers, Authorization: `Bearer ${accessToken}` },
+            });
+            res.json({ ...response.data, ident: response.data.identifikator || '' });
         })
     );
 

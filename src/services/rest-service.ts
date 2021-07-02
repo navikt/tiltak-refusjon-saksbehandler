@@ -11,7 +11,7 @@ export class FeilkodeError extends Error {}
 
 const api = axios.create({
     baseURL: '/api/saksbehandler',
-    timeout: 5000,
+    timeout: 15000,
     withCredentials: true,
     headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache' },
     validateStatus: (status) => status < 400,

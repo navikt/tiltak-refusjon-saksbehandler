@@ -10,47 +10,42 @@ spec:
   team: arbeidsgiver
   port: 3000
   ingresses:
-    - {{ingress}}
+    - https://tiltak-refusjon.dev.intern.nav.no
   azure:
     application:
       enabled: true
-      tenant: {{tenant}}
+      tenant: trygdeetaten.no
   liveness:
     path: /isAlive
     initialDelay: 10
   readiness:
     path: /isReady
     initialDelay: 10
-  {{#if labs}}
-  replicas:
-    min: 1
-    max: 1
-  {{/if}}
-  {{#unless labs}}
   replicas:
     min: 1
     max: 2
-  {{/unless}}
   env:
-    {{#each env}}
-    - name: "{{@key}}"
-      value: "{{this}}"
-    {{/each}}
+    - name: AAD_REDIRECT_URL
+      value: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
+    - name: AAD_LOGOUT_REDIRECT_URL
+      value: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
+    - name: API_CLIENT_ID
+      value: 01123ad4-9c25-43f4-a59d-dc902a44b15b
+    - name: DECORATOR_HOST
+      value: https://internarbeidsflatedecorator-q0.dev.adeo.no
     - name: API_URL
       value: http://tiltak-refusjon-api
     - name: REDIS_HOST
       value: tiltak-refusjon-saksbehandler-redis
     - name: HOST
-      value: {{ingress}}
+      value: https://tiltak-refusjon.dev.intern.nav.no
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-refusjon-api
         - application: tiltak-refusjon-saksbehandler-redis
       external:
-      {{#each host}}
-        - host: "{{this}}"
-      {{/each }}
+        - host: internarbeidsflatedecorator-q0.dev.adeo.no
         - host: login.microsoftonline.com
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key

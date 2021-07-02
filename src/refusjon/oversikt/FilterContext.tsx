@@ -3,9 +3,12 @@ import { Status } from '../status';
 import { Tiltak } from '../tiltak';
 
 export interface Filter {
-    bedriftNr: string | undefined;
-    status: Status | undefined;
-    tiltakstype: Tiltak | undefined;
+    deltakerFnr?: string;
+    enhet?: string;
+    veilederNavIdent?: string;
+    bedriftNr?: string;
+    status?: Status;
+    tiltakstype?: Tiltak;
 }
 
 type FilterContextType = { filter: Filter; oppdaterFilter: (nyttFilter: Partial<Filter>) => void };
@@ -22,11 +25,7 @@ export const useFilter = () => {
 };
 
 export const FilterProvider: FunctionComponent = (props) => {
-    const [filter, setFilter] = useState<Filter>({
-        bedriftNr: undefined,
-        status: undefined,
-        tiltakstype: undefined,
-    });
+    const [filter, setFilter] = useState<Filter>({});
 
     const oppdaterFilter = (nyttFilter: Partial<Filter>) => {
         setFilter({ ...filter, ...nyttFilter });

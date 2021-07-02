@@ -8,6 +8,7 @@ import { Status } from '../status';
 import { Tiltak } from '../tiltak';
 import { useFilter } from './FilterContext';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import VisRefusjonerFilter from './VisRefusjonerFilter';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
@@ -21,26 +22,8 @@ const Filtermeny: FunctionComponent = () => {
     }, [setStatusPanelOpen, setTiltaksPanelOpen, erDesktopStorrelse]);
 
     return (
-        <div role="menubar" aria-label="filtermeny for filtrering av refusjon på status og tiltakstype">
-            <EkspanderbartpanelBase
-                tittel="Vis refusjoner"
-                role="radiogroup"
-                apen={statusPanelOpen}
-                onClick={(event) => {
-                    setStatusPanelOpen(!statusPanelOpen);
-                }}
-                style={{ minWidth: '14.375rem' }}
-            >
-                <RadioGruppe legend="">
-                    <Radio
-                        role="radio"
-                        label="Alle"
-                        checked={filter.status === undefined}
-                        name={'status'}
-                        onChange={() => oppdaterFilter({ status: undefined })}
-                    />
-                </RadioGruppe>
-            </EkspanderbartpanelBase>
+        <div role="menubar" aria-label="meny for filtrering av refusjoner">
+            <VisRefusjonerFilter />
             <VerticalSpacer rem={1.25} />
             <EkspanderbartpanelBase
                 tittel="Status"

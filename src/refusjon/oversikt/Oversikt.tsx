@@ -16,7 +16,7 @@ const Kolonne: FunctionComponent = (props) => <div className={cls.element('kolon
 
 const Oversikt: FunctionComponent = () => {
     const { filter } = useFilter();
-    const refusjoner = useHentRefusjoner(filter.bedriftNr, filter.status, filter.tiltakstype);
+    const refusjoner = useHentRefusjoner(filter);
     const history = useHistory();
 
     return (

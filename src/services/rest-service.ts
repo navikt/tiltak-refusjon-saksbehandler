@@ -3,8 +3,7 @@ import useSWR from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { feilmelding } from '../feilkodemapping';
 import { Refusjon } from '../refusjon/refusjon';
-import { Status } from '../refusjon/status';
-import { Tiltak } from '../refusjon/tiltak';
+import { Filter } from '../refusjon/oversikt/FilterContext';
 
 export const API_URL = '/api/saksbehandler';
 
@@ -39,12 +38,15 @@ export const hentInnloggetBruker = async () => {
     return response.data;
 };
 
-export const useHentRefusjoner = (bedriftnummer?: string, status?: Status, tiltakstype?: Tiltak) => {
-    const { data } = useSWR<Refusjon[]>(
-        `/refusjon?bedriftNr=${bedriftnummer || ''}&status=${status || ''}&tiltakstype=${tiltakstype || ''}`,
-        swrConfig
-    );
+export const useHentRefusjoner = (filter: Filter) => {
+    const urlSearchParams = new URLSearchParams(removeEmpty(filter));
+    const { data } = useSWR<Refusjon[]>(`/refusjon?${urlSearchParams}`, swrConfig);
     return data!;
+};
+
+const removeEmpty = (obj: any) => {
+    Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
+    return obj;
 };
 
 export const useHentRefusjon = (refusjonId: string) => {

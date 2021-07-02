@@ -7709,6 +7709,11 @@ nav-frontend-ikoner-assets@^2.0.10:
   resolved "https://registry.npmjs.org/nav-frontend-ikoner-assets/-/nav-frontend-ikoner-assets-2.0.10.tgz"
   integrity sha512-n/2qIk29rRkR8OZwZBnSIWRKdC25t/8lAhZXEvFZrqmjAC+U4xHHj5+VlCoN5O5VIzq4xtck1Flwj7mJehAj7g==
 
+nav-frontend-ikonknapper@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/nav-frontend-ikonknapper/-/nav-frontend-ikonknapper-2.0.1.tgz#7190152f0f8e5deeae2fe4cf34dc11673c949200"
+  integrity sha512-FSy4BcS+zxlKW5TRMxNz0dVb3GVzfv5qgqKg/geLzeUqF1MgZuOUf3QEKTwGxypG9j3lgeB2sCSMCq/+Fx3Odw==
+
 nav-frontend-js-utils@^1.0.15:
   version "1.0.19"
   resolved "https://registry.npmjs.org/nav-frontend-js-utils/-/nav-frontend-js-utils-1.0.19.tgz"

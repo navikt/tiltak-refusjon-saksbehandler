@@ -10,11 +10,11 @@ spec:
   team: arbeidsgiver
   port: 3000
   ingresses:
-    - https://tiltak-refusjon.dev.intern.nav.no
+    - https://tiltak-refusjon.intern.nav.no
   azure:
     application:
       enabled: true
-      tenant: trygdeetaten.no
+      tenant: nav.no
   liveness:
     path: /isAlive
     initialDelay: 10
@@ -26,26 +26,26 @@ spec:
     max: 2
   env:
     - name: AAD_REDIRECT_URL
-      value: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
+      value: https://tiltak-refusjon.intern.nav.no/oauth2/callback
     - name: AAD_LOGOUT_REDIRECT_URL
-      value: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
+      value: https://tiltak-refusjon.intern.nav.no/oauth2/callback
     - name: API_CLIENT_ID
-      value: dev-gcp.arbeidsgiver.tiltak-refusjon-api
+      value: prod-gcp.arbeidsgiver.tiltak-refusjon-api
     - name: DECORATOR_HOST
-      value: https://internarbeidsflatedecorator-q0.dev.adeo.no
+      value: https://internarbeidsflatedecorator.nais.intern.nav.no
     - name: API_URL
       value: http://tiltak-refusjon-api
     - name: REDIS_HOST
       value: tiltak-refusjon-saksbehandler-redis
     - name: HOST
-      value: https://tiltak-refusjon.dev.intern.nav.no
+      value: https://tiltak-refusjon.intern.nav.no
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-refusjon-api
         - application: tiltak-refusjon-saksbehandler-redis
       external:
-        - host: internarbeidsflatedecorator-q0.dev.adeo.no
+        - host: internarbeidsflatedecorator.nais.intern.nav.no
         - host: login.microsoftonline.com
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key

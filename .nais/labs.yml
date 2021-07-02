@@ -1,7 +1,0 @@
-ingress: https://tiltak-refusjon-saksbehandler.labs.nais.io
-labs: true
-host:
-  - www.nav.no
-outbound:
-  - tiltak-refusjon-api
-  - tiltak-fakelogin

@@ -8,7 +8,7 @@ const setup = (router, authClient) => {
         '/modiacontextholder/api/decorator',
         asyncHandler(async (req, res) => {
             const accessToken = await authUtils.getOnBehalfOfAccessToken(authClient, req);
-            const response = await axios.get('/api/saksbehandler/innlogget-bruker', {
+            const response = await axios.get(`${config.api.url}/api/saksbehandler/innlogget-bruker`, {
                 headers: { ...req.headers, Authorization: `Bearer ${accessToken}` },
             });
             res.json({ ...response.data, ident: response.data.identifikator || '' });

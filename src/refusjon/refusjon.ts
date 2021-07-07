@@ -49,8 +49,6 @@ export interface Inntektslinje {
     id: string;
     opptjeningsperiodeFom?: string;
     opptjeningsperiodeTom?: string;
-    inntektFordelesFom: string;
-    inntektFordelesTom: string;
     erMedIInntektsgrunnlag: boolean;
 }
 

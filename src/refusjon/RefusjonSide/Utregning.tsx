@@ -16,6 +16,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../messages';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjon } from '../refusjon';
+import { Warning } from '@navikt/ds-icons';
 
 interface Props {
     refusjon: Refusjon;
@@ -51,7 +52,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 <>
                     <div className={cls.element('inntekter')}>
                         <Element>Lønnsbeskrivelse</Element>
-                        <Element>Periode</Element>
+                        <Element>Opptjeningsperiode</Element>
                         <Element>Beløp</Element>
                         <Element>Refunderes</Element>
                         {props.refusjon.inntektsgrunnlag.inntekter.map((inntekt) => (
@@ -64,7 +65,14 @@ const Utregning: FunctionComponent<Props> = (props) => {
                                 </Normaltekst>
 
                                 <Normaltekst>
-                                    {formatterPeriode(inntekt.inntektFordelesFom, inntekt.inntektFordelesTom)}
+                                    {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
+                                        formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
+                                    ) : (
+                                        <div>
+                                            <Warning style={{ marginRight: '0.25rem', marginBottom: '-0.175rem' }} />
+                                            <em>Ikke rapportert opptjeningsperiode</em>
+                                        </div>
+                                    )}
                                 </Normaltekst>
 
                                 <Normaltekst>{formatterPenger(inntekt.beløp)}</Normaltekst>

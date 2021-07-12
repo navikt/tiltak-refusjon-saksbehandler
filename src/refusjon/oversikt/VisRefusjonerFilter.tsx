@@ -5,22 +5,17 @@ import { SøkeInput } from './SøkeInput';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useFilter } from './FilterContext';
 
-type Søketype = 'alle' | 'deltaker' | 'bedrift' | 'veileder' | 'enhet';
+type Søketype = 'deltaker' | 'bedrift' | 'veileder' | 'enhet';
 
 const tomtSøk = { deltakerFnr: undefined, bedriftNr: undefined, veilederNavIdent: undefined, enhet: undefined };
 
 const VisRefusjonerFilter: FunctionComponent = () => {
     const { oppdaterFilter } = useFilter();
-    const [aktivSøketype, setAktivSøketype] = useState<Søketype>('alle');
+    const [aktivSøketype, setAktivSøketype] = useState<Søketype>();
     const [panelÅpen, setPanelÅpen] = useState(true);
     const [inputKey, setInputKey] = useState(0); // Brukes for å unmounte søkeinput ved endring av søkevalg, slik at søkeord tømmes
 
     const søkevalg: { value: Søketype; label: string; input: React.ReactNode }[] = [
-        {
-            value: 'alle',
-            label: 'Alle',
-            input: null,
-        },
         {
             value: 'veileder',
             label: 'På en veileder',

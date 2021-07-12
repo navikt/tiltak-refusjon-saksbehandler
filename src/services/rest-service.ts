@@ -39,9 +39,10 @@ export const hentInnloggetBruker = async () => {
 };
 
 export const useHentRefusjoner = (filter: Filter) => {
+    const manglerSøkekriterier = !filter.veilederNavIdent && !filter.enhet && !filter.deltakerFnr && !filter.bedriftNr;
     const urlSearchParams = new URLSearchParams(removeEmpty(filter));
-    const { data } = useSWR<Refusjon[]>(`/refusjon?${urlSearchParams}`, swrConfig);
-    return data!;
+    const { data } = useSWR<Refusjon[]>(manglerSøkekriterier ? null : `/refusjon?${urlSearchParams}`, swrConfig);
+    return data;
 };
 
 const removeEmpty = (obj: any) => {

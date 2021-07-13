@@ -27,7 +27,7 @@ const VisRefusjonerFilter: FunctionComponent = () => {
                     }}
                     feiletSøk={() => oppdaterFilter(tomtSøk)}
                     valider={(verdi: string) =>
-                        verdi.search(/^\w\d{6}$/) === -1 ? 'Ikke gyldig NAV-ident' : undefined
+                        verdi.search(/^[A-Z]\d{6}$/) === -1 ? 'Ikke gyldig NAV-ident' : undefined
                     }
                     inputProps={{ placeholder: 'NAV-ident', maxLength: 7 }}
                 />

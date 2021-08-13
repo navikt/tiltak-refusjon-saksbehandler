@@ -8,14 +8,17 @@ import { storForbokstav } from '../../utils/stringUtils';
 
 interface Props {
     status: Status;
-    tilskuddFom: string;
-    tilskuddTom: string;
+    tilskuddFom?: string;
+    tilskuddTom?: string;
+    sendtInnRefusjonDato?: string;
 }
 
 const StatusTekst: FunctionComponent<Props> = (props) => {
-    if (props.status === Status.KLAR_FOR_INNSENDING) {
+    if (props.status === Status.SENDT_KRAV && props.sendtInnRefusjonDato !== undefined) {
+        return <EtikettInfo>Sendt fra {props.sendtInnRefusjonDato}</EtikettInfo>;
+    } else if (props.status === Status.KLAR_FOR_INNSENDING) {
         return <EtikettSuksess>Klar for innsending</EtikettSuksess>;
-    } else if (props.status === Status.FOR_TIDLIG) {
+    } else if (props.status === Status.FOR_TIDLIG && props.tilskuddTom !== undefined) {
         return <EtikettInfo>Søk fra {formatterDato(props.tilskuddTom)}</EtikettInfo>;
     } else if (props.status === Status.UTGÅTT || props.status === Status.ANNULLERT) {
         return <EtikettAdvarsel>{storForbokstav(statusTekst[props.status])}</EtikettAdvarsel>;

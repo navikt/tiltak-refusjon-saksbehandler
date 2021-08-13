@@ -9,6 +9,7 @@ export interface Filter {
     bedriftNr?: string;
     status?: Status;
     tiltakstype?: Tiltak;
+    refusjonId?: string;
 }
 
 type FilterContextType = { filter: Filter; oppdaterFilter: (nyttFilter: Partial<Filter>) => void };

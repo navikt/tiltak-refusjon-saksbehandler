@@ -5,9 +5,15 @@ import { SøkeInput } from './SøkeInput';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useFilter } from './FilterContext';
 
-type Søketype = 'deltaker' | 'bedrift' | 'veileder' | 'enhet';
+type Søketype = 'deltaker' | 'bedrift' | 'veileder' | 'enhet' | 'refusjon';
 
-const tomtSøk = { deltakerFnr: undefined, bedriftNr: undefined, veilederNavIdent: undefined, enhet: undefined };
+const tomtSøk = {
+    deltakerFnr: undefined,
+    bedriftNr: undefined,
+    veilederNavIdent: undefined,
+    enhet: undefined,
+    refusjonId: undefined,
+};
 
 const VisRefusjonerFilter: FunctionComponent = () => {
     const { oppdaterFilter } = useFilter();
@@ -84,6 +90,21 @@ const VisRefusjonerFilter: FunctionComponent = () => {
                 />
             ),
         },
+        {
+            value: 'refusjon',
+            label: 'På et refusjonsnummer',
+            input: (
+                <SøkeInput
+                    key={inputKey}
+                    utførSøk={(søkeord) => {
+                        oppdaterFilter({ ...tomtSøk, refusjonId: søkeord });
+                    }}
+                    feiletSøk={() => oppdaterFilter(tomtSøk)}
+                    valider={(verdi: string) => undefined}
+                    inputProps={{ placeholder: 'refusjonnummer', maxLength: 30 }}
+                />
+            ),
+        },
     ];
 
     return (
@@ -97,7 +118,7 @@ const VisRefusjonerFilter: FunctionComponent = () => {
             style={{ minWidth: '14.375rem' }}
         >
             {søkevalg.map((it) => (
-                <>
+                <div key={it.value}>
                     <Radio
                         label={it.label}
                         name="aktivSøketype"
@@ -111,7 +132,7 @@ const VisRefusjonerFilter: FunctionComponent = () => {
                         role="radio"
                     />
                     <VerticalSpacer rem={1} />
-                </>
+                </div>
             ))}
             <VerticalSpacer rem={1} />
             {søkevalg.find((it) => it.value === aktivSøketype)?.input}

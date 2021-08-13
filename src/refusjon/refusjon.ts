@@ -14,6 +14,7 @@ export interface Refusjon {
     inntektsgrunnlag?: Inntektsgrunnlag;
     beregning?: Beregning;
     fristForGodkjenning: string;
+    harInntektIAlleMåneder: boolean;
 }
 
 export interface Tilskuddsgrunnlag {
@@ -34,6 +35,7 @@ export interface Tilskuddsgrunnlag {
     tilskuddsperiodeId: string;
     tiltakstype: Tiltak;
     veilederNavIdent: string;
+    enhet: string;
 }
 
 export interface Inntektsgrunnlag {

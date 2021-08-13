@@ -7,6 +7,7 @@ import { useHentRefusjon } from '../../services/rest-service';
 import NokkelInfo from '../RefusjonSide/NokkelInfo';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
+import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -17,6 +18,7 @@ const KvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Innholdstittel role="heading">Kvittering for refusjon</Innholdstittel>
+                <StatusTekst status={refusjon.status} sendtInnRefusjonDato={''} />
             </div>
             <VerticalSpacer rem={1} />
             <Normaltekst>

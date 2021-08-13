@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
-import { formatterDato, formatterPeriode } from '../../utils/datoUtils';
+import { formatterDato } from '../../utils/datoUtils';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
@@ -65,14 +65,17 @@ const Oversikt: FunctionComponent = () => {
                         }}
                         href={`/refusjon/${refusjon.id}`}
                     >
+                        <Kolonne aria-labelledby={cls.element('veileder')}>
+                            {refusjon.tilskuddsgrunnlag.veilederNavIdent}
+                        </Kolonne>
                         <Kolonne aria-labelledby={cls.element('deltaker')}>
                             {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
                         </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('periode')}>
-                            {formatterPeriode(
-                                refusjon.tilskuddsgrunnlag.tilskuddFom,
-                                refusjon.tilskuddsgrunnlag.tilskuddTom
-                            )}
+                        <Kolonne aria-labelledby={cls.element('arbeidsgiver')}>
+                            {refusjon.tilskuddsgrunnlag.bedriftNavn}
+                        </Kolonne>
+                        <Kolonne aria-labelledby={cls.element('enhet')}>
+                            <strong>{refusjon.tilskuddsgrunnlag.enhet}</strong>
                         </Kolonne>
                         <Kolonne aria-labelledby={cls.element('status')}>
                             <StatusTekst

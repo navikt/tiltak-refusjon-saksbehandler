@@ -39,7 +39,8 @@ export const hentInnloggetBruker = async () => {
 };
 
 export const useHentRefusjoner = (filter: Filter) => {
-    const manglerSøkekriterier = !filter.veilederNavIdent && !filter.enhet && !filter.deltakerFnr && !filter.bedriftNr;
+    const manglerSøkekriterier =
+        !filter.veilederNavIdent && !filter.enhet && !filter.deltakerFnr && !filter.bedriftNr && !filter.refusjonId;
     const urlSearchParams = new URLSearchParams(removeEmpty(filter));
     const { data } = useSWR<Refusjon[]>(manglerSøkekriterier ? null : `/refusjon?${urlSearchParams}`, swrConfig);
     return data;

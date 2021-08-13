@@ -1,4 +1,4 @@
-import { Calender, File, FileContent, Money, People } from '@navikt/ds-icons';
+import { File, People, Office1, Receipt } from '@navikt/ds-icons';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
@@ -11,7 +11,18 @@ import { useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 
-const IkonRad = styled.div`
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
+const Column = styled.div`
+    flex-direction: column;
+    margin-rigt
+`;
+
+const Rad = styled.div`
     display: flex;
     * {
         margin-right: 0.5rem;
@@ -26,40 +37,72 @@ const NokkelInfo: FunctionComponent = () => {
 
     return (
         <div>
-            <IkonRad>
-                <EksternLenke href={avtaleLenke}>
-                    <File />
-                    Avtale om {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}
-                </EksternLenke>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <People />
-                <Element>Deltaker: </Element>
-                <Normaltekst>
-                    {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
-                </Normaltekst>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <Calender />
-                <Element>Periode: </Element>
-                <Normaltekst>
-                    {formatterPeriode(refusjon.tilskuddsgrunnlag.tilskuddFom, refusjon.tilskuddsgrunnlag.tilskuddTom)}
-                </Normaltekst>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <FileContent />
-                <Element>Avtalt beløp for perioden:</Element>
-                <Normaltekst>Inntil {formatterPenger(refusjon.tilskuddsgrunnlag.tilskuddsbeløp)}</Normaltekst>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <Money />
-                <Element>Kontonummer:</Element>
-                <Normaltekst>{refusjon.bedriftKontonummer}</Normaltekst>
-            </IkonRad>
+            <Wrapper>
+                <Column>
+                    <Office1 />
+                    <Rad>
+                        <Element>Arbeidsgiver:</Element>
+                        <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftNavn}</Normaltekst>
+                    </Rad>
+                    <VerticalSpacer rem={1} />
+                    <Rad>
+                        <Element>Bedriftsnummer:</Element>
+                        <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftNr}</Normaltekst>
+                    </Rad>
+                    <VerticalSpacer rem={1} />
+                    <Rad>
+                        <Element>Telefon:</Element>
+                        <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftNr}</Normaltekst>
+                    </Rad>
+                    <VerticalSpacer rem={1} />
+                    <Rad>
+                        <Element>Kontonummer:</Element>
+                        <Normaltekst>{refusjon.bedriftKontonummer}</Normaltekst>
+                    </Rad>
+                    <VerticalSpacer rem={1} />
+                    <Rad>
+                        <EksternLenke href={avtaleLenke}>
+                            <File />
+                            Avtale om {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}
+                        </EksternLenke>
+                    </Rad>
+                </Column>
+                <Column>
+                    <Receipt />
+                    <Rad>
+                        <Element>Refusjonsnr:</Element>
+                        <Normaltekst>{refusjon.id}</Normaltekst>
+                    </Rad>
+                    <VerticalSpacer rem={1} />
+                    <Rad>
+                        <Element>Periode: </Element>
+                        <Normaltekst>
+                            {formatterPeriode(
+                                refusjon.tilskuddsgrunnlag.tilskuddFom,
+                                refusjon.tilskuddsgrunnlag.tilskuddTom
+                            )}
+                        </Normaltekst>
+                    </Rad>
+                    <VerticalSpacer rem={1} />
+                    <Rad>
+                        <Element>Frist:</Element>
+                        <Normaltekst>{refusjon.fristForGodkjenning}</Normaltekst>
+                    </Rad>
+                    <VerticalSpacer rem={1} />
+                    <Rad>
+                        <Element>Avtalt beløp for perioden:</Element>
+                        <Normaltekst>inntil {formatterPenger(refusjon.tilskuddsgrunnlag.tilskuddsbeløp)}</Normaltekst>
+                    </Rad>
+                    <VerticalSpacer rem={1} />
+                    <Rad>
+                        <People />
+                        <Element>Deltaker: </Element>
+                        <Normaltekst>
+                            {refusjon.tilskuddsgrunnlag.deltakerFornavn} {refusjon.tilskuddsgrunnlag.deltakerEtternavn}
+                        </Normaltekst>
+                    </Rad>
+                </Column>
+            </Wrapper>
             {refusjon.bedriftKontonummer === null && (
                 <>
                     <VerticalSpacer rem={1} />

@@ -37,6 +37,11 @@ const Utregning: FunctionComponent<Props> = (props) => {
         </>
     );
 
+    const harInntekterMenIkkeForHeleTilskuddsperioden =
+        !props.refusjon.harInntektIAlleMåneder &&
+        !!props.refusjon.inntektsgrunnlag &&
+        props.refusjon.inntektsgrunnlag.inntekter.length > 0;
+
     return (
         <div className={cls.className}>
             <VerticalSpacer rem={1} />
@@ -91,6 +96,25 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     <AlertStripeAdvarsel>
                         Vi kan ikke finne inntekter fra a-meldingen for denne perioden. Oppdater a-meldingen i Altinn,
                         når du kommer tilbake hit vil inntektsopplysningen være oppdatert automatisk.
+                    </AlertStripeAdvarsel>
+                    <VerticalSpacer rem={2} />
+                </>
+            )}
+            {harInntekterMenIkkeForHeleTilskuddsperioden && (
+                <>
+                    <VerticalSpacer rem={1} />
+                    <AlertStripeAdvarsel>
+                        Vi kan ikke finne inntekter for hele perioden som er avtalt. Dette kan skyldes at det ikke er
+                        rapportert inn inntekter for alle månedene i den avtalte perioden enda.
+                        <Element>
+                            Du kan kun søke om refusjon for den avtalte perioden{' '}
+                            {formatterPeriode(
+                                props.refusjon.tilskuddsgrunnlag.tilskuddFom,
+                                props.refusjon.tilskuddsgrunnlag.tilskuddTom
+                            )}{' '}
+                            én gang. Sikre deg derfor at alle inntekter innenfor perioden er rapportert før du klikker
+                            fullfør.
+                        </Element>
                     </AlertStripeAdvarsel>
                     <VerticalSpacer rem={2} />
                 </>

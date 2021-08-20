@@ -1,13 +1,19 @@
-import React, { FunctionComponent, useState } from 'react';
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
 import { Radio } from 'nav-frontend-skjema';
-import { SøkeInput } from './SøkeInput';
+import React, { FunctionComponent, useState } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useFilter } from './FilterContext';
+import { SøkeInput } from './SøkeInput';
 
-type Søketype = 'deltaker' | 'bedrift' | 'veileder' | 'enhet';
+type Søketype = 'deltaker' | 'bedrift' | 'veileder' | 'enhet' | 'avtaleNr';
 
-const tomtSøk = { deltakerFnr: undefined, bedriftNr: undefined, veilederNavIdent: undefined, enhet: undefined };
+const tomtSøk = {
+    deltakerFnr: undefined,
+    bedriftNr: undefined,
+    veilederNavIdent: undefined,
+    enhet: undefined,
+    avtalenr: undefined,
+};
 
 const VisRefusjonerFilter: FunctionComponent = () => {
     const { oppdaterFilter } = useFilter();
@@ -81,6 +87,23 @@ const VisRefusjonerFilter: FunctionComponent = () => {
                         verdi.search(/^\d{4}$/) === -1 ? 'Ikke gyldig enhetsnummer' : undefined
                     }
                     inputProps={{ placeholder: 'Enhet (4 siffer)', maxLength: 4 }}
+                />
+            ),
+        },
+        {
+            value: 'avtaleNr',
+            label: 'På et avtalenummer',
+            input: (
+                <SøkeInput
+                    key={inputKey}
+                    utførSøk={(søkeord) => {
+                        oppdaterFilter({ ...tomtSøk, avtaleNr: søkeord });
+                    }}
+                    feiletSøk={() => oppdaterFilter(tomtSøk)}
+                    valider={(verdi: string) =>
+                        verdi.search('^[0-9]*$') === -1 ? 'Ikke gyldig avtalenummer' : undefined
+                    }
+                    inputProps={{ placeholder: 'Avtalenummer', maxLength: 5 }}
                 />
             ),
         },

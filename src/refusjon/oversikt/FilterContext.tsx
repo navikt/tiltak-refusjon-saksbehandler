@@ -5,6 +5,7 @@ import { Tiltak } from '../tiltak';
 export interface Filter {
     deltakerFnr?: string;
     enhet?: string;
+    avtaleNr?: string;
     veilederNavIdent?: string;
     bedriftNr?: string;
     status?: Status;

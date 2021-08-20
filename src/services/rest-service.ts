@@ -2,8 +2,8 @@ import axios, { AxiosError } from 'axios';
 import useSWR from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { feilmelding } from '../feilkodemapping';
-import { Refusjon } from '../refusjon/refusjon';
 import { Filter } from '../refusjon/oversikt/FilterContext';
+import { Refusjon } from '../refusjon/refusjon';
 
 export const API_URL = '/api/saksbehandler';
 
@@ -39,7 +39,8 @@ export const hentInnloggetBruker = async () => {
 };
 
 export const useHentRefusjoner = (filter: Filter) => {
-    const manglerSøkekriterier = !filter.veilederNavIdent && !filter.enhet && !filter.deltakerFnr && !filter.bedriftNr;
+    const manglerSøkekriterier =
+        !filter.veilederNavIdent && !filter.enhet && !filter.deltakerFnr && !filter.bedriftNr && !filter.avtaleNr;
     const urlSearchParams = new URLSearchParams(removeEmpty(filter));
     const { data } = useSWR<Refusjon[]>(manglerSøkekriterier ? null : `/refusjon?${urlSearchParams}`, swrConfig);
     return data;

@@ -1,4 +1,4 @@
-import { Calender, File, FileContent, Money, People } from '@navikt/ds-icons';
+import { Calender, File, FileContent, Money, People, Receipt } from '@navikt/ds-icons';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
@@ -31,6 +31,20 @@ const NokkelInfo: FunctionComponent = () => {
                     <File />
                     Avtale om {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}
                 </EksternLenke>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <Receipt />
+                <Element>Avtalenummer: </Element>
+                <Normaltekst>{refusjon.tilskuddsgrunnlag.avtaleNr}</Normaltekst>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <Receipt />
+                <Element>Tilskuddsperiodenummer: </Element>
+                <Normaltekst>
+                    {refusjon.tilskuddsgrunnlag.avtaleNr}-{refusjon.tilskuddsgrunnlag.løpenummer}
+                </Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>

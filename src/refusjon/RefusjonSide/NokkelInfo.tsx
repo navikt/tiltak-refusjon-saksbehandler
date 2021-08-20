@@ -41,7 +41,7 @@ const NokkelInfo: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <IkonRad>
                 <Receipt />
-                <Element>Tilskuddsperiodenummer: </Element>
+                <Element>Refusjonsnummer: </Element>
                 <Normaltekst>
                     {refusjon.tilskuddsgrunnlag.avtaleNr}-{refusjon.tilskuddsgrunnlag.løpenummer}
                 </Normaltekst>

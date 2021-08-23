@@ -1,9 +1,13 @@
+import { EtikettInfo } from 'nav-frontend-etiketter';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import { statusTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
+import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
+import { storForbokstav } from '../../utils/stringUtils';
 import NokkelInfo from '../RefusjonSide/NokkelInfo';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
@@ -17,6 +21,11 @@ const KvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Innholdstittel role="heading">Kvittering for refusjon</Innholdstittel>
+                <EtikettInfo>
+                    {storForbokstav(statusTekst[refusjon.status])}{' '}
+                    {refusjon.godkjentAvArbeidsgiver &&
+                        formatterDato(refusjon.godkjentAvArbeidsgiver, NORSK_DATO_OG_TID_FORMAT)}
+                </EtikettInfo>
             </div>
             <VerticalSpacer rem={1} />
             <Normaltekst>

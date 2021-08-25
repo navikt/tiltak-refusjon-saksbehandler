@@ -13,10 +13,13 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { Link } from 'react-router-dom';
 import { korreksjonsgrunnTekst } from '../../messages';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
+import { Feature } from '../../featureToggles/features';
 
 const Advarsler: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+    const featureToggles = useFeatureToggles();
 
     return (
         <>
@@ -37,7 +40,7 @@ const Advarsler: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                 </>
             )}
-            {refusjon.korrigeresAvId && (
+            {featureToggles[Feature.Korreksjon] && refusjon.korrigeresAvId && (
                 <>
                     <AlertStripeInfo>
                         Denne refusjonen korrigeres av en nyere refusjon.{' '}

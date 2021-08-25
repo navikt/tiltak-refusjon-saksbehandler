@@ -12,14 +12,17 @@ import NokkelInfo from '../RefusjonSide/NokkelInfo';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
 import BekreftKorreksjon from '../RefusjonSide/BekreftKorreksjon';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
+import { Feature } from '../../featureToggles/features';
 
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+    const featureToggles = useFeatureToggles();
 
     return (
         <HvitBoks>
-            {refusjon.korrigeresAvId === null && <BekreftKorreksjon />}
+            {featureToggles[Feature.Korreksjon] && refusjon.korrigeresAvId === null && <BekreftKorreksjon />}
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

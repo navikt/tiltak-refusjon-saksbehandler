@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Feature } from './features';
 import { hentFeatureToggles } from '../services/rest-service';
 
@@ -18,4 +18,12 @@ export const FeatureToggleProvider = (props: any) => {
     }, []);
 
     return <FeatureToggleContext.Provider value={featureToggles}>{props.children}</FeatureToggleContext.Provider>;
+};
+
+export const useFeatureToggles = () => {
+    const featureToggleContext = useContext(FeatureToggleContext);
+    if (!featureToggleContext) {
+        throw Error('Kan kun brukes innenfor FeatureToggleProvider');
+    }
+    return featureToggleContext;
 };

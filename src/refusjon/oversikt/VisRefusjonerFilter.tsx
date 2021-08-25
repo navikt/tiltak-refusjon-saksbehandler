@@ -1,6 +1,6 @@
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
 import { Radio } from 'nav-frontend-skjema';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, Fragment } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useFilter } from './FilterContext';
 import { SøkeInput } from './SøkeInput';
@@ -120,7 +120,7 @@ const VisRefusjonerFilter: FunctionComponent = () => {
             style={{ minWidth: '14.375rem' }}
         >
             {søkevalg.map((it) => (
-                <>
+                <Fragment key={it.value}>
                     <Radio
                         label={it.label}
                         name="aktivSøketype"
@@ -132,9 +132,10 @@ const VisRefusjonerFilter: FunctionComponent = () => {
                             oppdaterFilter(tomtSøk);
                         }}
                         role="radio"
+                        style={{ marginBottom: '1rem' }}
                     />
                     <VerticalSpacer rem={1} />
-                </>
+                </Fragment>
             ))}
             <VerticalSpacer rem={1} />
             {søkevalg.find((it) => it.value === aktivSøketype)?.input}

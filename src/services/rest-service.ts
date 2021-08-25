@@ -3,11 +3,9 @@ import useSWR from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { feilmelding } from '../feilkodemapping';
 import { Filter } from '../refusjon/oversikt/FilterContext';
-import { Refusjon } from '../refusjon/refusjon';
+import { Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
 
 export const API_URL = '/api/saksbehandler';
-
-export class FeilkodeError extends Error {}
 
 const api = axios.create({
     baseURL: '/api/saksbehandler',
@@ -59,4 +57,18 @@ export const useHentRefusjon = (refusjonId: string) => {
 export const useHentTidligereRefusjoner = (refusjonId: string) => {
     const { data } = useSWR<Refusjon[]>(`/refusjon/${refusjonId}/tidligere-refusjoner`, swrConfig);
     return data!;
+};
+
+export const korriger = async (refusjonId: string, korreksjonsgrunner: Korreksjonsgrunn[]) => {
+    const response = await axios
+        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/korriger`, { korreksjonsgrunner })
+        .catch(håndterFeil);
+    return response.data;
+};
+
+export const slettKorreksjon = async (refusjonId: string) => {
+    const response = await axios
+        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/slett-korreksjon`)
+        .catch(håndterFeil);
+    return response.data;
 };

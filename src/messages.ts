@@ -1,5 +1,6 @@
 import { Status } from './refusjon/status';
 import { Tiltak } from './refusjon/tiltak';
+import { Korreksjonsgrunn } from './refusjon/refusjon';
 
 export const tiltakstypeTekst: { [key in Tiltak]: string } = {
     MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
@@ -15,6 +16,7 @@ export const statusTekst: { [key in Status]: string } = {
     KLAR_FOR_INNSENDING: 'klar for innsending',
     FOR_TIDLIG: 'for tidlig',
     ANNULLERT: 'annullert',
+    MANUELL_KORREKSJON: 'korreksjon',
 };
 
 export const inntektstypeTekst: { [key: string]: string } = {
@@ -168,4 +170,11 @@ export const lønnsbeskrivelseTekst: { [key: string]: string } = {
     ufoereytelseEtteroppgjoer: 'Uføreytelse etteroppgjør',
     underholdsbidragTilBarn: 'Underholdsbidrag til barn',
     venteloenn: 'Ventelønn',
+};
+
+export const korreksjonsgrunnTekst: { [key in Korreksjonsgrunn]: string } = {
+    // REBEREGNING: 'Beregn refusjon på nytt',
+    UTBETALT_HELE_TILSKUDDSBELØP: 'Utbetalt hele tilskuddsbeløpet',
+    INNTEKTER_RAPPORTERT_UTENFOR_OPPTJENINGSPERIODE: 'Inntekter rapportert utenfor tilskuddsperioden',
+    HENT_INNTEKTER_PÅ_NYTT: 'Inntekter må hentes på nytt',
 };

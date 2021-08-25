@@ -5,7 +5,7 @@ import VerticalSpacer from './VerticalSpacer';
 import { Nettressurs, Status } from '../nettressurs';
 
 type Props = {
-    lagreFunksjon: () => Promise<void>;
+    lagreFunksjon: () => Promise<any>;
 } & HTMLAttributes<HTMLDivElement>;
 
 const LagreKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {

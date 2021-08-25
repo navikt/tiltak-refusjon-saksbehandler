@@ -8,6 +8,7 @@ import ScrollToTop from './komponenter/ScrollToTop';
 import OversiktSide from './refusjon/OversiktSide/OversiktSide';
 import Refusjon from './refusjon/RefusjonSide/Refusjon';
 import InternflateDekoratør from './InternflateDekoratør';
+import { FeatureToggleProvider } from './featureToggles/FeatureToggleProvider';
 
 function App() {
     return (
@@ -17,18 +18,20 @@ function App() {
             <InternflateDekoratør />
             <Switch>
                 <BrukerProvider>
-                    <div style={{ minHeight: '10rem', padding: '0.5rem' }}>
-                        <Route exact path="/">
-                            <ErrorOgSuspenseHandler>
-                                <OversiktSide />
-                            </ErrorOgSuspenseHandler>
-                        </Route>
-                        <Route path="/refusjon/:refusjonId">
-                            <ErrorOgSuspenseHandler>
-                                <Refusjon />
-                            </ErrorOgSuspenseHandler>
-                        </Route>
-                    </div>
+                    <FeatureToggleProvider>
+                        <div style={{ minHeight: '10rem', padding: '0.5rem' }}>
+                            <Route exact path="/">
+                                <ErrorOgSuspenseHandler>
+                                    <OversiktSide />
+                                </ErrorOgSuspenseHandler>
+                            </Route>
+                            <Route path="/refusjon/:refusjonId">
+                                <ErrorOgSuspenseHandler>
+                                    <Refusjon />
+                                </ErrorOgSuspenseHandler>
+                            </Route>
+                        </div>
+                    </FeatureToggleProvider>
                 </BrukerProvider>
             </Switch>
         </BrowserRouter>

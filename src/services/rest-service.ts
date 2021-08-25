@@ -4,6 +4,7 @@ import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { feilmelding } from '../feilkodemapping';
 import { Filter } from '../refusjon/oversikt/FilterContext';
 import { Refusjon } from '../refusjon/refusjon';
+import { Feature } from '../featureToggles/features';
 
 export const API_URL = '/api/saksbehandler';
 
@@ -59,4 +60,9 @@ export const useHentRefusjon = (refusjonId: string) => {
 export const useHentTidligereRefusjoner = (refusjonId: string) => {
     const { data } = useSWR<Refusjon[]>(`/refusjon/${refusjonId}/tidligere-refusjoner`, swrConfig);
     return data!;
+};
+
+export const hentFeatureToggles = async (featureToggles: Feature[]) => {
+    const response = await api.get('/feature?' + featureToggles.map((feature) => `feature=${feature}`).join('&'));
+    return response.data;
 };

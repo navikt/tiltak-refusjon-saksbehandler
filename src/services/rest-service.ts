@@ -4,6 +4,7 @@ import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { feilmelding } from '../feilkodemapping';
 import { Filter } from '../refusjon/oversikt/FilterContext';
 import { Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
+import { Feature } from '../featureToggles/features';
 
 export const API_URL = '/api/saksbehandler';
 
@@ -70,5 +71,10 @@ export const slettKorreksjon = async (refusjonId: string) => {
     const response = await axios
         .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/slett-korreksjon`)
         .catch(håndterFeil);
+    return response.data;
+};
+
+export const hentFeatureToggles = async (featureToggles: Feature[]) => {
+    const response = await api.get('/feature?' + featureToggles.map((feature) => `feature=${feature}`).join('&'));
     return response.data;
 };

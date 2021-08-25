@@ -1,3 +1,3 @@
 export enum Feature {
-    Korreksjon = 'arbeidsgiver.tiltak.korreksjon',
+    Korreksjon = 'arbeidsgiver.tiltak-refusjon-api.korreksjon',
 }

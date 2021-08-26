@@ -6,7 +6,6 @@ const setup = (router, authClient) => {
     router.use(
         '/api',
         proxy(config.api.url, {
-            parseReqBody: false,
             proxyReqPathResolver: (req) => {
                 return req.originalUrl;
             },

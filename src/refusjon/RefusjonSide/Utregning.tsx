@@ -175,7 +175,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
             <Utregningsrad
                 labelTekst="Refusjonsbeløp"
                 verdiOperator={<ErlikTegn />}
-                verdi={props.refusjon.beregning?.refusjonsbeløp || 'kan ikke beregne'}
+                verdi={props.refusjon.beregning?.refusjonsbeløp ?? 'kan ikke beregne'}
                 ikkePenger={props.refusjon.beregning === undefined}
                 border="TYKK"
             />

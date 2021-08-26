@@ -5,4 +5,5 @@ export enum Status {
     UTBETALT = 'UTBETALT',
     UTGÅTT = 'UTGÅTT',
     ANNULLERT = 'ANNULLERT',
+    MANUELL_KORREKSJON = 'MANUELL_KORREKSJON',
 }

@@ -1,7 +1,6 @@
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -9,17 +8,20 @@ import { useHentRefusjon } from '../../services/rest-service';
 import NokkelInfo from './NokkelInfo';
 import './RefusjonSide.less';
 import Utregning from './Utregning';
+import BekreftSlettKorreksjon from './BekreftSlettKorreksjon';
 
-const RefusjonSide: FunctionComponent = () => {
+const KorreksjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
 
     return (
         <HvitBoks>
+            <BekreftSlettKorreksjon />
+
             <VerticalSpacer rem={2} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Beregning av refusjon</Innholdstittel>
+                <Innholdstittel role="heading">Korreksjon av refusjon</Innholdstittel>
                 <StatusTekst
                     status={refusjon.status}
                     tilskuddFom={refusjon.tilskuddsgrunnlag.tilskuddFom}
@@ -29,13 +31,8 @@ const RefusjonSide: FunctionComponent = () => {
 
             <VerticalSpacer rem={1} />
             <Normaltekst>
-                Vi henter inntektsopplysninger for deltakeren fra a-meldingen automatisk. Hvis inntektsopplysningene
-                ikke stemmer så må det{' '}
-                <EksternLenke href={'https://www.altinn.no/skjemaoversikt/a-ordningen/a-melding2/'}>
-                    oppdateres i A-meldingen hos Altinn.
-                </EksternLenke>
-                Feriepenger, innskudd obligatorisk tjenestepensjon, arbeidsgiveravgiften og lønnstilskuddsprosenten er
-                hentet fra avtalen om midlertidig lønnstilskudd.
+                Dette er en korreksjon av tidligere utbetalt refusjon. Det beregnes her et foreløpig oppgjør fratrukket
+                beløpet som er utbetalt tidligere.
             </Normaltekst>
             <VerticalSpacer rem={2} />
             <NokkelInfo />
@@ -45,4 +42,4 @@ const RefusjonSide: FunctionComponent = () => {
     );
 };
 
-export default RefusjonSide;
+export default KorreksjonSide;

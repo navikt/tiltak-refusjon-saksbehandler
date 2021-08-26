@@ -11,15 +11,21 @@ import { storForbokstav } from '../../utils/stringUtils';
 import NokkelInfo from '../RefusjonSide/NokkelInfo';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
+import BekreftKorreksjon from '../RefusjonSide/BekreftKorreksjon';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
+import { Feature } from '../../featureToggles/features';
 
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+    const featureToggles = useFeatureToggles();
 
     return (
         <HvitBoks>
+            {featureToggles[Feature.Korreksjon] && refusjon.korrigeresAvId === null && <BekreftKorreksjon />}
+
             <VerticalSpacer rem={2} />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Innholdstittel role="heading">Kvittering for refusjon</Innholdstittel>
                 <EtikettInfo>
                     {storForbokstav(statusTekst[refusjon.status])}{' '}

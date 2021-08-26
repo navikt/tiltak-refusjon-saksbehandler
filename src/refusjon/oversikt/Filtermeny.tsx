@@ -9,12 +9,15 @@ import { Tiltak } from '../tiltak';
 import { useFilter } from './FilterContext';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import VisRefusjonerFilter from './VisRefusjonerFilter';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
+import { Feature } from '../../featureToggles/features';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
     const erDesktopStorrelse = useMediaQuery({ minWidth: 768 });
     const [statusPanelOpen, setStatusPanelOpen] = useState(erDesktopStorrelse);
     const [tiltaksPanelOpen, setTiltaksPanelOpen] = useState(erDesktopStorrelse);
+    const featureToggles = useFeatureToggles();
 
     useEffect(() => {
         setStatusPanelOpen(erDesktopStorrelse);
@@ -84,6 +87,15 @@ const Filtermeny: FunctionComponent = () => {
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.UTGÅTT })}
                     />
+                    {featureToggles[Feature.Korreksjon] && (
+                        <Radio
+                            role="radio"
+                            label={storForbokstav(statusTekst[Status.MANUELL_KORREKSJON])}
+                            checked={filter.status === Status.MANUELL_KORREKSJON}
+                            name={'status'}
+                            onChange={() => oppdaterFilter({ status: Status.MANUELL_KORREKSJON })}
+                        />
+                    )}
                 </RadioGruppe>
             </EkspanderbartpanelBase>
             <VerticalSpacer rem={1.25} />

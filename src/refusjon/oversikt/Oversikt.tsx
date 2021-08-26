@@ -11,6 +11,9 @@ import { formatterDato } from '../../utils/datoUtils';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
+import { Feature } from '../../featureToggles/features';
+import { Status } from '../status';
 
 const cls = BEMHelper('oversikt');
 
@@ -36,7 +39,10 @@ const Info: FunctionComponent<{ tekst: string }> = (props) => (
 
 const Oversikt: FunctionComponent = () => {
     const { filter } = useFilter();
-    const refusjoner = useHentRefusjoner(filter);
+    const featureToggles = useFeatureToggles();
+    const refusjoner = useHentRefusjoner(filter)?.filter(
+        (refusjon) => featureToggles[Feature.Korreksjon] || refusjon.status !== Status.MANUELL_KORREKSJON
+    );
     const history = useHistory();
 
     if (refusjoner === undefined) {

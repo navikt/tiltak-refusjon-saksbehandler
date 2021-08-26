@@ -15,6 +15,9 @@ export interface Refusjon {
     beregning?: Beregning;
     fristForGodkjenning: string;
     harInntektIAlleMåneder: boolean;
+    korreksjonAvId?: string;
+    korrigeresAvId?: string;
+    korreksjonsgrunner: Korreksjonsgrunn[];
 }
 
 export interface Tilskuddsgrunnlag {
@@ -67,6 +70,14 @@ interface Beregning {
     overTilskuddsbeløp: boolean;
     sumUtgifter: number;
     tjenestepensjon: number;
+    tidligereUtbetalt: number;
+}
+
+export enum Korreksjonsgrunn {
+    // REBEREGNING = 'REBEREGNING',
+    UTBETALT_HELE_TILSKUDDSBELØP = 'UTBETALT_HELE_TILSKUDDSBELØP',
+    INNTEKTER_RAPPORTERT_UTENFOR_OPPTJENINGSPERIODE = 'INNTEKTER_RAPPORTERT_UTENFOR_OPPTJENINGSPERIODE',
+    HENT_INNTEKTER_PÅ_NYTT = 'HENT_INNTEKTER_PÅ_NYTT',
 }
 
 export interface AlleSteg {

@@ -2,6 +2,7 @@ import { ReactComponent as Bygg } from '@/asset/image/bygg.svg';
 import { ReactComponent as ErlikTegn } from '@/asset/image/erlikTegn.svg';
 import { ReactComponent as Pengesekken } from '@/asset/image/pengesekkdollar.svg';
 import { ReactComponent as PlussTegn } from '@/asset/image/plussTegn.svg';
+import { ReactComponent as MinusTegn } from '@/asset/image/minusTegn.svg';
 import { ReactComponent as ProsentTegn } from '@/asset/image/prosentTegn.svg';
 import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
@@ -154,11 +155,20 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 verdi={props.refusjon.tilskuddsgrunnlag.lønnstilskuddsprosent}
             />
             <VerticalSpacer rem={3} />
-            {props.refusjon.beregning?.overTilskuddsbeløp && (
+            {props.refusjon.beregning &&
+                (props.refusjon.beregning.overTilskuddsbeløp || props.refusjon.beregning.tidligereUtbetalt > 0) && (
+                    <Utregningsrad
+                        labelTekst="Beregnet beløp"
+                        verdiOperator={<ErlikTegn />}
+                        verdi={props.refusjon.beregning?.beregnetBeløp || 0}
+                        border="TYKK"
+                    />
+                )}
+            {props.refusjon.beregning && props.refusjon.beregning.tidligereUtbetalt > 0 && (
                 <Utregningsrad
-                    labelTekst="Beregnet beløp"
-                    verdiOperator={<ErlikTegn />}
-                    verdi={props.refusjon.beregning?.beregnetBeløp || 0}
+                    labelTekst="Tidligere utbetalt"
+                    verdiOperator={<MinusTegn />}
+                    verdi={props.refusjon.beregning.tidligereUtbetalt}
                     border="TYKK"
                 />
             )}

@@ -1,7 +1,3 @@
-import { Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-
 type Feilkode =
     | 'TEKNISK_FEIL_INNTEKTSOPPSLAG'
     | 'INNTEKT_HENTET_FOR_TIDLIG'
@@ -9,13 +5,8 @@ type Feilkode =
     | 'ETTER_FRIST'
     | 'INGEN_INNTEKTER'
     | 'TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG'
-    | 'INGEN_BEDRIFTKONTONUMMER';
-
-const Feilmelding: FunctionComponent<{ feilkode: Feilkode }> = (props) => {
-    return <Normaltekst>{feilmelding(props.feilkode)}</Normaltekst>;
-};
-
-export default Feilmelding;
+    | 'INGEN_BEDRIFTKONTONUMMER'
+    | 'INGEN_KORREKSJONSGRUNNER';
 
 export const feilmelding = (feilkode: Feilkode) => {
     switch (feilkode) {
@@ -33,5 +24,7 @@ export const feilmelding = (feilkode: Feilkode) => {
             return 'Feil ved henting av kontonummer oppslag';
         case 'INGEN_BEDRIFTKONTONUMMER':
             return 'Mangler kontonummer for bedriften';
+        case 'INGEN_KORREKSJONSGRUNNER':
+            return 'Det må velges en korreksjonsgrunn';
     }
 };

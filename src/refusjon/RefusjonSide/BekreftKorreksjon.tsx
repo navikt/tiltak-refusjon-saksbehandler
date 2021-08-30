@@ -45,7 +45,11 @@ const BekreftKorreksjon: FunctionComponent<Props> = () => {
             >
                 <Normaltekst>Hvorfor skal det korrigeres?</Normaltekst>
                 <VerticalSpacer rem={1} />
-                {[Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT, Korreksjonsgrunn.UTBETALT_HELE_TILSKUDDSBELØP].map((it) => (
+                {[
+                    Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT,
+                    Korreksjonsgrunn.UTBETALT_HELE_TILSKUDDSBELØP,
+                    Korreksjonsgrunn.INNTEKTER_RAPPORTERT_ETTER_TILSKUDDSPERIODE,
+                ].map((it) => (
                     <>
                         <Checkbox
                             label={korreksjonsgrunnTekst[it]}

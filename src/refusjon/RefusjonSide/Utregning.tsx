@@ -13,7 +13,7 @@ import React, { Fragment, FunctionComponent } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../messages';
 import BEMHelper from '../../utils/bem';
-import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
+import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT, NORSK_MÅNEDÅR_FORMAT } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjon } from '../refusjon';
 import './Utregning.less';
@@ -58,34 +58,48 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 <>
                     <div className={cls.element('inntekter')}>
                         <Element>Lønnsbeskrivelse</Element>
+                        <Element>År/måned</Element>
                         <Element>Opptjeningsperiode</Element>
                         <Element>Beløp</Element>
                         <Element>Refunderes</Element>
-                        {props.refusjon.inntektsgrunnlag.inntekter.map((inntekt) => (
-                            <Fragment key={inntekt.id}>
-                                <Normaltekst>
-                                    {inntekt.beskrivelse === undefined
-                                        ? ''
-                                        : lønnsbeskrivelseTekst[inntekt.beskrivelse] ??
-                                          'Inntekt: ' + inntekt.beskrivelse}
-                                </Normaltekst>
+                        {props.refusjon.inntektsgrunnlag.inntekter
+                            .sort((a, b) => {
+                                if (a.måned === b.måned) {
+                                    return a.id.localeCompare(b.id);
+                                }
+                                return a.måned.localeCompare(b.måned);
+                            })
+                            .map((inntekt) => (
+                                <Fragment key={inntekt.id}>
+                                    <Normaltekst>
+                                        {inntekt.beskrivelse === undefined
+                                            ? ''
+                                            : lønnsbeskrivelseTekst[inntekt.beskrivelse] ??
+                                              'Inntekt: ' + inntekt.beskrivelse}
+                                    </Normaltekst>
+                                    <Normaltekst>{formatterDato(inntekt.måned, NORSK_MÅNEDÅR_FORMAT)}</Normaltekst>
 
-                                <Normaltekst>
-                                    {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
-                                        formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom)
-                                    ) : (
-                                        <div>
-                                            <Warning style={{ marginRight: '0.25rem', marginBottom: '-0.175rem' }} />
-                                            <em>Ikke rapportert opptjeningsperiode</em>
-                                        </div>
-                                    )}
-                                </Normaltekst>
+                                    <Normaltekst>
+                                        {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
+                                            formatterPeriode(
+                                                inntekt.opptjeningsperiodeFom,
+                                                inntekt.opptjeningsperiodeTom
+                                            )
+                                        ) : (
+                                            <div>
+                                                <Warning
+                                                    style={{ marginRight: '0.25rem', marginBottom: '-0.175rem' }}
+                                                />
+                                                <em>Ikke rapportert opptjeningsperiode</em>
+                                            </div>
+                                        )}
+                                    </Normaltekst>
 
-                                <Normaltekst>{formatterPenger(inntekt.beløp)}</Normaltekst>
+                                    <Normaltekst>{formatterPenger(inntekt.beløp)}</Normaltekst>
 
-                                <Normaltekst>{inntekt.erMedIInntektsgrunnlag ? 'Ja' : 'Nei'}</Normaltekst>
-                            </Fragment>
-                        ))}
+                                    <Normaltekst>{inntekt.erMedIInntektsgrunnlag ? 'Ja' : 'Nei'}</Normaltekst>
+                                </Fragment>
+                            ))}
                     </div>
                     <VerticalSpacer rem={2} />
                     <div style={{ borderBottom: '1px solid #c6c2bf' }}></div>

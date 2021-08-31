@@ -175,6 +175,6 @@ export const lønnsbeskrivelseTekst: { [key: string]: string } = {
 export const korreksjonsgrunnTekst: { [key in Korreksjonsgrunn]: string } = {
     // REBEREGNING: 'Beregn refusjon på nytt',
     UTBETALT_HELE_TILSKUDDSBELØP: 'Utbetalt hele tilskuddsbeløpet',
-    INNTEKTER_RAPPORTERT_UTENFOR_OPPTJENINGSPERIODE: 'Inntekter rapportert utenfor tilskuddsperioden',
+    INNTEKTER_RAPPORTERT_ETTER_TILSKUDDSPERIODE: 'Inntekter rapportert etter tilskuddsperioden',
     HENT_INNTEKTER_PÅ_NYTT: 'Inntekter må hentes på nytt',
 };

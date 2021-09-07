@@ -5,10 +5,12 @@ import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
-import NokkelInfo from './NokkelInfo';
 import './RefusjonSide.less';
 import Utregning from './Utregning';
 import BekreftSlettKorreksjon from './BekreftSlettKorreksjon';
+import InformasjonFraAvtalen from './InformasjonFraAvtalen';
+import InntekterFraTiltaketSpørsmål from './InntekterFraTiltaketSpørsmål';
+import InntekterFraAMeldingen from './InntekterFraAMeldingen';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -35,9 +37,15 @@ const KorreksjonSide: FunctionComponent = () => {
                 beløpet som er utbetalt tidligere.
             </Normaltekst>
             <VerticalSpacer rem={2} />
-            <NokkelInfo />
+            <InformasjonFraAvtalen />
             <VerticalSpacer rem={2} />
-            <Utregning refusjon={refusjon} />
+            <InntekterFraAMeldingen />
+            <VerticalSpacer rem={2} />
+            <InntekterFraTiltaketSpørsmål />
+            <VerticalSpacer rem={2} />
+            {refusjon.beregning && (
+                <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
+            )}
         </HvitBoks>
     );
 };

@@ -8,12 +8,14 @@ import { statusTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
 import { storForbokstav } from '../../utils/stringUtils';
-import NokkelInfo from '../RefusjonSide/NokkelInfo';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
 import BekreftKorreksjon from '../RefusjonSide/BekreftKorreksjon';
 import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 import { Feature } from '../../featureToggles/features';
+import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
+import InntekterFraAMeldingen from '../RefusjonSide/InntekterFraAMeldingen';
+import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
 
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -39,9 +41,13 @@ const KvitteringSide: FunctionComponent = () => {
                 bli tatt vare på under “Sendt krav”.
             </Normaltekst>
             <VerticalSpacer rem={2} />
-            <NokkelInfo />
+            <InformasjonFraAvtalen />
             <VerticalSpacer rem={2} />
-            <Utregning refusjon={refusjon} />
+            <InntekterFraAMeldingen />
+            <VerticalSpacer rem={2} />
+            <InntekterFraTiltaketSvar />
+            <VerticalSpacer rem={2} />
+            <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
             <VerticalSpacer rem={4} />
             <SummeringBoks />
         </HvitBoks>

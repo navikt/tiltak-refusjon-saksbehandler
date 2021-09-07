@@ -18,6 +18,8 @@ export interface Refusjon {
     korreksjonAvId?: string;
     korrigeresAvId?: string;
     korreksjonsgrunner: Korreksjonsgrunn[];
+    inntekterKunFraTiltaket?: boolean;
+    korrigertBruttoLønn?: number;
 }
 
 export interface Tilskuddsgrunnlag {
@@ -46,6 +48,7 @@ export interface Tilskuddsgrunnlag {
 export interface Inntektsgrunnlag {
     innhentetTidspunkt: string;
     inntekter: Inntektslinje[];
+    bruttoLønn: number;
 }
 
 export interface Inntektslinje {
@@ -59,7 +62,7 @@ export interface Inntektslinje {
     erMedIInntektsgrunnlag: boolean;
 }
 
-interface Beregning {
+export interface Beregning {
     arbeidsgiveravgift: number;
     commitHash: string;
     feriepenger: number;

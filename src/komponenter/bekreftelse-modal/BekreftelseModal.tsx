@@ -2,9 +2,10 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import VerticalSpacer from '../VerticalSpacer';
+import BEMHelper from '../../utils/bem';
+import './bekreftelseModal.less';
 
-type Props = {
+interface Props {
     isOpen: boolean;
     lukkModal: () => void;
     bekreft: () => void;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const BekreftelseModal: FunctionComponent<Props> = (props) => {
+    const cls = BEMHelper('bekreftelse-modal');
     const setModalElement = () => {
         if (document.getElementById('root')) {
             return '#root';
@@ -23,19 +25,19 @@ const BekreftelseModal: FunctionComponent<Props> = (props) => {
     }
 
     return (
-        <Modal isOpen={props.isOpen} onRequestClose={() => props.lukkModal()} contentLabel="">
-            <div style={{ margin: '2rem', maxWidth: '40rem' }}>
-                <Innholdstittel style={{ textAlign: 'center' }}>{props.tittel}</Innholdstittel>
-                <VerticalSpacer rem={2} />
-                {props.children}
-                <VerticalSpacer rem={2} />
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Hovedknapp onClick={props.bekreft}>OK</Hovedknapp>
-                    <span style={{ minWidth: '2rem' }} />
-                    <Knapp onClick={() => props.lukkModal()}>Avbryt</Knapp>
+        <div className={cls.className}>
+            <Modal isOpen={props.isOpen} onRequestClose={() => props.lukkModal()} contentLabel='modal'
+                   className={cls.element('container')}>
+                <div className={cls.element('wrapper')}>
+                    <Innholdstittel className={cls.element('tittel')}>{props.tittel}</Innholdstittel>
+                    {props.children}
+                    <div className={cls.element('knapp-panel')}>
+                        <Hovedknapp onClick={props.bekreft}>OK</Hovedknapp>
+                        <Knapp onClick={() => props.lukkModal()}>Avbryt</Knapp>
+                    </div>
                 </div>
-            </div>
-        </Modal>
+            </Modal>
+        </div>
     );
 };
 

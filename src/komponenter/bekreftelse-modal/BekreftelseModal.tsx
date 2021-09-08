@@ -2,7 +2,7 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import VerticalSpacer from './VerticalSpacer';
+import VerticalSpacer from '../VerticalSpacer';
 
 type Props = {
     isOpen: boolean;
@@ -11,7 +11,7 @@ type Props = {
     tittel: string;
 };
 
-const BekreftModal: FunctionComponent<Props> = (props) => {
+const BekreftelseModal: FunctionComponent<Props> = (props) => {
     const setModalElement = () => {
         if (document.getElementById('root')) {
             return '#root';
@@ -39,4 +39,4 @@ const BekreftModal: FunctionComponent<Props> = (props) => {
     );
 };
 
-export default BekreftModal;
+export default BekreftelseModal;

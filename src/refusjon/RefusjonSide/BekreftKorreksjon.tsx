@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import BekreftModal from '../../komponenter/BekreftModal';
+import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { korriger } from '../../services/rest-service';
 import { useParams } from 'react-router';
 import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
@@ -27,7 +27,7 @@ const BekreftKorreksjon: FunctionComponent<Props> = () => {
             >
                 Korriger
             </Knapp>
-            <BekreftModal
+            <BekreftelseModal
                 isOpen={åpen}
                 lukkModal={() => {
                     setFeilmelding('');
@@ -68,7 +68,7 @@ const BekreftKorreksjon: FunctionComponent<Props> = () => {
                     </>
                 ))}
                 {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
-            </BekreftModal>
+            </BekreftelseModal>
         </>
     );
 };

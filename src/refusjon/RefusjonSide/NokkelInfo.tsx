@@ -88,7 +88,7 @@ const NokkelInfo: FunctionComponent = () => {
             <IkonRad>
                 <Money />
                 <Element>Kontonummer:</Element>
-                <Normaltekst>{refusjon.bedriftKontonummer}</Normaltekst>
+                <Normaltekst>{refusjon.bedriftKontonummer ?? ''}</Normaltekst>
             </IkonRad>
             {refusjon.bedriftKontonummer === null && (
                 <>

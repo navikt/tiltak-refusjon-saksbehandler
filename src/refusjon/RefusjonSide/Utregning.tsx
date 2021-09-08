@@ -28,7 +28,9 @@ const cls = BEMHelper('utregning');
 const Utregning: FunctionComponent<Props> = (props) => {
     const bruttoLønnLabel = (
         <>
-            Brutto lønn i perioden (hentet fra a-meldingen)
+            <Normaltekst>
+                Brutto lønn i perioden (hentet fra a-meldingen)
+            </Normaltekst>
             {props.refusjon.inntektsgrunnlag && (
                 <Element>
                     Sist hentet:{' '}
@@ -52,7 +54,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 labelIkon={<Pengesekken />}
                 labelTekst={bruttoLønnLabel}
                 verdi={props.refusjon.beregning?.lønn || 0}
-                border="INGEN"
+                border='INGEN'
             />
             {props.refusjon.inntektsgrunnlag && props.refusjon.inntektsgrunnlag.inntekter.length > 0 && (
                 <>
@@ -82,25 +84,28 @@ const Utregning: FunctionComponent<Props> = (props) => {
                                         {inntekt.beskrivelse === undefined
                                             ? ''
                                             : lønnsbeskrivelseTekst[inntekt.beskrivelse] ??
-                                              'Inntekt: ' + inntekt.beskrivelse}
+                                            'Inntekt: ' + inntekt.beskrivelse}
                                     </Normaltekst>
                                     <Normaltekst>{formatterDato(inntekt.måned, NORSK_MÅNEDÅR_FORMAT)}</Normaltekst>
 
-                                    <Normaltekst>
-                                        {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
+
+                                    {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
+                                        <Normaltekst>
                                             formatterPeriode(
-                                                inntekt.opptjeningsperiodeFom,
-                                                inntekt.opptjeningsperiodeTom
-                                            )
-                                        ) : (
-                                            <div>
+                                            inntekt.opptjeningsperiodeFom,
+                                            inntekt.opptjeningsperiodeTom
+                                        </Normaltekst>
+                                    ) : (
+                                        <div>
+                                            <Normaltekst>
                                                 <Warning
                                                     style={{ marginRight: '0.25rem', marginBottom: '-0.175rem' }}
                                                 />
                                                 <em>Ikke rapportert opptjeningsperiode</em>
-                                            </div>
-                                        )}
-                                    </Normaltekst>
+                                            </Normaltekst>
+                                        </div>
+                                    )}
+
 
                                     <Normaltekst>{formatterPenger(inntekt.beløp)}</Normaltekst>
 
@@ -133,7 +138,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                             Du kan kun søke om refusjon for den avtalte perioden{' '}
                             {formatterPeriode(
                                 props.refusjon.tilskuddsgrunnlag.tilskuddFom,
-                                props.refusjon.tilskuddsgrunnlag.tilskuddTom
+                                props.refusjon.tilskuddsgrunnlag.tilskuddTom,
                             )}{' '}
                             én gang. Sikre deg derfor at alle inntekter innenfor perioden er rapportert før du klikker
                             fullfør.
@@ -145,60 +150,60 @@ const Utregning: FunctionComponent<Props> = (props) => {
 
             <Utregningsrad
                 labelIkon={<Stranden />}
-                labelTekst="Feriepenger"
+                labelTekst='Feriepenger'
                 labelSats={props.refusjon.tilskuddsgrunnlag.feriepengerSats}
                 verdiOperator={<PlussTegn />}
                 verdi={props.refusjon.beregning?.feriepenger || 0}
             />
             <Utregningsrad
                 labelIkon={<Sparegris />}
-                labelTekst="Innskudd obligatorisk tjenestepensjon"
+                labelTekst='Innskudd obligatorisk tjenestepensjon'
                 labelSats={props.refusjon.tilskuddsgrunnlag.otpSats}
                 verdiOperator={<PlussTegn />}
                 verdi={props.refusjon.beregning?.tjenestepensjon || 0}
             />
             <Utregningsrad
                 labelIkon={<Bygg />}
-                labelTekst="Arbeidsgiveravgift"
+                labelTekst='Arbeidsgiveravgift'
                 labelSats={props.refusjon.tilskuddsgrunnlag.arbeidsgiveravgiftSats}
                 verdiOperator={<PlussTegn />}
                 verdi={props.refusjon.beregning?.arbeidsgiveravgift || 0}
             />
             <Utregningsrad
-                labelTekst="Refusjonsgrunnlag"
+                labelTekst='Refusjonsgrunnlag'
                 verdiOperator={<ErlikTegn />}
                 verdi={props.refusjon.beregning?.sumUtgifter || 0}
             />
             <Utregningsrad
-                labelTekst="Tilskuddsprosent"
+                labelTekst='Tilskuddsprosent'
                 verdiOperator={<ProsentTegn />}
                 ikkePenger
                 verdi={props.refusjon.tilskuddsgrunnlag.lønnstilskuddsprosent}
             />
             <VerticalSpacer rem={3} />
             {props.refusjon.beregning &&
-                (props.refusjon.beregning.overTilskuddsbeløp || props.refusjon.beregning.tidligereUtbetalt > 0) && (
-                    <Utregningsrad
-                        labelTekst="Beregnet beløp"
-                        verdiOperator={<ErlikTegn />}
-                        verdi={props.refusjon.beregning?.beregnetBeløp || 0}
-                        border="TYKK"
-                    />
-                )}
+            (props.refusjon.beregning.overTilskuddsbeløp || props.refusjon.beregning.tidligereUtbetalt > 0) && (
+                <Utregningsrad
+                    labelTekst='Beregnet beløp'
+                    verdiOperator={<ErlikTegn />}
+                    verdi={props.refusjon.beregning?.beregnetBeløp || 0}
+                    border='TYKK'
+                />
+            )}
             {props.refusjon.beregning && props.refusjon.beregning.tidligereUtbetalt > 0 && (
                 <Utregningsrad
-                    labelTekst="Tidligere utbetalt"
+                    labelTekst='Tidligere utbetalt'
                     verdiOperator={<MinusTegn />}
                     verdi={props.refusjon.beregning.tidligereUtbetalt}
-                    border="TYKK"
+                    border='TYKK'
                 />
             )}
             <Utregningsrad
-                labelTekst="Refusjonsbeløp"
+                labelTekst='Refusjonsbeløp'
                 verdiOperator={<ErlikTegn />}
                 verdi={props.refusjon.beregning?.refusjonsbeløp ?? 'kan ikke beregne'}
                 ikkePenger={props.refusjon.beregning === undefined}
-                border="TYKK"
+                border='TYKK'
             />
             <VerticalSpacer rem={1} />
             {props.refusjon.beregning?.overTilskuddsbeløp && (

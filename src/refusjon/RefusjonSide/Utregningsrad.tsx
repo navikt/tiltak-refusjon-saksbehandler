@@ -47,7 +47,7 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
             <div className={cls.element('utregning-label')}>
                 <div className={cls.element('label-innhold')}>
                     {setIkon(props.labelIkon)}
-                    <Normaltekst id={labelTekstString}>{props.labelTekst}</Normaltekst>
+                    {typeof props.labelTekst == 'string' ?  <Normaltekst id={labelTekstString}>{props.labelTekst}</Normaltekst> : props.labelTekst}
                 </div>
                 {setLabelSats(props.labelSats)}
             </div>

@@ -78,3 +78,10 @@ export const hentFeatureToggles = async (featureToggles: Feature[]) => {
     const response = await api.get('/feature?' + featureToggles.map((feature) => `feature=${feature}`).join('&'));
     return response.data;
 };
+
+export const endreRefusjonFrist = async (refusjonId: string, nyFrist: any) => {
+    const response = await axios
+        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/endre-refusjon-frist`, { nyFrist })
+        .catch(håndterFeil);
+    return response.data;
+};

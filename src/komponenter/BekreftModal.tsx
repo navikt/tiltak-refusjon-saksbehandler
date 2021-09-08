@@ -12,6 +12,16 @@ type Props = {
 };
 
 const BekreftModal: FunctionComponent<Props> = (props) => {
+    const setModalElement = () => {
+        if (document.getElementById('root')) {
+            return '#root';
+        }
+        return 'body';
+    };
+    if (typeof window !== 'undefined') {
+        Modal.setAppElement(setModalElement());
+    }
+
     return (
         <Modal isOpen={props.isOpen} onRequestClose={() => props.lukkModal()} contentLabel="">
             <div style={{ margin: '2rem', maxWidth: '40rem' }}>

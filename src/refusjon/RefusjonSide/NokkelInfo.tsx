@@ -1,7 +1,7 @@
 import { Calender, File, FileContent, Money, People, Receipt } from '@navikt/ds-icons';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
@@ -10,6 +10,9 @@ import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
+import { Refusjon } from '../refusjon';
+
+import ForlengeDato from './ForlengeDato';
 
 const IkonRad = styled.div`
     display: flex;
@@ -20,8 +23,14 @@ const IkonRad = styled.div`
 
 const NokkelInfo: FunctionComponent = () => {
     const { refusjonId } = useParams();
-    const refusjon = useHentRefusjon(refusjonId);
+    //let refusjon = useHentRefusjon(refusjonId);
 
+    const [refusjon, setRefusjon] = useState<Refusjon>(useHentRefusjon(refusjonId));
+    /*
+    const oppdatertRefusjon = (oppdatertRefusjon: Refusjon) => {
+        setRefusjon(oppdatertRefusjon);
+    };
+*/
     const avtaleLenke = `https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing/avtale/${refusjon.tilskuddsgrunnlag.avtaleId}`;
 
     return (
@@ -61,6 +70,13 @@ const NokkelInfo: FunctionComponent = () => {
                 <Normaltekst>
                     {formatterPeriode(refusjon.tilskuddsgrunnlag.tilskuddFom, refusjon.tilskuddsgrunnlag.tilskuddTom)}
                 </Normaltekst>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <Calender />
+                <Element>Frist: </Element>
+                <Normaltekst>{refusjon.fristForGodkjenning}</Normaltekst>
+                <ForlengeDato dato={refusjon.fristForGodkjenning} refusjonId={refusjonId} refusjon={setRefusjon} />
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>

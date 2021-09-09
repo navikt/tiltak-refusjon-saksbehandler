@@ -1,7 +1,7 @@
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { CSSProperties, FunctionComponent } from 'react';
 import BEMHelper from '../../utils/bem';
 import './bekreftelseModal.less';
 
@@ -10,6 +10,8 @@ interface Props {
     lukkModal: () => void;
     bekreft: () => void;
     tittel: string;
+    containerStyle?: CSSProperties;
+
 };
 
 const BekreftelseModal: FunctionComponent<Props> = (props) => {
@@ -27,7 +29,7 @@ const BekreftelseModal: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Modal isOpen={props.isOpen} onRequestClose={() => props.lukkModal()} contentLabel='modal'
-                   className={cls.element('container')}>
+                   className={cls.element('container')} style={{content: props.containerStyle}}>
                 <div className={cls.element('wrapper')}>
                     <Innholdstittel className={cls.element('tittel')}>{props.tittel}</Innholdstittel>
                     {props.children}

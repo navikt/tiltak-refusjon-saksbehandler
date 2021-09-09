@@ -71,7 +71,7 @@ const NokkelInfo: FunctionComponent = () => {
                 <Calender />
                 <Element>Frist: </Element>
                 <Normaltekst>{refusjon.fristForGodkjenning}</Normaltekst>
-                <ForlengeDato dato={refusjon.fristForGodkjenning} refusjonId={refusjonId} refusjon={setRefusjon} />
+                <ForlengeDato sisteFristDato={refusjon.fristForGodkjenning} refusjonId={refusjonId} refusjon={setRefusjon} />
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>

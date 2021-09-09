@@ -38,7 +38,6 @@ const ForlengeDato: FunctionComponent<Props> = ({ sisteFristDato, refusjonId, re
     const oppdatereRefusjonFrist = async () => {
         const parseDate = Date.parse(formatDateToIsoDateFormat(datoFraInputFelt));
         if (!isNaN(parseDate) && new Date(parseDate) > new Date(sisteFristDato) && grunnlag.length > 0) {
-            console.log('EY', new Date (parseDate).toLocaleDateString(), formatDateToIsoDateFormat(datoFraInputFelt), sisteFristDato);
             const valgGrunn = grunnlag.includes('annet') ? annetGrunnlag : grunnlag;
             try {
                 const oppdatertRefusjon = await endreRefusjonFrist(refusjonId,

@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { feilmelding } from '../feilkodemapping';
 import { Filter } from '../refusjon/oversikt/FilterContext';
@@ -65,6 +65,21 @@ export const korriger = async (refusjonId: string, korreksjonsgrunner: Korreksjo
     const response = await axios
         .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/korriger`, { korreksjonsgrunner })
         .catch(håndterFeil);
+    return response.data;
+};
+
+export const korrigerBruttolønn = async (
+    refusjonId: string,
+    inntekterKunFraTiltaket: boolean,
+    korrigertBruttoLønn?: number
+) => {
+    const response = await axios
+        .post(`${API_URL}/refusjon/${refusjonId}/korriger-bruttolønn`, {
+            inntekterKunFraTiltaket: inntekterKunFraTiltaket,
+            korrigertBruttoLønn: korrigertBruttoLønn,
+        })
+        .catch(håndterFeil);
+    await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };
 

@@ -16,7 +16,6 @@ import BEMHelper from '../../utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT, NORSK_MÅNEDÅR_FORMAT } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjon } from '../refusjon';
-import './Utregning.less';
 import Utregningsrad from './Utregningsrad';
 
 interface Props {

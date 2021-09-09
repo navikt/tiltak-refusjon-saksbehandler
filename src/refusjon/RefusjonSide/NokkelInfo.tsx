@@ -11,7 +11,6 @@ import { useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjon } from '../refusjon';
-
 import ForlengeDato from '../forlengedato/ForlengeDato';
 
 const IkonRad = styled.div`
@@ -24,8 +23,6 @@ const IkonRad = styled.div`
 const NokkelInfo: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const [refusjon, setRefusjon] = useState<Refusjon>(useHentRefusjon(refusjonId));
-
-
     const avtaleLenke = `https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing/avtale/${refusjon.tilskuddsgrunnlag.avtaleId}`;
 
     return (
@@ -39,13 +36,13 @@ const NokkelInfo: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <IkonRad>
                 <Receipt />
-                <Element>Avtalenummer: </Element>
+                <Element>Avtalenummer:</Element>
                 <Normaltekst>{refusjon.tilskuddsgrunnlag.avtaleNr}</Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
                 <Receipt />
-                <Element>Refusjonsnummer: </Element>
+                <Element>Refusjonsnummer:</Element>
                 <Normaltekst>
                     {refusjon.tilskuddsgrunnlag.avtaleNr}-{refusjon.tilskuddsgrunnlag.løpenummer}
                 </Normaltekst>
@@ -71,7 +68,11 @@ const NokkelInfo: FunctionComponent = () => {
                 <Calender />
                 <Element>Frist: </Element>
                 <Normaltekst>{refusjon.fristForGodkjenning}</Normaltekst>
-                <ForlengeDato sisteFristDato={refusjon.fristForGodkjenning} refusjonId={refusjonId} refusjon={setRefusjon} />
+                <ForlengeDato
+                    fristForGodkjenning={refusjon.fristForGodkjenning}
+                    forrigeFristForGodkjenning={refusjon.forrigeFristForGodkjenning}
+                    refusjonId={refusjonId}
+                    refusjon={setRefusjon} />
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
@@ -83,7 +84,7 @@ const NokkelInfo: FunctionComponent = () => {
             <IkonRad>
                 <Money />
                 <Element>Kontonummer:</Element>
-                <Normaltekst>{refusjon.bedriftKontonummer ?? ''}</Normaltekst>
+                <Normaltekst>{refusjon.bedriftKontonummer ?? 'ikke oppgitt'}</Normaltekst>
             </IkonRad>
             {refusjon.bedriftKontonummer === null && (
                 <>

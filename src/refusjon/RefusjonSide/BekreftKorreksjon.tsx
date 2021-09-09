@@ -10,21 +10,15 @@ import { Checkbox } from 'nav-frontend-skjema';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { korreksjonsgrunnTekst } from '../../messages';
 
-interface Props {}
-
-const BekreftKorreksjon: FunctionComponent<Props> = () => {
+const BekreftKorreksjon: FunctionComponent<{}> = () => {
     const { refusjonId } = useParams();
     const history = useHistory();
     const [åpen, setÅpen] = useState(false);
     const [grunner, setGrunner] = useState<Set<Korreksjonsgrunn>>(new Set<Korreksjonsgrunn>());
-    const [feilmelding, setFeilmelding] = useState('');
+    const [feilmelding, setFeilmelding] = useState<string>('');
     return (
         <>
-            <Knapp
-                onClick={() => {
-                    setÅpen(true);
-                }}
-            >
+            <Knapp onClick={() => setÅpen(true)}>
                 Korriger
             </Knapp>
             <BekreftelseModal

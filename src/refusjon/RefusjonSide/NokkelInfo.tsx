@@ -12,7 +12,7 @@ import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjon } from '../refusjon';
 
-import ForlengeDato from './ForlengeDato';
+import ForlengeDato from '../forlengedato/ForlengeDato';
 
 const IkonRad = styled.div`
     display: flex;
@@ -23,14 +23,9 @@ const IkonRad = styled.div`
 
 const NokkelInfo: FunctionComponent = () => {
     const { refusjonId } = useParams();
-    //let refusjon = useHentRefusjon(refusjonId);
-
     const [refusjon, setRefusjon] = useState<Refusjon>(useHentRefusjon(refusjonId));
-    /*
-    const oppdatertRefusjon = (oppdatertRefusjon: Refusjon) => {
-        setRefusjon(oppdatertRefusjon);
-    };
-*/
+
+
     const avtaleLenke = `https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing/avtale/${refusjon.tilskuddsgrunnlag.avtaleId}`;
 
     return (

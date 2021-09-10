@@ -1,11 +1,13 @@
+@import (reference) "~nav-frontend-core/less/_variabler";
+
 .forlenge-dato {
   &__container {
     display: flex;
     justify-content: center;
-    width: calc(100% - 3rem);
+    width: calc(100% - 1rem);
     margin-bottom: 3rem;
     flex-direction: column;
-    padding: 0 2rem;
+    padding: 0 0.5rem;
   }
 
   &__input-wrapper {
@@ -18,17 +20,30 @@
   &__dato-input {
     margin: 1.5rem 0;
   }
-}
+  .DayPicker-Day {
+    padding: 0.75rem;
+    font-weight: 400;
+  }
+  .DayPicker {
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+  }
 
-.DayPicker {
-  box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
-}
 
+  @media(min-width: @screen-sm) {
+    &__container {
+      padding: 0 2rem;
+      width: calc(100% - 3rem);
+    }
+
+    .DayPicker-Day {
+      padding: 0.75rem 1rem;
+      font-weight: 400;
+    }
+  }
+
+}
 .bekreftelse-modal__knapp-panel {
   justify-content: space-around;
 }
 
-.DayPicker-Day {
-  padding: 0.75rem 1rem;
-  font-weight: 400;
-}
+

@@ -1,6 +1,7 @@
 import { VenstreChevron } from 'nav-frontend-chevron';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+import ForlengeDato from '../refusjon/forlengedato/ForlengeDato';
 
 const TilbakeTilOversikt: FunctionComponent = () => {
     return (
@@ -14,6 +15,7 @@ const TilbakeTilOversikt: FunctionComponent = () => {
                 </div>
                 Tilbake til oversikt
             </Link>
+            <ForlengeDato />
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import { Radio, RadioGruppe, SkjemaGruppe, TextareaControlled } from 'nav-frontend-skjema';
+import { Radio, RadioGruppe, SkjemaGruppe, Textarea } from 'nav-frontend-skjema';
 import { ForlengeDatoSkjemaGruppeFeil, finnFeilMeldingFraInputDialog } from '../../utils/forlengeDatoUtils';
 
 interface Props {
@@ -26,11 +26,11 @@ const GrunnlagTilForlengelse: FunctionComponent<Props> = (props) => {
                     <Radio label='annet' name='begrunnelse' onClick={() => setGrunnlag('annet')} />
                 </RadioGruppe>
                 {grunnlag.includes('annet') &&
-                <TextareaControlled defaultValue=''
-                                    feil={finnFeilMeldingFraInputDialog(['mangler-annet'], skjemaGruppeFeilmeldinger)}
-                                    label='Oppgi grunnlag' maxLength={100}
-                                    value={annetGrunnlag}
-                                    onChange={event => setAnnetGrunnlag(event.target.value)} />}
+                <Textarea
+                    feil={finnFeilMeldingFraInputDialog(['mangler-annet'], skjemaGruppeFeilmeldinger)}
+                    label='Oppgi grunnlag' maxLength={100}
+                    value={annetGrunnlag}
+                    onChange={event => setAnnetGrunnlag(event.target.value)} />}
 
             </SkjemaGruppe>
         </div>

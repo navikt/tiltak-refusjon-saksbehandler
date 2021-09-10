@@ -11,9 +11,9 @@ import './forlengeDato.less';
 import { Label, Input } from 'nav-frontend-skjema';
 import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
 import {
-    disableAfter,
+    disableAfter, ForlengeDatoSkjemaGruppeFeil,
     formatDateToIsoDateFormat,
-    getDateStringFraDatoVelger,
+    getDateStringFraDatoVelger, finnFeilMeldingFraInputDialog,
 } from '../../utils/forlengeDatoUtils';
 
 interface Props {
@@ -30,35 +30,57 @@ const ForlengeDato: FunctionComponent<Props> =
         const [datoFraInputFelt, setDatoFraInputFelt] = useState<string>(fristForGodkjenning);
         const [grunnlag, setGrunnlag] = useState<string>('');
         const [annetGrunnlag, setAnnetGrunnlag] = useState<string>('');
+        const [skjemaGruppeFeilmeldinger, setSkjemaGruppeFeilmeldinger] =
+            useState<ForlengeDatoSkjemaGruppeFeil[] | []>([]);
         const cls = BEMHelper('forlenge-dato');
 
         useEffect(() => {
             setDatoFraInputFelt(getDateStringFraDatoVelger(datoFraDatoVelger));
         }, [datoFraDatoVelger]);
 
+        const lukkModalOgResettState = () => {
+            setDatoFraDatoVelger(new Date(Date.parse(fristForGodkjenning)));
+            setDatoFraInputFelt(fristForGodkjenning);
+            setGrunnlag('');
+            setAnnetGrunnlag('');
+            setSkjemaGruppeFeilmeldinger([]);
+            setOpen(false);
+        };
+
+        const setNyFeilMelding = (id: string, feilMelding: string) => {
+            setSkjemaGruppeFeilmeldinger(prevState => (
+                [...prevState, ...[{ id: id, feilMelding: feilMelding }]]
+            ));
+        };
+
         const sjekkInnsendingsInformasjon = () => {
+            let KAN_SENDE_INN: boolean = true;
+            setSkjemaGruppeFeilmeldinger([]);
             const parseDate = Date.parse(formatDateToIsoDateFormat(datoFraInputFelt));
             if (isNaN(parseDate)) {
-                // ugyldig datoformat
-                console.log('ugyldig datoformat', isNaN(parseDate))
-                return;
+                setNyFeilMelding('ugyldig-datoformat', 'Ugyldig datoformat. DD.MM.YYYY.');
+                KAN_SENDE_INN = false;
             }
             if (new Date(parseDate) < new Date(fristForGodkjenning)) {
-                // dato-input mindre enn fristforgodkjenning
-                console.log('dato-input mindre enn fristforgodkjenning')
-                return;
+                setNyFeilMelding('for-kort-frist', 'Fristen kan ikke settes kortere enn opprinnelig utløpsdato.');
+                KAN_SENDE_INN = false;
             }
             if (new Date(parseDate) > new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3)))) {
-                // dato-input større enn lovlig ny frist paa 1mnd ekstra
-                console.log('dato-input større enn lovlig ny frist paa 1mnd ekstra')
-                return;
+                setNyFeilMelding('for-lang-frist', 'Fristen kan ikke overstige 1 måned.');
+                KAN_SENDE_INN = false;
             }
             if (grunnlag.length === 0) {
-                //grunnlag er ikke satt
-                console.log('grunnlag er ikke satt')
-                return;
+                setNyFeilMelding('mangler-grunnlag', 'Må sette grunn til forlengelse.');
+                KAN_SENDE_INN = false;
             }
-            oppdatereRefusjonFrist();
+            if (grunnlag.includes('annet') && annetGrunnlag.length === 0) {
+                setNyFeilMelding('mangler-annet', 'Mangler text for annet grunnlag.');
+                KAN_SENDE_INN = false;
+            }
+            if (KAN_SENDE_INN) {
+                setSkjemaGruppeFeilmeldinger([]);
+                oppdatereRefusjonFrist();
+            }
         };
 
         const oppdatereRefusjonFrist = async () => {
@@ -78,12 +100,12 @@ const ForlengeDato: FunctionComponent<Props> =
                 <Knapp onClick={() => setOpen(!open)}>Endre Frist</Knapp>
                 <BekreftelseModal
                     isOpen={open}
-                    lukkModal={() => setOpen(false)}
+                    lukkModal={lukkModalOgResettState}
                     bekreft={sjekkInnsendingsInformasjon}
                     tittel={'Endre refusjon frist'}
                     containerStyle={{ minWidth: '28rem' }}
                 >
-                    <div style={{}} className={cls.element('container')}>
+                    <div className={cls.element('container')}>
                         <div className={cls.element('dato-velger')}>
                             <DayPicker
                                 initialMonth={datoFraDatoVelger}
@@ -98,14 +120,21 @@ const ForlengeDato: FunctionComponent<Props> =
                         <div className={cls.element('dato-input')}>
                             <Label className={cls.element('label')} htmlFor='dato-label'>Dato</Label>
                             <div className={cls.element('input-wrapper')}>
-                                <Input onChange={event => setDatoFraInputFelt(event.target.value)}
+                                <Input
+                                    feil={finnFeilMeldingFraInputDialog(['ugyldig-datoformat', 'for-kort-frist', 'for-lang-frist'],
+                                    skjemaGruppeFeilmeldinger)}
+                                       onChange={event => setDatoFraInputFelt(event.target.value)}
                                        className={cls.element('input-felt-dato')} id='dato-input' bredde='S'
                                        value={datoFraInputFelt} />
                             </div>
                         </div>
-                        <GrunnlagTilForlengelse grunnlag={grunnlag} setGrunnlag={setGrunnlag}
-                                                annetGrunnlag={annetGrunnlag}
-                                                setAnnetGrunnlag={setAnnetGrunnlag} />
+                        <GrunnlagTilForlengelse
+                            grunnlag={grunnlag}
+                            setGrunnlag={setGrunnlag}
+                            annetGrunnlag={annetGrunnlag}
+                            setAnnetGrunnlag={setAnnetGrunnlag}
+                            skjemaGruppeFeilmeldinger={skjemaGruppeFeilmeldinger}
+                        />
                     </div>
 
                 </BekreftelseModal>

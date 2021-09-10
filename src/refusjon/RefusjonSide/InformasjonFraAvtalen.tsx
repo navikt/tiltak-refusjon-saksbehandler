@@ -70,10 +70,9 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
                 <Element>Frist: </Element>
                 <Normaltekst>{refusjon.fristForGodkjenning}</Normaltekst>
                 <ForlengeDato
-                    fristForGodkjenning={refusjon.fristForGodkjenning}
-                    forrigeFristForGodkjenning={refusjon.forrigeFristForGodkjenning}
                     refusjonId={refusjonId}
-                    refusjon={setRefusjon} />
+                    refusjon={refusjon}
+                    setRefusjon={setRefusjon} />
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>

@@ -3,9 +3,9 @@ export interface NyFristRequest {
     årsak: string
 }
 
-export const disableAfter = (sisteFristDato: string): string => {
+export const disableAfter = (sisteFristDato: string, antallMnd: number): string => {
     return sisteFristDato.split('-').map((dato, index) => index === 1 ?
-        (parseInt(dato) + 1).toFixed(0) : dato).join('-');
+        (parseInt(dato) + antallMnd).toFixed(0) : dato).join('-');
 };
 
 

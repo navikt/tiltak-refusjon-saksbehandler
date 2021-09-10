@@ -17,14 +17,14 @@ import {
 } from '../../utils/forlengeDatoUtils';
 
 interface Props {
-    fristForGodkjenning: string;
-    forrigeFristForGodkjenning: string | undefined;
     refusjonId: string;
-    refusjon: Dispatch<SetStateAction<Refusjon>>;
+    refusjon: Refusjon;
+    setRefusjon: Dispatch<SetStateAction<Refusjon>>;
 }
 
 const ForlengeDato: FunctionComponent<Props> =
-    ({ fristForGodkjenning, forrigeFristForGodkjenning, refusjonId, refusjon }) => {
+    ({ refusjonId, refusjon, setRefusjon }) => {
+        const { fristForGodkjenning, tilskuddsgrunnlag } = refusjon;
         const [open, setOpen] = useState<boolean>(false);
         const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(new Date(Date.parse(fristForGodkjenning)));
         const [datoFraInputFelt, setDatoFraInputFelt] = useState<string>(fristForGodkjenning);
@@ -36,18 +36,40 @@ const ForlengeDato: FunctionComponent<Props> =
             setDatoFraInputFelt(getDateStringFraDatoVelger(datoFraDatoVelger));
         }, [datoFraDatoVelger]);
 
-        const oppdatereRefusjonFrist = async () => {
+        const sjekkInnsendingsInformasjon = () => {
             const parseDate = Date.parse(formatDateToIsoDateFormat(datoFraInputFelt));
-            if (!isNaN(parseDate) && new Date(parseDate) > new Date(fristForGodkjenning) && grunnlag.length > 0) {
-                const valgGrunn = grunnlag.includes('annet') ? annetGrunnlag : grunnlag;
-                try {
-                    const oppdatertRefusjon = await endreRefusjonFrist(refusjonId,
-                        { nyFrist: formatDateToIsoDateFormat(datoFraInputFelt), årsak: valgGrunn });
-                    refusjon(oppdatertRefusjon);
-                    setOpen(false);
-                } catch (error) {
-                    console.warn('error:', error);
-                }
+            if (isNaN(parseDate)) {
+                // ugyldig datoformat
+                console.log('ugyldig datoformat', isNaN(parseDate))
+                return;
+            }
+            if (new Date(parseDate) < new Date(fristForGodkjenning)) {
+                // dato-input mindre enn fristforgodkjenning
+                console.log('dato-input mindre enn fristforgodkjenning')
+                return;
+            }
+            if (new Date(parseDate) > new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3)))) {
+                // dato-input større enn lovlig ny frist paa 1mnd ekstra
+                console.log('dato-input større enn lovlig ny frist paa 1mnd ekstra')
+                return;
+            }
+            if (grunnlag.length === 0) {
+                //grunnlag er ikke satt
+                console.log('grunnlag er ikke satt')
+                return;
+            }
+            oppdatereRefusjonFrist();
+        };
+
+        const oppdatereRefusjonFrist = async () => {
+            const valgGrunn = grunnlag.includes('annet') ? annetGrunnlag : grunnlag;
+            try {
+                const oppdatertRefusjon = await endreRefusjonFrist(refusjonId,
+                    { nyFrist: formatDateToIsoDateFormat(datoFraInputFelt), årsak: valgGrunn });
+                setRefusjon(oppdatertRefusjon);
+                setOpen(false);
+            } catch (error) {
+                console.warn('error:', error);
             }
         };
 
@@ -57,7 +79,7 @@ const ForlengeDato: FunctionComponent<Props> =
                 <BekreftelseModal
                     isOpen={open}
                     lukkModal={() => setOpen(false)}
-                    bekreft={oppdatereRefusjonFrist}
+                    bekreft={sjekkInnsendingsInformasjon}
                     tittel={'Endre refusjon frist'}
                     containerStyle={{ minWidth: '28rem' }}
                 >
@@ -69,8 +91,7 @@ const ForlengeDato: FunctionComponent<Props> =
                                 onDayClick={day => setDatoFraDatoVelger(day)}
                                 disabledDays={{
                                     before: new Date(Date.parse(fristForGodkjenning)),
-                                    after: new Date(Date.parse(disableAfter(forrigeFristForGodkjenning ?
-                                        forrigeFristForGodkjenning : fristForGodkjenning))),
+                                    after: new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3))),
                                 }}
                             />
                         </div>

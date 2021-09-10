@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Calender, File, FileContent, Money, People, Warning } from '@navikt/ds-icons';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';

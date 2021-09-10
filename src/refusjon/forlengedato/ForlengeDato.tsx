@@ -15,6 +15,7 @@ import {
     getDateStringFraDatoVelger, finnFeilMeldingFraInputDialog,
 } from '../../utils/forlengeDatoUtils';
 import { useParams } from 'react-router';
+import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
 
 const ForlengeDato: FunctionComponent<{  }> = () => {
         const { refusjonId } = useParams();
@@ -27,20 +28,11 @@ const ForlengeDato: FunctionComponent<{  }> = () => {
         const [annetGrunnlag, setAnnetGrunnlag] = useState<string>('');
         const [skjemaGruppeFeilmeldinger, setSkjemaGruppeFeilmeldinger] =
             useState<ForlengeDatoSkjemaGruppeFeil[] | []>([]);
-        const [modalSize, setModalSize] = useState<string>(window.innerWidth > 768 ? '28' : '20');
         const cls = BEMHelper('forlenge-dato');
 
         useEffect(() => {
             setDatoFraInputFelt(getDateStringFraDatoVelger(datoFraDatoVelger));
         }, [datoFraDatoVelger]);
-
-        useEffect(() => {
-            const modalSize = () => {
-                setModalSize(window.innerWidth > 768 ? '28' : '20');
-            }
-            window.addEventListener('resize', modalSize);
-            window.removeEventListener('resize', modalSize);
-        })
 
         const lukkModalOgResettState = () => {
             setDatoFraDatoVelger(new Date(Date.parse(fristForGodkjenning)));
@@ -106,7 +98,7 @@ const ForlengeDato: FunctionComponent<{  }> = () => {
                     lukkModal={lukkModalOgResettState}
                     bekreft={sjekkInnsendingsInformasjon}
                     tittel={'Endre refusjon frist'}
-                    containerStyle={{ minWidth: modalSize.concat('rem') }}
+                    containerStyle={{ minWidth: 'unset' }}
                 >
                     <div className={cls.className}>
                         <div className={cls.element('container')}>
@@ -122,7 +114,9 @@ const ForlengeDato: FunctionComponent<{  }> = () => {
                                 />
                             </div>
                             <div className={cls.element('dato-input')}>
-                                <Label className={cls.element('label')} htmlFor='dato-label'>Dato</Label>
+                                <div className={cls.element('dato-label')}>
+                                <Calender width={20} height={20}/><Label className={cls.element('label')} htmlFor='dato-label'>Dato</Label>
+                                </div>
                                 <div className={cls.element('input-wrapper')}>
                                     <Input
                                         feil={finnFeilMeldingFraInputDialog(['ugyldig-datoformat', 'for-kort-frist', 'for-lang-frist'],

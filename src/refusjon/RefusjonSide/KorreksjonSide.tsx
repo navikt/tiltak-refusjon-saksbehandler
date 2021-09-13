@@ -44,7 +44,7 @@ const KorreksjonSide: FunctionComponent = () => {
             <InntekterFraTiltaketSpørsmål />
             <VerticalSpacer rem={2} />
             {refusjon.beregning && (
-                <Utregning refusjon={refusjon} />
+                <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
             )}
         </HvitBoks>
     );

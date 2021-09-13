@@ -47,7 +47,7 @@ const KvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <InntekterFraTiltaketSvar />
             <VerticalSpacer rem={2} />
-            <Utregning refusjon={refusjon} />
+            <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
             <VerticalSpacer rem={4} />
             <SummeringBoks />
         </HvitBoks>

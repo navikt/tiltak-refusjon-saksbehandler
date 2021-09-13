@@ -1,6 +1,6 @@
 import React, { FunctionComponent, Suspense } from 'react';
 import { useParams } from 'react-router';
-import TilbakeTilOversikt from '../../komponenter/TilbakeTilOversikt';
+import TilbakeTilOversikt from '../../komponenter/tilbake-til-oversikt/TilbakeTilOversikt';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato } from '../../utils/datoUtils';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import BekreftModal from '../../komponenter/BekreftModal';
+import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { slettKorreksjon } from '../../services/rest-service';
 import { useParams } from 'react-router';
 import { Normaltekst } from 'nav-frontend-typografi';
@@ -22,7 +22,7 @@ const BekreftSlettKorreksjon: FunctionComponent<Props> = (props) => {
             >
                 Slett korreksjon
             </Knapp>
-            <BekreftModal
+            <BekreftelseModal
                 isOpen={åpen}
                 lukkModal={() => setÅpen(false)}
                 bekreft={async () => {
@@ -32,7 +32,7 @@ const BekreftSlettKorreksjon: FunctionComponent<Props> = (props) => {
                 tittel={'Slett korreksjon'}
             >
                 <Normaltekst>Vil du slette korreksjonen?</Normaltekst>
-            </BekreftModal>
+            </BekreftelseModal>
         </>
     );
 };

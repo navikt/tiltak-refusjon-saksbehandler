@@ -1,7 +1,7 @@
+import React, { FunctionComponent } from 'react';
 import { Calender, File, FileContent, Money, People, Warning } from '@navikt/ds-icons';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
@@ -19,7 +19,7 @@ const IkonRad = styled.div`
 `;
 
 const GråBoks = styled.div`
-    background-color: #eee;
+    background-color: #F1F1F1;
     border-radius: 4px;
     padding: 1.5rem;
 `;
@@ -27,9 +27,7 @@ const GråBoks = styled.div`
 const InformasjonFraAvtalen: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
-
-    const avtaleLenke = `http://arbeidsgiver.nav.no/tiltaksgjennomforing/avtale/${refusjon.tilskuddsgrunnlag.avtaleId}`;
-
+    const avtaleLenke = `https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing/avtale/${refusjon.tilskuddsgrunnlag.avtaleId}`;
     const refusjonsnummer = `${refusjon.tilskuddsgrunnlag.avtaleNr}-${refusjon.tilskuddsgrunnlag.løpenummer}`;
 
     return (
@@ -68,7 +66,10 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
             <IkonRad>
                 <Warning />
                 <Element>Frist: </Element>
-                <Normaltekst>{formatterDato(refusjon.fristForGodkjenning)}</Normaltekst>
+                <Normaltekst>
+                    {formatterDato(refusjon.fristForGodkjenning)}
+                    {refusjon.forrigeFristForGodkjenning ? `  (tidligere frist: ${formatterDato(refusjon.forrigeFristForGodkjenning)})` : ''}
+                </Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
@@ -80,14 +81,15 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
             <IkonRad>
                 <Money />
                 <Element>Kontonummer:</Element>
-                <Normaltekst>{refusjon.bedriftKontonummer}</Normaltekst>
+                <Normaltekst>{refusjon.bedriftKontonummer ?? 'ikke oppgitt'}</Normaltekst>
             </IkonRad>
             {refusjon.bedriftKontonummer === null && (
                 <>
                     <VerticalSpacer rem={1} />
                     <AlertStripeFeil>
                         Vi kan ikke finne noe kontonummer på deres virksomhet. Riktig kontonummer må{' '}
-                        <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
+                        <EksternLenke
+                            href='https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/'>
                             sendes inn via Altinn.
                         </EksternLenke>
                     </AlertStripeFeil>

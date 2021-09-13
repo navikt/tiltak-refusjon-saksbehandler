@@ -1,19 +1,24 @@
 import { VenstreChevron } from 'nav-frontend-chevron';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+import ForlengeDato from '../../refusjon/forlengedato/ForlengeDato';
+import BEMHelper from '../../utils/bem';
+import "./tilbaketTilOversikt.less";
 
 const TilbakeTilOversikt: FunctionComponent = () => {
+    const cls = BEMHelper('tilbake-til-oversikt')
     return (
-        <div style={{ padding: '1rem 0 0.75rem 0.125rem', width: '100%' }}>
+        <div className={cls.className}>
             <Link
                 to={{ pathname: '/', search: window.location.search }}
-                style={{ display: 'flex', alignItems: 'center', color: '#0067c5' }}
+                className={cls.element('lenke')}
             >
                 <div aria-hidden={true}>
                     <VenstreChevron />
                 </div>
                 Tilbake til oversikt
             </Link>
+            <ForlengeDato />
         </div>
     );
 };

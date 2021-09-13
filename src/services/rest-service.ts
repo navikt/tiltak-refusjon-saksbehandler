@@ -5,6 +5,7 @@ import { feilmelding } from '../feilkodemapping';
 import { Filter } from '../refusjon/oversikt/FilterContext';
 import { Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
 import { Feature } from '../featureToggles/features';
+import { NyFristRequest } from '../utils/forlengeDatoUtils';
 
 export const API_URL = '/api/saksbehandler';
 
@@ -70,7 +71,7 @@ export const korriger = async (refusjonId: string, korreksjonsgrunner: Korreksjo
 export const korrigerBruttolønn = async (
     refusjonId: string,
     inntekterKunFraTiltaket: boolean,
-    korrigertBruttoLønn?: number
+    korrigertBruttoLønn?: number,
 ) => {
     const response = await axios
         .post(`${API_URL}/refusjon/${refusjonId}/korriger-bruttolønn`, {
@@ -91,5 +92,13 @@ export const slettKorreksjon = async (refusjonId: string) => {
 
 export const hentFeatureToggles = async (featureToggles: Feature[]) => {
     const response = await api.get('/feature?' + featureToggles.map((feature) => `feature=${feature}`).join('&'));
+    return response.data;
+};
+
+export const endreRefusjonFrist = async (refusjonId: string, nyFristValue: NyFristRequest) => {
+    const response = await axios
+        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/endre-refusjon-frist`, { ...nyFristValue })
+        .catch(håndterFeil);
+    await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };

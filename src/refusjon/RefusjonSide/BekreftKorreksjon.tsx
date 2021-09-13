@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import BekreftModal from '../../komponenter/BekreftModal';
+import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { korriger } from '../../services/rest-service';
 import { useParams } from 'react-router';
 import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
@@ -10,24 +10,18 @@ import { Checkbox } from 'nav-frontend-skjema';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { korreksjonsgrunnTekst } from '../../messages';
 
-interface Props {}
-
-const BekreftKorreksjon: FunctionComponent<Props> = () => {
+const BekreftKorreksjon: FunctionComponent<{}> = () => {
     const { refusjonId } = useParams();
     const history = useHistory();
     const [åpen, setÅpen] = useState(false);
     const [grunner, setGrunner] = useState<Set<Korreksjonsgrunn>>(new Set<Korreksjonsgrunn>());
-    const [feilmelding, setFeilmelding] = useState('');
+    const [feilmelding, setFeilmelding] = useState<string>('');
     return (
         <>
-            <Knapp
-                onClick={() => {
-                    setÅpen(true);
-                }}
-            >
+            <Knapp onClick={() => setÅpen(true)}>
                 Korriger
             </Knapp>
-            <BekreftModal
+            <BekreftelseModal
                 isOpen={åpen}
                 lukkModal={() => {
                     setFeilmelding('');
@@ -68,7 +62,7 @@ const BekreftKorreksjon: FunctionComponent<Props> = () => {
                     </>
                 ))}
                 {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
-            </BekreftModal>
+            </BekreftelseModal>
         </>
     );
 };

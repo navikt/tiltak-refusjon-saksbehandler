@@ -47,7 +47,7 @@ const RefusjonSide: FunctionComponent = () => {
             <InntekterFraTiltaketSvar />
             <VerticalSpacer rem={2} />
             {refusjon.beregning && (
-                <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
+                <Utregning refusjon={refusjon} />
             )}
         </HvitBoks>
     );

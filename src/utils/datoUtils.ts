@@ -8,7 +8,7 @@ export const NORSK_MÅNEDÅR_FORMAT = 'YYYY/MM';
 export const NORSK_DATO_FORMAT = 'DD.MM.YYYY';
 export const NORSK_DATO_OG_TID_FORMAT = 'DD.MM.YYYY HH:mm';
 
-export const formatterDato = (dato: string, format: string = NORSK_DATO_FORMAT) => {
+export const formatterDato = (dato: string, format: string = NORSK_DATO_FORMAT): string => {
     try {
         const formattertDato = moment(dato).format(format);
         return !formattertDato.includes('NaN') ? formattertDato : dato;
@@ -18,11 +18,11 @@ export const formatterDato = (dato: string, format: string = NORSK_DATO_FORMAT) 
     }
 };
 
-export const formatterPeriode = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
+export const formatterPeriode = (fra: string, til: string, format: string = NORSK_DATO_FORMAT): string => {
     return formatterDato(fra, format) + ' – ' + formatterDato(til, format);
 };
 
-export const getMåned = (dato: string) => {
+export const getMåned = (dato: string): string => {
     try {
         const formattertDato = moment(dato).format('MMMM');
         return !formattertDato.includes('NaN') ? storForbokstav(formattertDato) : dato;

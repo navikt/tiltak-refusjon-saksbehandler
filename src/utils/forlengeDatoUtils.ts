@@ -8,6 +8,23 @@ export interface ForlengeDatoSkjemaGruppeFeil {
     feilMelding: string;
 }
 
+export const MONTHS: string[] = [
+    'Januar',
+    'Februar',
+    'Mars',
+    'April',
+    'Mai',
+    'Juni',
+    'Juli',
+    'August',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
+];
+
+export const WEEKDAYS_SHORT: string[] = [ 'Lø.', 'Ma.', 'Ti.', 'On.', 'To.', 'Fr.', 'Sø.' ];
+
 export const disableAfter = (sisteFristDato: string, antallMnd: number): string => {
     return sisteFristDato.split('-').map((dato, index) => index === 1 ?
         (parseInt(dato) + antallMnd).toFixed(0) : dato).join('-');

@@ -66,7 +66,10 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
             <IkonRad>
                 <Warning />
                 <Element>Frist: </Element>
-                <Normaltekst>{formatterDato(refusjon.fristForGodkjenning)}</Normaltekst>
+                <Normaltekst>
+                    {formatterDato(refusjon.fristForGodkjenning)}
+                    {refusjon.forrigeFristForGodkjenning ? `  (tidligere frist: ${formatterDato(refusjon.forrigeFristForGodkjenning)})` : ''}
+                </Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>

@@ -12,7 +12,7 @@ import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
 import {
     disableAfter, ForlengeDatoSkjemaGruppeFeil,
     formatDateToIsoDateFormat,
-    getDateStringFraDatoVelger, finnFeilMeldingFraInputDialog,
+    getDateStringFraDatoVelger, finnFeilMeldingFraInputDialog, MONTHS, WEEKDAYS_SHORT,
 } from '../../utils/forlengeDatoUtils';
 import { useParams } from 'react-router';
 import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
@@ -105,6 +105,10 @@ const ForlengeDato: FunctionComponent<{}> = () => {
                                 initialMonth={datoFraDatoVelger}
                                 selectedDays={datoFraDatoVelger}
                                 onDayClick={day => setDatoFraDatoVelger(day)}
+                                locale='no'
+                                months={MONTHS}
+                                weekdaysShort={WEEKDAYS_SHORT}
+                                firstDayOfWeek={1}
                                 disabledDays={{
                                     before: new Date(Date.parse(fristForGodkjenning)),
                                     after: new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3))),

@@ -1,18 +1,25 @@
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { formatterPenger } from '../../utils/PengeUtils';
-import { tiltakstypeTekst } from '../../messages';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
+import { formatterPenger } from '../../utils/PengeUtils';
 
 const InntekterFraTiltaketSvar: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
 
-    if (refusjon.inntekterKunFraTiltaket === null || refusjon.inntekterKunFraTiltaket === undefined) {
-        return null;
-    }
+    const svar = () => {
+        switch (refusjon.inntekterKunFraTiltaket) {
+            case true:
+                return 'Ja';
+            case false:
+                return 'Nei';
+            default:
+                return 'Ikke besvart';
+        }
+    };
 
     return (
         <div>
@@ -20,7 +27,7 @@ const InntekterFraTiltaketSvar: FunctionComponent = () => {
                 Er inntektene som vi har hentet ({formatterPenger(refusjon.inntektsgrunnlag!!.bruttoLønn)}) kun fra
                 tiltaket {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}?{' '}
             </Element>
-            <Normaltekst>{refusjon.inntekterKunFraTiltaket ? 'Ja' : 'Nei'}</Normaltekst>
+            <Normaltekst>{svar()}</Normaltekst>
             {refusjon.korrigertBruttoLønn !== null && refusjon.korrigertBruttoLønn !== undefined && (
                 <>
                     <VerticalSpacer rem={1} />

@@ -17,105 +17,105 @@ import {
 import { useParams } from 'react-router';
 import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
 
-const ForlengeDato: FunctionComponent<{  }> = () => {
-        const { refusjonId } = useParams();
-        const refusjon = useHentRefusjon(refusjonId);
-        const { fristForGodkjenning, tilskuddsgrunnlag } = refusjon;
-        const [open, setOpen] = useState<boolean>(false);
-        const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(new Date(Date.parse(fristForGodkjenning)));
-        const [datoFraInputFelt, setDatoFraInputFelt] = useState<string>(fristForGodkjenning);
-        const [grunnlag, setGrunnlag] = useState<string>('');
-        const [annetGrunnlag, setAnnetGrunnlag] = useState<string>('');
-        const [skjemaGruppeFeilmeldinger, setSkjemaGruppeFeilmeldinger] =
-            useState<ForlengeDatoSkjemaGruppeFeil[] | []>([]);
-        const cls = BEMHelper('forlenge-dato');
+const ForlengeDato: FunctionComponent<{}> = () => {
+    const { refusjonId } = useParams();
+    const refusjon = useHentRefusjon(refusjonId);
+    const { fristForGodkjenning, tilskuddsgrunnlag } = refusjon;
+    const [open, setOpen] = useState<boolean>(false);
+    const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(new Date(Date.parse(fristForGodkjenning)));
+    const [datoFraInputFelt, setDatoFraInputFelt] = useState<string>(fristForGodkjenning);
+    const [grunnlag, setGrunnlag] = useState<string>('');
+    const [annetGrunnlag, setAnnetGrunnlag] = useState<string>('');
+    const [skjemaGruppeFeilmeldinger, setSkjemaGruppeFeilmeldinger] =
+        useState<ForlengeDatoSkjemaGruppeFeil[] | []>([]);
+    const cls = BEMHelper('forlenge-dato');
 
-        useEffect(() => {
-            setDatoFraInputFelt(getDateStringFraDatoVelger(datoFraDatoVelger));
-        }, [datoFraDatoVelger]);
+    useEffect(() => {
+        setDatoFraInputFelt(getDateStringFraDatoVelger(datoFraDatoVelger));
+    }, [datoFraDatoVelger]);
 
-        const lukkModalOgResettState = () => {
-            setDatoFraDatoVelger(new Date(Date.parse(fristForGodkjenning)));
-            setDatoFraInputFelt(fristForGodkjenning);
-            setGrunnlag('');
-            setAnnetGrunnlag('');
+    const lukkModalOgResettState = () => {
+        setGrunnlag('');
+        setAnnetGrunnlag('');
+        setSkjemaGruppeFeilmeldinger([]);
+        setOpen(false);
+    };
+
+    const setNyFeilMelding = (id: string, feilMelding: string) => {
+        setSkjemaGruppeFeilmeldinger(prevState => (
+            [...prevState, ...[{ id: id, feilMelding: feilMelding }]]
+        ));
+    };
+
+    const sjekkInnsendingsInformasjon = () => {
+        let KAN_SENDE_INN: boolean = true;
+        setSkjemaGruppeFeilmeldinger([]);
+        const parseDate = Date.parse(formatDateToIsoDateFormat(datoFraInputFelt));
+        if (isNaN(parseDate)) {
+            setNyFeilMelding('ugyldig-datoformat', 'Ugyldig datoformat. DD.MM.YYYY.');
+            KAN_SENDE_INN = false;
+        }
+        if (new Date(parseDate) <= new Date(fristForGodkjenning)) {
+            setNyFeilMelding('for-kort-frist', 'Fristen kan ikke være mindre eller lik opprinnelig utløpsdato.');
+            KAN_SENDE_INN = false;
+        }
+        if (new Date(parseDate) > new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3)))) {
+            setNyFeilMelding('for-lang-frist', 'Fristen kan ikke overstige 1 måned.');
+            KAN_SENDE_INN = false;
+        }
+        if (grunnlag.length === 0) {
+            setNyFeilMelding('mangler-grunnlag', 'Må sette grunn til forlengelse.');
+            KAN_SENDE_INN = false;
+        }
+        if (grunnlag.includes('annet') && annetGrunnlag.length === 0) {
+            setNyFeilMelding('mangler-annet', 'Mangler text for annet grunnlag.');
+            KAN_SENDE_INN = false;
+        }
+        if (KAN_SENDE_INN) {
             setSkjemaGruppeFeilmeldinger([]);
-            setOpen(false);
-        };
+            oppdatereRefusjonFrist();
+        }
+    };
 
-        const setNyFeilMelding = (id: string, feilMelding: string) => {
-            setSkjemaGruppeFeilmeldinger(prevState => (
-                [...prevState, ...[{ id: id, feilMelding: feilMelding }]]
-            ));
-        };
+    const oppdatereRefusjonFrist = async () => {
+        const valgGrunn = grunnlag.includes('annet') ? annetGrunnlag : grunnlag;
+        try {
+            await endreRefusjonFrist(refusjonId,
+                { nyFrist: formatDateToIsoDateFormat(datoFraInputFelt), årsak: valgGrunn });
+            lukkModalOgResettState();
+        } catch (error) {
+            console.warn('error:', error);
+        }
+    };
 
-        const sjekkInnsendingsInformasjon = () => {
-            let KAN_SENDE_INN: boolean = true;
-            setSkjemaGruppeFeilmeldinger([]);
-            const parseDate = Date.parse(formatDateToIsoDateFormat(datoFraInputFelt));
-            if (isNaN(parseDate)) {
-                setNyFeilMelding('ugyldig-datoformat', 'Ugyldig datoformat. DD.MM.YYYY.');
-                KAN_SENDE_INN = false;
-            }
-            if (new Date(parseDate) < new Date(fristForGodkjenning)) {
-                setNyFeilMelding('for-kort-frist', 'Fristen kan ikke settes kortere enn opprinnelig utløpsdato.');
-                KAN_SENDE_INN = false;
-            }
-            if (new Date(parseDate) > new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3)))) {
-                setNyFeilMelding('for-lang-frist', 'Fristen kan ikke overstige 1 måned.');
-                KAN_SENDE_INN = false;
-            }
-            if (grunnlag.length === 0) {
-                setNyFeilMelding('mangler-grunnlag', 'Må sette grunn til forlengelse.');
-                KAN_SENDE_INN = false;
-            }
-            if (grunnlag.includes('annet') && annetGrunnlag.length === 0) {
-                setNyFeilMelding('mangler-annet', 'Mangler text for annet grunnlag.');
-                KAN_SENDE_INN = false;
-            }
-            if (KAN_SENDE_INN) {
-                setSkjemaGruppeFeilmeldinger([]);
-                oppdatereRefusjonFrist();
-            }
-        };
-
-        const oppdatereRefusjonFrist = async () => {
-            const valgGrunn = grunnlag.includes('annet') ? annetGrunnlag : grunnlag;
-            try {
-                await endreRefusjonFrist(refusjonId,
-                    { nyFrist: formatDateToIsoDateFormat(datoFraInputFelt), årsak: valgGrunn });
-                setOpen(false);
-            } catch (error) {
-                console.warn('error:', error);
-            }
-        };
-
-        return (
-            <div>
-                <Knapp onClick={() => setOpen(!open)}>Endre Frist</Knapp>
-                <BekreftelseModal
-                    isOpen={open}
-                    lukkModal={lukkModalOgResettState}
-                    bekreft={sjekkInnsendingsInformasjon}
-                    tittel={'Endre refusjon frist'}
-                    containerStyle={{ minWidth: 'unset' }}
-                >
-                    <div className={cls.className}>
-                        <div className={cls.element('container')}>
-                            <div className={cls.element('dato-velger')}>
-                                <DayPicker
-                                    initialMonth={datoFraDatoVelger}
-                                    selectedDays={datoFraDatoVelger}
-                                    onDayClick={day => setDatoFraDatoVelger(day)}
-                                    disabledDays={{
-                                        before: new Date(Date.parse(fristForGodkjenning)),
-                                        after: new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3))),
-                                    }}
-                                />
-                            </div>
+    return (
+        <div>
+            <Knapp onClick={() => setOpen(!open)}>Endre Frist</Knapp>
+            <BekreftelseModal
+                isOpen={open}
+                lukkModal={lukkModalOgResettState}
+                bekreft={sjekkInnsendingsInformasjon}
+                tittel={'Endre refusjon frist'}
+                containerStyle={{ minWidth: 'unset' }}
+            >
+                <div className={cls.className}>
+                    <div className={cls.element('container')}>
+                        <div className={cls.element('dato-velger')}>
+                            <DayPicker
+                                initialMonth={datoFraDatoVelger}
+                                selectedDays={datoFraDatoVelger}
+                                onDayClick={day => setDatoFraDatoVelger(day)}
+                                disabledDays={{
+                                    before: new Date(Date.parse(fristForGodkjenning)),
+                                    after: new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3))),
+                                }}
+                            />
+                        </div>
+                        <div className={cls.element('text-wrapper')}>
                             <div className={cls.element('dato-input')}>
                                 <div className={cls.element('dato-label')}>
-                                <Calender width={20} height={20}/><Label className={cls.element('label')} htmlFor='dato-label'>Dato</Label>
+                                    <Calender width={20} height={20} /><Label className={cls.element('label')}
+                                                                              htmlFor='dato-label'>Dato</Label>
                                 </div>
                                 <div className={cls.element('input-wrapper')}>
                                     <Input
@@ -135,9 +135,10 @@ const ForlengeDato: FunctionComponent<{  }> = () => {
                             />
                         </div>
                     </div>
-                </BekreftelseModal>
-            </div>
-        );
-    };
+                </div>
+            </BekreftelseModal>
+        </div>
+    );
+};
 
 export default ForlengeDato;

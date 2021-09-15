@@ -10,6 +10,10 @@ const InntekterFraTiltaketSvar: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
 
+    if (!refusjon.inntektsgrunnlag) {
+        return null;
+    }
+
     const svar = () => {
         switch (refusjon.inntekterKunFraTiltaket) {
             case true:

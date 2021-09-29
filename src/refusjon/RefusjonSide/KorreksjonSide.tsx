@@ -4,13 +4,14 @@ import { useParams } from 'react-router';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentRefusjon } from '../../services/rest-service';
+import { useHentRefusjon, utbetalKorreksjon } from '../../services/rest-service';
 import './RefusjonSide.less';
 import Utregning from './Utregning';
 import BekreftSlettKorreksjon from './BekreftSlettKorreksjon';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
 import InntekterFraTiltaketSpørsmål from './InntekterFraTiltaketSpørsmål';
 import InntekterFraAMeldingen from './InntekterFraAMeldingen';
+import LagreKnapp from '../../komponenter/LagreKnapp';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -44,7 +45,13 @@ const KorreksjonSide: FunctionComponent = () => {
             <InntekterFraTiltaketSpørsmål />
             <VerticalSpacer rem={2} />
             {refusjon.beregning && (
-                <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
+                <>
+                    <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
+                    <VerticalSpacer rem={1} />
+                    <LagreKnapp lagreFunksjon={() => utbetalKorreksjon(refusjonId)}>
+                        Send korreksjon til utbetaling
+                    </LagreKnapp>
+                </>
             )}
         </HvitBoks>
     );

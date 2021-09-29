@@ -18,9 +18,7 @@ const BekreftKorreksjon: FunctionComponent<{}> = () => {
     const [feilmelding, setFeilmelding] = useState<string>('');
     return (
         <>
-            <Knapp onClick={() => setÅpen(true)}>
-                Korriger
-            </Knapp>
+            <Knapp onClick={() => setÅpen(true)}>Korriger</Knapp>
             <BekreftelseModal
                 isOpen={åpen}
                 lukkModal={() => {
@@ -43,6 +41,7 @@ const BekreftKorreksjon: FunctionComponent<{}> = () => {
                     Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT,
                     Korreksjonsgrunn.UTBETALT_HELE_TILSKUDDSBELØP,
                     Korreksjonsgrunn.INNTEKTER_RAPPORTERT_ETTER_TILSKUDDSPERIODE,
+                    Korreksjonsgrunn.UTBETALING_RETURNERT,
                 ].map((it) => (
                     <>
                         <Checkbox

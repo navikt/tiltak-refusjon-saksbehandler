@@ -6,7 +6,8 @@ type Feilkode =
     | 'INGEN_INNTEKTER'
     | 'TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG'
     | 'INGEN_BEDRIFTKONTONUMMER'
-    | 'INGEN_KORREKSJONSGRUNNER';
+    | 'INGEN_KORREKSJONSGRUNNER'
+    | 'KORREKSJONSBELOP_NEGATIVT';
 
 export const feilmelding = (feilkode: Feilkode) => {
     switch (feilkode) {
@@ -26,5 +27,7 @@ export const feilmelding = (feilkode: Feilkode) => {
             return 'Mangler kontonummer for bedriften';
         case 'INGEN_KORREKSJONSGRUNNER':
             return 'Det må velges en korreksjonsgrunn';
+        case 'KORREKSJONSBELOP_NEGATIVT':
+            return 'Korreksjon kan kun sendes til utbetaling om restbeløpet er positivt.';
     }
 };

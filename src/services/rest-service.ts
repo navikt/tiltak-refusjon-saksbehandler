@@ -71,7 +71,7 @@ export const korriger = async (refusjonId: string, korreksjonsgrunner: Korreksjo
 export const korrigerBruttolønn = async (
     refusjonId: string,
     inntekterKunFraTiltaket: boolean,
-    korrigertBruttoLønn?: number,
+    korrigertBruttoLønn?: number
 ) => {
     const response = await axios
         .post(`${API_URL}/refusjon/${refusjonId}/korriger-bruttolønn`, {
@@ -87,6 +87,14 @@ export const slettKorreksjon = async (refusjonId: string) => {
     const response = await axios
         .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/slett-korreksjon`)
         .catch(håndterFeil);
+    return response.data;
+};
+
+export const utbetalKorreksjon = async (refusjonId: string) => {
+    const response = await axios
+        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/utbetal-korreksjon`)
+        .catch(håndterFeil);
+    await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };
 

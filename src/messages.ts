@@ -17,6 +17,7 @@ export const statusTekst: { [key in Status]: string } = {
     FOR_TIDLIG: 'for tidlig',
     ANNULLERT: 'annullert',
     MANUELL_KORREKSJON: 'korreksjon',
+    KORREKSJON_SENDT_TIL_UTBETALING: 'korreksjon sendt til utbetaling',
 };
 
 export const inntektstypeTekst: { [key: string]: string } = {
@@ -177,4 +178,5 @@ export const korreksjonsgrunnTekst: { [key in Korreksjonsgrunn]: string } = {
     UTBETALT_HELE_TILSKUDDSBELØP: 'Utbetalt hele tilskuddsbeløpet',
     INNTEKTER_RAPPORTERT_ETTER_TILSKUDDSPERIODE: 'Inntekter rapportert etter tilskuddsperioden',
     HENT_INNTEKTER_PÅ_NYTT: 'Inntekter må hentes på nytt',
+    UTBETALING_RETURNERT: 'Utbetaling returnert til NAV',
 };

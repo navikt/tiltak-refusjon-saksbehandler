@@ -1,6 +1,5 @@
 import bodyParser from 'body-parser';
 import express from 'express';
-import cors from './cors';
 import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import logger from './logger';
@@ -13,10 +12,6 @@ async function startLabs(server) {
 
         server.use(express.json());
         server.use(express.urlencoded({ extended: true }));
-
-        // setup sane defaults for CORS and HTTP headers
-        // server.use(helmet());
-        server.use(cors);
 
         // setup routes
         server.get('/isAlive', (req, res) => res.send('Alive'));

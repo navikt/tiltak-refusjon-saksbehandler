@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import express from 'express';
 import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
@@ -8,8 +7,6 @@ async function startLabs(server) {
     const page = path.resolve(__dirname, '../build', 'index.html');
 
     try {
-        server.use(bodyParser.json());
-
         server.use(express.json());
         server.use(express.urlencoded({ extended: true }));
 

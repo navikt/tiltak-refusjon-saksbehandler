@@ -16,10 +16,10 @@ const metadata = () => {
 
 const client = async () => {
     const azureAdConfig = config.azureAd();
-
-    if (httpProxy.agent) {
+    const httpProxyAgent = httpProxy.agent();
+    if (httpProxyAgent) {
         custom.setHttpOptionsDefaults({
-            agent: httpProxy.agent,
+            agent: httpProxyAgent,
         });
     }
     const issuer = await Issuer.discover(azureAdConfig.discoveryUrl);

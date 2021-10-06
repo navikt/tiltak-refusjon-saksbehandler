@@ -7,17 +7,10 @@ import session from './session';
 import logger from './logger';
 import { startLabs } from './labs';
 
-// for debugging during development
-// import morganBody from 'morgan-body';
-// import morgan from 'morgan';
-
 const server = express();
 
 async function startApp() {
     try {
-        // morganBody(server);
-        // morgan('dev');
-
         session.setup(server);
 
         server.use(express.json());
@@ -25,7 +18,7 @@ async function startApp() {
 
         // setup sane defaults for CORS and HTTP headers
         // server.use(helmet());
-        server.use(cors);
+        server.use(cors());
 
         // initialize passport and restore authentication state, if any, from the session
         server.use(passport.initialize());

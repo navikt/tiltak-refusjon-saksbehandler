@@ -7,14 +7,15 @@ const SESSION_MAX_AGE_MILLISECONDS = 60 * 60 * 1000;
 
 const setup = (app) => {
     app.set('trust proxy', 1);
+    const serverConfig = config.server();
     const options = {
         cookie: {
             maxAge: SESSION_MAX_AGE_MILLISECONDS,
             sameSite: 'lax',
             httpOnly: true,
         },
-        secret: config.server.sessionKey,
-        name: config.server.cookieName,
+        secret: serverConfig.sessionKey,
+        name: serverConfig.cookieName,
         resave: false,
         saveUninitialized: false,
         unset: 'destroy',
@@ -29,10 +30,11 @@ const setup = (app) => {
 const setupRedis = () => {
     const RedisStore = require('connect-redis')(session);
 
+    const redisConfig = config.redis();
     const client = redis.createClient({
-        host: config.redis.host,
-        password: config.redis.password,
-        port: config.redis.port,
+        host: redisConfig.host,
+        password: redisConfig.password,
+        port: redisConfig.port,
     });
     client.unref();
     client.on('error', logger.error);

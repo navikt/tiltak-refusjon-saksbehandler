@@ -5,6 +5,7 @@ import express from 'express';
 import passport from 'passport';
 import session from './session';
 import logger from './logger';
+import { startLabs } from './labs';
 
 // for debugging during development
 // import morganBody from 'morgan-body';
@@ -47,4 +48,8 @@ async function startApp() {
     }
 }
 
-startApp().catch((err) => logger.error(err));
+if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
+    startLabs(express()).catch((err) => logger.info(err));
+} else {
+    startApp().catch((err) => logger.error(err));
+}

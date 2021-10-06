@@ -5,6 +5,8 @@ metadata:
     team: arbeidsgiver
   name: tiltak-refusjon-saksbehandler-redis
   namespace: arbeidsgiver
+  annotations:
+    nais.io/read-only-file-system: "false"
 spec:
   image: bitnami/redis:5.0.14
   port: 6379

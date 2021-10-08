@@ -20,7 +20,7 @@ export interface Refusjon {
     korrigeresAvId?: string;
     korreksjonsgrunner: Korreksjonsgrunn[];
     inntekterKunFraTiltaket?: boolean;
-    korrigertBruttoLønn?: number;
+    endretBruttoLønn?: number;
 }
 
 export interface Tilskuddsgrunnlag {

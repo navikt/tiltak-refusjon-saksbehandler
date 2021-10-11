@@ -10,9 +10,13 @@ import './forlengeDato.less';
 import { Label, Input } from 'nav-frontend-skjema';
 import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
 import {
-    disableAfter, ForlengeDatoSkjemaGruppeFeil,
+    disableAfter,
+    ForlengeDatoSkjemaGruppeFeil,
     formatDateToIsoDateFormat,
-    getDateStringFraDatoVelger, finnFeilMeldingFraInputDialog, MONTHS, WEEKDAYS_SHORT,
+    getDateStringFraDatoVelger,
+    finnFeilMeldingFraInputDialog,
+    MONTHS,
+    WEEKDAYS_SHORT,
 } from '../../utils/forlengeDatoUtils';
 import { useParams } from 'react-router';
 import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
@@ -26,8 +30,7 @@ const ForlengeDato: FunctionComponent<{}> = () => {
     const [datoFraInputFelt, setDatoFraInputFelt] = useState<string>(fristForGodkjenning);
     const [grunnlag, setGrunnlag] = useState<string>('');
     const [annetGrunnlag, setAnnetGrunnlag] = useState<string>('');
-    const [skjemaGruppeFeilmeldinger, setSkjemaGruppeFeilmeldinger] =
-        useState<ForlengeDatoSkjemaGruppeFeil[] | []>([]);
+    const [skjemaGruppeFeilmeldinger, setSkjemaGruppeFeilmeldinger] = useState<ForlengeDatoSkjemaGruppeFeil[] | []>([]);
     const cls = BEMHelper('forlenge-dato');
 
     useEffect(() => {
@@ -42,9 +45,7 @@ const ForlengeDato: FunctionComponent<{}> = () => {
     };
 
     const setNyFeilMelding = (id: string, feilMelding: string) => {
-        setSkjemaGruppeFeilmeldinger(prevState => (
-            [...prevState, ...[{ id: id, feilMelding: feilMelding }]]
-        ));
+        setSkjemaGruppeFeilmeldinger((prevState) => [...prevState, ...[{ id: id, feilMelding: feilMelding }]]);
     };
 
     const sjekkInnsendingsInformasjon = () => {
@@ -57,10 +58,6 @@ const ForlengeDato: FunctionComponent<{}> = () => {
         }
         if (new Date(parseDate) <= new Date(fristForGodkjenning)) {
             setNyFeilMelding('for-kort-frist', 'Fristen kan ikke være mindre eller lik opprinnelig utløpsdato.');
-            KAN_SENDE_INN = false;
-        }
-        if (new Date(parseDate) > new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3)))) {
-            setNyFeilMelding('for-lang-frist', 'Fristen kan ikke overstige 1 måned.');
             KAN_SENDE_INN = false;
         }
         if (grunnlag.length === 0) {
@@ -80,8 +77,10 @@ const ForlengeDato: FunctionComponent<{}> = () => {
     const oppdatereRefusjonFrist = async () => {
         const valgGrunn = grunnlag.includes('annet') ? annetGrunnlag : grunnlag;
         try {
-            await endreRefusjonFrist(refusjonId,
-                { nyFrist: formatDateToIsoDateFormat(datoFraInputFelt), årsak: valgGrunn });
+            await endreRefusjonFrist(refusjonId, {
+                nyFrist: formatDateToIsoDateFormat(datoFraInputFelt),
+                årsak: valgGrunn,
+            });
             lukkModalOgResettState();
         } catch (error) {
             console.warn('error:', error);
@@ -104,8 +103,8 @@ const ForlengeDato: FunctionComponent<{}> = () => {
                             <DayPicker
                                 initialMonth={datoFraDatoVelger}
                                 selectedDays={datoFraDatoVelger}
-                                onDayClick={day => setDatoFraDatoVelger(day)}
-                                locale='no'
+                                onDayClick={(day) => setDatoFraDatoVelger(day)}
+                                locale="no"
                                 months={MONTHS}
                                 weekdaysShort={WEEKDAYS_SHORT}
                                 firstDayOfWeek={1}
@@ -118,16 +117,23 @@ const ForlengeDato: FunctionComponent<{}> = () => {
                         <div className={cls.element('text-wrapper')}>
                             <div className={cls.element('dato-input')}>
                                 <div className={cls.element('dato-label')}>
-                                    <Calender width={20} height={20} /><Label className={cls.element('label')}
-                                                                              htmlFor='dato-label'>Dato</Label>
+                                    <Calender width={20} height={20} />
+                                    <Label className={cls.element('label')} htmlFor="dato-label">
+                                        Dato
+                                    </Label>
                                 </div>
                                 <div className={cls.element('input-wrapper')}>
                                     <Input
-                                        feil={finnFeilMeldingFraInputDialog(['ugyldig-datoformat', 'for-kort-frist', 'for-lang-frist'],
-                                            skjemaGruppeFeilmeldinger)}
-                                        onChange={event => setDatoFraInputFelt(event.target.value)}
-                                        className={cls.element('input-felt-dato')} id='dato-input' bredde='S'
-                                        value={datoFraInputFelt} />
+                                        feil={finnFeilMeldingFraInputDialog(
+                                            ['ugyldig-datoformat', 'for-kort-frist', 'for-lang-frist'],
+                                            skjemaGruppeFeilmeldinger
+                                        )}
+                                        onChange={(event) => setDatoFraInputFelt(event.target.value)}
+                                        className={cls.element('input-felt-dato')}
+                                        id="dato-input"
+                                        bredde="S"
+                                        value={datoFraInputFelt}
+                                    />
                                 </div>
                             </div>
                             <GrunnlagTilForlengelse

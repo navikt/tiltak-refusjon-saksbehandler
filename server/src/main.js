@@ -5,18 +5,12 @@ import express from 'express';
 import passport from 'passport';
 import session from './session';
 import logger from './logger';
-
-// for debugging during development
-// import morganBody from 'morgan-body';
-// import morgan from 'morgan';
+import { startLabs } from './labs';
 
 const server = express();
 
 async function startApp() {
     try {
-        // morganBody(server);
-        // morgan('dev');
-
         session.setup(server);
 
         server.use(express.json());
@@ -24,7 +18,7 @@ async function startApp() {
 
         // setup sane defaults for CORS and HTTP headers
         // server.use(helmet());
-        server.use(cors);
+        server.use(cors());
 
         // initialize passport and restore authentication state, if any, from the session
         server.use(passport.initialize());
@@ -47,4 +41,8 @@ async function startApp() {
     }
 }
 
-startApp().catch((err) => logger.error(err));
+if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp') {
+    startLabs(express()).catch((err) => logger.info(err));
+} else {
+    startApp().catch((err) => logger.error(err));
+}

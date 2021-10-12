@@ -6,20 +6,21 @@ const tokenSetSelfId = 'self';
 
 const getOnBehalfOfAccessToken = (authClient, req) => {
     return new Promise((resolve, reject) => {
-        if (hasValidAccessToken(req, config.api.clientId)) {
+        const apiConfig = config.api();
+        if (hasValidAccessToken(req, apiConfig.clientId)) {
             const tokenSets = getTokenSetsFromSession(req);
-            resolve(tokenSets[config.api.clientId].access_token);
+            resolve(tokenSets[apiConfig.clientId].access_token);
         } else {
             authClient
                 .grant({
                     grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
                     client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                     requested_token_use: 'on_behalf_of',
-                    scope: createOnBehalfOfScope(config.api),
+                    scope: createOnBehalfOfScope(apiConfig),
                     assertion: req.user.tokenSets[tokenSetSelfId].access_token,
                 })
                 .then((tokenSet) => {
-                    req.user.tokenSets[config.api.clientId] = tokenSet;
+                    req.user.tokenSets[apiConfig.clientId] = tokenSet;
                     resolve(tokenSet.access_token);
                 })
                 .catch((err) => {

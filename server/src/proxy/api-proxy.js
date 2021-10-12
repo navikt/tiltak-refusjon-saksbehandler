@@ -5,7 +5,7 @@ import config from '../config';
 const setup = (router, authClient) => {
     router.use(
         '/api',
-        proxy(config.api.url, {
+        proxy(config.api().url, {
             proxyReqPathResolver: (req) => {
                 return req.originalUrl;
             },

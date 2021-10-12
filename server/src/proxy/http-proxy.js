@@ -3,9 +3,9 @@ import tunnel from 'tunnel';
 import logger from '../logger';
 
 const agent = () => {
-    const proxyUri = config.server.proxy;
+    const proxyUri = config.server().proxy;
     if (proxyUri) {
-        logger.info(`Proxying requests via ${proxyUri} for openid-cilent`);
+        logger.info(`Proxying requests via ${proxyUri} for openid-client`);
         const hostPort = proxyUri.replace('https://', '').replace('http://', '').split(':', 2);
         return tunnel.httpsOverHttp({
             proxy: {
@@ -19,4 +19,4 @@ const agent = () => {
     }
 };
 
-export default { agent: agent() };
+export default { agent };

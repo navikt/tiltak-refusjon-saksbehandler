@@ -41,7 +41,7 @@ const setup = (authClient) => {
 
     router.get('/logout', (req, res) => {
         req.logOut();
-        res.redirect(authClient.endSessionUrl({ post_logout_redirect_uri: config.azureAd.logoutRedirectUri }));
+        res.redirect(authClient.endSessionUrl({ post_logout_redirect_uri: config.azureAd().logoutRedirectUri }));
     });
 
     apiProxy.setup(router, authClient);

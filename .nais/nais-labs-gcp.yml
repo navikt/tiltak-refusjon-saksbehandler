@@ -35,6 +35,3 @@ spec:
       external:
         - host: navikt.github.io
         - host: login.microsoftonline.com
-  envFrom:
-    - secret: tiltak-refusjon-session-encrypt-key
-    - secret: tiltak-refusjon-saksbehandler-redis

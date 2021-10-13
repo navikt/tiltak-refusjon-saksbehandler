@@ -5,7 +5,6 @@ import { feilmelding } from '../feilkodemapping';
 import { Filter } from '../refusjon/oversikt/FilterContext';
 import { Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
 import { Feature } from '../featureToggles/features';
-import { NyFristRequest } from '../utils/forlengeDatoUtils';
 
 export const API_URL = '/api/saksbehandler';
 
@@ -99,9 +98,14 @@ export const hentFeatureToggles = async (featureToggles: Feature[]) => {
     return response.data;
 };
 
-export const endreRefusjonFrist = async (refusjonId: string, nyFristValue: NyFristRequest) => {
+export interface ForlengFristRequest {
+    nyFrist: string;
+    årsak: string;
+}
+
+export const forlengFrist = async (refusjonId: string, nyFristValue: ForlengFristRequest) => {
     const response = await axios
-        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/endre-refusjon-frist`, { ...nyFristValue })
+        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/forleng-frist`, nyFristValue)
         .catch(håndterFeil);
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;

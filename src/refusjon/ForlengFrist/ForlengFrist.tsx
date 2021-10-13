@@ -1,27 +1,26 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
-import { endreRefusjonFrist, useHentRefusjon } from '../../services/rest-service';
-import 'react-day-picker/lib/style.css';
+import { forlengFrist, useHentRefusjon } from '../../services/rest-service';
 import 'react-day-picker/lib/style.css';
 import { Knapp } from 'nav-frontend-knapper';
 import BEMHelper from '../../utils/bem';
 import DayPicker from 'react-day-picker';
-import './forlengeDato.less';
-import { Label, Input } from 'nav-frontend-skjema';
+import './ForlengFrist.less';
+import { Input, Label } from 'nav-frontend-skjema';
 import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
 import {
     disableAfter,
+    finnFeilMeldingFraInputDialog,
     ForlengeDatoSkjemaGruppeFeil,
     formatDateToIsoDateFormat,
     getDateStringFraDatoVelger,
-    finnFeilMeldingFraInputDialog,
     MONTHS,
     WEEKDAYS_SHORT,
-} from '../../utils/forlengeDatoUtils';
+} from './forlengFristUtils';
 import { useParams } from 'react-router';
 import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
 
-const ForlengeDato: FunctionComponent<{}> = () => {
+const ForlengFrist: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
     const { fristForGodkjenning, tilskuddsgrunnlag } = refusjon;
@@ -31,7 +30,7 @@ const ForlengeDato: FunctionComponent<{}> = () => {
     const [grunnlag, setGrunnlag] = useState<string>('');
     const [annetGrunnlag, setAnnetGrunnlag] = useState<string>('');
     const [skjemaGruppeFeilmeldinger, setSkjemaGruppeFeilmeldinger] = useState<ForlengeDatoSkjemaGruppeFeil[] | []>([]);
-    const cls = BEMHelper('forlenge-dato');
+    const cls = BEMHelper('forleng-frist');
 
     useEffect(() => {
         setDatoFraInputFelt(getDateStringFraDatoVelger(datoFraDatoVelger));
@@ -57,15 +56,15 @@ const ForlengeDato: FunctionComponent<{}> = () => {
             KAN_SENDE_INN = false;
         }
         if (new Date(parseDate) <= new Date(fristForGodkjenning)) {
-            setNyFeilMelding('for-kort-frist', 'Fristen kan ikke være mindre eller lik opprinnelig utløpsdato.');
+            setNyFeilMelding('for-kort-frist', 'Ny frist må være etter opprinnelig frist.');
             KAN_SENDE_INN = false;
         }
         if (grunnlag.length === 0) {
-            setNyFeilMelding('mangler-grunnlag', 'Må sette grunn til forlengelse.');
+            setNyFeilMelding('mangler-grunnlag', 'Må sette grunn til forlenglse.');
             KAN_SENDE_INN = false;
         }
-        if (grunnlag.includes('annet') && annetGrunnlag.length === 0) {
-            setNyFeilMelding('mangler-annet', 'Mangler text for annet grunnlag.');
+        if (grunnlag.includes('Annet') && annetGrunnlag.length === 0) {
+            setNyFeilMelding('mangler-annet', 'Mangler tekst for annet grunnlag.');
             KAN_SENDE_INN = false;
         }
         if (KAN_SENDE_INN) {
@@ -75,26 +74,22 @@ const ForlengeDato: FunctionComponent<{}> = () => {
     };
 
     const oppdatereRefusjonFrist = async () => {
-        const valgGrunn = grunnlag.includes('annet') ? annetGrunnlag : grunnlag;
-        try {
-            await endreRefusjonFrist(refusjonId, {
-                nyFrist: formatDateToIsoDateFormat(datoFraInputFelt),
-                årsak: valgGrunn,
-            });
-            lukkModalOgResettState();
-        } catch (error) {
-            console.warn('error:', error);
-        }
+        const valgGrunn = grunnlag.includes('Annet') ? annetGrunnlag : grunnlag;
+        await forlengFrist(refusjonId, {
+            nyFrist: formatDateToIsoDateFormat(datoFraInputFelt),
+            årsak: valgGrunn,
+        });
+        lukkModalOgResettState();
     };
 
     return (
         <div>
-            <Knapp onClick={() => setOpen(!open)}>Endre Frist</Knapp>
+            <Knapp onClick={() => setOpen(!open)}>Forleng frist</Knapp>
             <BekreftelseModal
                 isOpen={open}
                 lukkModal={lukkModalOgResettState}
                 bekreft={sjekkInnsendingsInformasjon}
-                tittel={'Endre refusjon frist'}
+                tittel={'Forleng refusjonsfrist'}
                 containerStyle={{ minWidth: 'unset' }}
             >
                 <div className={cls.className}>
@@ -151,4 +146,4 @@ const ForlengeDato: FunctionComponent<{}> = () => {
     );
 };
 
-export default ForlengeDato;
+export default ForlengFrist;

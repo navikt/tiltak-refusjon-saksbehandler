@@ -1,20 +1,19 @@
 import { Knapp } from 'nav-frontend-knapper';
-import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { fullførKorreksjonVedTilbakekreving } from '../../services/rest-service';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
 
 const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const [isOpen, setisOpen] = useState(false);
-    const [beslutterIdent, setBeslutterIdent] = useState('');
 
     return (
         <div>
-            <Knapp onClick={() => setisOpen(true)}>Fullfør</Knapp>
+            <Knapp onClick={() => setisOpen(true)}>Fullfør tilbakekreving</Knapp>
 
             <BekreftelseModal
                 isOpen={isOpen}
@@ -23,16 +22,11 @@ const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
                 bekreft={() => fullførKorreksjonVedTilbakekreving(refusjonId)}
             >
                 <Normaltekst>
-                    For å fullføre korreksjonen må det besluttes av noen med budsjettdisponeringsmyndighet. Skriv inn
-                    denne personens NAV-ident under når denne personen har godkjent.
+                    Ved å fullføre korreksjonen vil arbeidsgiver få en bekreftelse på at utbetalt beløp er for høyt, og
+                    at det vil bli tilbakekrevd.
                 </Normaltekst>
                 <VerticalSpacer rem={1} />
-                <Input
-                    label="Beslutters NAV-ident"
-                    bredde="S"
-                    value={beslutterIdent}
-                    onChange={(e) => setBeslutterIdent(e.currentTarget.value)}
-                />
+                <AlertStripeInfo>Du må iverksette en manuell tilbakekrevingsprosess</AlertStripeInfo>
             </BekreftelseModal>
         </div>
     );

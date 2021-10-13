@@ -22,7 +22,7 @@ const KorreksjonSide: FunctionComponent = () => {
     type REFUSJONSTYPE = 'ETTERBETALING' | 'TILBAKEKREVING' | 'OPPGJORT';
 
     const korreksjonstype = (): REFUSJONSTYPE | null => {
-        if (!refusjon.beregning?.refusjonsbeløp) {
+        if (!refusjon.beregning) {
             return null;
         }
         if (refusjon.beregning.refusjonsbeløp > 0) {

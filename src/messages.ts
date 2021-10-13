@@ -18,6 +18,8 @@ export const statusTekst: { [key in Status]: string } = {
     ANNULLERT: 'annullert',
     MANUELL_KORREKSJON: 'korreksjon',
     KORREKSJON_SENDT_TIL_UTBETALING: 'korreksjon sendt til utbetaling',
+    KORREKSJON_OPPGJORT: 'korreksjon oppgjort',
+    KORREKSJON_SKAL_TILBAKEKREVES: 'korreksjon skal tilbakekreves',
 };
 
 export const inntektstypeTekst: { [key: string]: string } = {

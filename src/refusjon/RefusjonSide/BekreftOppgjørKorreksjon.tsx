@@ -1,16 +1,13 @@
 import { Knapp } from 'nav-frontend-knapper';
-import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { fullførKorreksjonVedOppgjort } from '../../services/rest-service';
 
 const BekreftOppgjørKorreksjon: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const [isOpen, setisOpen] = useState(false);
-    const [beslutterIdent, setBeslutterIdent] = useState('');
 
     return (
         <div>
@@ -23,17 +20,8 @@ const BekreftOppgjørKorreksjon: FunctionComponent = () => {
                 bekreft={() => fullførKorreksjonVedOppgjort(refusjonId)}
             >
                 <Normaltekst>
-                    
-                    For å fullføre korreksjonen må det besluttes av noen med budsjettdisponeringsmyndighet. Skriv inn
-                    denne personens NAV-ident under når denne personen har godkjent.
+                    Ved å fullføre korreksjonen vil arbeidsgiver få en bekreftelse på at utbetalt beløp er riktig.
                 </Normaltekst>
-                <VerticalSpacer rem={1} />
-                <Input
-                    label="Beslutters NAV-ident"
-                    bredde="S"
-                    value={beslutterIdent}
-                    onChange={(e) => setBeslutterIdent(e.currentTarget.value)}
-                />
             </BekreftelseModal>
         </div>
     );

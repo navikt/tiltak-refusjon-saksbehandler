@@ -69,7 +69,9 @@ const ForlengFrist: FunctionComponent = () => {
         }
         if (KAN_SENDE_INN) {
             setSkjemaGruppeFeilmeldinger([]);
-            oppdatereRefusjonFrist();
+            return oppdatereRefusjonFrist();
+        } else {
+            return Promise.reject();
         }
     };
 

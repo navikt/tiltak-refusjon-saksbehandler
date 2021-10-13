@@ -1,12 +1,12 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
-import { feilmelding } from '../feilkodemapping';
+import { Feature } from '../featureToggles/features';
 import { Filter } from '../refusjon/oversikt/FilterContext';
 import { Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
-import { Feature } from '../featureToggles/features';
+import { ApiError, FeilkodeError } from '../types/errors';
 
-export const API_URL = '/api/saksbehandler';
+//export const API_URL = '/api/saksbehandler';
 
 const api = axios.create({
     baseURL: '/api/saksbehandler',
@@ -17,13 +17,13 @@ const api = axios.create({
 });
 
 // eslint-disable-next-line
-const håndterFeil = (error: AxiosError) => {
-    const feilkode = error.response?.headers.feilkode;
-    if (feilkode) {
-        return Promise.reject({ feilkode, feilmelding: feilmelding(feilkode) });
-    }
-    return Promise.reject(error);
-};
+// const håndterFeil = (error: AxiosError) => {
+//     const feilkode = error.response?.headers.feilkode;
+//     if (feilkode) {
+//         return Promise.reject({ feilkode, feilmelding: feilmelding(feilkode) });
+//     }
+//     return Promise.reject(error);
+// };
 
 const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
 
@@ -32,8 +32,18 @@ const swrConfig = {
     suspense: true,
 };
 
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 400 && error.response?.headers.feilkode) {
+            throw new FeilkodeError(error.response?.headers.feilkode);
+        }
+        throw new ApiError('Feil ved kontakt mot baksystem.');
+    }
+);
+
 export const hentInnloggetBruker = async () => {
-    const response = await axios.get<InnloggetBruker>(`${API_URL}/innlogget-bruker`);
+    const response = await api.get<InnloggetBruker>(`/innlogget-bruker`);
     return response.data;
 };
 
@@ -61,34 +71,29 @@ export const useHentTidligereRefusjoner = (refusjonId: string) => {
 };
 
 export const korriger = async (refusjonId: string, korreksjonsgrunner: Korreksjonsgrunn[]) => {
-    const response = await axios
-        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/korriger`, { korreksjonsgrunner })
-        .catch(håndterFeil);
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/korriger`, { korreksjonsgrunner });
+
     return response.data;
 };
 
 export const endreBruttolønn = async (refusjonId: string, inntekterKunFraTiltaket: boolean, bruttoLønn?: number) => {
-    const response = await axios
-        .post(`${API_URL}/refusjon/${refusjonId}/endre-bruttolønn`, {
-            inntekterKunFraTiltaket,
-            bruttoLønn,
-        })
-        .catch(håndterFeil);
+    const response = await api.post(`/refusjon/${refusjonId}/endre-bruttolønn`, {
+        inntekterKunFraTiltaket,
+        bruttoLønn,
+    });
+
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };
 
 export const slettKorreksjon = async (refusjonId: string) => {
-    const response = await axios
-        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/slett-korreksjon`)
-        .catch(håndterFeil);
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/slett-korreksjon`);
+
     return response.data;
 };
 
 export const utbetalKorreksjon = async (refusjonId: string, beslutterNavIdent: string) => {
-    const response = await axios
-        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/utbetal-korreksjon`, { beslutterNavIdent })
-        .catch(håndterFeil);
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/utbetal-korreksjon`, { beslutterNavIdent });
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };
@@ -104,9 +109,7 @@ export interface ForlengFristRequest {
 }
 
 export const forlengFrist = async (refusjonId: string, nyFristValue: ForlengFristRequest) => {
-    const response = await axios
-        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/forleng-frist`, nyFristValue)
-        .catch(håndterFeil);
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/forleng-frist`, nyFristValue);
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };

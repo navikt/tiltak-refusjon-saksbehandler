@@ -4,15 +4,14 @@ import { useParams } from 'react-router';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentRefusjon, utbetalKorreksjon } from '../../services/rest-service';
-import './RefusjonSide.less';
-import Utregning from './Utregning';
+import { useHentRefusjon } from '../../services/rest-service';
+import BekreftSendKorreksjon from './BekreftSendKorreksjon';
 import BekreftSlettKorreksjon from './BekreftSlettKorreksjon';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
-import InntekterFraTiltaketSpørsmål from './InntekterFraTiltaketSpørsmål';
 import InntekterFraAMeldingen from './InntekterFraAMeldingen';
-import LagreKnapp from '../../komponenter/LagreKnapp';
-import BekreftSendKorreksjon from './BekreftSendKorreksjon';
+import InntekterFraTiltaketSpørsmål from './InntekterFraTiltaketSpørsmål';
+import './RefusjonSide.less';
+import Utregning from './Utregning';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();

@@ -1,9 +1,9 @@
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase, { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
 import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
-import VerticalSpacer from './VerticalSpacer';
 import { Nettressurs, Status } from '../nettressurs';
 import { handterFeil } from '../utils/apiFeilUtils';
+import VerticalSpacer from './VerticalSpacer';
 
 type Props = {
     lagreFunksjon: () => Promise<any>;

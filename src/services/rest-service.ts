@@ -38,6 +38,10 @@ api.interceptors.response.use(
         if (error.response?.status === 400 && error.response?.headers.feilkode) {
             throw new FeilkodeError(error.response?.headers.feilkode);
         }
+        if (error.response?.status === 401 || error.response?.status === 403) {
+            // Uinnlogget - vil ikke skje i miljø da appen er beskyttet
+            return Promise.reject(error);
+        }
         throw new ApiError('Feil ved kontakt mot baksystem.');
     }
 );

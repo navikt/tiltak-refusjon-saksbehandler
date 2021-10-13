@@ -39,8 +39,6 @@ const BekreftelseModal: FunctionComponent<Props> = (props) => {
                     <Innholdstittel className={cls.element('tittel')}>{props.tittel}</Innholdstittel>
                     {props.children}
                     <div className={cls.element('knapp-panel')}>
-                        {/* <LagreKnapp lagreFunksjon={props.bekreft}>OK</LagreKnapp>
-                        <Knapp onClick={() => props.lukkModal()}>Avbryt</Knapp> */}
                         <VerticalSpacer rem={2} />
                         <LagreOgAvbrytKnapp lagreFunksjon={props.bekreft} avbryt={() => props.lukkModal()}>
                             OK

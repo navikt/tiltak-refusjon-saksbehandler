@@ -96,12 +96,6 @@ export const slettKorreksjon = async (refusjonId: string) => {
     return response.data;
 };
 
-export const utbetalKorreksjon = async (refusjonId: string, beslutterNavIdent: string) => {
-    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/utbetal-korreksjon`, { beslutterNavIdent });
-    await mutate(`/refusjon/${refusjonId}`);
-    return response.data;
-};
-
 export const hentFeatureToggles = async (featureToggles: Feature[]) => {
     const response = await api.get('/feature?' + featureToggles.map((feature) => `feature=${feature}`).join('&'));
     return response.data;
@@ -114,6 +108,22 @@ export interface ForlengFristRequest {
 
 export const forlengFrist = async (refusjonId: string, nyFristValue: ForlengFristRequest) => {
     const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/forleng-frist`, nyFristValue);
+    await mutate(`/refusjon/${refusjonId}`);
+    return response.data;
+};
+
+export const utbetalKorreksjon = async (refusjonId: string, beslutterNavIdent: string) => {
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/utbetal-korreksjon`, { beslutterNavIdent });
+    await mutate(`/refusjon/${refusjonId}`);
+    return response.data;
+};
+export const fullførKorreksjonVedOppgjort = async (refusjonId: string) => {
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/fullfør-korreksjon-ved-oppgjort`);
+    await mutate(`/refusjon/${refusjonId}`);
+    return response.data;
+};
+export const fullførKorreksjonVedTilbakekreving = async (refusjonId: string) => {
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/fullfør-korreksjon-ved-tilbakekreving`);
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };

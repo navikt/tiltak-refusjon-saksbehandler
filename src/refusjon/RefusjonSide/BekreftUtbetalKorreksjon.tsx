@@ -1,13 +1,13 @@
-import React, { FunctionComponent, useState } from 'react';
-import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
-import { useParams } from 'react-router';
-import { utbetalKorreksjon } from '../../services/rest-service';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { Input } from 'nav-frontend-skjema';
 import { Knapp } from 'nav-frontend-knapper';
+import { Input } from 'nav-frontend-skjema';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useState } from 'react';
+import { useParams } from 'react-router';
+import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import { utbetalKorreksjon } from '../../services/rest-service';
 
-const BekreftSendKorreksjon: FunctionComponent = () => {
+const BekreftUtbetalKorreksjon: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const [isOpen, setisOpen] = useState(false);
     const [beslutterIdent, setBeslutterIdent] = useState('');
@@ -38,4 +38,4 @@ const BekreftSendKorreksjon: FunctionComponent = () => {
     );
 };
 
-export default BekreftSendKorreksjon;
+export default BekreftUtbetalKorreksjon;

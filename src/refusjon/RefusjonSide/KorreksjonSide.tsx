@@ -5,8 +5,10 @@ import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
-import BekreftSendKorreksjon from './BekreftSendKorreksjon';
+import BekreftOppgjørKorreksjon from './BekreftOppgjørKorreksjon';
 import BekreftSlettKorreksjon from './BekreftSlettKorreksjon';
+import BekreftTilbakekrevKorreksjon from './BekreftTilbakekrevKorreksjon';
+import BekreftUtbetalKorreksjon from './BekreftUtbetalKorreksjon';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
 import InntekterFraAMeldingen from './InntekterFraAMeldingen';
 import InntekterFraTiltaketSpørsmål from './InntekterFraTiltaketSpørsmål';
@@ -16,6 +18,21 @@ import Utregning from './Utregning';
 const KorreksjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+
+    type REFUSJONSTYPE = 'ETTERBETALING' | 'TILBAKEKREVING' | 'OPPGJORT';
+
+    const korreksjonstype = (): REFUSJONSTYPE | null => {
+        if (!refusjon.beregning?.refusjonsbeløp) {
+            return null;
+        }
+        if (refusjon.beregning.refusjonsbeløp > 0) {
+            return 'ETTERBETALING';
+        } else if (refusjon.beregning.refusjonsbeløp < 0) {
+            return 'TILBAKEKREVING';
+        } else {
+            return 'OPPGJORT';
+        }
+    };
 
     return (
         <HvitBoks>
@@ -48,10 +65,9 @@ const KorreksjonSide: FunctionComponent = () => {
                 <>
                     <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
                     <VerticalSpacer rem={1} />
-                    {/* <LagreKnapp lagreFunksjon={() => utbetalKorreksjon(refusjonId, "")}>
-                        Send korreksjon til utbetaling
-                    </LagreKnapp> */}
-                    <BekreftSendKorreksjon />
+                    {korreksjonstype() === 'ETTERBETALING' && <BekreftUtbetalKorreksjon />}
+                    {korreksjonstype() === 'TILBAKEKREVING' && <BekreftTilbakekrevKorreksjon />}
+                    {korreksjonstype() === 'OPPGJORT' && <BekreftOppgjørKorreksjon />}
                 </>
             )}
         </HvitBoks>

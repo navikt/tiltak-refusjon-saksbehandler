@@ -12,6 +12,7 @@ import InformasjonFraAvtalen from './InformasjonFraAvtalen';
 import InntekterFraTiltaketSpørsmål from './InntekterFraTiltaketSpørsmål';
 import InntekterFraAMeldingen from './InntekterFraAMeldingen';
 import LagreKnapp from '../../komponenter/LagreKnapp';
+import BekreftSendKorreksjon from './BekreftSendKorreksjon';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -48,9 +49,10 @@ const KorreksjonSide: FunctionComponent = () => {
                 <>
                     <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
                     <VerticalSpacer rem={1} />
-                    <LagreKnapp lagreFunksjon={() => utbetalKorreksjon(refusjonId)}>
+                    {/* <LagreKnapp lagreFunksjon={() => utbetalKorreksjon(refusjonId, "")}>
                         Send korreksjon til utbetaling
-                    </LagreKnapp>
+                    </LagreKnapp> */}
+                    <BekreftSendKorreksjon />
                 </>
             )}
         </HvitBoks>

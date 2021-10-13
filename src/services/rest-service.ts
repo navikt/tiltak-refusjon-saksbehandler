@@ -86,9 +86,9 @@ export const slettKorreksjon = async (refusjonId: string) => {
     return response.data;
 };
 
-export const utbetalKorreksjon = async (refusjonId: string) => {
+export const utbetalKorreksjon = async (refusjonId: string, beslutterNavIdent: string) => {
     const response = await axios
-        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/utbetal-korreksjon`)
+        .post<Refusjon>(`${API_URL}/refusjon/${refusjonId}/utbetal-korreksjon`, { beslutterNavIdent })
         .catch(håndterFeil);
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;

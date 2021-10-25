@@ -1,10 +1,10 @@
+import { Knapp } from 'nav-frontend-knapper';
+import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
+import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { slettKorreksjon } from '../../services/rest-service';
-import { useParams } from 'react-router';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { Knapp } from 'nav-frontend-knapper';
-import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
@@ -20,7 +20,7 @@ const BekreftSlettKorreksjon: FunctionComponent<Props> = (props) => {
                     setÅpen(true);
                 }}
             >
-                Slett korreksjon
+                Slett korreksjonsutkast
             </Knapp>
             <BekreftelseModal
                 isOpen={åpen}
@@ -29,9 +29,9 @@ const BekreftSlettKorreksjon: FunctionComponent<Props> = (props) => {
                     const korreksjon = await slettKorreksjon(refusjonId);
                     history.push('/refusjon/' + korreksjon.korreksjonAvId);
                 }}
-                tittel={'Slett korreksjon'}
+                tittel={'Slett korreksjonsutkast'}
             >
-                <Normaltekst>Vil du slette korreksjonen?</Normaltekst>
+                <Normaltekst>Vil du slette utkastet?</Normaltekst>
             </BekreftelseModal>
         </>
     );

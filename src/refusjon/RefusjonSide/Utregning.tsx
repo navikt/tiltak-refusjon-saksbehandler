@@ -77,6 +77,13 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     border="TYKK"
                 />
             )}
+            {props.beregning && props.beregning.overTilskuddsbeløp && props.beregning.tidligereUtbetalt > 0 && (
+                <Utregningsrad
+                    labelTekst="Tilskuddsbeløp"
+                    verdi={props.tilskuddsgrunnlag.tilskuddsbeløp}
+                    border="TYKK"
+                />
+            )}
             {props.beregning && props.beregning.tidligereUtbetalt > 0 && (
                 <Utregningsrad
                     labelTekst="Tidligere utbetalt"

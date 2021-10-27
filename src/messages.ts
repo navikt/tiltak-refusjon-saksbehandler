@@ -1,6 +1,6 @@
+import { Korreksjonsgrunn } from './refusjon/refusjon';
 import { Status } from './refusjon/status';
 import { Tiltak } from './refusjon/tiltak';
-import { Korreksjonsgrunn } from './refusjon/refusjon';
 
 export const tiltakstypeTekst: { [key in Tiltak]: string } = {
     MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
@@ -16,7 +16,10 @@ export const statusTekst: { [key in Status]: string } = {
     KLAR_FOR_INNSENDING: 'klar for innsending',
     FOR_TIDLIG: 'for tidlig',
     ANNULLERT: 'annullert',
-    MANUELL_KORREKSJON: 'korreksjon',
+    MANUELL_KORREKSJON: 'korreksjonsutkast',
+    KORREKSJON_SENDT_TIL_UTBETALING: 'korreksjon sendt til utbetaling',
+    KORREKSJON_OPPGJORT: 'korreksjon oppgjort',
+    KORREKSJON_SKAL_TILBAKEKREVES: 'korreksjon skal tilbakekreves',
 };
 
 export const inntektstypeTekst: { [key: string]: string } = {
@@ -176,5 +179,5 @@ export const korreksjonsgrunnTekst: { [key in Korreksjonsgrunn]: string } = {
     // REBEREGNING: 'Beregn refusjon på nytt',
     UTBETALT_HELE_TILSKUDDSBELØP: 'Utbetalt hele tilskuddsbeløpet',
     INNTEKTER_RAPPORTERT_ETTER_TILSKUDDSPERIODE: 'Inntekter rapportert etter tilskuddsperioden',
-    HENT_INNTEKTER_PÅ_NYTT: 'Inntekter må hentes på nytt',
+    HENT_INNTEKTER_PÅ_NYTT: 'Beregnet refusjon på mangelfullt inntektsgrunnlag',
 };

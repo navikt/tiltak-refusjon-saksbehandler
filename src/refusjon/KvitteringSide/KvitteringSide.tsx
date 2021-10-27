@@ -2,20 +2,20 @@ import { EtikettInfo } from 'nav-frontend-etiketter';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
+import { Feature } from '../../featureToggles/features';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { statusTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
 import { storForbokstav } from '../../utils/stringUtils';
-import SummeringBoks from '../RefusjonSide/SummeringBoks';
-import Utregning from '../RefusjonSide/Utregning';
-import BekreftKorreksjon from '../RefusjonSide/BekreftKorreksjon';
-import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
-import { Feature } from '../../featureToggles/features';
 import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
 import InntekterFraAMeldingen from '../RefusjonSide/InntekterFraAMeldingen';
 import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
+import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
+import SummeringBoks from '../RefusjonSide/SummeringBoks';
+import Utregning from '../RefusjonSide/Utregning';
 
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -24,7 +24,7 @@ const KvitteringSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
-            {featureToggles[Feature.Korreksjon] && refusjon.korrigeresAvId === null && <BekreftKorreksjon />}
+            {featureToggles[Feature.Korreksjon] && refusjon.korrigeresAvId === null && <OpprettKorreksjon />}
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

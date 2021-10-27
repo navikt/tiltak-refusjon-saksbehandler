@@ -1,16 +1,16 @@
-import React, { FunctionComponent, useState } from 'react';
-import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
-import { korriger } from '../../services/rest-service';
-import { useParams } from 'react-router';
-import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
-import { useHistory } from 'react-router-dom';
-import { Korreksjonsgrunn } from '../refusjon';
 import { Checkbox } from 'nav-frontend-skjema';
+import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useState } from 'react';
+import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
+import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { korreksjonsgrunnTekst } from '../../messages';
+import { korriger } from '../../services/rest-service';
+import { Korreksjonsgrunn } from '../refusjon';
 
-const BekreftKorreksjon: FunctionComponent<{}> = () => {
+const OpprettKorreksjon: FunctionComponent<{}> = () => {
     const { refusjonId } = useParams();
     const history = useHistory();
     const [åpen, setÅpen] = useState(false);
@@ -18,9 +18,7 @@ const BekreftKorreksjon: FunctionComponent<{}> = () => {
     const [feilmelding, setFeilmelding] = useState<string>('');
     return (
         <>
-            <Knapp onClick={() => setÅpen(true)}>
-                Korriger
-            </Knapp>
+            <Knapp onClick={() => setÅpen(true)}>Opprett korreksjonsutkast</Knapp>
             <BekreftelseModal
                 isOpen={åpen}
                 lukkModal={() => {
@@ -35,7 +33,7 @@ const BekreftKorreksjon: FunctionComponent<{}> = () => {
                         setFeilmelding(error.feilmelding ?? 'Det har skjedd en feil');
                     }
                 }}
-                tittel={'Korriger'}
+                tittel={'Opprett korreksjonsutkast'}
             >
                 <Normaltekst>Hvorfor skal det korrigeres?</Normaltekst>
                 <VerticalSpacer rem={1} />
@@ -67,4 +65,4 @@ const BekreftKorreksjon: FunctionComponent<{}> = () => {
     );
 };
 
-export default BekreftKorreksjon;
+export default OpprettKorreksjon;

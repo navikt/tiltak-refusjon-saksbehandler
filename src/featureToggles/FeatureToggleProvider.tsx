@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Feature } from './features';
 import { hentFeatureToggles } from '../services/rest-service';
+import { Feature } from './features';
 
 export const alleFeatures = Object.values(Feature);
 
@@ -8,7 +8,7 @@ export interface FeatureToggles {
     [toggles: string]: boolean;
 }
 
-export const FeatureToggleContext = createContext<FeatureToggles>({});
+const FeatureToggleContext = createContext<FeatureToggles>({});
 
 export const FeatureToggleProvider = (props: any) => {
     const [featureToggles, setFeatureToggles] = useState<FeatureToggles>({});

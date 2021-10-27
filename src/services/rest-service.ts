@@ -6,8 +6,6 @@ import { Filter } from '../refusjon/oversikt/FilterContext';
 import { Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
 import { ApiError, FeilkodeError } from '../types/errors';
 
-//export const API_URL = '/api/saksbehandler';
-
 const api = axios.create({
     baseURL: '/api/saksbehandler',
     timeout: 30000,
@@ -15,15 +13,6 @@ const api = axios.create({
     headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache' },
     validateStatus: (status) => status < 400,
 });
-
-// eslint-disable-next-line
-// const håndterFeil = (error: AxiosError) => {
-//     const feilkode = error.response?.headers.feilkode;
-//     if (feilkode) {
-//         return Promise.reject({ feilkode, feilmelding: feilmelding(feilkode) });
-//     }
-//     return Promise.reject(error);
-// };
 
 const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
 

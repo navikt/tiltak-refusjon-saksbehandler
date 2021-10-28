@@ -16,7 +16,7 @@ export const statusTekst: { [key in Status]: string } = {
     KLAR_FOR_INNSENDING: 'klar for innsending',
     FOR_TIDLIG: 'for tidlig',
     ANNULLERT: 'annullert',
-    MANUELL_KORREKSJON: 'korreksjonsutkast',
+    KORREKSJON_UTKAST: 'korreksjonsutkast',
     KORREKSJON_SENDT_TIL_UTBETALING: 'korreksjon sendt til utbetaling',
     KORREKSJON_OPPGJORT: 'korreksjon oppgjort',
     KORREKSJON_SKAL_TILBAKEKREVES: 'korreksjon skal tilbakekreves',

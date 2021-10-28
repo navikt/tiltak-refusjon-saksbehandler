@@ -4,7 +4,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
-import { slettKorreksjon } from '../../services/rest-service';
+import { slettKorreksjonsutkast } from '../../services/rest-service';
 
 interface Props {}
 
@@ -26,7 +26,7 @@ const BekreftSlettKorreksjon: FunctionComponent<Props> = (props) => {
                 isOpen={åpen}
                 lukkModal={() => setÅpen(false)}
                 bekreft={async () => {
-                    const korreksjon = await slettKorreksjon(refusjonId);
+                    const korreksjon = await slettKorreksjonsutkast(refusjonId);
                     history.push('/refusjon/' + korreksjon.korreksjonAvId);
                 }}
                 tittel={'Slett korreksjonsutkast'}

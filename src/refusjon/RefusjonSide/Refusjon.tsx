@@ -69,7 +69,7 @@ const Komponent: FunctionComponent = () => {
                     )} når perioden er over.`}
                 />
             );
-        case Status.MANUELL_KORREKSJON:
+        case Status.KORREKSJON_UTKAST:
             return <KorreksjonSide />;
         case Status.KLAR_FOR_INNSENDING:
             return <RefusjonSide />;

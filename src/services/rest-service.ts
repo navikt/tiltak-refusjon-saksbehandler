@@ -63,12 +63,6 @@ export const useHentTidligereRefusjoner = (refusjonId: string) => {
     return data!;
 };
 
-export const korriger = async (refusjonId: string, korreksjonsgrunner: Korreksjonsgrunn[]) => {
-    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/korriger`, { korreksjonsgrunner });
-
-    return response.data;
-};
-
 export const endreBruttolønn = async (refusjonId: string, inntekterKunFraTiltaket: boolean, bruttoLønn?: number) => {
     const response = await api.post(`/refusjon/${refusjonId}/endre-bruttolønn`, {
         inntekterKunFraTiltaket,
@@ -76,12 +70,6 @@ export const endreBruttolønn = async (refusjonId: string, inntekterKunFraTiltak
     });
 
     await mutate(`/refusjon/${refusjonId}`);
-    return response.data;
-};
-
-export const slettKorreksjon = async (refusjonId: string) => {
-    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/slett-korreksjon`);
-
     return response.data;
 };
 
@@ -98,6 +86,18 @@ export interface ForlengFristRequest {
 export const forlengFrist = async (refusjonId: string, nyFristValue: ForlengFristRequest) => {
     const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/forleng-frist`, nyFristValue);
     await mutate(`/refusjon/${refusjonId}`);
+    return response.data;
+};
+
+export const opprettKorreksjonsutkast = async (refusjonId: string, korreksjonsgrunner: Korreksjonsgrunn[]) => {
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/opprett-korreksjonsutkast`, {
+        korreksjonsgrunner,
+    });
+    return response.data;
+};
+
+export const slettKorreksjonsutkast = async (refusjonId: string) => {
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/slett-korreksjonsutkast`);
     return response.data;
 };
 

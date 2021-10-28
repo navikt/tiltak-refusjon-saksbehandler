@@ -52,7 +52,8 @@ const KorreksjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <Normaltekst>
                 Dette er en korreksjon av tidligere utbetalt refusjon. Det beregnes her et foreløpig oppgjør fratrukket
-                beløpet som er utbetalt tidligere.
+                beløpet som er utbetalt tidligere. Dette er foreløpig et utkast, og den vises ikke for arbeidsgiver før
+                den fullføres.
             </Normaltekst>
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen />

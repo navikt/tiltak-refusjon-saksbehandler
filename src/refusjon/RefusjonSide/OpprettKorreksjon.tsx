@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { korreksjonsgrunnTekst } from '../../messages';
-import { korriger } from '../../services/rest-service';
+import { opprettKorreksjonsutkast } from '../../services/rest-service';
 import { Korreksjonsgrunn } from '../refusjon';
 
 const OpprettKorreksjon: FunctionComponent<{}> = () => {
@@ -27,7 +27,7 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 }}
                 bekreft={async () => {
                     try {
-                        const korreksjon = await korriger(refusjonId, Array.from(grunner));
+                        const korreksjon = await opprettKorreksjonsutkast(refusjonId, Array.from(grunner));
                         history.push('/refusjon/' + korreksjon.id);
                     } catch (error) {
                         setFeilmelding(error.feilmelding ?? 'Det har skjedd en feil');

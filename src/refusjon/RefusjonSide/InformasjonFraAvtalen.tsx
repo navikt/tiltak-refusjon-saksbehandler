@@ -19,7 +19,7 @@ const IkonRad = styled.div`
 `;
 
 const GråBoks = styled.div`
-    background-color: #F1F1F1;
+    background-color: #f1f1f1;
     border-radius: 4px;
     padding: 1.5rem;
 `;
@@ -39,6 +39,18 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
                     <File />
                     Avtale om {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}
                 </EksternLenke>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <File />
+                <Element>Bedriftsnavn: </Element>
+                <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftNavn}</Normaltekst>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <File />
+                <Element>Bedriftsnummer: </Element>
+                <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftNr}</Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
@@ -68,7 +80,9 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
                 <Element>Frist: </Element>
                 <Normaltekst>
                     {formatterDato(refusjon.fristForGodkjenning)}
-                    {refusjon.forrigeFristForGodkjenning ? `  (tidligere frist: ${formatterDato(refusjon.forrigeFristForGodkjenning)})` : ''}
+                    {refusjon.forrigeFristForGodkjenning
+                        ? `  (tidligere frist: ${formatterDato(refusjon.forrigeFristForGodkjenning)})`
+                        : ''}
                 </Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />
@@ -88,8 +102,7 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <AlertStripeFeil>
                         Vi kan ikke finne noe kontonummer på deres virksomhet. Riktig kontonummer må{' '}
-                        <EksternLenke
-                            href='https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/'>
+                        <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
                             sendes inn via Altinn.
                         </EksternLenke>
                     </AlertStripeFeil>

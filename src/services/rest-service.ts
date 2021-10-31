@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { feilmelding } from '../feilkodemapping';
-import { Filter } from '../refusjon/oversikt/FilterContext';
+import { Filter, useFilter } from '../refusjon/oversikt/FilterContext';
 import { Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
 import { Feature } from '../featureToggles/features';
 
@@ -38,8 +38,9 @@ export const hentInnloggetBruker = async () => {
 };
 
 export const useHentRefusjoner = (filter: Filter) => {
-    const manglerSøkekriterier =
-        !filter.veilederNavIdent && !filter.enhet && !filter.deltakerFnr && !filter.bedriftNr && !filter.avtaleNr;
+    const { sjekkForOnsketRefusjonAktør } = useFilter();
+    const manglerSøkekriterier = !Object.entries(filter).filter(([key, value]) =>
+        sjekkForOnsketRefusjonAktør(key, value)).length;
     const urlSearchParams = new URLSearchParams(removeEmpty(filter));
     const { data } = useSWR<Refusjon[]>(manglerSøkekriterier ? null : `/refusjon?${urlSearchParams}`, swrConfig);
     return data;

@@ -12,7 +12,7 @@ const Statusmelding: FunctionComponent<Props> = (props) => {
         case Status.UTBETALING_FEILET:
             return (
                 <AlertStripeAdvarsel>
-                    Vi har problemer med utbetalingen. Arbeidgiver har fått beskjed om å ta kontakt med veileder. Melde
+                    Vi har problemer med utbetalingen. Arbeidgiver har fått beskjed om å ta kontakt med veileder. Meld
                     inn problemet som porten-sak. Noter refusjonsnummer.
                 </AlertStripeAdvarsel>
             );

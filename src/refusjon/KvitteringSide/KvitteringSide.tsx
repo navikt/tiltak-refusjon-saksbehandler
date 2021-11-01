@@ -23,19 +23,16 @@ import { EtikettAdvarsel } from 'nav-frontend-etiketter';
 import { ReactElement } from 'react';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
-    switch (refusjon.status) {
-        case Status.UTBETALING_FEILET:
-            return <EtikettAdvarsel>{storForbokstav(statusTekst[refusjon.status])} </EtikettAdvarsel>;
-
-        default:
-            return (
-                <EtikettInfo>
-                    {storForbokstav(statusTekst[refusjon.status])}{' '}
-                    {refusjon.godkjentAvArbeidsgiver &&
-                        formatterDato(refusjon.godkjentAvArbeidsgiver, NORSK_DATO_OG_TID_FORMAT)}
-                </EtikettInfo>
-            );
+    if (refusjon.status === Status.UTBETALING_FEILET) {
+        return <EtikettAdvarsel>{storForbokstav(statusTekst[refusjon.status])} </EtikettAdvarsel>;
     }
+    return (
+        <EtikettInfo>
+            {storForbokstav(statusTekst[refusjon.status])}{' '}
+            {refusjon.godkjentAvArbeidsgiver &&
+                formatterDato(refusjon.godkjentAvArbeidsgiver, NORSK_DATO_OG_TID_FORMAT)}
+        </EtikettInfo>
+    );
 };
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();

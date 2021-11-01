@@ -20,7 +20,7 @@ const StatusTekst: FunctionComponent<Props> = (props) => {
     } else if (
         props.status === Status.UTGÅTT ||
         props.status === Status.ANNULLERT ||
-        props.status === Status.MANUELL_KORREKSJON
+        props.status === Status.KORREKSJON_UTKAST
     ) {
         return <EtikettAdvarsel>{storForbokstav(statusTekst[props.status])}</EtikettAdvarsel>;
     }

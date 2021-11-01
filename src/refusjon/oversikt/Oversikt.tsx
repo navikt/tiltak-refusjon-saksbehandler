@@ -42,7 +42,7 @@ const Oversikt: FunctionComponent = () => {
     const featureToggles = useFeatureToggles();
 
     const refusjoner = useHentRefusjoner(filter)?.filter(
-        (refusjon) => featureToggles[Feature.Korreksjon] || refusjon.status !== Status.MANUELL_KORREKSJON
+        (refusjon) => featureToggles[Feature.Korreksjon] || refusjon.status !== Status.KORREKSJON_UTKAST
     );
     const history = useHistory();
 

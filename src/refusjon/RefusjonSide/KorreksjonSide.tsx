@@ -5,16 +5,34 @@ import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
+import BekreftOppgjørKorreksjon from './BekreftOppgjørKorreksjon';
+import BekreftSlettKorreksjon from './BekreftSlettKorreksjon';
+import BekreftTilbakekrevKorreksjon from './BekreftTilbakekrevKorreksjon';
+import BekreftUtbetalKorreksjon from './BekreftUtbetalKorreksjon';
+import InformasjonFraAvtalen from './InformasjonFraAvtalen';
+import InntekterFraAMeldingen from './InntekterFraAMeldingen';
+import InntekterFraTiltaketSpørsmål from './InntekterFraTiltaketSpørsmål';
 import './RefusjonSide.less';
 import Utregning from './Utregning';
-import BekreftSlettKorreksjon from './BekreftSlettKorreksjon';
-import InformasjonFraAvtalen from './InformasjonFraAvtalen';
-import InntekterFraTiltaketSpørsmål from './InntekterFraTiltaketSpørsmål';
-import InntekterFraAMeldingen from './InntekterFraAMeldingen';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+
+    type REFUSJONSTYPE = 'ETTERBETALING' | 'TILBAKEKREVING' | 'OPPGJORT';
+
+    const korreksjonstype = (): REFUSJONSTYPE | null => {
+        if (!refusjon.beregning) {
+            return null;
+        }
+        if (refusjon.beregning.refusjonsbeløp > 0) {
+            return 'ETTERBETALING';
+        } else if (refusjon.beregning.refusjonsbeløp < 0) {
+            return 'TILBAKEKREVING';
+        } else {
+            return 'OPPGJORT';
+        }
+    };
 
     return (
         <HvitBoks>
@@ -34,7 +52,8 @@ const KorreksjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <Normaltekst>
                 Dette er en korreksjon av tidligere utbetalt refusjon. Det beregnes her et foreløpig oppgjør fratrukket
-                beløpet som er utbetalt tidligere.
+                beløpet som er utbetalt tidligere. Dette er foreløpig et utkast, og den vises ikke for arbeidsgiver før
+                den fullføres.
             </Normaltekst>
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen />
@@ -44,7 +63,13 @@ const KorreksjonSide: FunctionComponent = () => {
             <InntekterFraTiltaketSpørsmål />
             <VerticalSpacer rem={2} />
             {refusjon.beregning && (
-                <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
+                <>
+                    <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
+                    <VerticalSpacer rem={1} />
+                    {korreksjonstype() === 'ETTERBETALING' && <BekreftUtbetalKorreksjon />}
+                    {korreksjonstype() === 'TILBAKEKREVING' && <BekreftTilbakekrevKorreksjon />}
+                    {korreksjonstype() === 'OPPGJORT' && <BekreftOppgjørKorreksjon />}
+                </>
             )}
         </HvitBoks>
     );

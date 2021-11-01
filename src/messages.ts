@@ -14,6 +14,7 @@ export const statusTekst: { [key in Status]: string } = {
     UTBETALT: 'utbetalt',
     UTGÅTT: 'frist utgått',
     KLAR_FOR_INNSENDING: 'klar for innsending',
+    UTBETALING_FEILET: 'Utbetaling feilet',
     FOR_TIDLIG: 'for tidlig',
     ANNULLERT: 'annullert',
     KORREKSJON_UTKAST: 'korreksjonsutkast',

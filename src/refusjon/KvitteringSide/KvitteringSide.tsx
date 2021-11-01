@@ -16,7 +16,24 @@ import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
+import Statusmelding from './Statusmelding';
+import { Status } from '../status';
+import { Refusjon } from '../refusjon';
+import { EtikettAdvarsel } from 'nav-frontend-etiketter';
+import { ReactElement } from 'react';
 
+const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
+    if (refusjon.status === Status.UTBETALING_FEILET) {
+        return <EtikettAdvarsel>{storForbokstav(statusTekst[refusjon.status])} </EtikettAdvarsel>;
+    }
+    return (
+        <EtikettInfo>
+            {storForbokstav(statusTekst[refusjon.status])}{' '}
+            {refusjon.godkjentAvArbeidsgiver &&
+                formatterDato(refusjon.godkjentAvArbeidsgiver, NORSK_DATO_OG_TID_FORMAT)}
+        </EtikettInfo>
+    );
+};
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
@@ -29,17 +46,10 @@ const KvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Innholdstittel role="heading">Kvittering for refusjon</Innholdstittel>
-                <EtikettInfo>
-                    {storForbokstav(statusTekst[refusjon.status])}{' '}
-                    {refusjon.godkjentAvArbeidsgiver &&
-                        formatterDato(refusjon.godkjentAvArbeidsgiver, NORSK_DATO_OG_TID_FORMAT)}
-                </EtikettInfo>
+                {etikettForRefusjonStatus(refusjon)}
             </div>
             <VerticalSpacer rem={1} />
-            <Normaltekst>
-                Refusjonskravet er nå sendt. Det vil ta 3–4 dager før pengene kommer på kontoen. Denne refusjonen vil
-                bli tatt vare på under “Sendt krav”.
-            </Normaltekst>
+            <Statusmelding status={refusjon.status} />
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen />
             <VerticalSpacer rem={2} />

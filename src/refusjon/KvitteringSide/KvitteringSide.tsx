@@ -1,5 +1,5 @@
 import { EtikettInfo } from 'nav-frontend-etiketter';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import { Feature } from '../../featureToggles/features';

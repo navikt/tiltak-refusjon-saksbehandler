@@ -3,22 +3,22 @@ import { Input, InputProps } from 'nav-frontend-skjema';
 import React, { FormEvent, FunctionComponent, useState } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 
-type Props = {
+interface Props {
     utførSøk: (søkeord: string) => void;
     feiletSøk: () => void;
     valider: (verdi: string) => string | undefined;
+    tidligereSok?: string;
 };
 
 export const SøkeInput: FunctionComponent<Props & { inputProps?: InputProps }> = (props) => {
-    const [søkeord, setSøkeord] = useState<string>('');
+    const [søkeord, setSøkeord] = useState<string>(props.tidligereSok ?? '');
     const [feil, setFeil] = useState<string>();
 
     const utførSøk = () => {
         if (props.valider(søkeord) === undefined) {
-            props.utførSøk(søkeord);
-        } else {
-            props.feiletSøk();
+            return props.utførSøk(søkeord);
         }
+        return props.feiletSøk();
     };
 
     const onBlur = () => {
@@ -37,10 +37,9 @@ export const SøkeInput: FunctionComponent<Props & { inputProps?: InputProps }> 
             const feil = props.valider(søkeord);
             setFeil(feil);
             if (feil === undefined) {
-                props.utførSøk(nyttSøkeord);
-            } else {
-                props.feiletSøk();
+                return props.utførSøk(nyttSøkeord);
             }
+            return props.feiletSøk();
         }
     };
 

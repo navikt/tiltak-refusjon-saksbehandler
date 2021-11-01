@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Calender, File, FileContent, Money, People, Warning } from '@navikt/ds-icons';
+import { Calender, File, FileContent, Money, People, Warning, Office1 } from '@navikt/ds-icons';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { useParams } from 'react-router';
@@ -19,7 +19,7 @@ const IkonRad = styled.div`
 `;
 
 const GråBoks = styled.div`
-    background-color: #F1F1F1;
+    background-color: #f1f1f1;
     border-radius: 4px;
     padding: 1.5rem;
 `;
@@ -39,6 +39,20 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
                     <File />
                     Avtale om {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}
                 </EksternLenke>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <Office1 style={{marginTop: '0.125rem'}} />
+                <div>
+                    <div style={{display: 'flex'}}>
+                        <Element>Bedriftsnavn: </Element>
+                        <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftNavn}</Normaltekst>
+                    </div>
+                    <div style={{display: 'flex'}}>
+                        <Element>Bedriftsnummer: </Element>
+                        <Normaltekst>{refusjon.tilskuddsgrunnlag.bedriftNr}</Normaltekst>
+                    </div>
+                </div>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
@@ -68,7 +82,9 @@ const InformasjonFraAvtalen: FunctionComponent = () => {
                 <Element>Frist: </Element>
                 <Normaltekst>
                     {formatterDato(refusjon.fristForGodkjenning)}
-                    {refusjon.forrigeFristForGodkjenning ? `  (tidligere frist: ${formatterDato(refusjon.forrigeFristForGodkjenning)})` : ''}
+                    {refusjon.forrigeFristForGodkjenning
+                        ? `  (tidligere frist: ${formatterDato(refusjon.forrigeFristForGodkjenning)})`
+                        : ''}
                 </Normaltekst>
             </IkonRad>
             <VerticalSpacer rem={1} />

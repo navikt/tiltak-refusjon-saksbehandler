@@ -20,7 +20,6 @@ export const useOversiktCookie = () => {
             { ...sokeverdi },
             {
                 path: '/',
-                domain: process.env.NODE_ENV ? 'localhost' : '.nav.no',
                 expires: genererExpires(),
             }
         );

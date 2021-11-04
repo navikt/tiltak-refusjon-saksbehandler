@@ -43,7 +43,8 @@ export const hentInnloggetBruker = async () => {
 export const useHentRefusjoner = (filter: Filter) => {
     const { sjekkForOnsketRefusjonAktør } = useFilter();
     const manglerSøkekriterier = !Object.entries(filter).filter(([key, value]) =>
-        sjekkForOnsketRefusjonAktør(key, value)).length;
+        sjekkForOnsketRefusjonAktør(key, value)
+    ).length;
     const urlSearchParams = new URLSearchParams(removeEmpty(filter));
     const { data } = useSWR<Refusjon[]>(manglerSøkekriterier ? null : `/refusjon?${urlSearchParams}`, swrConfig);
     return data;
@@ -102,7 +103,7 @@ export const slettKorreksjonsutkast = async (refusjonId: string) => {
     return response.data;
 };
 
-export const utbetalKorreksjon = async (refusjonId: string, beslutterNavIdent: string) => {
+export const utbetalKorreksjon = async (refusjonId: string, beslutterNavIdent: string, kostnadsSted: number) => {
     const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/utbetal-korreksjon`, { beslutterNavIdent });
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;

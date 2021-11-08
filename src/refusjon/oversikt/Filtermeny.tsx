@@ -10,7 +10,6 @@ import { useFilter } from './FilterContext';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import VisRefusjonerFilter from './VisRefusjonerFilter';
 import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
-import { Feature } from '../../featureToggles/features';
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
@@ -87,15 +86,15 @@ const Filtermeny: FunctionComponent = () => {
                         name={'status'}
                         onChange={() => oppdaterFilter({ status: Status.UTGÅTT })}
                     />
-                    {featureToggles[Feature.Korreksjon] && (
-                        <Radio
-                            role="radio"
-                            label={storForbokstav(statusTekst[Status.KORREKSJON_UTKAST])}
-                            checked={filter.status === Status.KORREKSJON_UTKAST}
-                            name={'status'}
-                            onChange={() => oppdaterFilter({ status: Status.KORREKSJON_UTKAST })}
-                        />
-                    )}
+                    {/*{featureToggles[Feature.Korreksjon] && (*/}
+                    {/*    <Radio*/}
+                    {/*        role="radio"*/}
+                    {/*        label={storForbokstav(statusTekst[Status.KORREKSJON_UTKAST])}*/}
+                    {/*        checked={filter.status === Status.KORREKSJON_UTKAST}*/}
+                    {/*        name={'status'}*/}
+                    {/*        onChange={() => oppdaterFilter({ status: Status.KORREKSJON_UTKAST })}*/}
+                    {/*    />*/}
+                    {/*)}*/}
                 </RadioGruppe>
             </EkspanderbartpanelBase>
             <VerticalSpacer rem={1.25} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Status } from './status';
+import { KorreksjonStatus, Status } from './status';
 import { Tiltak } from './tiltak';
 
 export interface Refusjon {
@@ -16,11 +16,31 @@ export interface Refusjon {
     forrigeFristForGodkjenning: string;
     fristForGodkjenning: string;
     harInntektIAlleMåneder: boolean;
-    korreksjonAvId?: string;
-    korrigeresAvId?: string;
     korreksjonsgrunner: Korreksjonsgrunn[];
     inntekterKunFraTiltaket?: boolean;
     endretBruttoLønn?: number;
+    korreksjonsutkastId?: string;
+    refusjonsgrunnlag: Refusjonsgrunnlag;
+}
+
+export interface Korreksjon {
+    id: string;
+    korrigererRefusjonId: string;
+    bedriftNr: string;
+    deltakerFnr: string;
+    status: KorreksjonStatus;
+    harInntektIAlleMåneder: boolean;
+    korreksjonsgrunner: Korreksjonsgrunn[];
+    refusjonsgrunnlag: Refusjonsgrunnlag;
+}
+
+export interface Refusjonsgrunnlag {
+    tilskuddsgrunnlag: Tilskuddsgrunnlag;
+    inntektsgrunnlag?: Inntektsgrunnlag;
+    inntekterKunFraTiltaket?: boolean;
+    endretBruttoLønn?: number;
+    bedriftKontonummer?: string;
+    beregning?: Beregning;
 }
 
 export interface Tilskuddsgrunnlag {

@@ -40,14 +40,20 @@ const RefusjonSide: FunctionComponent = () => {
                 hentet fra avtalen om midlertidig lønnstilskudd.
             </Normaltekst>
             <VerticalSpacer rem={2} />
-            <InformasjonFraAvtalen />
+            <InformasjonFraAvtalen
+                tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
+            />
             <VerticalSpacer rem={2} />
-            <InntekterFraAMeldingen />
+            <InntekterFraAMeldingen inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag} />
             <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvar />
+            <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
-            {refusjon.beregning && (
-                <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
+            {refusjon.refusjonsgrunnlag.beregning && (
+                <Utregning
+                    beregning={refusjon.refusjonsgrunnlag.beregning}
+                    tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                />
             )}
         </HvitBoks>
     );

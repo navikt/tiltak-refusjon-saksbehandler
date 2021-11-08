@@ -10,6 +10,7 @@ import Refusjon from './refusjon/RefusjonSide/Refusjon';
 import InternflateDekoratør from './InternflateDekoratør';
 import { FeatureToggleProvider } from './featureToggles/FeatureToggleProvider';
 import { FilterProvider } from './refusjon/oversikt/FilterContext';
+import Korreksjon from './KorreksjonSide/Korreksjon';
 
 function App() {
     return (
@@ -30,6 +31,11 @@ function App() {
                                 <Route path="/refusjon/:refusjonId">
                                     <ErrorOgSuspenseHandler>
                                         <Refusjon />
+                                    </ErrorOgSuspenseHandler>
+                                </Route>
+                                <Route path="/korreksjon/:korreksjonId">
+                                    <ErrorOgSuspenseHandler>
+                                        <Korreksjon />
                                     </ErrorOgSuspenseHandler>
                                 </Route>
                             </div>

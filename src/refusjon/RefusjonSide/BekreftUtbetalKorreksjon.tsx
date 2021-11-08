@@ -8,7 +8,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { utbetalKorreksjon } from '../../services/rest-service';
 
 const BekreftUtbetalKorreksjon: FunctionComponent = () => {
-    const { refusjonId } = useParams();
+    const { korreksjonId } = useParams();
     const [isOpen, setisOpen] = useState(false);
     const [beslutterIdent, setBeslutterIdent] = useState('');
 
@@ -20,7 +20,7 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
                 isOpen={isOpen}
                 lukkModal={() => setisOpen(false)}
                 tittel="Send korreksjon til utbetaling"
-                bekreft={() => utbetalKorreksjon(refusjonId, beslutterIdent)}
+                bekreft={() => utbetalKorreksjon(korreksjonId, beslutterIdent)}
             >
                 <Normaltekst>
                     For å utbetale korreksjon må det besluttes av noen med budsjettdisponeringsmyndighet. Skriv inn

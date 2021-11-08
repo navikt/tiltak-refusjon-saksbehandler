@@ -41,7 +41,7 @@ const KvitteringSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
-            {featureToggles[Feature.Korreksjon] && refusjon.korrigeresAvId === null && <OpprettKorreksjon />}
+            {featureToggles[Feature.Korreksjon] && !refusjon.korreksjonsutkastId && <OpprettKorreksjon />}
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -51,15 +51,18 @@ const KvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <Statusmelding status={refusjon.status} />
             <VerticalSpacer rem={2} />
-            <InformasjonFraAvtalen />
+            <InformasjonFraAvtalen
+                tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
+            />
             <VerticalSpacer rem={2} />
-            <InntekterFraAMeldingen />
+            <InntekterFraAMeldingen inntektsgrunnlag={refusjon.inntektsgrunnlag} />
             <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvar />
+            <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
             <VerticalSpacer rem={4} />
-            <SummeringBoks />
+            <SummeringBoks refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
         </HvitBoks>
     );
 };

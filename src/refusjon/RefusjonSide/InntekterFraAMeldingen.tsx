@@ -1,14 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { useHentRefusjon } from '../../services/rest-service';
-import { useParams } from 'react-router';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT, NORSK_MÅNEDÅR_FORMAT } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { lønnsbeskrivelseTekst } from '../../messages';
 import _ from 'lodash';
+import { Inntektsgrunnlag } from '../refusjon';
 
 const GråBoks = styled.div`
     background-color: #eee;
@@ -51,42 +50,40 @@ const inntektBeskrivelse = (beskrivelse: string | undefined) => {
     }
 };
 
-const InntekterFraAMeldingen: FunctionComponent = () => {
-    const { refusjonId } = useParams();
-    const refusjon = useHentRefusjon(refusjonId);
-    const antallInntekterSomErMedIGrunnlag = refusjon.inntektsgrunnlag?.inntekter.filter(
+const InntekterFraAMeldingen: FunctionComponent<{ inntektsgrunnlag?: Inntektsgrunnlag }> = (props) => {
+    const antallInntekterSomErMedIGrunnlag = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erMedIInntektsgrunnlag
     ).length;
 
-    const ingenInntekter = !refusjon.inntektsgrunnlag || refusjon.inntektsgrunnlag?.inntekter.length === 0;
+    const ingenInntekter = !props.inntektsgrunnlag || props.inntektsgrunnlag?.inntekter.length === 0;
 
     const ingenRefunderbareInntekter: boolean =
-        !!refusjon.inntektsgrunnlag &&
-        refusjon.inntektsgrunnlag.inntekter.length > 0 &&
+        !!props.inntektsgrunnlag &&
+        props.inntektsgrunnlag.inntekter.length > 0 &&
         antallInntekterSomErMedIGrunnlag === 0;
 
-    const harInntekterMenIkkeForHeleTilskuddsperioden =
-        refusjon.status === 'KLAR_FOR_INNSENDING' &&
-        !refusjon.harInntektIAlleMåneder &&
-        !!refusjon.inntektsgrunnlag &&
-        refusjon.inntektsgrunnlag.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) !== undefined;
+    const harInntekterMenIkkeForHeleTilskuddsperioden = false;
+    // props.status === 'KLAR_FOR_INNSENDING' &&
+    // !props.harInntektIAlleMåneder &&
+    // !!props.inntektsgrunnlag &&
+    // props.inntektsgrunnlag.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) !== undefined;
 
     return (
         <GråBoks>
             <Fleks>
                 <Undertittel style={{ marginBottom: '1rem' }}>Inntekter hentet fra a-meldingen</Undertittel>
-                {refusjon.inntektsgrunnlag && (
+                {props.inntektsgrunnlag && (
                     <Normaltekst>
                         Sist hentet:{' '}
-                        {formatterDato(refusjon.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
+                        {formatterDato(props.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
                     </Normaltekst>
                 )}
             </Fleks>
-            {refusjon.inntektsgrunnlag?.bruttoLønn !== undefined && refusjon.inntektsgrunnlag?.bruttoLønn !== null && (
+            {props.inntektsgrunnlag?.bruttoLønn !== undefined && props.inntektsgrunnlag?.bruttoLønn !== null && (
                 <i>Her hentes inntekter rapportert inn til a-meldingen i tilskuddsperioden og en måned etter.</i>
             )}
-            {refusjon.inntektsgrunnlag &&
-                refusjon.inntektsgrunnlag.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && (
+            {props.inntektsgrunnlag &&
+                props.inntektsgrunnlag.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && (
                     <>
                         <VerticalSpacer rem={1} />
                         <InntekterTabell>
@@ -100,7 +97,7 @@ const InntekterFraAMeldingen: FunctionComponent = () => {
                             </thead>
                             <tbody>
                                 {_.sortBy(
-                                    refusjon.inntektsgrunnlag.inntekter.filter(
+                                    props.inntektsgrunnlag.inntekter.filter(
                                         (inntekt) => inntekt.erMedIInntektsgrunnlag
                                     ),
                                     ['måned', 'opptjeningsperiodeFom', 'opptjeningsperiodeTom', 'beskrivelse', 'id']
@@ -124,14 +121,14 @@ const InntekterFraAMeldingen: FunctionComponent = () => {
                                         <td>{formatterPenger(inntekt.beløp)}</td>
                                     </tr>
                                 ))}
-                                {refusjon.inntektsgrunnlag?.bruttoLønn && (
+                                {props.inntektsgrunnlag?.bruttoLønn && (
                                     <tr>
                                         <td colSpan={3}>
                                             <b>Sum</b>
                                         </td>
                                         <td>
                                             <b style={{ whiteSpace: 'nowrap' }}>
-                                                {formatterPenger(refusjon.inntektsgrunnlag.bruttoLønn)}
+                                                {formatterPenger(props.inntektsgrunnlag.bruttoLønn)}
                                             </b>
                                         </td>
                                     </tr>
@@ -160,25 +157,22 @@ const InntekterFraAMeldingen: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                 </>
             )}
-            {harInntekterMenIkkeForHeleTilskuddsperioden && (
-                <>
-                    <VerticalSpacer rem={1} />
-                    <AlertStripeAdvarsel>
-                        Vi kan ikke finne inntekter for hele perioden som er avtalt. Dette kan skyldes at det ikke er
-                        rapportert inn inntekter for alle månedene i den avtalte perioden enda.
-                        <Element>
-                            Du kan kun søke om refusjon for den avtalte perioden{' '}
-                            {formatterPeriode(
-                                refusjon.tilskuddsgrunnlag.tilskuddFom,
-                                refusjon.tilskuddsgrunnlag.tilskuddTom
-                            )}{' '}
-                            én gang. Sikre deg derfor at alle inntekter innenfor perioden er rapportert før du klikker
-                            fullfør.
-                        </Element>
-                    </AlertStripeAdvarsel>
-                    <VerticalSpacer rem={1} />
-                </>
-            )}
+            {/*{harInntekterMenIkkeForHeleTilskuddsperioden && (*/}
+            {/*    <>*/}
+            {/*        <VerticalSpacer rem={1} />*/}
+            {/*        <AlertStripeAdvarsel>*/}
+            {/*            Vi kan ikke finne inntekter for hele perioden som er avtalt. Dette kan skyldes at det ikke er*/}
+            {/*            rapportert inn inntekter for alle månedene i den avtalte perioden enda.*/}
+            {/*            <Element>*/}
+            {/*                Du kan kun søke om refusjon for den avtalte perioden{' '}*/}
+            {/*                {formatterPeriode(props.tilskuddsgrunnlag.tilskuddFom, props.tilskuddsgrunnlag.tilskuddTom)}{' '}*/}
+            {/*                én gang. Sikre deg derfor at alle inntekter innenfor perioden er rapportert før du klikker*/}
+            {/*                fullfør.*/}
+            {/*            </Element>*/}
+            {/*        </AlertStripeAdvarsel>*/}
+            {/*        <VerticalSpacer rem={1} />*/}
+            {/*    </>*/}
+            {/*)}*/}
         </GråBoks>
     );
 };

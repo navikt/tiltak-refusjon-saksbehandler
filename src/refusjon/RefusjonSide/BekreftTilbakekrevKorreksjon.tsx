@@ -8,7 +8,7 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 
 const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
-    const { refusjonId } = useParams();
+    const { korreksjonId } = useParams();
     const [isOpen, setisOpen] = useState(false);
 
     return (
@@ -19,7 +19,7 @@ const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
                 isOpen={isOpen}
                 lukkModal={() => setisOpen(false)}
                 tittel="Merk korreksjon for tilbakekreving"
-                bekreft={() => fullførKorreksjonVedTilbakekreving(refusjonId)}
+                bekreft={() => fullførKorreksjonVedTilbakekreving(korreksjonId)}
             >
                 <Normaltekst>
                     Ved å fullføre korreksjonen vil arbeidsgiver få en bekreftelse på at utbetalt beløp er for høyt, og

@@ -19,7 +19,7 @@ export interface Refusjon {
     korreksjonsgrunner: Korreksjonsgrunn[];
     inntekterKunFraTiltaket?: boolean;
     endretBruttoLønn?: number;
-    korreksjonsutkastId?: string;
+    korreksjonId?: string;
     refusjonsgrunnlag: Refusjonsgrunnlag;
 }
 

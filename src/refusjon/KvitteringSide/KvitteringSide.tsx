@@ -41,7 +41,7 @@ const KvitteringSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
-            {featureToggles[Feature.Korreksjon] && !refusjon.korreksjonsutkastId && <OpprettKorreksjon />}
+            {featureToggles[Feature.Korreksjon] && !refusjon.korreksjonId && <OpprettKorreksjon />}
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

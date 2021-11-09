@@ -38,12 +38,7 @@ const KorreksjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Korreksjon av refusjon</Innholdstittel>
-                {/*<StatusTekst*/}
-                {/*    status={korreksjon.status}*/}
-                {/*    tilskuddFom={korreksjon.tilskuddsgrunnlag.tilskuddFom}*/}
-                {/*    tilskuddTom={korreksjon.tilskuddsgrunnlag.tilskuddTom}*/}
-                {/*/>*/}
+                <Innholdstittel role="heading">Korreksjonsutkast</Innholdstittel>
             </div>
 
             <VerticalSpacer rem={1} />

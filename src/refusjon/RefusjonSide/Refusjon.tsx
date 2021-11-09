@@ -22,13 +22,11 @@ const Advarsler: FunctionComponent = () => {
 
     return (
         <>
-            {featureToggles[Feature.Korreksjon] && refusjon.korreksjonsutkastId && (
+            {featureToggles[Feature.Korreksjon] && refusjon.korreksjonId && (
                 <>
                     <AlertStripeInfo>
                         Denne refusjonen er det gjort korrigeringer på.{' '}
-                        <Link to={`/korreksjon/${refusjon.korreksjonsutkastId}`}>
-                            Klikk her for å åpne korreksjonen.
-                        </Link>
+                        <Link to={`/korreksjon/${refusjon.korreksjonId}`}>Klikk her for å åpne korreksjonen.</Link>
                     </AlertStripeInfo>
                     <VerticalSpacer rem={1} />
                 </>
@@ -52,15 +50,25 @@ const Komponent: FunctionComponent = () => {
                 />
             );
         case Status.KLAR_FOR_INNSENDING:
-            return <RefusjonSide />;
+            return (
+                <>
+                    <ForlengFrist />
+                    <VerticalSpacer rem={1} />
+                    <RefusjonSide />
+                </>
+            );
         case Status.UTGÅTT:
             return (
-                <FeilSide
-                    advarselType="advarsel"
-                    feiltekst={`Fristen for å søke om refusjon for denne perioden gikk ut ${formatterDato(
-                        refusjon.fristForGodkjenning
-                    )}. Innvilget tilskudd er derfor trukket tilbake.`}
-                />
+                <>
+                    <ForlengFrist />
+                    <VerticalSpacer rem={1} />
+                    <FeilSide
+                        advarselType="advarsel"
+                        feiltekst={`Fristen for å søke om refusjon for denne perioden gikk ut ${formatterDato(
+                            refusjon.fristForGodkjenning
+                        )}.`}
+                    />
+                </>
             );
         case Status.ANNULLERT:
             return <FeilSide advarselType="advarsel" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />;
@@ -77,7 +85,6 @@ const Refusjon: FunctionComponent = () => {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div style={{ flex: '0 0 55rem', flexShrink: 1 }}>
                 <TilbakeTilOversikt />
-                <ForlengFrist />
                 <Suspense fallback={<HenterInntekterBoks />}>
                     <Advarsler />
                     <Komponent />

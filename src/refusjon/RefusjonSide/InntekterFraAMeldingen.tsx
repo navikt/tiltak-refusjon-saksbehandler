@@ -50,7 +50,9 @@ const inntektBeskrivelse = (beskrivelse: string | undefined) => {
     }
 };
 
-const InntekterFraAMeldingen: FunctionComponent<{ inntektsgrunnlag?: Inntektsgrunnlag }> = (props) => {
+const InntekterFraAMeldingen: FunctionComponent<{
+    inntektsgrunnlag: Inntektsgrunnlag | undefined;
+}> = (props) => {
     const antallInntekterSomErMedIGrunnlag = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erMedIInntektsgrunnlag
     ).length;
@@ -62,7 +64,8 @@ const InntekterFraAMeldingen: FunctionComponent<{ inntektsgrunnlag?: Inntektsgru
         props.inntektsgrunnlag.inntekter.length > 0 &&
         antallInntekterSomErMedIGrunnlag === 0;
 
-    const harInntekterMenIkkeForHeleTilskuddsperioden = false;
+    // TODO: Bør denne fikses?
+    // const harInntekterMenIkkeForHeleTilskuddsperioden = false;
     // props.status === 'KLAR_FOR_INNSENDING' &&
     // !props.harInntektIAlleMåneder &&
     // !!props.inntektsgrunnlag &&

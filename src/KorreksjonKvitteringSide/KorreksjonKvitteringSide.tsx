@@ -3,7 +3,6 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import { useHentKorreksjon } from '../services/rest-service';
-import { useFeatureToggles } from '../featureToggles/FeatureToggleProvider';
 import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import { korreksjonStatusTekst } from '../messages';
@@ -17,7 +16,6 @@ import { storForbokstav } from '../utils/stringUtils';
 const KorreksjonKvitteringSide: FunctionComponent = () => {
     const { korreksjonId } = useParams();
     const korreksjon = useHentKorreksjon(korreksjonId);
-    const featureToggles = useFeatureToggles();
 
     return (
         <HvitBoks>
@@ -26,8 +24,6 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
                 <Innholdstittel role="heading">Korreksjon av refusjon</Innholdstittel>
                 <EtikettInfo>{storForbokstav(korreksjonStatusTekst[korreksjon.status])}</EtikettInfo>
             </div>
-            <VerticalSpacer rem={1} />
-            {/*<Statusmelding status={korreksjon.status} />*/}
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}

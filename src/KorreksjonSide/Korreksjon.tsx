@@ -1,7 +1,6 @@
 import React, { FunctionComponent, Suspense } from 'react';
 import { useParams } from 'react-router';
 import { useHentKorreksjon } from '../services/rest-service';
-import { useFeatureToggles } from '../featureToggles/FeatureToggleProvider';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { korreksjonsgrunnTekst } from '../messages';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
@@ -14,7 +13,6 @@ import KorreksjonKvitteringSide from '../KorreksjonKvitteringSide/KorreksjonKvit
 const Advarsler: FunctionComponent = () => {
     const { korreksjonId } = useParams();
     const korreksjon = useHentKorreksjon(korreksjonId);
-    const featureToggles = useFeatureToggles();
 
     return (
         <>

@@ -36,8 +36,6 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
         if (checked) {
             setEndretBruttoLønn(undefined);
             endreBruttolønn(korreksjonId, checked, undefined);
-        } else {
-            // korrigerBruttolønn(refusjonId, checked, korrigertBruttoLønn)
         }
     };
 

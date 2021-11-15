@@ -1,12 +1,13 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
-import { endreBruttolønn, useHentRefusjon } from '../../services/rest-service';
+import { endreBruttolønn } from '../../services/rest-service';
 import { Undertittel } from 'nav-frontend-typografi';
 import { tiltakstypeTekst } from '../../messages';
 import { Input, Label, RadioPanel } from 'nav-frontend-skjema';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { formatterPenger } from '../../utils/PengeUtils';
+import { Refusjonsgrunnlag } from '../refusjon';
 
 const RadioPakning = styled.div`
     display: flex;
@@ -20,33 +21,31 @@ const RadioPakning = styled.div`
     }
 `;
 
-const InntekterFraTiltaketSpørsmål: FunctionComponent = () => {
-    const { refusjonId } = useParams();
-    const refusjon = useHentRefusjon(refusjonId);
-    const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjon.inntekterKunFraTiltaket);
-    const [endretBruttoLønn, setEndretBruttoLønn] = useState(refusjon.endretBruttoLønn);
-    if (refusjon.inntektsgrunnlag === undefined) {
+const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
+    const { korreksjonId } = useParams();
+    const refusjonsgrunnlag = props.refusjonsgrunnlag;
+    const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjonsgrunnlag.inntekterKunFraTiltaket);
+    const [endretBruttoLønn, setEndretBruttoLønn] = useState(refusjonsgrunnlag.endretBruttoLønn);
+    if (!refusjonsgrunnlag.inntektsgrunnlag) {
         return null;
     }
-    const bruttoLønn = refusjon.inntektsgrunnlag.bruttoLønn;
+    const bruttoLønn = refusjonsgrunnlag.inntektsgrunnlag.bruttoLønn;
 
     const svarPåSpørsmål = (checked: boolean) => {
         setInntekterKunFraTiltaket(checked);
         if (checked) {
             setEndretBruttoLønn(undefined);
-            endreBruttolønn(refusjonId, checked, undefined);
-        } else {
-            // korrigerBruttolønn(refusjonId, checked, korrigertBruttoLønn)
+            endreBruttolønn(korreksjonId, checked, undefined);
         }
     };
 
     return (
         <div>
-            <Undertittel>Inntekter fra {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}</Undertittel>
+            <Undertittel>Inntekter fra {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}</Undertittel>
             <VerticalSpacer rem={1} />
             <Label htmlFor={'inntekterKunFraTiltaket'}>
-                Er inntektene som vi har hentet ({formatterPenger(refusjon.inntektsgrunnlag.bruttoLønn)}) kun fra
-                tiltaket {tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]}?
+                Er inntektene som vi har hentet ({formatterPenger(refusjonsgrunnlag.inntektsgrunnlag.bruttoLønn)}) kun
+                fra tiltaket {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
             </Label>
             <p>
                 <i>Du skal svare "nei" hvis noen av inntektene er fra f. eks. vanlig lønn eller lønnstilskudd</i>
@@ -73,7 +72,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent = () => {
                     <Input
                         bredde={'S'}
                         label={`Skriv inn bruttolønn utbetalt for ${
-                            tiltakstypeTekst[refusjon.tilskuddsgrunnlag.tiltakstype]
+                            tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]
                         }`}
                         onChange={(event: any) => {
                             const verdi = event.currentTarget.value;
@@ -81,7 +80,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent = () => {
                                 setEndretBruttoLønn(verdi as number);
                             }
                         }}
-                        onBlur={() => endreBruttolønn(refusjonId, false, endretBruttoLønn)}
+                        onBlur={() => endreBruttolønn(korreksjonId, false, endretBruttoLønn)}
                         value={endretBruttoLønn}
                     />
                 </>

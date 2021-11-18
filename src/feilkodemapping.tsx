@@ -9,7 +9,8 @@ export type Feilkode =
     | 'INGEN_KORREKSJONSGRUNNER'
     | 'KORREKSJONSBELOP_NEGATIVT'
     | 'SAMME_SAKSBEHANDLER_OG_BESLUTTER'
-    | 'INGEN_BESLUTTER';
+    | 'INGEN_BESLUTTER'
+    | 'KOSTNADSSTED_MANGLER';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     TEKNISK_FEIL_INNTEKTSOPPSLAG: 'Feil ved inntektsoppslag.',
@@ -23,4 +24,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     SAMME_SAKSBEHANDLER_OG_BESLUTTER: 'Kan ikke beslutte egne korreksjoner',
     INGEN_KORREKSJONSGRUNNER: 'Manger korreksjonsgrunn',
     INGEN_BESLUTTER: 'Du må oppgi en beslutter',
+    KOSTNADSSTED_MANGLER: 'Du må oppgi kostnadssted',
 };

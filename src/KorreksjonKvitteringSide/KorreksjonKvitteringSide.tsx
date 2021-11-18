@@ -2,15 +2,15 @@ import { EtikettInfo } from 'nav-frontend-etiketter';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import { useHentKorreksjon } from '../services/rest-service';
 import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import { korreksjonStatusTekst } from '../messages';
 import InformasjonFraAvtalen from '../refusjon/RefusjonSide/InformasjonFraAvtalen';
 import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen';
 import InntekterFraTiltaketSvar from '../refusjon/RefusjonSide/InntekterFraTiltaketSvar';
-import Utregning from '../refusjon/RefusjonSide/Utregning';
 import SummeringBoks from '../refusjon/RefusjonSide/SummeringBoks';
+import Utregning from '../refusjon/RefusjonSide/Utregning';
+import { useHentKorreksjon } from '../services/rest-service';
 import { storForbokstav } from '../utils/stringUtils';
 
 const KorreksjonKvitteringSide: FunctionComponent = () => {
@@ -39,7 +39,7 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
             />
             <VerticalSpacer rem={4} />
-            <SummeringBoks refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+            <SummeringBoks refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} enhet={korreksjon.kostnadssted!} />
         </HvitBoks>
     );
 };

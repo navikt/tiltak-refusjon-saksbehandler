@@ -15,23 +15,29 @@ const Boks = styled.div`
     padding: 1.75rem;
 `;
 
-const SummeringBoks: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = ({ refusjonsgrunnlag }) => {
+type Props = {
+    refusjonsgrunnlag: Refusjonsgrunnlag;
+    enhet: string;
+};
+
+const SummeringBoks: FunctionComponent<Props> = (props) => {
     return (
         <Boks>
             <div style={{ paddingRight: '1.5rem' }}>
                 <Pengesedler />
             </div>
             <div>
-                <Element>Dere får utbetalt</Element>
+                <Element>Arbeidsgiver vil få utbetalt</Element>
                 <VerticalSpacer rem={0.5} />
                 <Normaltekst>
-                    <b>{formatterPenger(refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for perioden{' '}
+                    <b>{formatterPenger(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for perioden{' '}
                     {formatterPeriode(
-                        refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
-                        refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
+                        props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
+                        props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
                     )}{' '}
-                    til kontonummer {refusjonsgrunnlag.bedriftKontonummer}
+                    til kontonummer {props.refusjonsgrunnlag.bedriftKontonummer}
                 </Normaltekst>
+                <Normaltekst>Midlene vil bli kostnadsført på enhet {props.enhet}</Normaltekst>
             </div>
         </Boks>
     );

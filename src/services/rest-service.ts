@@ -60,13 +60,8 @@ export const useHentRefusjon = (refusjonId: string) => {
     return data!;
 };
 
-export const useHentKorreksjon = (refusjonId: string) => {
-    const { data } = useSWR<Korreksjon>(`/korreksjon/${refusjonId}`, swrConfig);
-    return data!;
-};
-
-export const useHentTidligereRefusjoner = (refusjonId: string) => {
-    const { data } = useSWR<Refusjon[]>(`/refusjon/${refusjonId}/tidligere-refusjoner`, swrConfig);
+export const useHentKorreksjon = (korreksjonId: string) => {
+    const { data } = useSWR<Korreksjon>(`/korreksjon/${korreksjonId}`, swrConfig);
     return data!;
 };
 
@@ -110,8 +105,11 @@ export const slettKorreksjonsutkast = async (korreksjonId: string) => {
     return response.data;
 };
 
-export const utbetalKorreksjon = async (korreksjonId: string, beslutterNavIdent: string) => {
-    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/utbetal-korreksjon`, { beslutterNavIdent });
+export const utbetalKorreksjon = async (korreksjonId: string, beslutterNavIdent: string, kostnadssted: string) => {
+    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/utbetal-korreksjon`, {
+        beslutterNavIdent,
+        kostnadssted,
+    });
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };

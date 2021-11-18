@@ -30,6 +30,7 @@ export interface Korreksjon {
     deltakerFnr: string;
     status: KorreksjonStatus;
     harInntektIAlleMåneder: boolean;
+    kostnadssted?: string;
     korreksjonsgrunner: Korreksjonsgrunn[];
     refusjonsgrunnlag: Refusjonsgrunnlag;
 }
@@ -63,7 +64,7 @@ export interface Tilskuddsgrunnlag {
     tilskuddsperiodeId: string;
     tiltakstype: Tiltak;
     veilederNavIdent: string;
-    enhet: number;
+    enhet: string;
 }
 
 export interface Inntektsgrunnlag {

@@ -49,7 +49,7 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
                     maxLength={4}
                     onChange={(e) => {
                         const verdi = e.currentTarget.value;
-                        if (verdi.match(/\d{0,4}/)) {
+                        if (verdi.match(/^\d{0,4}$/)) {
                             setKostnadssted(verdi);
                         }
                     }}

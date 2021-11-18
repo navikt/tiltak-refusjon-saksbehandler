@@ -20,17 +20,19 @@ import {
 import { useParams } from 'react-router';
 import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
 
+const cls = BEMHelper('forleng-frist');
+
 const ForlengFrist: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
-    const { fristForGodkjenning, tilskuddsgrunnlag } = refusjon;
     const [open, setOpen] = useState<boolean>(false);
-    const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(new Date(Date.parse(fristForGodkjenning)));
-    const [datoFraInputFelt, setDatoFraInputFelt] = useState<string>(fristForGodkjenning);
+    const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(
+        new Date(Date.parse(refusjon.fristForGodkjenning))
+    );
+    const [datoFraInputFelt, setDatoFraInputFelt] = useState<string>(refusjon.fristForGodkjenning);
     const [grunnlag, setGrunnlag] = useState<string>('');
     const [annetGrunnlag, setAnnetGrunnlag] = useState<string>('');
     const [skjemaGruppeFeilmeldinger, setSkjemaGruppeFeilmeldinger] = useState<ForlengeDatoSkjemaGruppeFeil[] | []>([]);
-    const cls = BEMHelper('forleng-frist');
 
     useEffect(() => {
         setDatoFraInputFelt(getDateStringFraDatoVelger(datoFraDatoVelger));
@@ -55,7 +57,7 @@ const ForlengFrist: FunctionComponent = () => {
             setNyFeilMelding('ugyldig-datoformat', 'Ugyldig datoformat. DD.MM.YYYY.');
             KAN_SENDE_INN = false;
         }
-        if (new Date(parseDate) <= new Date(fristForGodkjenning)) {
+        if (new Date(parseDate) <= new Date(refusjon.fristForGodkjenning)) {
             setNyFeilMelding('for-kort-frist', 'Ny frist må være etter opprinnelig frist.');
             KAN_SENDE_INN = false;
         }
@@ -106,8 +108,12 @@ const ForlengFrist: FunctionComponent = () => {
                                 weekdaysShort={WEEKDAYS_SHORT}
                                 firstDayOfWeek={1}
                                 disabledDays={{
-                                    before: new Date(Date.parse(fristForGodkjenning)),
-                                    after: new Date(Date.parse(disableAfter(tilskuddsgrunnlag.tilskuddTom, 3))),
+                                    before: new Date(Date.parse(refusjon.fristForGodkjenning)),
+                                    after: new Date(
+                                        Date.parse(
+                                            disableAfter(refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom, 3)
+                                        )
+                                    ),
                                 }}
                             />
                         </div>

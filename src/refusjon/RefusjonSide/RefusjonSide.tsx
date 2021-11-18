@@ -24,8 +24,8 @@ const RefusjonSide: FunctionComponent = () => {
                 <Innholdstittel role="heading">Beregning av refusjon</Innholdstittel>
                 <StatusTekst
                     status={refusjon.status}
-                    tilskuddFom={refusjon.tilskuddsgrunnlag.tilskuddFom}
-                    tilskuddTom={refusjon.tilskuddsgrunnlag.tilskuddTom}
+                    tilskuddFom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom}
+                    tilskuddTom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom}
                 />
             </div>
 

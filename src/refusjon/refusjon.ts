@@ -26,20 +26,12 @@ export enum KorreksjonStatus {
 export interface Refusjon {
     id: string;
     bedriftNr: string;
-    bedriftKontonummer?: string;
     deltakerFnr: string;
     godkjentAvArbeidsgiver?: string;
-    godkjentAvSaksbehandler?: string;
     status: RefusjonStatus;
-    tilskuddsgrunnlag: Tilskuddsgrunnlag;
-    inntektsgrunnlag?: Inntektsgrunnlag;
-    beregning?: Beregning;
-    forrigeFristForGodkjenning: string;
+    forrigeFristForGodkjenning?: string;
     fristForGodkjenning: string;
     harInntektIAlleMåneder: boolean;
-    korreksjonsgrunner: Korreksjonsgrunn[];
-    inntekterKunFraTiltaket?: boolean;
-    endretBruttoLønn?: number;
     korreksjonId?: string;
     refusjonsgrunnlag: Refusjonsgrunnlag;
 }

@@ -35,6 +35,7 @@ const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+    const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
     const featureToggles = useFeatureToggles();
 
     return (
@@ -50,17 +51,20 @@ const KvitteringSide: FunctionComponent = () => {
             <Statusmelding status={refusjon.status} />
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen
-                tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
-                bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
+                tilskuddsgrunnlag={refusjonsgrunnlag.tilskuddsgrunnlag}
+                bedriftKontonummer={refusjonsgrunnlag.bedriftKontonummer}
             />
             <VerticalSpacer rem={2} />
-            <InntekterFraAMeldingen inntektsgrunnlag={refusjon.inntektsgrunnlag} />
+            <InntekterFraAMeldingen inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag} />
             <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
+            <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
-            <Utregning beregning={refusjon.beregning} tilskuddsgrunnlag={refusjon.tilskuddsgrunnlag} />
+            <Utregning
+                beregning={refusjonsgrunnlag.beregning}
+                tilskuddsgrunnlag={refusjonsgrunnlag.tilskuddsgrunnlag}
+            />
             <VerticalSpacer rem={4} />
-            <SummeringBoks refusjonsgrunnlag={refusjon.refusjonsgrunnlag} enhet={refusjon.tilskuddsgrunnlag.enhet} />
+            <SummeringBoks refusjonsgrunnlag={refusjonsgrunnlag} enhet={refusjonsgrunnlag.tilskuddsgrunnlag.enhet} />
         </HvitBoks>
     );
 };

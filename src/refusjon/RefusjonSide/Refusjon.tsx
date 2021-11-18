@@ -45,7 +45,7 @@ const Komponent: FunctionComponent = () => {
                 <FeilSide
                     advarselType="info"
                     feiltekst={`Du kan søke om refusjon fra ${formatterDato(
-                        refusjon.tilskuddsgrunnlag.tilskuddTom
+                        refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
                     )} når perioden er over.`}
                 />
             );

@@ -1,22 +1,22 @@
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { Status } from '../status';
+import { RefusjonStatus } from '../refusjon';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 interface Props {
-    status: Status;
+    status: RefusjonStatus;
 }
 
 const Statusmelding: FunctionComponent<Props> = (props) => {
     switch (props.status) {
-        case Status.UTBETALING_FEILET:
+        case RefusjonStatus.UTBETALING_FEILET:
             return (
                 <AlertStripeAdvarsel>
                     Vi har problemer med utbetalingen. Arbeidgiver har fått beskjed om å ta kontakt med veileder. Meld
                     inn problemet som porten-sak. Noter refusjonsnummer.
                 </AlertStripeAdvarsel>
             );
-        case Status.UTBETALT:
+        case RefusjonStatus.UTBETALT:
             return (
                 <Normaltekst>
                     Refusjonskravet er utbetalt. Det vil ta 3–4 dager før pengene kommer på kontoen.

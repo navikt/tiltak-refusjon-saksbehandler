@@ -1,6 +1,5 @@
 import { Korreksjonsgrunn } from './refusjon/refusjon';
-import { KorreksjonStatus, Status } from './refusjon/status';
-import { Tiltak } from './refusjon/tiltak';
+import { KorreksjonStatus, RefusjonStatus, Tiltak } from './refusjon/refusjon';
 
 export const tiltakstypeTekst: { [key in Tiltak]: string } = {
     MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
@@ -9,7 +8,7 @@ export const tiltakstypeTekst: { [key in Tiltak]: string } = {
     SOMMERJOBB: 'sommerjobb',
 };
 
-export const statusTekst: { [key in Status]: string } = {
+export const statusTekst: { [key in RefusjonStatus]: string } = {
     SENDT_KRAV: 'sendt krav',
     UTBETALT: 'utbetalt',
     UTGÅTT: 'frist utgått',

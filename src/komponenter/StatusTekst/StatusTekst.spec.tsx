@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import moment from 'moment';
 import * as React from 'react';
-import { Status } from '../../refusjon/status';
+import { RefusjonStatus } from '../../refusjon/refusjon';
 import { datoString, formatterDato } from '../../utils/datoUtils';
 import StatusTekst from './StatusTekst';
 
@@ -10,7 +10,7 @@ describe('Skal vise riktig statustekst', () => {
         const tilskuddTom = datoString(moment().add(1, 'days'));
         const { getByText } = render(
             <StatusTekst
-                status={Status.UTGÅTT}
+                status={RefusjonStatus.UTGÅTT}
                 tilskuddFom={datoString(moment().subtract(2, 'days'))}
                 tilskuddTom={tilskuddTom}
             />
@@ -22,7 +22,7 @@ describe('Skal vise riktig statustekst', () => {
         const tilskuddTom = datoString(moment().add(1, 'days'));
         const { getByText } = render(
             <StatusTekst
-                status={Status.FOR_TIDLIG}
+                status={RefusjonStatus.FOR_TIDLIG}
                 tilskuddFom={datoString(moment().subtract(2, 'days'))}
                 tilskuddTom={tilskuddTom}
             />
@@ -33,7 +33,7 @@ describe('Skal vise riktig statustekst', () => {
     test('Klar for innsending', () => {
         const { getByText } = render(
             <StatusTekst
-                status={Status.KLAR_FOR_INNSENDING}
+                status={RefusjonStatus.KLAR_FOR_INNSENDING}
                 tilskuddFom={datoString(moment())}
                 tilskuddTom={datoString(moment())}
             />
@@ -44,7 +44,7 @@ describe('Skal vise riktig statustekst', () => {
     test('Utbetaling feilet', () => {
         const { getByText } = render(
             <StatusTekst
-                status={Status.UTBETALING_FEILET}
+                status={RefusjonStatus.UTBETALING_FEILET}
                 tilskuddFom={datoString(moment())}
                 tilskuddTom={datoString(moment())}
             />
@@ -55,7 +55,7 @@ describe('Skal vise riktig statustekst', () => {
     test('Utbetaling velykket', () => {
         const { getByText } = render(
             <StatusTekst
-                status={Status.UTBETALT}
+                status={RefusjonStatus.UTBETALT}
                 tilskuddFom={datoString(moment())}
                 tilskuddTom={datoString(moment())}
             />

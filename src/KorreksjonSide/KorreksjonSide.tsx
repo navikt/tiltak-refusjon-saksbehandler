@@ -12,7 +12,7 @@ import Utregning from '../refusjon/RefusjonSide/Utregning';
 import BekreftUtbetalKorreksjon from '../refusjon/RefusjonSide/BekreftUtbetalKorreksjon';
 import BekreftTilbakekrevKorreksjon from '../refusjon/RefusjonSide/BekreftTilbakekrevKorreksjon';
 import BekreftOppgjørKorreksjon from '../refusjon/RefusjonSide/BekreftOppgjørKorreksjon';
-import { KorreksjonStatus } from '../refusjon/status';
+import { KorreksjonStatus } from '../refusjon/refusjon';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { korreksjonId } = useParams();

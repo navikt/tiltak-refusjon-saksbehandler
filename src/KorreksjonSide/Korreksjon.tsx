@@ -5,7 +5,7 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { korreksjonsgrunnTekst } from '../messages';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import KorreksjonSide from './KorreksjonSide';
-import { KorreksjonStatus } from '../refusjon/status';
+import { KorreksjonStatus } from '../refusjon/refusjon';
 import TilbakeTilOversikt from '../komponenter/tilbake-til-oversikt/TilbakeTilOversikt';
 import { Link } from 'react-router-dom';
 import KorreksjonKvitteringSide from '../KorreksjonKvitteringSide/KorreksjonKvitteringSide';

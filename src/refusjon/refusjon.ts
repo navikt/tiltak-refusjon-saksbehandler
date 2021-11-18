@@ -1,6 +1,27 @@
-import React from 'react';
-import { KorreksjonStatus, Status } from './status';
-import { Tiltak } from './tiltak';
+export enum Tiltak {
+    MENTOR = 'MENTOR',
+    MIDLERTIDIG_LØNNSTILSKUDD = 'MIDLERTIDIG_LONNSTILSKUDD',
+    VARIG_LØNNSTILSKUDD = 'VARIG_LONNSTILSKUDD',
+    SOMMERJOBB = 'SOMMERJOBB',
+}
+
+export enum RefusjonStatus {
+    KLAR_FOR_INNSENDING = 'KLAR_FOR_INNSENDING',
+    FOR_TIDLIG = 'FOR_TIDLIG',
+    SENDT_KRAV = 'SENDT_KRAV',
+    UTBETALT = 'UTBETALT',
+    UTBETALING_FEILET = 'UTBETALING_FEILET',
+    UTGÅTT = 'UTGÅTT',
+    ANNULLERT = 'ANNULLERT',
+    KORRIGERT = 'KORRIGERT',
+}
+
+export enum KorreksjonStatus {
+    UTKAST = 'UTKAST',
+    TILLEGSUTBETALING = 'TILLEGSUTBETALING',
+    OPPGJORT = 'OPPGJORT',
+    TILBAKEKREVING = 'TILBAKEKREVING',
+}
 
 export interface Refusjon {
     id: string;
@@ -9,7 +30,7 @@ export interface Refusjon {
     deltakerFnr: string;
     godkjentAvArbeidsgiver?: string;
     godkjentAvSaksbehandler?: string;
-    status: Status;
+    status: RefusjonStatus;
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     inntektsgrunnlag?: Inntektsgrunnlag;
     beregning?: Beregning;
@@ -103,11 +124,4 @@ export enum Korreksjonsgrunn {
     UTBETALT_HELE_TILSKUDDSBELØP = 'UTBETALT_HELE_TILSKUDDSBELØP',
     INNTEKTER_RAPPORTERT_ETTER_TILSKUDDSPERIODE = 'INNTEKTER_RAPPORTERT_ETTER_TILSKUDDSPERIODE',
     HENT_INNTEKTER_PÅ_NYTT = 'HENT_INNTEKTER_PÅ_NYTT',
-}
-
-export interface AlleSteg {
-    path: string;
-    label: string;
-    komponent: React.ReactNode;
-    disabled: boolean;
 }

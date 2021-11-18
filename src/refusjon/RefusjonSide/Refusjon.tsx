@@ -4,7 +4,7 @@ import TilbakeTilOversikt from '../../komponenter/tilbake-til-oversikt/TilbakeTi
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato } from '../../utils/datoUtils';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';
-import { Status } from '../status';
+import { RefusjonStatus } from '../refusjon';
 import FeilSide from './FeilSide';
 import HenterInntekterBoks from './HenterInntekterBoks';
 import RefusjonSide from './RefusjonSide';
@@ -40,7 +40,7 @@ const Komponent: FunctionComponent = () => {
     const refusjon = useHentRefusjon(refusjonId);
 
     switch (refusjon.status) {
-        case Status.FOR_TIDLIG:
+        case RefusjonStatus.FOR_TIDLIG:
             return (
                 <FeilSide
                     advarselType="info"
@@ -49,7 +49,7 @@ const Komponent: FunctionComponent = () => {
                     )} når perioden er over.`}
                 />
             );
-        case Status.KLAR_FOR_INNSENDING:
+        case RefusjonStatus.KLAR_FOR_INNSENDING:
             return (
                 <>
                     <ForlengFrist />
@@ -57,7 +57,7 @@ const Komponent: FunctionComponent = () => {
                     <RefusjonSide />
                 </>
             );
-        case Status.UTGÅTT:
+        case RefusjonStatus.UTGÅTT:
             return (
                 <>
                     <ForlengFrist />
@@ -70,12 +70,12 @@ const Komponent: FunctionComponent = () => {
                     />
                 </>
             );
-        case Status.ANNULLERT:
+        case RefusjonStatus.ANNULLERT:
             return <FeilSide advarselType="advarsel" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />;
-        case Status.SENDT_KRAV:
-        case Status.UTBETALT:
-        case Status.UTBETALING_FEILET:
-        case Status.KORRIGERT:
+        case RefusjonStatus.SENDT_KRAV:
+        case RefusjonStatus.UTBETALT:
+        case RefusjonStatus.UTBETALING_FEILET:
+        case RefusjonStatus.KORRIGERT:
             return <KvitteringSide />;
     }
 };

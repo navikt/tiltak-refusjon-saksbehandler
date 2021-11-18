@@ -17,11 +17,11 @@ import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
-import { Status } from '../status';
+import { RefusjonStatus } from '../refusjon';
 import Statusmelding from './Statusmelding';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
-    if (refusjon.status === Status.UTBETALING_FEILET) {
+    if (refusjon.status === RefusjonStatus.UTBETALING_FEILET) {
         return <EtikettAdvarsel>{storForbokstav(statusTekst[refusjon.status])} </EtikettAdvarsel>;
     }
     return (

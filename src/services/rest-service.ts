@@ -3,7 +3,7 @@ import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { Feature } from '../featureToggles/features';
 import { Filter, useFilter } from '../refusjon/oversikt/FilterContext';
-import { Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
+import { Korreksjon, Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
 import { ApiError, FeilkodeError } from '../types/errors';
 
 const api = axios.create({
@@ -60,18 +60,23 @@ export const useHentRefusjon = (refusjonId: string) => {
     return data!;
 };
 
+export const useHentKorreksjon = (refusjonId: string) => {
+    const { data } = useSWR<Korreksjon>(`/korreksjon/${refusjonId}`, swrConfig);
+    return data!;
+};
+
 export const useHentTidligereRefusjoner = (refusjonId: string) => {
     const { data } = useSWR<Refusjon[]>(`/refusjon/${refusjonId}/tidligere-refusjoner`, swrConfig);
     return data!;
 };
 
-export const endreBruttolønn = async (refusjonId: string, inntekterKunFraTiltaket: boolean, bruttoLønn?: number) => {
-    const response = await api.post(`/refusjon/${refusjonId}/endre-bruttolønn`, {
+export const endreBruttolønn = async (korreksjonId: string, inntekterKunFraTiltaket: boolean, bruttoLønn?: number) => {
+    const response = await api.post(`/korreksjon/${korreksjonId}/endre-bruttolønn`, {
         inntekterKunFraTiltaket,
         bruttoLønn,
     });
 
-    await mutate(`/refusjon/${refusjonId}`);
+    await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };
 
@@ -92,29 +97,31 @@ export const forlengFrist = async (refusjonId: string, nyFristValue: ForlengFris
 };
 
 export const opprettKorreksjonsutkast = async (refusjonId: string, korreksjonsgrunner: Korreksjonsgrunn[]) => {
-    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/opprett-korreksjonsutkast`, {
+    const response = await api.post<Refusjon>(`/korreksjon/opprett-korreksjonsutkast`, {
         korreksjonsgrunner,
+        refusjonId,
     });
+    await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };
 
-export const slettKorreksjonsutkast = async (refusjonId: string) => {
-    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/slett-korreksjonsutkast`);
+export const slettKorreksjonsutkast = async (korreksjonId: string) => {
+    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/slett-korreksjonsutkast`);
     return response.data;
 };
 
-export const utbetalKorreksjon = async (refusjonId: string, beslutterNavIdent: string, kostnadsSted: number) => {
-    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/utbetal-korreksjon`, { beslutterNavIdent });
-    await mutate(`/refusjon/${refusjonId}`);
+export const utbetalKorreksjon = async (korreksjonId: string, beslutterNavIdent: string) => {
+    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/utbetal-korreksjon`, { beslutterNavIdent });
+    await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };
-export const fullførKorreksjonVedOppgjort = async (refusjonId: string) => {
-    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/fullfør-korreksjon-ved-oppgjort`);
-    await mutate(`/refusjon/${refusjonId}`);
+export const fullførKorreksjonVedOppgjort = async (korreksjonId: string) => {
+    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/fullfør-korreksjon-ved-oppgjort`);
+    await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };
-export const fullførKorreksjonVedTilbakekreving = async (refusjonId: string) => {
-    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/fullfør-korreksjon-ved-tilbakekreving`);
-    await mutate(`/refusjon/${refusjonId}`);
+export const fullførKorreksjonVedTilbakekreving = async (korreksjonId: string) => {
+    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/fullfør-korreksjon-ved-tilbakekreving`);
+    await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };

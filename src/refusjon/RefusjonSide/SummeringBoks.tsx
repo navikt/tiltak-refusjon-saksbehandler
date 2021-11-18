@@ -1,12 +1,11 @@
 import { ReactComponent as Pengesedler } from '@/asset/image/pengesedler.svg';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { useParams } from 'react-router';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentRefusjon } from '../../services/rest-service';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
+import { Refusjonsgrunnlag } from '../refusjon';
 
 const Boks = styled.div`
     display: flex;
@@ -16,10 +15,7 @@ const Boks = styled.div`
     padding: 1.75rem;
 `;
 
-const SummeringBoks: FunctionComponent = () => {
-    const { refusjonId } = useParams();
-    const refusjon = useHentRefusjon(refusjonId);
-
+const SummeringBoks: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = ({ refusjonsgrunnlag }) => {
     return (
         <Boks>
             <div style={{ paddingRight: '1.5rem' }}>
@@ -29,9 +25,12 @@ const SummeringBoks: FunctionComponent = () => {
                 <Element>Dere får utbetalt</Element>
                 <VerticalSpacer rem={0.5} />
                 <Normaltekst>
-                    <b>{formatterPenger(refusjon.beregning?.refusjonsbeløp || 0)}</b> for perioden{' '}
-                    {formatterPeriode(refusjon.tilskuddsgrunnlag.tilskuddFom, refusjon.tilskuddsgrunnlag.tilskuddTom)}{' '}
-                    til kontonummer {refusjon.bedriftKontonummer}
+                    <b>{formatterPenger(refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for perioden{' '}
+                    {formatterPeriode(
+                        refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
+                        refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
+                    )}{' '}
+                    til kontonummer {refusjonsgrunnlag.bedriftKontonummer}
                 </Normaltekst>
             </div>
         </Boks>

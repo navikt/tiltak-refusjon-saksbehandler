@@ -5,14 +5,13 @@ import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentRefusjon, utbetalKorreksjon } from '../../services/rest-service';
+import { utbetalKorreksjon } from '../../services/rest-service';
 
 const BekreftUtbetalKorreksjon: FunctionComponent = () => {
-    const { refusjonId } = useParams();
-    const refusjon = useHentRefusjon(refusjonId);
+    const { korreksjonId } = useParams();
     const [isOpen, setisOpen] = useState(false);
     const [beslutterIdent, setBeslutterIdent] = useState('');
-    const [kostnadsSted, setKostnadsSted] = useState(refusjon.tilskuddsgrunnlag.enhet);
+    const [kostnadsSted, setKostnadsSted] = useState('');
 
     return (
         <div>
@@ -22,7 +21,7 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
                 isOpen={isOpen}
                 lukkModal={() => setisOpen(false)}
                 tittel="Send korreksjon til utbetaling"
-                bekreft={() => utbetalKorreksjon(refusjonId, beslutterIdent, kostnadsSted)}
+                bekreft={() => utbetalKorreksjon(korreksjonId, beslutterIdent)}
             >
                 <Normaltekst>
                     For å utbetale korreksjon må det besluttes av noen med budsjettdisponeringsmyndighet. Skriv inn

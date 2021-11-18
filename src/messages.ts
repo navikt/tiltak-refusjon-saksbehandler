@@ -1,5 +1,5 @@
 import { Korreksjonsgrunn } from './refusjon/refusjon';
-import { Status } from './refusjon/status';
+import { KorreksjonStatus, Status } from './refusjon/status';
 import { Tiltak } from './refusjon/tiltak';
 
 export const tiltakstypeTekst: { [key in Tiltak]: string } = {
@@ -17,10 +17,14 @@ export const statusTekst: { [key in Status]: string } = {
     UTBETALING_FEILET: 'Utbetaling feilet',
     FOR_TIDLIG: 'for tidlig',
     ANNULLERT: 'annullert',
-    KORREKSJON_UTKAST: 'korreksjonsutkast',
-    KORREKSJON_SENDT_TIL_UTBETALING: 'korreksjon sendt til utbetaling',
-    KORREKSJON_OPPGJORT: 'korreksjon oppgjort',
-    KORREKSJON_SKAL_TILBAKEKREVES: 'korreksjon skal tilbakekreves',
+    KORRIGERT: 'korrigert',
+};
+
+export const korreksjonStatusTekst: { [key in KorreksjonStatus]: string } = {
+    UTKAST: 'korreksjonsutkast',
+    TILLEGSUTBETALING: 'korreksjon sendt til utbetaling',
+    OPPGJORT: 'korreksjon oppgjort',
+    TILBAKEKREVING: 'korreksjon skal tilbakekreves',
 };
 
 export const inntektstypeTekst: { [key: string]: string } = {

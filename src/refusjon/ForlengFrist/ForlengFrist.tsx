@@ -1,13 +1,14 @@
+import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
+import { Knapp } from 'nav-frontend-knapper';
+import { Input, Label } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { forlengFrist, useHentRefusjon } from '../../services/rest-service';
-import 'react-day-picker/lib/style.css';
-import { Knapp } from 'nav-frontend-knapper';
 import BEMHelper from '../../utils/bem';
-import DayPicker from 'react-day-picker';
 import './ForlengFrist.less';
-import { Input, Label } from 'nav-frontend-skjema';
-import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
 import {
     disableAfter,
     finnFeilMeldingFraInputDialog,
@@ -17,8 +18,7 @@ import {
     MONTHS,
     WEEKDAYS_SHORT,
 } from './forlengFristUtils';
-import { useParams } from 'react-router';
-import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
+import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
 
 const cls = BEMHelper('forleng-frist');
 
@@ -111,7 +111,7 @@ const ForlengFrist: FunctionComponent = () => {
                                     before: new Date(Date.parse(refusjon.fristForGodkjenning)),
                                     after: new Date(
                                         Date.parse(
-                                            disableAfter(refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom, 3)
+                                            disableAfter(refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom, 6)
                                         )
                                     ),
                                 }}

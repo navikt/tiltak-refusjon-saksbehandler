@@ -40,7 +40,7 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 {[
                     Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT,
                     Korreksjonsgrunn.UTBETALT_HELE_TILSKUDDSBELØP,
-                    Korreksjonsgrunn.INNTEKTER_RAPPORTERT_ETTER_TILSKUDDSPERIODE,
+                    Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM,
                 ].map((it) => (
                     <>
                         <Checkbox

@@ -4,7 +4,6 @@ export type Feilkode =
     | 'UGYLDIG_STATUS'
     | 'ETTER_FRIST'
     | 'INGEN_INNTEKTER'
-    | 'TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG'
     | 'INGEN_BEDRIFTKONTONUMMER'
     | 'INGEN_KORREKSJONSGRUNNER'
     | 'KORREKSJONSBELOP_NEGATIVT'
@@ -18,7 +17,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     UGYLDIG_STATUS: 'Handlingen kan ikke utføres fordi refusjonen har ugyldig status.',
     ETTER_FRIST: 'Fristen for å be om refusjon er utgått (2 måneder etter sluttdato for perioden).',
     INGEN_INNTEKTER: 'Ingen inntekter for perioden ble funnet.',
-    TEKNISK_FEIL_BANKKONTONUMMEROPPSLAG: 'Feil ved henting av kontonummer oppslag',
     INGEN_BEDRIFTKONTONUMMER: 'Mangler kontonummer for bedriften',
     KORREKSJONSBELOP_NEGATIVT: 'Korreksjon kan kun sendes til utbetaling om restbeløpet er positivt.',
     SAMME_SAKSBEHANDLER_OG_BESLUTTER: 'Kan ikke beslutte egne korreksjoner',

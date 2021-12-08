@@ -28,6 +28,7 @@ const FeilSide: FunctionComponent<Props> = (props) => {
                 tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                 bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
                 fristForGodkjenning={refusjon.fristForGodkjenning}
+                bedriftKontonummerInnhentetTidspunkt={refusjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
             />
         </HvitBoks>
     );

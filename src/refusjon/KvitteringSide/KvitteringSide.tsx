@@ -10,14 +10,13 @@ import { statusTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
 import { storForbokstav } from '../../utils/stringUtils';
-import { Refusjon } from '../refusjon';
+import { Refusjon, RefusjonStatus } from '../refusjon';
 import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
 import InntekterFraAMeldingen from '../RefusjonSide/InntekterFraAMeldingen';
 import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
-import { RefusjonStatus } from '../refusjon';
 import Statusmelding from './Statusmelding';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
@@ -53,6 +52,7 @@ const KvitteringSide: FunctionComponent = () => {
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={refusjonsgrunnlag.tilskuddsgrunnlag}
                 bedriftKontonummer={refusjonsgrunnlag.bedriftKontonummer}
+                bedriftKontonummerInnhentetTidspunkt={refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
             />
             <VerticalSpacer rem={2} />
             <InntekterFraAMeldingen inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag} />

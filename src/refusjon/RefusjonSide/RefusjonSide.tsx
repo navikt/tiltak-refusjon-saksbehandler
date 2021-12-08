@@ -1,4 +1,5 @@
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
@@ -6,11 +7,11 @@ import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
-import './RefusjonSide.less';
-import Utregning from './Utregning';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
 import InntekterFraAMeldingen from './InntekterFraAMeldingen';
 import InntekterFraTiltaketSvar from './InntekterFraTiltaketSvar';
+import './RefusjonSide.less';
+import Utregning from './Utregning';
 
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -18,6 +19,13 @@ const RefusjonSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
+            {refusjon.status === 'KLAR_FOR_INNSENDING' && refusjon.refusjonsgrunnlag.inntektsgrunnlag === null && (
+                <AlertStripeInfo>
+                    <Element> Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.</Element>
+                    Det har aldri vært forsøkt hentet inntektsgrunnlag, noe som gjøres hver gang arbeidsgiver åpner
+                    refusjoner som er klare for innsending
+                </AlertStripeInfo>
+            )}
             <VerticalSpacer rem={2} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -43,6 +51,7 @@ const RefusjonSide: FunctionComponent = () => {
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                 bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
+                bedriftKontonummerInnhentetTidspunkt={refusjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
             />
             <VerticalSpacer rem={2} />
             <InntekterFraAMeldingen inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag} />

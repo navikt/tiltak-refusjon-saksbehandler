@@ -1,12 +1,11 @@
-import React, { FunctionComponent } from 'react';
 import { Calender, File, FileContent, Money, Office1, People, Warning } from '@navikt/ds-icons';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
-import { formatterDato, formatterPeriode } from '../../utils/datoUtils';
+import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Tilskuddsgrunnlag } from '../refusjon';
 
@@ -28,6 +27,7 @@ const InformasjonFraAvtalen: FunctionComponent<{
     fristForGodkjenning?: string;
     forrigeFristForGodkjenning?: string;
     bedriftKontonummer: string | null | undefined;
+    bedriftKontonummerInnhentetTidspunkt: string | null | undefined;
 }> = (props) => {
     const avtaleLenke = `https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing/avtale/${props.tilskuddsgrunnlag.avtaleId}`;
     const refusjonsnummer = `${props.tilskuddsgrunnlag.avtaleNr}-${props.tilskuddsgrunnlag.løpenummer}`;
@@ -101,19 +101,17 @@ const InformasjonFraAvtalen: FunctionComponent<{
             <IkonRad>
                 <Money />
                 <Element>Kontonummer:</Element>
-                <Normaltekst>{props.bedriftKontonummer ?? 'ikke oppgitt'}</Normaltekst>
+                <Normaltekst>
+                    {props.bedriftKontonummerInnhentetTidspunkt ? (
+                        <>
+                            {props.bedriftKontonummer ?? 'Ikke funnet'} (hentet{' '}
+                            {formatterDato(props.bedriftKontonummerInnhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)})
+                        </>
+                    ) : (
+                        'Ikke oppgitt'
+                    )}
+                </Normaltekst>
             </IkonRad>
-            {props.bedriftKontonummer === null && (
-                <>
-                    <VerticalSpacer rem={1} />
-                    <AlertStripeFeil>
-                        Vi kan ikke finne noe kontonummer på deres virksomhet. Riktig kontonummer må{' '}
-                        <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
-                            sendes inn via Altinn.
-                        </EksternLenke>
-                    </AlertStripeFeil>
-                </>
-            )}
         </GråBoks>
     );
 };

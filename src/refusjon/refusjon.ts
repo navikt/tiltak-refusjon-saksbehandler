@@ -54,6 +54,7 @@ export interface Refusjonsgrunnlag {
     inntekterKunFraTiltaket?: boolean;
     endretBruttoLønn?: number;
     bedriftKontonummer?: string;
+    bedriftKontonummerInnhentetTidspunkt?: string;
     beregning?: Beregning;
 }
 

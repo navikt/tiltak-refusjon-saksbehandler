@@ -10,7 +10,7 @@ const api = axios.create({
     baseURL: '/api/saksbehandler',
     timeout: 30000,
     withCredentials: true,
-    headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache' },
+    headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache', 'Content-Type': 'application/json' },
     validateStatus: (status) => status < 400,
 });
 
@@ -87,6 +87,15 @@ export interface ForlengFristRequest {
 
 export const forlengFrist = async (refusjonId: string, nyFristValue: ForlengFristRequest) => {
     const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/forleng-frist`, nyFristValue);
+    await mutate(`/refusjon/${refusjonId}`);
+    return response.data;
+};
+
+export const merkForUnntakOmInntekterToMånederFrem = async (refusjonId: string, merking: boolean) => {
+    const response = await api.post<Refusjon>(
+        `/refusjon/${refusjonId}/merk-for-unntak-om-inntekter-to-måneder-frem`,
+        String(merking)
+    );
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };

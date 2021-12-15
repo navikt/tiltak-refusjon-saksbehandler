@@ -14,6 +14,15 @@ import { Link } from 'react-router-dom';
 import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 import { Feature } from '../../featureToggles/features';
 import ForlengFrist from '../ForlengFrist/ForlengFrist';
+import MerkForUnntakOmInntekterToMånederFrem from '../MerkForUnntakOmInntekterToMånederFrem/MerkForUnntakOmInntekterToMånederFrem';
+import styled from 'styled-components';
+
+const Fleks = styled.div`
+    display: flex;
+    > * {
+        margin-right: 1rem;
+    }
+`;
 
 const Advarsler: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -52,7 +61,10 @@ const Komponent: FunctionComponent = () => {
         case RefusjonStatus.KLAR_FOR_INNSENDING:
             return (
                 <>
-                    <ForlengFrist />
+                    <Fleks>
+                        <ForlengFrist />
+                        <MerkForUnntakOmInntekterToMånederFrem />
+                    </Fleks>
                     <VerticalSpacer rem={1} />
                     <RefusjonSide />
                 </>

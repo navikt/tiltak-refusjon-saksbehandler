@@ -34,6 +34,7 @@ export interface Refusjon {
     harInntektIAlleMåneder: boolean;
     korreksjonId?: string;
     refusjonsgrunnlag: Refusjonsgrunnlag;
+    unntakOmInntekterToMånederFrem: boolean;
 }
 
 export interface Korreksjon {

@@ -30,7 +30,7 @@ const MerkForUnntakOmInntekterToMånederFrem: FunctionComponent = () => {
                 containerStyle={{ minWidth: 'unset' }}
             >
                 <Normaltekst>
-                    Hvis unntaketsregelen er aktivert vil systemet hente inntekter to måneder etter avsluttet periode, i
+                    Hvis unntaksregelen er aktivert vil systemet hente inntekter to måneder etter avsluttet periode, i
                     stedet for én måned som standard. Nytt inntektsoppslag vil gjøres neste gang arbeidsgiver åpner
                     refusjonen.
                 </Normaltekst>

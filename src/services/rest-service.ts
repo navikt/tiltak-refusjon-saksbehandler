@@ -92,10 +92,9 @@ export const forlengFrist = async (refusjonId: string, nyFristValue: ForlengFris
 };
 
 export const merkForUnntakOmInntekterToMånederFrem = async (refusjonId: string, merking: boolean) => {
-    const response = await api.post<Refusjon>(
-        `/refusjon/${refusjonId}/merk-for-unntak-om-inntekter-to-mnd-frem`,
-        String(merking)
-    );
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/merk-for-unntak-om-inntekter-to-mnd-frem`, {
+        merking,
+    });
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;
 };

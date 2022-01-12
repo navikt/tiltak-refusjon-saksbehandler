@@ -9,7 +9,8 @@ export type Feilkode =
     | 'KORREKSJONSBELOP_NEGATIVT'
     | 'SAMME_SAKSBEHANDLER_OG_BESLUTTER'
     | 'INGEN_BESLUTTER'
-    | 'KOSTNADSSTED_MANGLER';
+    | 'KOSTNADSSTED_MANGLER'
+    | 'FOR_LANG_FORLENGELSE_AV_FRIST';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     TEKNISK_FEIL_INNTEKTSOPPSLAG: 'Feil ved inntektsoppslag.',
@@ -23,4 +24,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     INGEN_KORREKSJONSGRUNNER: 'Manger korreksjonsgrunn',
     INGEN_BESLUTTER: 'Du må oppgi en beslutter',
     KOSTNADSSTED_MANGLER: 'Du må oppgi kostnadssted',
+    FOR_LANG_FORLENGELSE_AV_FRIST: 'For lang forlengelse av frist',
 };

@@ -10,7 +10,6 @@ import { forlengFrist, useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import './ForlengFrist.less';
 import {
-    disableAfter,
     finnFeilMeldingFraInputDialog,
     ForlengeDatoSkjemaGruppeFeil,
     formatDateToIsoDateFormat,
@@ -109,11 +108,6 @@ const ForlengFrist: FunctionComponent = () => {
                                 firstDayOfWeek={1}
                                 disabledDays={{
                                     before: new Date(Date.parse(refusjon.fristForGodkjenning)),
-                                    after: new Date(
-                                        Date.parse(
-                                            disableAfter(refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom, 6)
-                                        )
-                                    ),
                                 }}
                             />
                         </div>

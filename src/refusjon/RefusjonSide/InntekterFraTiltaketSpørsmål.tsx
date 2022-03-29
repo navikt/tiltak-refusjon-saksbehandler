@@ -1,13 +1,15 @@
+import _ from 'lodash';
+import { Input, Label, RadioPanel } from 'nav-frontend-skjema';
+import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
-import { endreBruttolønn } from '../../services/rest-service';
-import { Undertittel } from 'nav-frontend-typografi';
-import { tiltakstypeTekst } from '../../messages';
-import { Input, Label, RadioPanel } from 'nav-frontend-skjema';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import { tiltakstypeTekst } from '../../messages';
+import { endreBruttolønn } from '../../services/rest-service';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
+import InntekterOpptjentIPeriodeTabell from './InntekterOpptjentIPeriodeTabell';
 
 const RadioPakning = styled.div`
     display: flex;
@@ -19,6 +21,12 @@ const RadioPakning = styled.div`
             margin-right: 0;
         }
     }
+`;
+
+export const GrønnBoks = styled.div`
+    background-color: #ccf1d6;
+    padding: 1em;
+    border: 4px solid #99dead;
 `;
 
 const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
@@ -39,14 +47,28 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
         }
     };
 
+    // const sumInntekterOpptjentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter
+    // .filter((inntekt) => inntekt.erOpptjentIPeriode)
+    // .map((el) => el.beløp)
+    // .reduce((el, el2) => el + el2, 0);
+    const inntekterOpptentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter.filter((inntekt) => inntekt.erOpptjentIPeriode);
+    const sumInntekterOpptjentIPeriode = _.sumBy(inntekterOpptentIPeriode, 'beløp');
+
     return (
-        <div>
+        <GrønnBoks>
             <Undertittel>Inntekter fra {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}</Undertittel>
             <VerticalSpacer rem={1} />
-            <Label htmlFor={'inntekterKunFraTiltaket'}>
-                Er inntektene som vi har hentet ({formatterPenger(refusjonsgrunnlag.inntektsgrunnlag.bruttoLønn)}) kun
-                fra tiltaket {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
-            </Label>
+
+            <InntekterOpptjentIPeriodeTabell inntekter={props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter!} />
+
+
+
+            <VerticalSpacer rem={1} />
+                    <Label htmlFor={'inntekterKunFraTiltaket'}>
+                        Er inntektene som du har huket av for{' '}
+                        {sumInntekterOpptjentIPeriode > 0 && <>({formatterPenger(sumInntekterOpptjentIPeriode)})</>} kun
+                        fra tiltaket {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
+                    </Label>
             <p>
                 <i>Du skal svare "nei" hvis noen av inntektene er fra f. eks. vanlig lønn eller lønnstilskudd</i>
             </p>
@@ -85,7 +107,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
                     />
                 </>
             )}
-        </div>
+        </GrønnBoks>
     );
 };
 

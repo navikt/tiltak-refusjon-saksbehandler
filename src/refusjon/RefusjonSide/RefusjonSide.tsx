@@ -9,7 +9,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
 import InntekterFraAMeldingen from './InntekterFraAMeldingen';
-import InntekterFraTiltaketSvar from './InntekterFraTiltaketSvar';
+import InntekterFraTiltaketSvarGammel from './InntekterFraTiltaketSvarGammel';
 import './RefusjonSide.less';
 import Utregning from './Utregning';
 
@@ -54,9 +54,12 @@ const RefusjonSide: FunctionComponent = () => {
                 bedriftKontonummerInnhentetTidspunkt={refusjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
             />
             <VerticalSpacer rem={2} />
-            <InntekterFraAMeldingen inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag} />
+            <InntekterFraAMeldingen
+                inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag}
+                kvitteringVisning={true}
+            />
             <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
+            <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning

@@ -54,20 +54,28 @@ const KorreksjonSide: FunctionComponent = () => {
                 bedriftKontonummerInnhentetTidspunkt={korreksjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
             />
             <VerticalSpacer rem={2} />
-            <InntekterFraAMeldingen inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag} />
+            <InntekterFraAMeldingen
+                inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
+                kvitteringVisning={false}
+                korreksjonId={korreksjon.id}
+            />
             <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSpørsmål refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
-            <VerticalSpacer rem={2} />
-            {korreksjon.refusjonsgrunnlag.beregning && (
+            {korreksjon.harTattStillingTilAlleInntektslinjer && (
                 <>
-                    <Utregning
-                        beregning={korreksjon.refusjonsgrunnlag.beregning}
-                        tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
-                    />
-                    <VerticalSpacer rem={1} />
-                    {korreksjonstype() === 'TILLEGSUTBETALING' && <BekreftUtbetalKorreksjon />}
-                    {korreksjonstype() === 'TILBAKEKREVING' && <BekreftTilbakekrevKorreksjon />}
-                    {korreksjonstype() === 'OPPGJORT' && <BekreftOppgjørKorreksjon />}
+                    <InntekterFraTiltaketSpørsmål refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                    <VerticalSpacer rem={2} />
+                    {korreksjon.refusjonsgrunnlag.beregning && (
+                        <>
+                            <Utregning
+                                beregning={korreksjon.refusjonsgrunnlag.beregning}
+                                tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                            />
+                            <VerticalSpacer rem={1} />
+                            {korreksjonstype() === 'TILLEGSUTBETALING' && <BekreftUtbetalKorreksjon />}
+                            {korreksjonstype() === 'TILBAKEKREVING' && <BekreftTilbakekrevKorreksjon />}
+                            {korreksjonstype() === 'OPPGJORT' && <BekreftOppgjørKorreksjon />}
+                        </>
+                    )}
                 </>
             )}
         </HvitBoks>

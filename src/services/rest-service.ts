@@ -131,3 +131,16 @@ export const fullførKorreksjonVedTilbakekreving = async (korreksjonId: string) 
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };
+
+export const setInntektslinjeOpptjentIPeriode = async (
+    korreksjonId: string,
+    inntektslinjeId: string,
+    erOpptjentIPeriode: boolean
+) => {
+    const response = await api.post(`/korreksjon/${korreksjonId}/set-inntektslinje-opptjent-i-periode`, {
+        inntektslinjeId,
+        erOpptjentIPeriode,
+    });
+    await mutate(`/korreksjon/${korreksjonId}`);
+    return response.data;
+};

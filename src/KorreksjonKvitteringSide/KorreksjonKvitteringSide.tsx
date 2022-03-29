@@ -7,7 +7,9 @@ import VerticalSpacer from '../komponenter/VerticalSpacer';
 import { korreksjonStatusTekst } from '../messages';
 import InformasjonFraAvtalen from '../refusjon/RefusjonSide/InformasjonFraAvtalen';
 import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen';
+import InntekterFraAMeldingenGammel from '../refusjon/RefusjonSide/InntekterFraAmeldingenGammel';
 import InntekterFraTiltaketSvar from '../refusjon/RefusjonSide/InntekterFraTiltaketSvar';
+import InntekterFraTiltaketSvarGammel from '../refusjon/RefusjonSide/InntekterFraTiltaketSvarGammel';
 import SummeringBoks from '../refusjon/RefusjonSide/SummeringBoks';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { useHentKorreksjon } from '../services/rest-service';
@@ -31,9 +33,22 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
                 bedriftKontonummerInnhentetTidspunkt={korreksjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
             />
             <VerticalSpacer rem={2} />
-            <InntekterFraAMeldingen inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag} />
-            <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvar refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+
+            {korreksjon.harTattStillingTilAlleInntektslinjer ? (
+                <>
+                    <InntekterFraAMeldingen
+                        inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
+                        kvitteringVisning={true}
+                    />
+                    <VerticalSpacer rem={2} />
+                    <InntekterFraTiltaketSvar refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                </>
+            ) : (
+                <>
+                    <InntekterFraAMeldingenGammel inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag} />
+                    <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                </>
+            )}
             <VerticalSpacer rem={2} />
             <Utregning
                 beregning={korreksjon.refusjonsgrunnlag.beregning}

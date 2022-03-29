@@ -13,7 +13,9 @@ import { storForbokstav } from '../../utils/stringUtils';
 import { Refusjon, RefusjonStatus } from '../refusjon';
 import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
 import InntekterFraAMeldingen from '../RefusjonSide/InntekterFraAMeldingen';
+import InntekterFraAMeldingenGammel from '../RefusjonSide/InntekterFraAmeldingenGammel';
 import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
+import InntekterFraTiltaketSvarGammel from '../RefusjonSide/InntekterFraTiltaketSvarGammel';
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import Utregning from '../RefusjonSide/Utregning';
@@ -55,9 +57,23 @@ const KvitteringSide: FunctionComponent = () => {
                 bedriftKontonummerInnhentetTidspunkt={refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
             />
             <VerticalSpacer rem={2} />
-            <InntekterFraAMeldingen inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag} />
-            <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjonsgrunnlag} />
+
+            {refusjon.harTattStillingTilAlleInntektslinjer ? (
+                <>
+                    <InntekterFraAMeldingen
+                        inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag}
+                        kvitteringVisning={true}
+                    />
+                    <VerticalSpacer rem={2} />
+                    <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjonsgrunnlag} />
+                </>
+            ) : (
+                <>
+                    <InntekterFraAMeldingenGammel inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag} />
+                    <VerticalSpacer rem={2} />
+                    <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjonsgrunnlag} />
+                </>
+            )}
             <VerticalSpacer rem={2} />
             <Utregning
                 beregning={refusjonsgrunnlag.beregning}

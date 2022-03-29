@@ -35,6 +35,7 @@ export interface Refusjon {
     korreksjonId?: string;
     refusjonsgrunnlag: Refusjonsgrunnlag;
     unntakOmInntekterToMånederFrem: boolean;
+    harTattStillingTilAlleInntektslinjer: boolean;
 }
 
 export interface Korreksjon {
@@ -47,6 +48,7 @@ export interface Korreksjon {
     kostnadssted?: string;
     korreksjonsgrunner: Korreksjonsgrunn[];
     refusjonsgrunnlag: Refusjonsgrunnlag;
+    harTattStillingTilAlleInntektslinjer: boolean;
 }
 
 export interface Refusjonsgrunnlag {
@@ -97,6 +99,7 @@ export interface Inntektslinje {
     opptjeningsperiodeFom?: string;
     opptjeningsperiodeTom?: string;
     erMedIInntektsgrunnlag: boolean;
+    erOpptjentIPeriode: boolean;
 }
 
 export interface Beregning {

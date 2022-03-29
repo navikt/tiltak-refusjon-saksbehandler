@@ -1,12 +1,10 @@
 import _ from 'lodash';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { Radio } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../messages';
-import { setInntektslinjeOpptjentIPeriode } from '../../services/rest-service';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT, NORSK_MÅNEDÅR_FORMAT } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Inntektsgrunnlag } from '../refusjon';
@@ -42,7 +40,7 @@ const InntekterTabell = styled.table`
     }
 `;
 
-export const inntektBeskrivelse = (beskrivelse: string | undefined) => {
+const inntektBeskrivelse = (beskrivelse: string | undefined) => {
     if (beskrivelse === undefined) {
         return '';
     } else if (beskrivelse === '') {
@@ -52,13 +50,9 @@ export const inntektBeskrivelse = (beskrivelse: string | undefined) => {
     }
 };
 
-type Props = {
+const InntekterFraAMeldingenGammel: FunctionComponent<{
     inntektsgrunnlag: Inntektsgrunnlag | undefined;
-    kvitteringVisning: boolean;
-    korreksjonId?: string;
-};
-
-const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
+}> = (props) => {
     const antallInntekterSomErMedIGrunnlag = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erMedIInntektsgrunnlag
     ).length;
@@ -101,7 +95,6 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                                     <th>Beskriv&shy;else</th>
                                     <th>År/mnd</th>
                                     <th>Opptjenings&shy;periode</th>
-                                    <th>Opptjent i perioden?</th>
                                     <th>Beløp</th>
                                 </tr>
                             </thead>
@@ -128,51 +121,10 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                                             )}
                                         </td>
 
-                                        {props.inntektsgrunnlag?.inntekter.filter(
-                                            (currInntekt) => currInntekt.erOpptjentIPeriode
-                                        ) && (
-                                            <td>
-                                                {!props.kvitteringVisning && props.korreksjonId && (
-                                                    <div style={{ display: 'flex', columnGap: '3em' }}>
-                                                        <Radio
-                                                            label={'Ja'}
-                                                            checked={inntekt.erOpptjentIPeriode === true}
-                                                            onChange={(e) => {
-                                                                setInntektslinjeOpptjentIPeriode(
-                                                                    props.korreksjonId!,
-                                                                    inntekt.id,
-                                                                    true
-                                                                );
-                                                            }}
-                                                            name={inntekt.id}
-                                                        />
-                                                        <Radio
-                                                            label={'Nei'}
-                                                            checked={inntekt.erOpptjentIPeriode === false}
-                                                            onChange={(e) => {
-                                                                setInntektslinjeOpptjentIPeriode(
-                                                                    props.korreksjonId!,
-                                                                    inntekt.id,
-                                                                    false
-                                                                );
-                                                            }}
-                                                            name={inntekt.id}
-                                                        />
-                                                    </div>
-                                                )}
-                                                {props.kvitteringVisning && (
-                                                    <div style={{ display: 'flex', columnGap: '3em' }}>
-                                                        {inntekt.erOpptjentIPeriode && <label>{'Ja'}</label>}
-                                                        {!inntekt.erOpptjentIPeriode && <label>{'Nei'}</label>}
-                                                    </div>
-                                                )}
-                                            </td>
-                                        )}
-
                                         <td>{formatterPenger(inntekt.beløp)}</td>
                                     </tr>
                                 ))}
-                                {/* {props.inntektsgrunnlag?.bruttoLønn && (
+                                {props.inntektsgrunnlag?.bruttoLønn && (
                                     <tr>
                                         <td colSpan={3}>
                                             <b>Sum</b>
@@ -183,7 +135,7 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                                             </b>
                                         </td>
                                     </tr>
-                                )} */}
+                                )}
                             </tbody>
                         </InntekterTabell>
                     </>
@@ -228,4 +180,4 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
     );
 };
 
-export default InntekterFraAMeldingen;
+export default InntekterFraAMeldingenGammel;

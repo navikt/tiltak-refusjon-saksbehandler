@@ -32,7 +32,7 @@ spec:
     - name: API_CLIENT_ID
       value: prod-gcp.arbeidsgiver.tiltak-refusjon-api
     - name: DECORATOR_HOST
-      value: https://internarbeidsflatedecorator.nais.intern.nav.no
+      value: https://internarbeidsflatedecorator.intern.nav.no
     - name: API_URL
       value: http://tiltak-refusjon-api
     - name: REDIS_HOST

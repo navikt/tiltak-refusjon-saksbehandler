@@ -1,21 +1,21 @@
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import React, { FunctionComponent, Suspense } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Feature } from '../../featureToggles/features';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 import TilbakeTilOversikt from '../../komponenter/tilbake-til-oversikt/TilbakeTilOversikt';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato } from '../../utils/datoUtils';
+import ForlengFrist from '../ForlengFrist/ForlengFrist';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';
+import MerkForUnntakOmInntekterToMånederFrem from '../MerkForUnntakOmInntekterToMånederFrem/MerkForUnntakOmInntekterToMånederFrem';
 import { RefusjonStatus } from '../refusjon';
 import FeilSide from './FeilSide';
 import HenterInntekterBoks from './HenterInntekterBoks';
 import RefusjonSide from './RefusjonSide';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { Link } from 'react-router-dom';
-import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
-import { Feature } from '../../featureToggles/features';
-import ForlengFrist from '../ForlengFrist/ForlengFrist';
-import MerkForUnntakOmInntekterToMånederFrem from '../MerkForUnntakOmInntekterToMånederFrem/MerkForUnntakOmInntekterToMånederFrem';
-import styled from 'styled-components';
 
 const Fleks = styled.div`
     display: flex;
@@ -47,6 +47,7 @@ const Advarsler: FunctionComponent = () => {
 const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams();
     const refusjon = useHentRefusjon(refusjonId);
+    const featureToggles = useFeatureToggles();
 
     switch (refusjon.status) {
         case RefusjonStatus.FOR_TIDLIG:
@@ -63,7 +64,7 @@ const Komponent: FunctionComponent = () => {
                 <>
                     <Fleks>
                         <ForlengFrist />
-                        <MerkForUnntakOmInntekterToMånederFrem />
+                        {featureToggles[Feature.Korreksjon] && <MerkForUnntakOmInntekterToMånederFrem />}
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <RefusjonSide />

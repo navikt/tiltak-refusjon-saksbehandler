@@ -22,8 +22,8 @@ const RefusjonSide: FunctionComponent = () => {
             {refusjon.status === 'KLAR_FOR_INNSENDING' && refusjon.refusjonsgrunnlag.inntektsgrunnlag === null && (
                 <AlertStripeInfo>
                     <Element> Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.</Element>
-                    Det har aldri vært forsøkt hentet inntektsgrunnlag, noe som gjøres hver gang arbeidsgiver åpner
-                    refusjoner som er klare for innsending
+                    Det har aldri vært forsøkt hentet inntektsgrunnlag og kontonummer, noe som gjøres hver gang
+                    arbeidsgiver åpner refusjoner som er klare for innsending
                 </AlertStripeInfo>
             )}
             <VerticalSpacer rem={2} />

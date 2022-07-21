@@ -29,7 +29,7 @@ const AvrundetHvitBoks = styled.div`
     }
 `;
 
-const status = [
+const sorteringIndexRefusjonStatus = [
     'KLAR_FOR_INNSENDING',
     'FOR_TIDLIG',
     'SENDT_KRAV',
@@ -67,7 +67,7 @@ const Oversikt: FunctionComponent = () => {
                 <LabelRad className={cls.className} />
 
                 {_.sortBy<Refusjon>(refusjoner, [
-                    (refusjon) => status.indexOf(refusjon.status),
+                    (refusjon) => sorteringIndexRefusjonStatus.indexOf(refusjon.status),
                     'fristForGodkjenning',
                 ]).map((refusjon) => (
                     <LenkepanelBase

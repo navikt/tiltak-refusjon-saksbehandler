@@ -1,7 +1,8 @@
 import { ReactComponent as InfoIkon } from '@/asset/image/info.svg';
+import _ from 'lodash';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
@@ -11,6 +12,7 @@ import { formatterDato } from '../../utils/datoUtils';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
+import { Refusjon } from '../refusjon';
 
 const cls = BEMHelper('oversikt');
 
@@ -27,7 +29,18 @@ const AvrundetHvitBoks = styled.div`
     }
 `;
 
-const Info: FunctionComponent<{ tekst: string }> = (props) => (
+const sorteringIndexRefusjonStatus = [
+    'KLAR_FOR_INNSENDING',
+    'FOR_TIDLIG',
+    'SENDT_KRAV',
+    'UTBETALT',
+    'UTBETALING_FEILET',
+    'UTGÅTT',
+    'ANNULLERT',
+    'KORRIGERT',
+];
+
+const Info: FunctionComponent<{ tekst: string }> = (props: PropsWithChildren<{ tekst: string }>) => (
     <AvrundetHvitBoks>
         <InfoIkon />
         <Undertittel tag="p">{props.tekst}</Undertittel>
@@ -52,7 +65,11 @@ const Oversikt: FunctionComponent = () => {
         <nav className={cls.className} aria-label="Main">
             <div role="list">
                 <LabelRad className={cls.className} />
-                {refusjoner.map((refusjon) => (
+
+                {_.sortBy<Refusjon>(refusjoner, [
+                    (refusjon) => sorteringIndexRefusjonStatus.indexOf(refusjon.status),
+                    'fristForGodkjenning',
+                ]).map((refusjon) => (
                     <LenkepanelBase
                         className={cls.element('rad')}
                         role="listitem"

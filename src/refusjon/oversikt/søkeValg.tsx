@@ -70,9 +70,9 @@ export const søkevalg = (props: Props): SøkeValg[] => {
                     }}
                     feiletSøk={() => oppdaterFilter(tomtSøkeInput)}
                     valider={(verdi: string) =>
-                        verdi.search(/^\d{9}$/) === -1 ? 'Ikke gyldig bedriftnummer' : undefined
+                        verdi.search(/^\d{9}$/) === -1 ? 'Ikke gyldig virksomhetsnummer' : undefined
                     }
-                    inputProps={{ placeholder: 'Bedriftnummmer', maxLength: 9 }}
+                    inputProps={{ placeholder: 'Virksomhetsnummer', maxLength: 9 }}
                     tidligereSok={aktivSøketype?.søkeVerdi}
                 />
             ),

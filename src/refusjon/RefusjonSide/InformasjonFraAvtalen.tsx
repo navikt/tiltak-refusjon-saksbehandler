@@ -51,7 +51,7 @@ const InformasjonFraAvtalen: FunctionComponent<{
                         <Normaltekst>{props.tilskuddsgrunnlag.bedriftNavn}</Normaltekst>
                     </div>
                     <div style={{ display: 'flex' }}>
-                        <Element>Bedriftsnummer: </Element>
+                        <Element>Virksomhetsnummer: </Element>
                         <Normaltekst>{props.tilskuddsgrunnlag.bedriftNr}</Normaltekst>
                     </div>
                 </div>

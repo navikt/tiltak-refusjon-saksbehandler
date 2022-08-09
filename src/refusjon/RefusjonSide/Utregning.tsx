@@ -1,19 +1,20 @@
 import { ReactComponent as Bygg } from '@/asset/image/bygg.svg';
+import { ReactComponent as Endret } from '@/asset/image/endret.svg';
 import { ReactComponent as ErlikTegn } from '@/asset/image/erlikTegn.svg';
+import { ReactComponent as MinusTegn } from '@/asset/image/minusTegn.svg';
 import { ReactComponent as Pengesekken } from '@/asset/image/pengesekkdollar.svg';
 import { ReactComponent as PlussTegn } from '@/asset/image/plussTegn.svg';
-import { ReactComponent as MinusTegn } from '@/asset/image/minusTegn.svg';
 import { ReactComponent as ProsentTegn } from '@/asset/image/prosentTegn.svg';
 import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import Utregningsrad from './Utregningsrad';
 import styled from 'styled-components';
-import { Beregning, Tilskuddsgrunnlag } from '../refusjon';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { formatterPenger } from '../../utils/PengeUtils';
+import { Beregning, Tilskuddsgrunnlag } from '../refusjon';
+import Utregningsrad from './Utregningsrad';
 
 interface Props {
     beregning?: Beregning;
@@ -36,6 +37,18 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 labelTekst={'Brutto lønn i perioden'}
                 verdi={props.beregning?.lønn || 0}
             />
+            {props.beregning && props.beregning.fratrekkLønnFerie !== 0 && (
+                <Utregningsrad
+                    labelIkon={<Endret />}
+                    labelTekst="Fratrekk for ferie"
+                    verdiOperator={<MinusTegn />}
+                    verdi={
+                        props.beregning.fratrekkLønnFerie < 0
+                            ? props.beregning.fratrekkLønnFerie * -1
+                            : props.beregning.fratrekkLønnFerie
+                    }
+                />
+            )}
             <Utregningsrad
                 labelIkon={<Stranden />}
                 labelTekst="Feriepenger"

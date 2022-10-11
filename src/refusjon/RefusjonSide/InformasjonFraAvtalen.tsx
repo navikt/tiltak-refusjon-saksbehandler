@@ -29,7 +29,7 @@ const InformasjonFraAvtalen: FunctionComponent<{
     bedriftKontonummer: string | null | undefined;
     bedriftKontonummerInnhentetTidspunkt: string | null | undefined;
 }> = (props) => {
-    const avtaleLenke = `https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing/avtale/${props.tilskuddsgrunnlag.avtaleId}`;
+    const avtaleLenke = `https://tiltaksgjennomforing.intern.nav.no/tiltaksgjennomforing/avtale/${props.tilskuddsgrunnlag.avtaleId}`;
     const refusjonsnummer = `${props.tilskuddsgrunnlag.avtaleNr}-${props.tilskuddsgrunnlag.løpenummer}`;
 
     return (

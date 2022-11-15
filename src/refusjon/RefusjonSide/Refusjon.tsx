@@ -73,13 +73,12 @@ const Komponent: FunctionComponent = () => {
         case RefusjonStatus.UTGÅTT:
             return (
                 <>
-                    <ForlengFrist />
                     <VerticalSpacer rem={1} />
                     <FeilSide
                         advarselType="advarsel"
                         feiltekst={`Fristen for å søke om refusjon for denne perioden gikk ut ${formatterDato(
                             refusjon.fristForGodkjenning
-                        )}.`}
+                        )}. Fristen kan ikke forlenges etter at den er utgått.`}
                     />
                 </>
             );

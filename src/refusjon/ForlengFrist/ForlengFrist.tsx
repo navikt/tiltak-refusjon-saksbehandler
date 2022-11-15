@@ -8,6 +8,7 @@ import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { forlengFrist, useHentRefusjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
+import { RefusjonStatus } from '../refusjon';
 import './ForlengFrist.less';
 import {
     finnFeilMeldingFraInputDialog,

@@ -52,6 +52,8 @@ const RefusjonSide: FunctionComponent = () => {
                 tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                 bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
                 bedriftKontonummerInnhentetTidspunkt={refusjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
+                fristForGodkjenning={refusjon.fristForGodkjenning}
+                forrigeFristForGodkjenning={refusjon.forrigeFristForGodkjenning}
             />
             <VerticalSpacer rem={2} />
             <InntekterFraAMeldingen

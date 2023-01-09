@@ -29,6 +29,14 @@ const SummeringBoks: FunctionComponent<Props> = (props) => {
             <div>
                 <Element>Arbeidsgiver vil få utbetalt</Element>
                 <VerticalSpacer rem={0.5} />
+                {props.refusjonsgrunnlag.beregning?.refusjonsbeløp != null &&
+                    props.refusjonsgrunnlag.beregning?.refusjonsbeløp < 0 && (
+                        <Normaltekst>
+                            Siden fratrekk for ferie er større enn bruttolønn i perioden vil det negative
+                            refusjonsbeløpet overføres til neste periode. Dere må fortsatt trykke fullfør under.
+                        </Normaltekst>
+                    )}
+                <VerticalSpacer rem={0.5} />
                 <Normaltekst>
                     <b>{formatterPenger(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for perioden{' '}
                     {formatterPeriode(

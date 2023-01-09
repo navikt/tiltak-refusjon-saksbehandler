@@ -69,6 +69,7 @@ const KorreksjonSide: FunctionComponent = () => {
                             <Utregning
                                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                                forrigeRefusjonMinusBeløp={korreksjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
                             />
                             <VerticalSpacer rem={1} />
                             {korreksjonstype() === 'TILLEGSUTBETALING' && <BekreftUtbetalKorreksjon />}

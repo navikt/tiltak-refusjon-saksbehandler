@@ -9,6 +9,7 @@ export enum RefusjonStatus {
     KLAR_FOR_INNSENDING = 'KLAR_FOR_INNSENDING',
     FOR_TIDLIG = 'FOR_TIDLIG',
     SENDT_KRAV = 'SENDT_KRAV',
+    GODKJENT_MINUSBELØP = 'GODKJENT_MINUSBELØP',
     UTBETALT = 'UTBETALT',
     UTBETALING_FEILET = 'UTBETALING_FEILET',
     UTGÅTT = 'UTGÅTT',
@@ -36,6 +37,7 @@ export interface Refusjon {
     refusjonsgrunnlag: Refusjonsgrunnlag;
     unntakOmInntekterToMånederFrem: boolean;
     harTattStillingTilAlleInntektslinjer: boolean;
+    forrigeRefusjonSomSkalSendesFørst?: Refusjon;
 }
 
 export interface Korreksjon {
@@ -59,6 +61,7 @@ export interface Refusjonsgrunnlag {
     bedriftKontonummer?: string;
     bedriftKontonummerInnhentetTidspunkt?: string;
     beregning?: Beregning;
+    forrigeRefusjonMinusBeløp?: number;
 }
 
 export interface Tilskuddsgrunnlag {

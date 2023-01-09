@@ -19,6 +19,7 @@ import Utregningsrad from './Utregningsrad';
 interface Props {
     beregning?: Beregning;
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
+    forrigeRefusjonMinusBeløp?: number;
 }
 
 const GråRamme = styled.div`
@@ -40,7 +41,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
             {props.beregning && props.beregning.fratrekkLønnFerie !== 0 && (
                 <Utregningsrad
                     labelIkon={<Endret />}
-                    labelTekst="Fratrekk for ferie"
+                    labelTekst="Fratrekk for ferie (hentet fra A-meldingen)"
                     verdiOperator={<MinusTegn />}
                     verdi={
                         props.beregning.fratrekkLønnFerie < 0
@@ -105,6 +106,30 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     border="TYKK"
                 />
             )}
+            {props.forrigeRefusjonMinusBeløp != null && props.forrigeRefusjonMinusBeløp < 0 && (
+                <Utregningsrad
+                    labelIkon={<Endret />}
+                    labelTekst={
+                        'Resterende fratrekk for ferie fra refusjonsnummer: ' +
+                        props.tilskuddsgrunnlag.avtaleNr +
+                        '-' +
+                        (props.tilskuddsgrunnlag.løpenummer - 1)
+                    }
+                    verdiOperator={<MinusTegn />}
+                    verdi={props.forrigeRefusjonMinusBeløp}
+                    border="TYKK"
+                />
+            )}
+            {props.beregning?.tidligereUtbetalt != null && props.beregning?.tidligereUtbetalt < 0 && (
+                <Utregningsrad
+                    labelTekst="Tidligere utbetalt"
+                    verdiOperator={<ErlikTegn />}
+                    verdi={props.beregning?.tidligereUtbetalt ?? 0}
+                    ikkePenger={props.beregning === undefined}
+                    border="TYKK"
+                />
+            )}
+
             <Utregningsrad
                 labelTekst="Refusjonsbeløp"
                 verdiOperator={<ErlikTegn />}

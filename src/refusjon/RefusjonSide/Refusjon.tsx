@@ -85,6 +85,7 @@ const Komponent: FunctionComponent = () => {
         case RefusjonStatus.ANNULLERT:
             return <FeilSide advarselType="advarsel" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />;
         case RefusjonStatus.SENDT_KRAV:
+        case RefusjonStatus.GODKJENT_MINUSBELØP:
         case RefusjonStatus.UTBETALT:
         case RefusjonStatus.UTBETALING_FEILET:
         case RefusjonStatus.KORRIGERT:

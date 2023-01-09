@@ -1,4 +1,4 @@
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
@@ -12,6 +12,7 @@ import InntekterFraAMeldingen from './InntekterFraAMeldingen';
 import InntekterFraTiltaketSvarGammel from './InntekterFraTiltaketSvarGammel';
 import './RefusjonSide.less';
 import Utregning from './Utregning';
+import Lenke from 'nav-frontend-lenker';
 
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -19,6 +20,23 @@ const RefusjonSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
+            {refusjon.forrigeRefusjonSomSkalSendesFørst != null && (
+                <>
+                    <AlertStripeAdvarsel>
+                        <Lenke href={'/refusjon/' + refusjon.forrigeRefusjonSomSkalSendesFørst.id}>
+                            <b>Refusjon:</b>{' '}
+                            {refusjon.forrigeRefusjonSomSkalSendesFørst.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr}-
+                            {refusjon.forrigeRefusjonSomSkalSendesFørst.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}
+                        </Lenke>{' '}
+                        må sendes inn før du kan sende inn denne refusjonen:{' '}
+                        {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr +
+                            '-' +
+                            refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}
+                        .
+                    </AlertStripeAdvarsel>
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
             {refusjon.status === 'KLAR_FOR_INNSENDING' && refusjon.refusjonsgrunnlag.inntektsgrunnlag === null && (
                 <AlertStripeInfo>
                     <Element> Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.</Element>
@@ -48,25 +66,32 @@ const RefusjonSide: FunctionComponent = () => {
                 hentet fra avtalen om midlertidig lønnstilskudd.
             </Normaltekst>
             <VerticalSpacer rem={2} />
-            <InformasjonFraAvtalen
-                tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
-                bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
-                bedriftKontonummerInnhentetTidspunkt={refusjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
-                fristForGodkjenning={refusjon.fristForGodkjenning}
-                forrigeFristForGodkjenning={refusjon.forrigeFristForGodkjenning}
-            />
-            <VerticalSpacer rem={2} />
-            <InntekterFraAMeldingen
-                inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag}
-                kvitteringVisning={true}
-            />
-            <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
+            {!refusjon.forrigeRefusjonSomSkalSendesFørst && (
+                <>
+                    <InformasjonFraAvtalen
+                        tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                        bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
+                        bedriftKontonummerInnhentetTidspunkt={
+                            refusjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt
+                        }
+                        fristForGodkjenning={refusjon.fristForGodkjenning}
+                        forrigeFristForGodkjenning={refusjon.forrigeFristForGodkjenning}
+                    />
+                    <VerticalSpacer rem={2} />
+                    <InntekterFraAMeldingen
+                        inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag}
+                        kvitteringVisning={true}
+                    />
+                    <VerticalSpacer rem={2} />
+                    <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
+                </>
+            )}
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning
                     beregning={refusjon.refusjonsgrunnlag.beregning}
                     tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                    forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
                 />
             )}
         </HvitBoks>

@@ -1,6 +1,6 @@
-import { SøkeInput } from './SøkeInput';
 import React from 'react';
 import { Filter, RefusjonsAktor } from './FilterContext';
+import { SøkeInput } from './SøkeInput';
 import { AktivSøk, tomtSøkeInput } from './VisRefusjonerFilter';
 
 
@@ -108,7 +108,7 @@ export const søkevalg = (props: Props): SøkeValg[] => {
                     valider={(verdi: string) =>
                         verdi.search('^[0-9]*$') === -1 ? 'Ikke gyldig avtalenummer' : undefined
                     }
-                    inputProps={{ placeholder: 'Avtalenummer', maxLength: 5 }}
+                    inputProps={{ placeholder: 'Avtalenummer', maxLength: 7 }}
                     tidligereSok={aktivSøketype?.søkeVerdi}
                 />
             ),

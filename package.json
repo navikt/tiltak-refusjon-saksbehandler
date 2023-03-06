@@ -84,9 +84,9 @@
         "typescript": "~3.7.2"
     },
     "scripts": {
-        "start": "craco start",
-        "build": "craco build",
-        "test": "craco test"
+        "start": "NODE_OPTIONS=--openssl-legacy-provider craco start",
+        "build": "NODE_OPTIONS=--openssl-legacy-provider craco build",
+        "test": "NODE_OPTIONS=--openssl-legacy-provider craco test"
     },
     "eslintConfig": {
         "extends": "react-app"

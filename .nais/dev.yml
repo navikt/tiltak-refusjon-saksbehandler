@@ -1,4 +1,4 @@
-ingress: https://tiltak-refusjon.dev.intern.nav.no
+ingress: https://tiltak-refusjon.intern.dev.nav.no
 env:
   AAD_REDIRECT_URL: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
   AAD_LOGOUT_REDIRECT_URL: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback

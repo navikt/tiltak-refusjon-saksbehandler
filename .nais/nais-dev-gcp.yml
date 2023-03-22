@@ -27,9 +27,9 @@ spec:
     max: 2
   env:
     - name: AAD_REDIRECT_URL
-      value: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
+      value: https://tiltak-refusjon.intern.dev.nav.no/oauth2/callback
     - name: AAD_LOGOUT_REDIRECT_URL
-      value: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
+      value: https://tiltak-refusjon.intern.dev.nav.no/oauth2/callback
     - name: API_CLIENT_ID
       value: dev-gcp.arbeidsgiver.tiltak-refusjon-api
     - name: DECORATOR_HOST
@@ -39,7 +39,7 @@ spec:
     - name: REDIS_HOST
       value: tiltak-refusjon-saksbehandler-redis
     - name: HOST
-      value: https://tiltak-refusjon.dev.intern.nav.no
+      value: https://tiltak-refusjon.intern.dev.nav.no
   accessPolicy:
     outbound:
       rules:

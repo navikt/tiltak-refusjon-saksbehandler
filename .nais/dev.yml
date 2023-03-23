@@ -1,7 +1,7 @@
-ingress: https://tiltak-refusjon.dev.intern.nav.no
+ingress: https://tiltak-refusjon.intern.dev.nav.no
 env:
-  AAD_REDIRECT_URL: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
-  AAD_LOGOUT_REDIRECT_URL: https://tiltak-refusjon.dev.intern.nav.no/oauth2/callback
+  AAD_REDIRECT_URL: https://tiltak-refusjon.intern.dev.nav.no/oauth2/callback
+  AAD_LOGOUT_REDIRECT_URL: https://tiltak-refusjon.intern.dev.nav.no/oauth2/callback
   API_CLIENT_ID: 01123ad4-9c25-43f4-a59d-dc902a44b15b
   DECORATOR_HOST: https://internarbeidsflatedecorator-q0.dev.adeo.no
 host:

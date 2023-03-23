@@ -13,6 +13,7 @@ import InntekterFraTiltaketSvarGammel from './InntekterFraTiltaketSvarGammel';
 import './RefusjonSide.less';
 import Utregning from './Utregning';
 import Lenke from 'nav-frontend-lenker';
+import TidligereRefunderbarBeløpKvittering from './TidligereRefunderbarBeløpKvittering';
 
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams();
@@ -66,26 +67,22 @@ const RefusjonSide: FunctionComponent = () => {
                 hentet fra avtalen om midlertidig lønnstilskudd.
             </Normaltekst>
             <VerticalSpacer rem={2} />
-            {!refusjon.forrigeRefusjonSomSkalSendesFørst && (
-                <>
-                    <InformasjonFraAvtalen
-                        tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
-                        bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
-                        bedriftKontonummerInnhentetTidspunkt={
-                            refusjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt
-                        }
-                        fristForGodkjenning={refusjon.fristForGodkjenning}
-                        forrigeFristForGodkjenning={refusjon.forrigeFristForGodkjenning}
-                    />
-                    <VerticalSpacer rem={2} />
-                    <InntekterFraAMeldingen
-                        inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag}
-                        kvitteringVisning={true}
-                    />
-                    <VerticalSpacer rem={2} />
-                    <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
-                </>
-            )}
+            <InformasjonFraAvtalen
+                tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                bedriftKontonummer={refusjon.refusjonsgrunnlag.bedriftKontonummer}
+                bedriftKontonummerInnhentetTidspunkt={refusjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
+                fristForGodkjenning={refusjon.fristForGodkjenning}
+                forrigeFristForGodkjenning={refusjon.forrigeFristForGodkjenning}
+            />
+            <VerticalSpacer rem={2} />
+            <InntekterFraAMeldingen
+                inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag}
+                kvitteringVisning={true}
+            />
+            <VerticalSpacer rem={2} />
+            <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
+            <VerticalSpacer rem={2} />
+            <TidligereRefunderbarBeløpKvittering refusjon={refusjon} />
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning

@@ -18,6 +18,7 @@ import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
 import InntekterFraTiltaketSvarGammel from '../RefusjonSide/InntekterFraTiltaketSvarGammel';
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
+import TidligereRefunderbarBeløpKvittering from '../RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../RefusjonSide/Utregning';
 import Statusmelding from './Statusmelding';
 
@@ -68,12 +69,16 @@ const KvitteringSide: FunctionComponent = () => {
                     />
                     <VerticalSpacer rem={2} />
                     <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjonsgrunnlag} />
+                    <VerticalSpacer rem={2} />
+                    <TidligereRefunderbarBeløpKvittering refusjon={refusjon} />
                 </>
             ) : (
                 <>
                     <InntekterFraAMeldingenGammel inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag} />
                     <VerticalSpacer rem={2} />
                     <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjonsgrunnlag} />
+                    <VerticalSpacer rem={2} />
+                    <TidligereRefunderbarBeløpKvittering refusjon={refusjon} />
                 </>
             )}
             <VerticalSpacer rem={2} />

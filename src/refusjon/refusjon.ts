@@ -62,6 +62,7 @@ export interface Refusjonsgrunnlag {
     bedriftKontonummerInnhentetTidspunkt?: string;
     beregning?: Beregning;
     forrigeRefusjonMinusBeløp?: number;
+    fratrekkRefunderbarBeløp?: boolean;
 }
 
 export interface Tilskuddsgrunnlag {
@@ -118,6 +119,8 @@ export interface Beregning {
     tjenestepensjon: number;
     tidligereUtbetalt: number;
     fratrekkLønnFerie: number;
+    sumUtgifterFratrukketRefundertBeløp: number;
+    tidligereRefundertBeløp: number;
 }
 
 export enum Korreksjonsgrunn {

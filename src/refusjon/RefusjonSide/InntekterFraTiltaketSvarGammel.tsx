@@ -33,7 +33,7 @@ const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Ref
                 props.refusjonsgrunnlag.endretBruttoLønn !== undefined && (
                     <>
                         <VerticalSpacer rem={1} />
-                        <Element>Korrigert brutto lønn:</Element>
+                        <Element>Korrigert bruttolønn:</Element>
                         <Normaltekst>{formatterPenger(props.refusjonsgrunnlag.endretBruttoLønn)}</Normaltekst>
                     </>
                 )}

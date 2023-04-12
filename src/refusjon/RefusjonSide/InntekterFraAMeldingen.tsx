@@ -163,7 +163,11 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                                                 {props.kvitteringVisning && (
                                                     <div style={{ display: 'flex', columnGap: '3em' }}>
                                                         {inntekt.erOpptjentIPeriode && <label>{'Ja'}</label>}
-                                                        {!inntekt.erOpptjentIPeriode && <label>{'Nei'}</label>}
+                                                        {inntekt.erOpptjentIPeriode === false && <label>{'Nei'}</label>}
+                                                        {(inntekt.erOpptjentIPeriode === undefined ||
+                                                            inntekt.erOpptjentIPeriode === null) && (
+                                                            <label>{'Ikke besvart'}</label>
+                                                        )}
                                                     </div>
                                                 )}
                                             </td>

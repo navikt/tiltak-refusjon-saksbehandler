@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -21,11 +22,15 @@ const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Ref
         }
     };
 
+    const inntekterHuketAvForOpptjentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag!!.inntekter.filter(
+        (inntekt) => inntekt.erOpptjentIPeriode
+    );
+    const sumInntekterOpptjentIPeriode = _.sumBy(inntekterHuketAvForOpptjentIPeriode, 'beløp');
+
     return (
         <div>
             <Element>
-                Er inntektene som vi har hentet (
-                {formatterPenger(props.refusjonsgrunnlag.inntektsgrunnlag!!.bruttoLønn)}) kun fra tiltaket{' '}
+                Er inntektene som vi har hentet ({formatterPenger(sumInntekterOpptjentIPeriode)}) kun fra tiltaket{' '}
                 {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?{' '}
             </Element>
             <Normaltekst>{svar()}</Normaltekst>

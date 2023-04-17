@@ -16,7 +16,7 @@ async function startLabs(server) {
 
         server.use(express.static(path.join(__dirname, '../build')));
 
-        server.use('/api', createProxyMiddleware({ target: 'http://tiltak-refusjon-api', changeOrigin: true }));
+        server.use('/api', createProxyMiddleware({ target: 'http://tiltak-refusjon-api-labs', changeOrigin: true }));
 
         server.use('/logout', (req, res) => {
             res.clearCookie('tokenx-token');

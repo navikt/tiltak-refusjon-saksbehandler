@@ -37,28 +37,26 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
             >
                 <Normaltekst>Hvorfor skal det korrigeres?</Normaltekst>
                 <VerticalSpacer rem={1} />
-                {[
-                    Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT,
-                    Korreksjonsgrunn.UTBETALT_HELE_TILSKUDDSBELØP,
-                    Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM,
-                ].map((it) => (
-                    <>
-                        <Checkbox
-                            label={korreksjonsgrunnTekst[it]}
-                            checked={grunner.has(it)}
-                            onClick={(e) => {
-                                const nyeGrunner = new Set(grunner);
-                                if (e.currentTarget.checked) {
-                                    nyeGrunner.add(it);
-                                } else {
-                                    nyeGrunner.delete(it);
-                                }
-                                setGrunner(nyeGrunner);
-                            }}
-                        />
-                        <VerticalSpacer rem={1} />
-                    </>
-                ))}
+                {[Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT, Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM].map(
+                    (it) => (
+                        <>
+                            <Checkbox
+                                label={korreksjonsgrunnTekst[it]}
+                                checked={grunner.has(it)}
+                                onClick={(e) => {
+                                    const nyeGrunner = new Set(grunner);
+                                    if (e.currentTarget.checked) {
+                                        nyeGrunner.add(it);
+                                    } else {
+                                        nyeGrunner.delete(it);
+                                    }
+                                    setGrunner(nyeGrunner);
+                                }}
+                            />
+                            <VerticalSpacer rem={1} />
+                        </>
+                    )
+                )}
                 {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
             </BekreftelseModal>
         </>

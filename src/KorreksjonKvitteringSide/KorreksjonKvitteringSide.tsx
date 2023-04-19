@@ -10,10 +10,10 @@ import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldin
 import InntekterFraAMeldingenGammel from '../refusjon/RefusjonSide/InntekterFraAmeldingenGammel';
 import InntekterFraTiltaketSvar from '../refusjon/RefusjonSide/InntekterFraTiltaketSvar';
 import InntekterFraTiltaketSvarGammel from '../refusjon/RefusjonSide/InntekterFraTiltaketSvarGammel';
-import SummeringBoks from '../refusjon/RefusjonSide/SummeringBoks';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { useHentKorreksjon } from '../services/rest-service';
 import { storForbokstav } from '../utils/stringUtils';
+import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
 
 const KorreksjonKvitteringSide: FunctionComponent = () => {
     const { korreksjonId } = useParams();
@@ -55,7 +55,11 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
             />
             <VerticalSpacer rem={4} />
-            <SummeringBoks refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} enhet={korreksjon.kostnadssted!} />
+            <KorreksjonSummeringBoks
+                refusjonsgrunnlag={korreksjon.refusjonsgrunnlag}
+                enhet={korreksjon.kostnadssted!}
+                korreksjon={korreksjon}
+            />
         </HvitBoks>
     );
 };

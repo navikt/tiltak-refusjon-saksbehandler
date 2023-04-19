@@ -23,7 +23,7 @@ export const BrukerProvider: FunctionComponent = (props) => {
 
     return (
         <>
-            {(process.env.NODE_ENV === 'development' || window.location.hostname.includes('labs.nais.io')) && (
+            {(process.env.NODE_ENV === 'development' || window.location.hostname.includes('-labs')) && (
                 <LokalLogin innloggetBruker={innloggetBruker} />
             )}
             {innloggetBruker && (

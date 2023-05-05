@@ -38,12 +38,12 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 <Normaltekst>Hvorfor skal det korrigeres?</Normaltekst>
                 <VerticalSpacer rem={1} />
                 {[Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT, Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM].map(
-                    (it) => (
-                        <>
+                    (it, index) => (
+                        <React.Fragment key={index}>
                             <Checkbox
                                 label={korreksjonsgrunnTekst[it]}
                                 checked={grunner.has(it)}
-                                onClick={(e) => {
+                                onChange={(e) => {
                                     const nyeGrunner = new Set(grunner);
                                     if (e.currentTarget.checked) {
                                         nyeGrunner.add(it);
@@ -54,7 +54,7 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                                 }}
                             />
                             <VerticalSpacer rem={1} />
-                        </>
+                        </React.Fragment>
                     )
                 )}
                 {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}

@@ -50,6 +50,7 @@ const KorreksjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                bedriftKid={korreksjon.refusjonsgrunnlag.bedriftKid}
                 bedriftKontonummer={korreksjon.refusjonsgrunnlag.bedriftKontonummer}
                 bedriftKontonummerInnhentetTidspunkt={korreksjon.refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
             />

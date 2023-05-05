@@ -16,6 +16,7 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
 
     const knappBaseProps = Object.assign({}, props);
     delete knappBaseProps.lagreFunksjon;
+    delete knappBaseProps.avbryt;
 
     const feilRef = useRef<HTMLDivElement>(null);
 

@@ -26,6 +26,7 @@ const InformasjonFraAvtalen: FunctionComponent<{
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     fristForGodkjenning?: string;
     forrigeFristForGodkjenning?: string;
+    bedriftKid: string | null | undefined;
     bedriftKontonummer: string | null | undefined;
     bedriftKontonummerInnhentetTidspunkt: string | null | undefined;
 }> = (props) => {
@@ -111,6 +112,12 @@ const InformasjonFraAvtalen: FunctionComponent<{
                         'Ikke oppgitt'
                     )}
                 </Normaltekst>
+            </IkonRad>
+            <VerticalSpacer rem={1} />
+            <IkonRad>
+                <Money />
+                <Element>KID:</Element>
+                <Normaltekst>{props.bedriftKid ? props.bedriftKid : 'Ikke oppgitt'}</Normaltekst>
             </IkonRad>
         </GråBoks>
     );

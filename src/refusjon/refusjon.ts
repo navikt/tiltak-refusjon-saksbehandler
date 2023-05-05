@@ -59,6 +59,7 @@ export interface Refusjonsgrunnlag {
     inntektsgrunnlag?: Inntektsgrunnlag;
     inntekterKunFraTiltaket?: boolean;
     endretBruttoLønn?: number;
+    bedriftKid?: string;
     bedriftKontonummer?: string;
     bedriftKontonummerInnhentetTidspunkt?: string;
     beregning?: Beregning;

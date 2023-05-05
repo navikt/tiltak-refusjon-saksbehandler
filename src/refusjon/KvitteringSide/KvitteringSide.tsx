@@ -54,6 +54,7 @@ const KvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={refusjonsgrunnlag.tilskuddsgrunnlag}
+                bedriftKid={refusjonsgrunnlag.bedriftKid}
                 bedriftKontonummer={refusjonsgrunnlag.bedriftKontonummer}
                 bedriftKontonummerInnhentetTidspunkt={refusjonsgrunnlag.bedriftKontonummerInnhentetTidspunkt}
                 fristForGodkjenning={refusjon.fristForGodkjenning}

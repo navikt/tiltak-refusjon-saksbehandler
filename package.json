@@ -86,8 +86,8 @@
         "typescript": "~3.7.2"
     },
     "scripts": {
-        "start": "craco start --openssl-legacy-provider ",
-        "build": "craco build --openssl-legacy-provider ",
+        "start": "craco start --openssl-legacy-provider",
+        "build": "NODE_OPTIONS=--openssl-legacy-provider craco build",
         "test": "craco test"
     },
     "eslintConfig": {

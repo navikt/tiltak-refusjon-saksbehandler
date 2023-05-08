@@ -70,13 +70,6 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
         props.inntektsgrunnlag.inntekter.length > 0 &&
         antallInntekterSomErMedIGrunnlag === 0;
 
-    // TODO: Bør denne fikses?
-    // const harInntekterMenIkkeForHeleTilskuddsperioden = false;
-    // props.status === 'KLAR_FOR_INNSENDING' &&
-    // !props.harInntektIAlleMåneder &&
-    // !!props.inntektsgrunnlag &&
-    // props.inntektsgrunnlag.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) !== undefined;
-
     return (
         <GråBoks>
             <Fleks>
@@ -212,22 +205,6 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                     <VerticalSpacer rem={1} />
                 </>
             )}
-            {/*{harInntekterMenIkkeForHeleTilskuddsperioden && (*/}
-            {/*    <>*/}
-            {/*        <VerticalSpacer rem={1} />*/}
-            {/*        <AlertStripeAdvarsel>*/}
-            {/*            Vi kan ikke finne inntekter for hele perioden som er avtalt. Dette kan skyldes at det ikke er*/}
-            {/*            rapportert inn inntekter for alle månedene i den avtalte perioden enda.*/}
-            {/*            <Element>*/}
-            {/*                Du kan kun søke om refusjon for den avtalte perioden{' '}*/}
-            {/*                {formatterPeriode(props.tilskuddsgrunnlag.tilskuddFom, props.tilskuddsgrunnlag.tilskuddTom)}{' '}*/}
-            {/*                én gang. Sikre deg derfor at alle inntekter innenfor perioden er rapportert før du klikker*/}
-            {/*                fullfør.*/}
-            {/*            </Element>*/}
-            {/*        </AlertStripeAdvarsel>*/}
-            {/*        <VerticalSpacer rem={1} />*/}
-            {/*    </>*/}
-            {/*)}*/}
         </GråBoks>
     );
 };

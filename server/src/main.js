@@ -25,6 +25,7 @@ async function startApp() {
         server.use(passport.session());
 
         const azureAuthClient = await azure.client();
+        const tokenEndpoint = await azure.azureTokenEndpoint();
         const azureOidcStrategy = azure.strategy(azureAuthClient);
 
         passport.use('azureOidc', azureOidcStrategy);
@@ -32,7 +33,7 @@ async function startApp() {
         passport.deserializeUser((user, done) => done(null, user));
 
         // setup routes
-        server.use('/', routes.setup(azureAuthClient));
+        server.use('/', routes.setup(azureAuthClient, tokenEndpoint));
 
         const port = 3000;
         server.listen(port, () => logger.info(`Listening on port ${port}`));

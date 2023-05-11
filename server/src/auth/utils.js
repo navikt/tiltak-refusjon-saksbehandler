@@ -4,7 +4,7 @@ import logger from '../logger';
 
 const tokenSetSelfId = 'self';
 
-const getOnBehalfOfAccessToken = (authClient, req) => {
+const getOnBehalfOfAccessToken = (authClient, azureEndpointToken, req) => {
     return new Promise((resolve, reject) => {
         const apiConfig = config.api();
         if (hasValidAccessToken(req, apiConfig.clientId)) {
@@ -12,13 +12,20 @@ const getOnBehalfOfAccessToken = (authClient, req) => {
             resolve(tokenSets[apiConfig.clientId].access_token);
         } else {
             authClient
-                .grant({
-                    grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-                    client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                    requested_token_use: 'on_behalf_of',
-                    scope: createOnBehalfOfScope(apiConfig),
-                    assertion: req.user.tokenSets[tokenSetSelfId].access_token,
-                })
+                .grant(
+                    {
+                        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                        client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                        requested_token_use: 'on_behalf_of',
+                        scope: createOnBehalfOfScope(apiConfig),
+                        assertion: req.user.tokenSets[tokenSetSelfId].access_token,
+                    },
+                    {
+                        clientAssertionPayload: {
+                            aud: [azureEndpointToken],
+                        },
+                    }
+                )
                 .then((tokenSet) => {
                     req.user.tokenSets[apiConfig.clientId] = tokenSet;
                     resolve(tokenSet.access_token);

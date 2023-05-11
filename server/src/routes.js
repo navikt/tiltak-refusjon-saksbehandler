@@ -44,8 +44,8 @@ const setup = (authClient) => {
         res.redirect(authClient.endSessionUrl({ post_logout_redirect_uri: config.azureAd().logoutRedirectUri }));
     });
 
-    apiProxy.setup(router, authClient);
-    decoratorProxy.setup(router, authClient);
+    apiProxy.setup(router, authClient, tokenEndpoint);
+    decoratorProxy.setup(router, authClient, tokenEndpoint);
 
     // serve static files
     router.use(express.static(path.join(__dirname, '../build')));

@@ -2,7 +2,7 @@ import proxy from 'express-http-proxy';
 import authUtils from '../auth/utils';
 import config from '../config';
 
-const setup = (router, authClient) => {
+const setup = (router, authClient, azureTokenEndpoint) => {
     router.use(
         '/api',
         proxy(config.api().url, {
@@ -11,7 +11,7 @@ const setup = (router, authClient) => {
             },
             proxyReqOptDecorator: (options, req) => {
                 return new Promise((resolve, reject) =>
-                    authUtils.getOnBehalfOfAccessToken(authClient, req).then(
+                    authUtils.getOnBehalfOfAccessToken(authClient, azureTokenEndpoint, req).then(
                         (access_token) => {
                             options.headers.Authorization = `Bearer ${access_token}`;
                             resolve(options);

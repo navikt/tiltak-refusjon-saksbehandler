@@ -29,7 +29,7 @@ const client = async () => {
 };
 
 const azureTokenEndpoint = async () => {
-    logger.info(`azureTOKEN}`);
+    logger.info(`azureTokenEndpoint`);
     const azureConfig = {
         discoveryUrl: process.env.AZURE_APP_WELL_KNOWN_URL,
         clientID: process.env.AZURE_APP_CLIENT_ID,

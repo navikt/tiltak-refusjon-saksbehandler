@@ -4,7 +4,7 @@ import config from '../config';
 import logger from '../logger';
 
 const setup = (router, authClient, azureTokenEndpoint) => {
-    logger.info('SETUP SETUP');
+    logger.info('SETUP azureTokenEndpoint', azureTokenEndpoint);
     router.use(
         '/api',
         proxy(config.api().url, {

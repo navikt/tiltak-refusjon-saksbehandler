@@ -18,7 +18,7 @@ const ensureAuthenticated = async (req, res, next) => {
     }
 };
 
-const setup = (authClient) => {
+const setup = (authClient, tokenEndpoint) => {
     // Unprotected
     router.get('/isAlive', (req, res) => res.send('Alive'));
     router.get('/isReady', (req, res) => res.send('Ready'));

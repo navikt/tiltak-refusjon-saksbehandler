@@ -28,6 +28,20 @@ const client = async () => {
     return new issuer.Client(metadata(), jwks);
 };
 
+const azureTokenEndpoint = async () => {
+    const azureConfig = {
+        discoveryUrl: process.env.AZURE_APP_WELL_KNOWN_URL,
+        clientID: process.env.AZURE_APP_CLIENT_ID,
+        privateJwk: process.env.AZURE_APP_JWKS,
+        tokenEndpointAuthMethod: 'private_key_jwt',
+    };
+    const issuer = await Issuer.discover(azureConfig.discoveryUrl);
+
+    console.log(`Discovered issuer ${provider.issuer}`);
+
+    return issuer.token_endpoint;
+};
+
 const strategy = (client) => {
     const azureAdConfig = config.azureAd();
 
@@ -56,4 +70,4 @@ const strategy = (client) => {
     return new Strategy(options, verify);
 };
 
-export default { client, strategy };
+export default { client, azureTokenEndpoint, strategy };

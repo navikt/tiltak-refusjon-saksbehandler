@@ -6,6 +6,7 @@ import path from 'path';
 import session from 'express-session';
 import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
+import logger from './logger';
 
 const router = express.Router();
 
@@ -43,7 +44,7 @@ const setup = (authClient, tokenEndpoint) => {
         req.logOut();
         res.redirect(authClient.endSessionUrl({ post_logout_redirect_uri: config.azureAd().logoutRedirectUri }));
     });
-    //logger.info(`SETUP Routes tokenEndpoint ${tokenEndpoint}`);
+    logger.info(`SETUP Routes tokenEndpoint ${tokenEndpoint}`);
     apiProxy.setup(router, authClient, tokenEndpoint);
     decoratorProxy.setup(router, authClient, tokenEndpoint);
 

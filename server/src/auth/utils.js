@@ -7,6 +7,7 @@ const tokenSetSelfId = 'self';
 const getOnBehalfOfAccessToken = (authClient, azureEndpointToken, req) => {
     return new Promise((resolve, reject) => {
         const apiConfig = config.api();
+        logger.info('AzureENDPOINT ', azureEndpointToken);
         if (hasValidAccessToken(req, apiConfig.clientId)) {
             const tokenSets = getTokenSetsFromSession(req);
             resolve(tokenSets[apiConfig.clientId].access_token);

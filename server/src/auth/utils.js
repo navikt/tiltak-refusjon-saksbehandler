@@ -11,6 +11,7 @@ const getOnBehalfOfAccessToken = (authClient, azureEndpointToken, req) => {
             const tokenSets = getTokenSetsFromSession(req);
             resolve(tokenSets[apiConfig.clientId].access_token);
         } else {
+            logger.info('AzureENDPOINT ', azureEndpointToken);
             authClient
                 .grant(
                     {

@@ -29,13 +29,10 @@ const client = async () => {
 };
 
 const azureTokenEndpoint = async () => {
-    const azureConfig = {
-        discoveryUrl: process.env.AZURE_APP_WELL_KNOWN_URL,
-        clientID: process.env.AZURE_APP_CLIENT_ID,
-        privateJwk: process.env.AZURE_APP_JWKS,
-        tokenEndpointAuthMethod: 'private_key_jwt',
-    };
-    const issuer = await Issuer.discover(azureConfig.discoveryUrl);
+    logger.info(`azureTOKEN}`);
+    const azureConfig = config.azureAd();
+
+    const issuer = await Issuer.discover(azureConfig);
 
     logger.info(`Discovered issuer ${issuer.issuer}`);
 

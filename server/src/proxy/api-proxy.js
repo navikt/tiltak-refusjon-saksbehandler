@@ -1,8 +1,10 @@
 import proxy from 'express-http-proxy';
 import authUtils from '../auth/utils';
 import config from '../config';
+import logger from '../logger';
 
 const setup = (router, authClient, azureTokenEndpoint) => {
+    logger.info('SETUP SETUP');
     router.use(
         '/api',
         proxy(config.api().url, {

@@ -37,7 +37,7 @@ const azureTokenEndpoint = async () => {
     };
     const issuer = await Issuer.discover(azureConfig.discoveryUrl);
 
-    console.log(`Discovered issuer ${provider.issuer}`);
+    logger.info(`Discovered issuer ${issuer.issuer}`);
 
     return issuer.token_endpoint;
 };

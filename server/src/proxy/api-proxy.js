@@ -3,8 +3,8 @@ import authUtils from '../auth/utils';
 import config from '../config';
 import logger from '../logger';
 
-const setup = (router, authClient, azureTokenEndpoint) => {
-    logger.info(`SETUP tokenEndpoint ${azureTokenEndpoint}`);
+const setup = (router, authClient, tokenEndpoint) => {
+    logger.info(`SETUP tokenEndpoint ${tokenEndpoint}`);
     router.use(
         '/api',
         proxy(config.api().url, {
@@ -13,7 +13,7 @@ const setup = (router, authClient, azureTokenEndpoint) => {
             },
             proxyReqOptDecorator: (options, req) => {
                 return new Promise((resolve, reject) =>
-                    authUtils.getOnBehalfOfAccessToken(authClient, azureTokenEndpoint, req).then(
+                    authUtils.getOnBehalfOfAccessToken(authClient, tokenEndpoint, req).then(
                         (access_token) => {
                             options.headers.Authorization = `Bearer ${access_token}`;
                             resolve(options);

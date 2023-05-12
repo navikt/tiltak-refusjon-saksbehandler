@@ -43,7 +43,7 @@ const setup = (authClient, tokenEndpoint) => {
         req.logOut();
         res.redirect(authClient.endSessionUrl({ post_logout_redirect_uri: config.azureAd().logoutRedirectUri }));
     });
-
+    logger.info(`SETUP Routes tokenEndpoint ${azureTokenEndpoint}`);
     apiProxy.setup(router, authClient, tokenEndpoint);
     decoratorProxy.setup(router, authClient, tokenEndpoint);
 

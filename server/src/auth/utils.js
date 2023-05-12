@@ -5,7 +5,7 @@ import logger from '../logger';
 const tokenSetSelfId = 'self';
 
 const getOnBehalfOfAccessToken = (authClient, azureEndpointToken, req) => {
-    //logger.info(`getONB AzureENDPOINT ${azureEndpointToken}`);
+    logger.info(`getONB AzureENDPOINT ${azureEndpointToken}`);
     return new Promise((resolve, reject) => {
         const apiConfig = config.api();
         if (hasValidAccessToken(req, apiConfig.clientId)) {

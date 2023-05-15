@@ -9,9 +9,11 @@ const setup = (router, authClient, tokenEndpoint) => {
         '/api',
         proxy(config.api().url, {
             proxyReqPathResolver: (req) => {
+                logger.info(`proxyReqPathResolver ${req}`);
                 return req.originalUrl;
             },
             proxyReqOptDecorator: (options, req) => {
+                logger.info(`proxyReqOptDecorator ${options}`);
                 return new Promise((resolve, reject) =>
                     authUtils.getOnBehalfOfAccessToken(authClient, tokenEndpoint, req).then(
                         (access_token) => {

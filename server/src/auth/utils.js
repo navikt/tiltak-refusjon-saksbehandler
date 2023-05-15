@@ -7,6 +7,7 @@ const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req) => {
     logger.info(`getONB AzureENDPOINT ${tokenEndpoint}`);
     return new Promise((resolve, reject) => {
         const apiConfig = config.api();
+        const token = req.headers.authorization.replace('Bearer', '').trim();
         authClient
             .grant(
                 {
@@ -14,7 +15,7 @@ const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req) => {
                     client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                     requested_token_use: 'on_behalf_of',
                     scope: createOnBehalfOfScope(apiConfig),
-                    assertion: req.headers['authorization'],
+                    assertion: token,
                 },
                 {
                     clientAssertionPayload: {

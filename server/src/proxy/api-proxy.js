@@ -4,6 +4,8 @@ import config from '../config';
 import logger from '../logger';
 
 const setup = (router, authClient, tokenEndpoint) => {
+    logger.info(`SETUP router ${router}`);
+    logger.info(`SETUP authClient ${authClient}`);
     logger.info(`SETUP tokenEndpoint ${tokenEndpoint}`);
     router.use(
         '/api',

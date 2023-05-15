@@ -47,7 +47,8 @@ spec:
       rules:
         - application: tiltak-refusjon-api
       external:
-        - host: internarbeidsflatedecorator.nais.intern.nav.no
+        - host: internarbeidsflatedecorator.intern.nav.no
         - host: login.microsoftonline.com
+        - host: www.nav.no
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key

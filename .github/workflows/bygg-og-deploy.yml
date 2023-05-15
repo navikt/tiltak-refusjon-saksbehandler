@@ -47,7 +47,6 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais-dev-gcp.yml
           PRINT_PAYLOAD: true
-          VARS: .nais/dev.yml
 
   deploy-labs:
     name: Deploy til dev-gcp (tidligere labs)
@@ -78,4 +77,3 @@ jobs:
           CLUSTER: prod-gcp
           RESOURCE: .nais/nais-prod-gcp.yml
           PRINT_PAYLOAD: true
-          VARS: .nais/prod.yml

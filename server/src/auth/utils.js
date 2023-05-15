@@ -24,7 +24,6 @@ const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req) => {
                 }
             )
             .then((tokenSet) => {
-                req.user.tokenSets[apiConfig.clientId] = tokenSet;
                 resolve(tokenSet.access_token);
             })
             .catch((err) => {

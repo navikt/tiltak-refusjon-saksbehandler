@@ -3,11 +3,11 @@ import authUtils from '../auth/utils';
 import axios from 'axios';
 const asyncHandler = require('express-async-handler');
 
-const setup = (router, authClient) => {
+const setup = (router, authClient, tokenEndpoint) => {
     router.use(
         '/modiacontextholder/api/decorator',
         asyncHandler(async (req, res) => {
-            const accessToken = await authUtils.getOnBehalfOfAccessToken(authClient, req);
+            const accessToken = await authUtils.getOnBehalfOfAccessToken(authClient, tokenEndpoint, req);
             const response = await axios.get(`${config.api().url}/api/saksbehandler/innlogget-bruker`, {
                 headers: { ...req.headers, Authorization: `Bearer ${accessToken}` },
             });

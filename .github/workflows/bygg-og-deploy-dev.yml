@@ -43,7 +43,7 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/redis.yml,.nais/nais-dev-gcp.yml
+          RESOURCE: .nais/nais-dev-gcp.yml
           PRINT_PAYLOAD: true
           VARS: .nais/dev.yml
 

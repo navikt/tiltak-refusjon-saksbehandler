@@ -1,51 +1,30 @@
-import authUtils from './auth/utils';
-import config from './config';
 import express from 'express';
-import passport from 'passport';
 import path from 'path';
-import session from 'express-session';
 import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
 
 const router = express.Router();
 
 const ensureAuthenticated = async (req, res, next) => {
-    if (req.isAuthenticated() && authUtils.hasValidAccessToken(req)) {
+    if (req.headers['authorization']) {
         next();
     } else {
-        session.redirectTo = req.originalUrl;
         res.redirect('/login');
     }
 };
 
-const setup = (authClient) => {
+const setup = (authClient, tokenEndpoint) => {
     // Unprotected
     router.get('/isAlive', (req, res) => res.send('Alive'));
     router.get('/isReady', (req, res) => res.send('Ready'));
 
-    router.get('/login', passport.authenticate('azureOidc', { failureRedirect: '/login' }));
-    router.use('/oauth2/callback', passport.authenticate('azureOidc', { failureRedirect: '/login' }), (req, res) => {
-        if (session.redirectTo) {
-            res.redirect(session.redirectTo);
-        } else {
-            res.redirect('/');
-        }
-    });
+    router.get('/login', (req, res) => res.redirect('/oauth2/login'));
+    router.get('/logout', (req, res) => res.redirect('oauth2/logout'));
 
     router.use(ensureAuthenticated);
 
-    // Protected
-    router.get('/session', (req, res) => {
-        res.json(req.user);
-    });
-
-    router.get('/logout', (req, res) => {
-        req.logOut();
-        res.redirect(authClient.endSessionUrl({ post_logout_redirect_uri: config.azureAd().logoutRedirectUri }));
-    });
-
-    apiProxy.setup(router, authClient);
-    decoratorProxy.setup(router, authClient);
+    apiProxy.setup(router, authClient, tokenEndpoint);
+    decoratorProxy.setup(router, authClient, tokenEndpoint);
 
     // serve static files
     router.use(express.static(path.join(__dirname, '../build')));

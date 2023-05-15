@@ -1,5 +1,4 @@
-import { custom, Issuer, Strategy } from 'openid-client';
-import authUtils from './utils';
+import { custom, Issuer } from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
 import logger from '../logger';
@@ -28,32 +27,16 @@ const client = async () => {
     return new issuer.Client(metadata(), jwks);
 };
 
-const strategy = (client) => {
-    const azureAdConfig = config.azureAd();
+const azureTokenEndpoint = async () => {
+    const azureConfig = {
+        discoveryUrl: process.env.AZURE_APP_WELL_KNOWN_URL,
+        clientID: process.env.AZURE_APP_CLIENT_ID,
+        privateJwk: process.env.AZURE_APP_JWKS,
+        tokenEndpointAuthMethod: 'private_key_jwt',
+    };
+    const issuer = await Issuer.discover(azureConfig.discoveryUrl);
 
-    const verify = (tokenSet, done) => {
-        if (tokenSet.expired()) {
-            return done(null, false);
-        }
-        const user = {
-            tokenSets: {
-                [authUtils.tokenSetSelfId]: tokenSet,
-            },
-            claims: tokenSet.claims(),
-        };
-        return done(null, user);
-    };
-    const options = {
-        client: client,
-        params: {
-            response_types: azureAdConfig.responseTypes,
-            response_mode: azureAdConfig.responseMode,
-            scope: `openid ${authUtils.appendDefaultScope(azureAdConfig.clientId)}`,
-        },
-        passReqToCallback: false,
-        usePKCE: 'S256',
-    };
-    return new Strategy(options, verify);
+    return issuer.token_endpoint;
 };
 
-export default { client, strategy };
+export default { client, azureTokenEndpoint };

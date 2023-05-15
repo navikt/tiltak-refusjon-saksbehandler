@@ -16,6 +16,8 @@ spec:
       enabled: true
       allowAllUsers: true
       tenant: trygdeetaten.no
+    sidecar:
+      enabled: true
   liveness:
     path: /isAlive
     initialDelay: 10
@@ -38,18 +40,14 @@ spec:
       value: https://internarbeidsflatedecorator-q0.dev.adeo.no
     - name: API_URL
       value: http://tiltak-refusjon-api
-    - name: REDIS_HOST
-      value: tiltak-refusjon-saksbehandler-redis
     - name: HOST
       value: https://tiltak-refusjon.intern.dev.nav.no
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-refusjon-api
-        - application: tiltak-refusjon-saksbehandler-redis
       external:
         - host: internarbeidsflatedecorator-q0.dev.adeo.no
         - host: login.microsoftonline.com
   envFrom:
     - secret: tiltak-refusjon-session-encrypt-key
-    - secret: tiltak-refusjon-saksbehandler-redis

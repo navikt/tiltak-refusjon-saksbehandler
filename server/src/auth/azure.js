@@ -1,5 +1,4 @@
-import { custom, Issuer, Strategy } from 'openid-client';
-import authUtils from './utils';
+import { custom, Issuer } from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
 import logger from '../logger';
@@ -43,34 +42,4 @@ const azureTokenEndpoint = async () => {
     return issuer.token_endpoint;
 };
 
-const strategy = (client) => {
-    const azureAdConfig = config.azureAd();
-
-    const verify = (tokenSet, done) => {
-        if (tokenSet.expired()) {
-            return done(null, false);
-        }
-        const user = {
-            tokenSets: {
-                [authUtils.tokenSetSelfId]: tokenSet,
-            },
-            claims: tokenSet.claims(),
-        };
-        return done(null, user);
-    };
-    const options = {
-        client: client,
-        params: {
-            response_types: azureAdConfig.responseTypes,
-            response_mode: azureAdConfig.responseMode,
-            scope: `openid ${authUtils.appendDefaultScope(azureAdConfig.clientId)}`,
-        },
-        audience: azureAdConfig.clientId,
-        allowMultiAudiencesInToken: false,
-        passReqToCallback: false,
-        usePKCE: 'S256',
-    };
-    return new Strategy(options, verify);
-};
-
-export default { client, azureTokenEndpoint, strategy };
+export default { client, azureTokenEndpoint };

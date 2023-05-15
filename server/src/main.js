@@ -22,8 +22,6 @@ async function startApp() {
         // setup routes
         server.use('/', routes.setup(azureAuthClient, tokenEndpoint));
 
-        logger.info(`Start tokenEndpoint ${tokenEndpoint}`);
-
         const port = 3000;
         server.listen(port, () => logger.info(`Listening on port ${port}`));
     } catch (error) {

@@ -28,7 +28,6 @@ const client = async () => {
 };
 
 const azureTokenEndpoint = async () => {
-    logger.info(`azureTokenEndpoint`);
     const azureConfig = {
         discoveryUrl: process.env.AZURE_APP_WELL_KNOWN_URL,
         clientID: process.env.AZURE_APP_CLIENT_ID,
@@ -36,8 +35,6 @@ const azureTokenEndpoint = async () => {
         tokenEndpointAuthMethod: 'private_key_jwt',
     };
     const issuer = await Issuer.discover(azureConfig.discoveryUrl);
-
-    logger.info(`Discovered issuer ${issuer.issuer}`);
 
     return issuer.token_endpoint;
 };

@@ -1,10 +1,7 @@
 import config from '../config';
 import logger from '../logger';
 
-const tokenSetSelfId = 'self';
-
 const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req) => {
-    logger.info(`getONB AzureENDPOINT ${tokenEndpoint}`);
     return new Promise((resolve, reject) => {
         const apiConfig = config.api();
         const token = req.headers.authorization.replace('Bearer', '').trim();
@@ -48,5 +45,4 @@ const createOnBehalfOfScope = (api) => {
 export default {
     getOnBehalfOfAccessToken,
     appendDefaultScope,
-    tokenSetSelfId,
 };

@@ -2,7 +2,6 @@ import express from 'express';
 import path from 'path';
 import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
-import logger from './logger';
 
 const router = express.Router();
 
@@ -24,7 +23,6 @@ const setup = (authClient, tokenEndpoint) => {
 
     router.use(ensureAuthenticated);
 
-    logger.info(`SETUP Routes tokenEndpoint ${tokenEndpoint}`);
     apiProxy.setup(router, authClient, tokenEndpoint);
     decoratorProxy.setup(router, authClient, tokenEndpoint);
 

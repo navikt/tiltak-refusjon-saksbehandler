@@ -65,6 +65,8 @@ const strategy = (client) => {
             response_mode: azureAdConfig.responseMode,
             scope: `openid ${authUtils.appendDefaultScope(azureAdConfig.clientId)}`,
         },
+        audience: azureAdConfig.clientId,
+        allowMultiAudiencesInToken: false,
         passReqToCallback: false,
         usePKCE: 'S256',
     };

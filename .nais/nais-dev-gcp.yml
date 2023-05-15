@@ -16,6 +16,8 @@ spec:
       enabled: true
       allowAllUsers: true
       tenant: trygdeetaten.no
+    sidecar:
+      enabled: true
   liveness:
     path: /isAlive
     initialDelay: 10

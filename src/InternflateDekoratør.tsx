@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import NAVSPA from '@navikt/navspa';
 
 export interface DecoratorProps {
@@ -57,12 +56,8 @@ export type FnrContextvalue = Contextvalue<FnrDisplay>;
 
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
 
-interface Enhet {
-    enhetId: string;
-    navn: string;
-}
-
 const InternflateDekoratør: FunctionComponent = () => {
+    //@ts-ignore
     return <InternflateDecorator appname="Tiltaksrefusjon" toggles={{ visVeileder: true }} useProxy={true} />;
 };
 

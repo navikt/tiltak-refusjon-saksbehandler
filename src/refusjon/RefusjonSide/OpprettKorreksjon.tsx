@@ -11,7 +11,7 @@ import { opprettKorreksjonsutkast } from '../../services/rest-service';
 import { Korreksjonsgrunn } from '../refusjon';
 
 const OpprettKorreksjon: FunctionComponent<{}> = () => {
-    const { refusjonId } = useParams();
+    const { refusjonId } = useParams<{ refusjonId: string }>();
     const history = useHistory();
     const [åpen, setÅpen] = useState(false);
     const [grunner, setGrunner] = useState<Set<Korreksjonsgrunn>>(new Set<Korreksjonsgrunn>());
@@ -30,7 +30,9 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                         const korreksjon = await opprettKorreksjonsutkast(refusjonId, Array.from(grunner));
                         history.push('/refusjon/' + korreksjon.id);
                     } catch (error) {
-                        setFeilmelding(error.feilmelding ?? 'Det har skjedd en feil');
+                        const feilmelding =
+                            'feilmelding' in (error as any) ? (error as any).feilmelding : 'Uventet feil';
+                        setFeilmelding(feilmelding);
                     }
                 }}
                 tittel={'Opprett korreksjonsutkast'}

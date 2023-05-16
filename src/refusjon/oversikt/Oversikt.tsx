@@ -70,6 +70,7 @@ const Oversikt: FunctionComponent = () => {
                     (refusjon) => sorteringIndexRefusjonStatus.indexOf(refusjon.status),
                     'fristForGodkjenning',
                 ]).map((refusjon) => (
+                    //@ts-ignore
                     <LenkepanelBase
                         className={cls.element('rad')}
                         role="listitem"

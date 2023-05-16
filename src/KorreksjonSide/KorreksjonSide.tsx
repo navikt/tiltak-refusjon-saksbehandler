@@ -15,7 +15,7 @@ import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { useHentKorreksjon } from '../services/rest-service';
 
 const KorreksjonSide: FunctionComponent = () => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const korreksjon = useHentKorreksjon(korreksjonId);
 
     const korreksjonstype = (): KorreksjonStatus | null => {

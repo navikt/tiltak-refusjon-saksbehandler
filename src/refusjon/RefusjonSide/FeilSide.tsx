@@ -14,7 +14,7 @@ type Props = {
 };
 
 const FeilSide: FunctionComponent<Props> = (props) => {
-    const { refusjonId } = useParams();
+    const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId);
     return (
         <HvitBoks>

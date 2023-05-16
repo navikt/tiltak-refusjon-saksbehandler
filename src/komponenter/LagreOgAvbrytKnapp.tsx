@@ -14,9 +14,8 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
     const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
     const [feilmelding, setFeilmelding] = useState('');
 
-    const knappBaseProps = Object.assign({}, props);
-    delete knappBaseProps.lagreFunksjon;
-    delete knappBaseProps.avbryt;
+    // Fungerer i praksis som "omit avbryt og lagrefunksjon"
+    const { avbryt, lagreFunksjon, ...knappBaseProps } = props;
 
     const feilRef = useRef<HTMLDivElement>(null);
 
@@ -26,7 +25,8 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
             await props.lagreFunksjon();
             setOppslag({ status: Status.Sendt });
         } catch (error) {
-            setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
+            const feilmelding = 'feilmelding' in (error as any) ? (error as any).feilmelding : 'Uventet feil';
+            setOppslag({ status: Status.Feil, error: feilmelding });
             handterFeil(error as any, setFeilmelding);
         }
     };

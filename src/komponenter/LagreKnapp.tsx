@@ -11,8 +11,8 @@ type Props = {
 const LagreKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
     const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
 
-    const knappBaseProps = Object.assign({}, props);
-    delete knappBaseProps.lagreFunksjon;
+    // Fungerer i praksis som "omit lagreFunksjon"
+    const { lagreFunksjon, ...knappBaseProps } = props;
 
     const feilRef = useRef<HTMLDivElement>(null);
 
@@ -22,7 +22,8 @@ const LagreKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
             await props.lagreFunksjon();
             setOppslag({ status: Status.Sendt });
         } catch (error) {
-            setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
+            const feilmelding = 'felmelding' in (error as any) ? (error as any).feilmelding : 'Uventet feil';
+            setOppslag({ status: Status.Feil, error: feilmelding });
         }
     };
 

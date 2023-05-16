@@ -7,7 +7,7 @@ import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseMod
 import { slettKorreksjonsutkast, useHentKorreksjon } from '../../services/rest-service';
 
 const BekreftSlettKorreksjon: FunctionComponent = () => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const korreksjon = useHentKorreksjon(korreksjonId);
 
     const history = useHistory();

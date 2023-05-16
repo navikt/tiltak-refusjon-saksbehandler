@@ -30,7 +30,7 @@ export const GrønnBoks = styled.div`
 `;
 
 const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{korreksjonId: string}>();
     const refusjonsgrunnlag = props.refusjonsgrunnlag;
     const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjonsgrunnlag.inntekterKunFraTiltaket);
     const [endretBruttoLønn, setEndretBruttoLønn] = useState(refusjonsgrunnlag.endretBruttoLønn);

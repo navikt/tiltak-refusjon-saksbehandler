@@ -8,7 +8,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentKorreksjon, utbetalKorreksjon } from '../../services/rest-service';
 
 const BekreftUtbetalKorreksjon: FunctionComponent = () => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const [isOpen, setisOpen] = useState(false);
     const [beslutterIdent, setBeslutterIdent] = useState('');
     const [kostnadssted, setKostnadssted] = useState('');

@@ -8,7 +8,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { Checkbox } from 'nav-frontend-skjema';
 
 const MerkForUnntakOmInntekterToMånederFrem: FunctionComponent = () => {
-    const { refusjonId } = useParams();
+    const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId);
     const [open, setOpen] = useState<boolean>(false);
     const [merking, setMerking] = useState<boolean>(refusjon.unntakOmInntekterToMånederFrem);

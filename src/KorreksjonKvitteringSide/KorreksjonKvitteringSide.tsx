@@ -16,7 +16,7 @@ import { storForbokstav } from '../utils/stringUtils';
 import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
 
 const KorreksjonKvitteringSide: FunctionComponent = () => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const korreksjon = useHentKorreksjon(korreksjonId);
 
     return (

@@ -8,7 +8,7 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 
 const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const [isOpen, setisOpen] = useState(false);
 
     return (

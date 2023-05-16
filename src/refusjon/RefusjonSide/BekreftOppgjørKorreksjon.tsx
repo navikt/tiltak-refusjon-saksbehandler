@@ -6,7 +6,7 @@ import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseMod
 import { fullførKorreksjonVedOppgjort } from '../../services/rest-service';
 
 const BekreftOppgjørKorreksjon: FunctionComponent = () => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const [isOpen, setisOpen] = useState(false);
 
     return (

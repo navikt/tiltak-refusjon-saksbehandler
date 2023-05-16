@@ -9,6 +9,7 @@ export default function OversiktSkeleton() {
     return (
         <div className={cls.className}>
             <LabelRad className={cls.className} />
+            {/*@ts-ignore*/}
             <Skeleton count={3} className={cls.element('rad')} />
         </div>
     );

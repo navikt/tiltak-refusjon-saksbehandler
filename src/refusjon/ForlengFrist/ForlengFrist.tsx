@@ -22,7 +22,7 @@ import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
 const cls = BEMHelper('forleng-frist');
 
 const ForlengFrist: FunctionComponent = () => {
-    const { refusjonId } = useParams();
+    const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId);
     const [open, setOpen] = useState<boolean>(false);
     const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(
@@ -98,6 +98,7 @@ const ForlengFrist: FunctionComponent = () => {
                 <div className={cls.className}>
                     <div className={cls.element('container')}>
                         <div className={cls.element('dato-velger')}>
+                            {/*@ts-ignore*/}
                             <DayPicker
                                 initialMonth={datoFraDatoVelger}
                                 selectedDays={datoFraDatoVelger}

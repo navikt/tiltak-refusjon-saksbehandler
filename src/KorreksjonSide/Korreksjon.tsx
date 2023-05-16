@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import KorreksjonKvitteringSide from '../KorreksjonKvitteringSide/KorreksjonKvitteringSide';
 
 const Advarsler: FunctionComponent = () => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const korreksjon = useHentKorreksjon(korreksjonId);
 
     return (
@@ -34,7 +34,7 @@ const Advarsler: FunctionComponent = () => {
 };
 
 const Komponent: FunctionComponent = () => {
-    const { korreksjonId } = useParams();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const korreksjon = useHentKorreksjon(korreksjonId);
 
     switch (korreksjon.status) {

@@ -16,7 +16,7 @@ import Lenke from 'nav-frontend-lenker';
 import TidligereRefunderbarBeløpKvittering from './TidligereRefunderbarBeløpKvittering';
 
 const RefusjonSide: FunctionComponent = () => {
-    const { refusjonId } = useParams();
+    const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId);
 
     return (

@@ -1,5 +1,5 @@
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import React from 'react';
+import { Alert } from '@navikt/ds-react';
 import './AdvarselBannerTestversjon.less';
 import BEMHelper from '../utils/bem';
 
@@ -9,13 +9,13 @@ const AdvarselBannerTestversjon = () => {
     return (
         <>
             {window.location.hostname.includes('-labs') && (
-                <AlertStripeAdvarsel className={cls.className}>
+                <Alert variant="warning" size="small" className={cls.className}>
                     <b>Dette er en testversjon</b>
                     <br />
                     Her kan du bli bedre kjent med løsningen for tiltaksrefusjon.
                     <br />
                     Hvis du er saksbehandler logger du deg på her: tiltak-refusjon.intern.nav.no
-                </AlertStripeAdvarsel>
+                </Alert>
             )}
         </>
     );

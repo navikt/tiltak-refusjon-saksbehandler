@@ -1,10 +1,10 @@
 import { Knapp } from 'nav-frontend-knapper';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
+import { Alert } from '@navikt/ds-react';
 import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { fullførKorreksjonVedTilbakekreving } from '../../services/rest-service';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 
 const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
@@ -26,7 +26,9 @@ const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
                     at det vil bli tilbakekrevd.
                 </Normaltekst>
                 <VerticalSpacer rem={1} />
-                <AlertStripeInfo>Du må iverksette en manuell tilbakekrevingsprosess</AlertStripeInfo>
+                <Alert variant="info" size="small">
+                    Du må iverksette en manuell tilbakekrevingsprosess
+                </Alert>
             </BekreftelseModal>
         </div>
     );

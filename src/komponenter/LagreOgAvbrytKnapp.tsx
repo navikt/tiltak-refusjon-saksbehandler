@@ -1,6 +1,6 @@
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase, { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
 import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
+import { Alert } from '@navikt/ds-react';
 import { Nettressurs, Status } from '../nettressurs';
 import { handterFeil } from '../utils/apiFeilUtils';
 import VerticalSpacer from './VerticalSpacer';
@@ -52,11 +52,11 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
             {oppslag.status === Status.Feil && (
                 <>
                     <VerticalSpacer rem={0.5} />
-                    <AlertStripeAdvarsel>
+                    <Alert variant="warning" size="small">
                         <div ref={feilRef} aria-live="polite">
                             {feilmelding}
                         </div>
-                    </AlertStripeAdvarsel>
+                    </Alert>
                 </>
             )}
         </div>

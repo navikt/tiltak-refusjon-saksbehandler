@@ -1,5 +1,5 @@
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import React, { FunctionComponent, Suspense } from 'react';
+import { Alert } from '@navikt/ds-react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -33,10 +33,10 @@ const Advarsler: FunctionComponent = () => {
         <>
             {featureToggles[Feature.Korreksjon] && refusjon.korreksjonId && (
                 <>
-                    <AlertStripeInfo>
+                    <Alert variant="info" size="small">
                         Denne refusjonen er det gjort korrigeringer på.{' '}
                         <Link to={`/korreksjon/${refusjon.korreksjonId}`}>Klikk her for å åpne korreksjonen.</Link>
-                    </AlertStripeInfo>
+                    </Alert>
                     <VerticalSpacer rem={1} />
                 </>
             )}
@@ -75,7 +75,7 @@ const Komponent: FunctionComponent = () => {
                 <>
                     <VerticalSpacer rem={1} />
                     <FeilSide
-                        advarselType="advarsel"
+                        advarselType="warning"
                         feiltekst={`Fristen for å søke om refusjon for denne perioden gikk ut ${formatterDato(
                             refusjon.fristForGodkjenning
                         )}. Fristen kan ikke forlenges etter at den er utgått.`}
@@ -83,7 +83,7 @@ const Komponent: FunctionComponent = () => {
                 </>
             );
         case RefusjonStatus.ANNULLERT:
-            return <FeilSide advarselType="advarsel" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />;
+            return <FeilSide advarselType="warning" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />;
         case RefusjonStatus.SENDT_KRAV:
         case RefusjonStatus.GODKJENT_MINUSBELØP:
         case RefusjonStatus.GODKJENT_NULLBELØP:

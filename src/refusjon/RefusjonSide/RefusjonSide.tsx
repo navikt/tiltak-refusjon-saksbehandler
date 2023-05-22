@@ -1,5 +1,5 @@
-import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Alert } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
@@ -23,7 +23,7 @@ const RefusjonSide: FunctionComponent = () => {
         <HvitBoks>
             {refusjon.forrigeRefusjonSomSkalSendesFørst != null && (
                 <>
-                    <AlertStripeAdvarsel>
+                    <Alert variant="warning" size="small">
                         <Lenke href={'/refusjon/' + refusjon.forrigeRefusjonSomSkalSendesFørst.id}>
                             <b>Refusjon:</b>{' '}
                             {refusjon.forrigeRefusjonSomSkalSendesFørst.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr}-
@@ -34,16 +34,16 @@ const RefusjonSide: FunctionComponent = () => {
                             '-' +
                             refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}
                         .
-                    </AlertStripeAdvarsel>
+                    </Alert>
                     <VerticalSpacer rem={1} />
                 </>
             )}
             {refusjon.status === 'KLAR_FOR_INNSENDING' && refusjon.refusjonsgrunnlag.inntektsgrunnlag === null && (
-                <AlertStripeInfo>
+                <Alert variant="info" size="small">
                     <Element> Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.</Element>
                     Det har aldri vært forsøkt hentet inntektsgrunnlag og kontonummer, noe som gjøres hver gang
                     arbeidsgiver åpner refusjoner som er klare for innsending.
-                </AlertStripeInfo>
+                </Alert>
             )}
             <VerticalSpacer rem={2} />
 

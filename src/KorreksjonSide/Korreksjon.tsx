@@ -1,7 +1,7 @@
 import React, { FunctionComponent, Suspense } from 'react';
+import { Alert } from '@navikt/ds-react';
 import { useParams } from 'react-router';
 import { useHentKorreksjon } from '../services/rest-service';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { korreksjonsgrunnTekst } from '../messages';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import KorreksjonSide from './KorreksjonSide';
@@ -16,7 +16,7 @@ const Advarsler: FunctionComponent = () => {
 
     return (
         <>
-            <AlertStripeInfo>
+            <Alert variant="info" size="small">
                 Dette er en korreksjon av tidligere utbetalt refusjon. Årsak til korreksjon:
                 <br />
                 <ul>
@@ -27,7 +27,7 @@ const Advarsler: FunctionComponent = () => {
                 <Link to={`/refusjon/${korreksjon.korrigererRefusjonId}`}>
                     Klikk her for å åpne refusjonen som korrigeres.
                 </Link>
-            </AlertStripeInfo>
+            </Alert>
             <VerticalSpacer rem={1} />
         </>
     );

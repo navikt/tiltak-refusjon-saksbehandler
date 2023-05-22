@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import { Alert } from '@navikt/ds-react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../messages';
@@ -136,20 +136,20 @@ const InntekterFraAMeldingenGammel: FunctionComponent<{
             {ingenInntekter && (
                 <>
                     <VerticalSpacer rem={1} />
-                    <AlertStripeAdvarsel>
+                    <Alert variant="warning" size="small">
                         Vi kan ikke finne inntekter fra a-meldingen for denne perioden. Når a-meldingen er oppdatert vil
                         inntektsopplysningene vises her automatisk.
-                    </AlertStripeAdvarsel>
+                    </Alert>
                     <VerticalSpacer rem={1} />
                 </>
             )}
             {ingenRefunderbareInntekter && (
                 <>
                     <VerticalSpacer rem={1} />
-                    <AlertStripeAdvarsel>
+                    <Alert variant="warning" size="small">
                         Vi kan ikke finne noen lønnsinntekter for denne perioden. Når a-meldingen er oppdatert vil
                         inntektsopplysningene vises her automatisk.
-                    </AlertStripeAdvarsel>
+                    </Alert>
                     <VerticalSpacer rem={1} />
                 </>
             )}

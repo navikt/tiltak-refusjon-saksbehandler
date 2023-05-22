@@ -9,8 +9,8 @@ import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stillingsprosent } from '@/asset/image/stillingsprosent.svg';
 import { ReactComponent as RefusjonAvLønn } from '@/asset/image/refusjonAvLønn.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Systemtittel } from 'nav-frontend-typografi';
+import { Alert } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -171,11 +171,11 @@ const Utregning: FunctionComponent<Props> = (props) => {
             />
             <VerticalSpacer rem={1} />
             {beregning?.overTilskuddsbeløp && (
-                <AlertStripeAdvarsel>
+                <Alert variant="warning" size="small">
                     Beregnet beløp er høyere enn refusjonsbeløpet. Avtalt beløp er inntil{' '}
                     {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden. Lønn i denne
                     refusjonsperioden kan ikke endres og dere vil få utbetalt maks av avtalt beløp.
-                </AlertStripeAdvarsel>
+                </Alert>
             )}
         </GråRamme>
     );

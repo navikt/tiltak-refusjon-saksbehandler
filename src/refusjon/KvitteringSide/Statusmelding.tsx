@@ -1,7 +1,7 @@
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import { Alert } from '@navikt/ds-react';
 import { RefusjonStatus } from '../refusjon';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 interface Props {
     status: RefusjonStatus;
@@ -11,10 +11,10 @@ const Statusmelding: FunctionComponent<Props> = (props) => {
     switch (props.status) {
         case RefusjonStatus.UTBETALING_FEILET:
             return (
-                <AlertStripeAdvarsel>
+                <Alert variant="warning" size="small">
                     Vi har problemer med utbetalingen. Arbeidgiver har fått beskjed om å ta kontakt med veileder. Meld
                     inn problemet som porten-sak. Noter refusjonsnummer.
-                </AlertStripeAdvarsel>
+                </Alert>
             );
         case RefusjonStatus.UTBETALT:
             return (

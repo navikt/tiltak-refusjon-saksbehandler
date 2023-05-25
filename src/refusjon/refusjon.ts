@@ -36,7 +36,8 @@ export interface Refusjon {
     harInntektIAlleMåneder: boolean;
     korreksjonId?: string;
     refusjonsgrunnlag: Refusjonsgrunnlag;
-    unntakOmInntekterToMånederFrem: boolean;
+    unntakOmInntekterFremitid: number;
+    hentInntekterLengerFrem: string;
     harTattStillingTilAlleInntektslinjer: boolean;
     forrigeRefusjonSomSkalSendesFørst?: Refusjon;
 }

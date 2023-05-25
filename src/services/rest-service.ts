@@ -91,7 +91,7 @@ export const forlengFrist = async (refusjonId: string, nyFristValue: ForlengFris
     return response.data;
 };
 
-export const merkForUnntakOmInntekterToMånederFrem = async (refusjonId: string, merking: boolean) => {
+export const merkForUnntakOmInntekterToMånederFrem = async (refusjonId: string, merking: number) => {
     const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/merk-for-unntak-om-inntekter-to-mnd-frem`, {
         merking,
     });

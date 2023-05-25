@@ -10,7 +10,8 @@ export type Feilkode =
     | 'SAMME_SAKSBEHANDLER_OG_BESLUTTER'
     | 'INGEN_BESLUTTER'
     | 'KOSTNADSSTED_MANGLER'
-    | 'FOR_LANG_FORLENGELSE_AV_FRIST';
+    | 'FOR_LANG_FORLENGELSE_AV_FRIST'
+    | 'HAR_ALLERDE_UNNTAK_OM_INNTEKTER_1_MND_FREM';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     TEKNISK_FEIL_INNTEKTSOPPSLAG: 'Feil ved inntektsoppslag.',
@@ -25,4 +26,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     INGEN_BESLUTTER: 'Du må oppgi en beslutter',
     KOSTNADSSTED_MANGLER: 'Du må oppgi kostnadssted',
     FOR_LANG_FORLENGELSE_AV_FRIST: 'For lang forlengelse av frist',
+    HAR_ALLERDE_UNNTAK_OM_INNTEKTER_1_MND_FREM:
+        'Arbeidsgiver har allerede merket refusjonen for å hente 1 eksta måned.',
 };

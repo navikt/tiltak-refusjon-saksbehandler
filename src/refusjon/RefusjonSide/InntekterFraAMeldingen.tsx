@@ -6,11 +6,10 @@ import { Alert } from '@navikt/ds-react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../messages';
-import { setInntektslinjeOpptjentIPeriode, useHentRefusjon } from '../../services/rest-service';
+import { setInntektslinjeOpptjentIPeriode } from '../../services/rest-service';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT, NORSK_MÅNEDÅR_FORMAT } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
-import { Inntektsgrunnlag } from '../refusjon';
-import { useParams } from 'react-router-dom';
+import { Inntektsgrunnlag, Refusjonsgrunnlag } from '../refusjon';
 
 const GråBoks = styled.div`
     background-color: #eee;
@@ -55,16 +54,18 @@ export const inntektBeskrivelse = (beskrivelse: string | undefined) => {
 
 type Props = {
     inntektsgrunnlag: Inntektsgrunnlag | undefined;
+    refusjonsgrunnlag: Refusjonsgrunnlag;
     kvitteringVisning: boolean;
     korreksjonId?: string;
+    unntakOmInntekterFremitid: number;
+    hentInntekterLengerFrem?: string;
 };
 
 const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
     const antallInntekterSomErMedIGrunnlag = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erMedIInntektsgrunnlag
     ).length;
-    const { refusjonId } = useParams<{ refusjonId: string }>();
-    const refusjon = useHentRefusjon(refusjonId);
+
     const ingenInntekter = !props.inntektsgrunnlag || props.inntektsgrunnlag?.inntekter.length === 0;
 
     const harBruttolønn = props.inntektsgrunnlag ? props.inntektsgrunnlag?.bruttoLønn > 0 : false;
@@ -89,17 +90,12 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                 <i>
                     Her hentes inntekter rapportert inn til a-meldingen for måneden refusjonen gjelder for (
                     {formatterPeriode(
-                        refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
-                        refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
+                        props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
+                        props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
                     )}
-                    ){' '}
-                    {refusjon.unntakOmInntekterFremitid ? (
-                        <>og {refusjon.unntakOmInntekterFremitid} måneder etter</>
-                    ) : (
-                        ''
-                    )}
-                    {refusjon.unntakOmInntekterFremitid <= 1 &&
-                        refusjon.hentInntekterLengerFrem !== null &&
+                    ) {props.unntakOmInntekterFremitid ? <>og {props.unntakOmInntekterFremitid} måneder etter</> : ''}
+                    {props.unntakOmInntekterFremitid === 1 &&
+                        props.hentInntekterLengerFrem !== null &&
                         'og 1 måned frem'}
                     .
                 </i>

@@ -67,6 +67,9 @@ const KvitteringSide: FunctionComponent = () => {
                     <InntekterFraAMeldingen
                         inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag}
                         kvitteringVisning={true}
+                        refusjonsgrunnlag={refusjonsgrunnlag}
+                        hentInntekterLengerFrem={refusjon.hentInntekterLengerFrem}
+                        unntakOmInntekterFremitid={refusjon.unntakOmInntekterFremitid}
                     />
                     <VerticalSpacer rem={2} />
                     <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjonsgrunnlag} />

@@ -57,6 +57,8 @@ const KorreksjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <InntekterFraAMeldingen
                 inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
+                refusjonsgrunnlag={korreksjon.refusjonsgrunnlag}
+                unntakOmInntekterFremitid={0}
                 kvitteringVisning={false}
                 korreksjonId={korreksjon.id}
             />

@@ -40,6 +40,8 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
                     <InntekterFraAMeldingen
                         inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
                         kvitteringVisning={true}
+                        refusjonsgrunnlag={korreksjon.refusjonsgrunnlag}
+                        unntakOmInntekterFremitid={0}
                     />
                     <VerticalSpacer rem={2} />
                     <InntekterFraTiltaketSvar refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />

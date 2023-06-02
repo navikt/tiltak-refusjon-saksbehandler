@@ -1,5 +1,5 @@
-import { EtikettAdvarsel, EtikettInfo, EtikettSuksess } from 'nav-frontend-etiketter';
 import * as React from 'react';
+import { Tag } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { statusTekst } from '../../messages';
 import { RefusjonStatus } from '../../refusjon/refusjon';
@@ -14,19 +14,39 @@ interface Props {
 
 const StatusTekst: FunctionComponent<Props> = (props) => {
     if (props.status === RefusjonStatus.KLAR_FOR_INNSENDING) {
-        return <EtikettSuksess>Klar for innsending</EtikettSuksess>;
+        return (
+            <Tag variant="success" size="small">
+                Klar for innsending
+            </Tag>
+        );
     } else if (props.status === RefusjonStatus.FOR_TIDLIG) {
-        return <EtikettInfo>Søk fra {formatterDato(props.tilskuddTom)}</EtikettInfo>;
+        return (
+            <Tag variant="info" size="small">
+                Søk fra {formatterDato(props.tilskuddTom)}
+            </Tag>
+        );
     } else if (props.status === RefusjonStatus.UTBETALT) {
-        return <EtikettInfo>{storForbokstav(statusTekst[props.status])}</EtikettInfo>;
+        return (
+            <Tag variant="info" size="small">
+                {storForbokstav(statusTekst[props.status])}
+            </Tag>
+        );
     } else if (
         props.status === RefusjonStatus.UTGÅTT ||
         props.status === RefusjonStatus.UTBETALING_FEILET ||
         props.status === RefusjonStatus.ANNULLERT
     ) {
-        return <EtikettAdvarsel>{storForbokstav(statusTekst[props.status])}</EtikettAdvarsel>;
+        return (
+            <Tag variant="warning" size="small">
+                {storForbokstav(statusTekst[props.status])}
+            </Tag>
+        );
     }
-    return <EtikettInfo>{storForbokstav(statusTekst[props.status])}</EtikettInfo>;
+    return (
+        <Tag variant="info" size="small">
+            {storForbokstav(statusTekst[props.status])}
+        </Tag>
+    );
 };
 
 export default StatusTekst;

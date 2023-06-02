@@ -1,6 +1,6 @@
-import { EtikettAdvarsel, EtikettInfo } from 'nav-frontend-etiketter';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, ReactElement } from 'react';
+import { Tag } from '@navikt/ds-react';
 import { useParams } from 'react-router';
 import { Feature } from '../../featureToggles/features';
 import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
@@ -24,14 +24,14 @@ import Statusmelding from './Statusmelding';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
     if (refusjon.status === RefusjonStatus.UTBETALING_FEILET) {
-        return <EtikettAdvarsel>{storForbokstav(statusTekst[refusjon.status])} </EtikettAdvarsel>;
+        return <Tag variant="warning">{storForbokstav(statusTekst[refusjon.status])} </Tag>;
     }
     return (
-        <EtikettInfo>
+        <Tag variant="info">
             {storForbokstav(statusTekst[refusjon.status])}{' '}
             {refusjon.godkjentAvArbeidsgiver &&
                 formatterDato(refusjon.godkjentAvArbeidsgiver, NORSK_DATO_OG_TID_FORMAT)}
-        </EtikettInfo>
+        </Tag>
     );
 };
 const KvitteringSide: FunctionComponent = () => {

@@ -1,4 +1,4 @@
-import { EtikettInfo } from 'nav-frontend-etiketter';
+import { Tag } from '@navikt/ds-react';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
@@ -24,7 +24,7 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Innholdstittel role="heading">Korreksjon av refusjon</Innholdstittel>
-                <EtikettInfo>{storForbokstav(korreksjonStatusTekst[korreksjon.status])}</EtikettInfo>
+                <Tag variant="info">{storForbokstav(korreksjonStatusTekst[korreksjon.status])}</Tag>
             </div>
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen

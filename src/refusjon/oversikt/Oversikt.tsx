@@ -2,7 +2,6 @@ import { ReactComponent as InfoIkon } from '@/asset/image/info.svg';
 import { Pagination } from '@navikt/ds-react';
 import { Undertittel } from 'nav-frontend-typografi';
 import { FunctionComponent, PropsWithChildren } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
@@ -12,8 +11,6 @@ import OversiktTabell from './OversiktTabell';
 import './oversikt.less';
 
 const cls = BEMHelper('oversikt');
-
-const Kolonne: FunctionComponent = (props) => <div className={cls.element('kolonne')}>{props.children}</div>;
 
 const AvrundetHvitBoks = styled.div`
     border-radius: 4px;
@@ -26,17 +23,6 @@ const AvrundetHvitBoks = styled.div`
     }
 `;
 
-const sorteringIndexRefusjonStatus = [
-    'KLAR_FOR_INNSENDING',
-    'FOR_TIDLIG',
-    'SENDT_KRAV',
-    'UTBETALT',
-    'UTBETALING_FEILET',
-    'UTGÅTT',
-    'ANNULLERT',
-    'KORRIGERT',
-];
-
 const Info: FunctionComponent<{ tekst: string }> = (props: PropsWithChildren<{ tekst: string }>) => (
     <AvrundetHvitBoks>
         <InfoIkon />
@@ -48,7 +34,6 @@ const Oversikt: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
 
     const refusjonerPage = useHentRefusjoner(filter);
-    const history = useHistory();
 
     if (refusjonerPage === undefined) {
         return <Info tekst="Oppgi søkekriterier for å finne refusjoner" />;

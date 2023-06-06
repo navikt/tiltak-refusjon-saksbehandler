@@ -1,0 +1,28 @@
+.label-rad {
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    width: calc(100% - 3rem);
+    max-width: 52.5rem;
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1rem;
+
+    &__kolonne {
+        margin-right: 0.25rem;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0.25rem 0;
+
+        &:nth-child(1) {
+            font-weight: 600;
+        }
+
+        &:nth-child(5) {
+            width: 100%;
+        }
+    }
+}

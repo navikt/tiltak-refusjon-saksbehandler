@@ -1,51 +1,18 @@
-import { ReactComponent as InfoIkon } from '@/asset/image/info.svg';
 import _ from 'lodash';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel';
-import { Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, PropsWithChildren } from 'react';
+import { LinkPanel, BodyShort } from '@navikt/ds-react';
+import React, { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
+import Info from './Info';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import { formatterDato } from '../../utils/datoUtils';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import './oversikt.less';
-import { Refusjon } from '../refusjon';
+import { Refusjon, RefusjonStatus } from '../refusjon';
 
 const cls = BEMHelper('oversikt');
-
-const Kolonne: FunctionComponent = (props) => <div className={cls.element('kolonne')}>{props.children}</div>;
-
-const AvrundetHvitBoks = styled.div`
-    border-radius: 4px;
-    background-color: white;
-    padding: 2rem 1rem;
-    display: flex;
-    align-items: center;
-    > * {
-        margin-right: 1rem;
-    }
-`;
-
-const sorteringIndexRefusjonStatus = [
-    'KLAR_FOR_INNSENDING',
-    'FOR_TIDLIG',
-    'SENDT_KRAV',
-    'UTBETALT',
-    'UTBETALING_FEILET',
-    'UTGÅTT',
-    'ANNULLERT',
-    'KORRIGERT',
-];
-
-const Info: FunctionComponent<{ tekst: string }> = (props: PropsWithChildren<{ tekst: string }>) => (
-    <AvrundetHvitBoks>
-        <InfoIkon />
-        <Undertittel tag="p">{props.tekst}</Undertittel>
-    </AvrundetHvitBoks>
-);
 
 const Oversikt: FunctionComponent = () => {
     const { filter } = useFilter();
@@ -62,55 +29,74 @@ const Oversikt: FunctionComponent = () => {
     }
 
     return (
-        <nav className={cls.className} aria-label="Main">
-            <div role="list">
-                <LabelRad className={cls.className} />
-
-                {_.sortBy<Refusjon>(refusjoner, [
-                    (refusjon) => sorteringIndexRefusjonStatus.indexOf(refusjon.status),
-                    'fristForGodkjenning',
-                ]).map((refusjon) => (
-                    //@ts-ignore
-                    <LenkepanelBase
-                        className={cls.element('rad')}
-                        role="listitem"
-                        key={refusjon.id}
-                        onClick={(event) => {
-                            event.preventDefault();
-                            history.push({
-                                pathname: `/refusjon/${refusjon.id}`,
-                                search: window.location.search,
-                            });
-                        }}
-                        href={`/refusjon/${refusjon.id}`}
-                    >
-                        <Kolonne aria-labelledby={cls.element('veileder')}>
+        <div className={cls.className} aria-label="Main">
+            <LabelRad />
+            {_.sortBy<Refusjon>(refusjoner, [
+                (refusjon) => Object.keys(RefusjonStatus).indexOf(refusjon.status),
+                'fristForGodkjenning',
+            ]).map((refusjon) => (
+                <LinkPanel
+                    className={cls.element('linkPanel')}
+                    border={false}
+                    role="listitem"
+                    key={refusjon.id}
+                    onClick={(event) => {
+                        event.preventDefault();
+                        history.push({
+                            pathname: `/refusjon/${refusjon.id}`,
+                            search: window.location.search,
+                        });
+                    }}
+                    href={`/refusjon/${refusjon.id}`}
+                >
+                    <LinkPanel.Title className={cls.element('linkpanel_title_row')}>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('veileder')}
+                        >
                             {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.veilederNavIdent}
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('deltaker')}>
+                        </BodyShort>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('deltaker')}
+                        >
                             {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.deltakerFornavn}{' '}
                             {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.deltakerEtternavn}
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('arbeidsgiver')}>
+                        </BodyShort>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('arbeidsgiver')}
+                        >
                             {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.bedriftNavn}
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('enhet')}>
+                        </BodyShort>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('enhet')}
+                        >
                             <strong>{refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.enhet}</strong>
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('status')}>
+                        </BodyShort>
+                        <div className={cls.element('title_row_column')}>
                             <StatusTekst
                                 status={refusjon.status}
                                 tilskuddFom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom}
                                 tilskuddTom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom}
                             />
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('frist-godkjenning')}>
+                        </div>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('frist-godkjenning')}
+                        >
                             {formatterDato(refusjon.fristForGodkjenning)}
-                        </Kolonne>
-                    </LenkepanelBase>
-                ))}
-            </div>
-        </nav>
+                        </BodyShort>
+                    </LinkPanel.Title>
+                </LinkPanel>
+            ))}
+        </div>
     );
 };
 

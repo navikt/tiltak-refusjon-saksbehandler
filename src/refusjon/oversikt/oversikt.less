@@ -1,29 +1,19 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .oversikt {
-    padding-top: 1.25rem;
-
-    &__rad,
-    &__label-rad {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: fit-content;
-
+    &__linkPanel {
+        margin-bottom: 1rem;
         width: calc(100% - 3rem);
         max-width: 52.5rem;
-        background-color: white;
-        border-radius: 4px;
-        margin-bottom: 1.25rem;
+        height: fit-content;
     }
 
-    &__label-rad {
-        padding: 0 1rem;
-        display: none;
+    &__linkpanel_title_row {
+        display: flex;
     }
 
-    &__kolonne {
-        margin-right: 0.25rem;
+    &__title_row_column {
+        margin-right: 2rem;
         width: 100%;
         display: flex;
         justify-content: flex-start;
@@ -37,68 +27,28 @@
         &:nth-child(5) {
             width: 100%;
         }
-    }
 
-    &__ikon {
-        margin-right: 0.25rem;
-        margin-top: 0.5rem;
-    }
-
-    .nav-veilederpanel {
-        min-height: 4.25rem;
-    }
-
-    .lenkepanel {
-        padding: 0 1rem;
-    }
-
-    .lenkepanel__indikator {
-        position: absolute;
-        top: 4.75rem;
-        right: 1rem;
-        left: unset;
-        transition: 0.2s;
-    }
-
-    .lenkepanel:hover .lenkepanel__indikator,
-    .lenkepanel--hover .lenkepanel__indikator {
-        right: 0.85rem;
-        left: unset;
-        box-shadow: 8px 5px 5px -1px #b7b1a9;
-    }
-
-    @media (min-width: @screen-sm-min) {
-        padding-top: 0;
-
-        &__label-rad {
-            display: flex;
+        &:nth-child(6) {
+            justify-content: flex-end;
+            margin-right: 0rem;
         }
 
-        &__kolonne {
-            width: calc(15.6% - 5px);
+        @media (min-width: @screen-sm-min) {
+            &__title_row_column {
+                width: calc(15.6% - 5px);
 
-            &:nth-child(1) {
-                font-weight: unset;
+                &:nth-child(1) {
+                    font-weight: unset;
+                }
+
+                &:nth-child(4) {
+                    width: calc(13.1% - 5px);
+                }
+
+                &:nth-child(5) {
+                    width: calc(24.1% - 5px);
+                }
             }
-
-            &:nth-child(4) {
-                width: calc(13.1% - 5px);
-            }
-
-            &:nth-child(5) {
-                width: calc(24.1% - 5px);
-            }
-        }
-
-        &__rad,
-        &__label-rad {
-            flex-direction: row;
-            height: 3.5rem;
-            width: calc(100% - 1.5rem);
-        }
-
-        .lenkepanel__indikator {
-            top: 1.75rem;
         }
     }
 }

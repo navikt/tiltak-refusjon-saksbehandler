@@ -6,6 +6,7 @@ import { AktivSøk } from './VisRefusjonerFilter';
 export interface Filter extends RefusjonsAktor {
     status?: RefusjonStatus;
     tiltakstype?: Tiltak;
+    page?: number;
 }
 
 export interface RefusjonsAktor {

@@ -1,18 +1,15 @@
 import { ReactComponent as InfoIkon } from '@/asset/image/info.svg';
-import _ from 'lodash';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import { Pagination } from '@navikt/ds-react';
 import { Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, PropsWithChildren } from 'react';
+import { FunctionComponent, PropsWithChildren } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
-import { formatterDato } from '../../utils/datoUtils';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
+import OversiktTabell from './OversiktTabell';
 import './oversikt.less';
-import { Refusjon } from '../refusjon';
 
 const cls = BEMHelper('oversikt');
 
@@ -48,16 +45,16 @@ const Info: FunctionComponent<{ tekst: string }> = (props: PropsWithChildren<{ t
 );
 
 const Oversikt: FunctionComponent = () => {
-    const { filter } = useFilter();
+    const { filter, oppdaterFilter } = useFilter();
 
-    const refusjoner = useHentRefusjoner(filter);
+    const refusjonerPage = useHentRefusjoner(filter);
     const history = useHistory();
 
-    if (refusjoner === undefined) {
+    if (refusjonerPage === undefined) {
         return <Info tekst="Oppgi søkekriterier for å finne refusjoner" />;
     }
 
-    if (refusjoner.length === 0) {
+    if (refusjonerPage.totalItems === 0) {
         return <Info tekst="Finner ingen refusjoner" />;
     }
 
@@ -65,50 +62,17 @@ const Oversikt: FunctionComponent = () => {
         <nav className={cls.className} aria-label="Main">
             <div role="list">
                 <LabelRad className={cls.className} />
+                <OversiktTabell refusjoner={refusjonerPage.refusjoner} />
+            </div>
 
-                {_.sortBy<Refusjon>(refusjoner, [
-                    (refusjon) => sorteringIndexRefusjonStatus.indexOf(refusjon.status),
-                    'fristForGodkjenning',
-                ]).map((refusjon) => (
-                    //@ts-ignore
-                    <LenkepanelBase
-                        className={cls.element('rad')}
-                        role="listitem"
-                        key={refusjon.id}
-                        onClick={(event) => {
-                            event.preventDefault();
-                            history.push({
-                                pathname: `/refusjon/${refusjon.id}`,
-                                search: window.location.search,
-                            });
-                        }}
-                        href={`/refusjon/${refusjon.id}`}
-                    >
-                        <Kolonne aria-labelledby={cls.element('veileder')}>
-                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.veilederNavIdent}
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('deltaker')}>
-                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.deltakerFornavn}{' '}
-                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.deltakerEtternavn}
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('arbeidsgiver')}>
-                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.bedriftNavn}
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('enhet')}>
-                            <strong>{refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.enhet}</strong>
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('status')}>
-                            <StatusTekst
-                                status={refusjon.status}
-                                tilskuddFom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom}
-                                tilskuddTom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom}
-                            />
-                        </Kolonne>
-                        <Kolonne aria-labelledby={cls.element('frist-godkjenning')}>
-                            {formatterDato(refusjon.fristForGodkjenning)}
-                        </Kolonne>
-                    </LenkepanelBase>
-                ))}
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Pagination
+                    page={refusjonerPage.currentPage + 1}
+                    onPageChange={(x) => oppdaterFilter({ page: x - 1 })}
+                    count={refusjonerPage.totalPages}
+                    boundaryCount={1}
+                    siblingCount={1}
+                />
             </div>
         </nav>
     );

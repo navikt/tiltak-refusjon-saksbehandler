@@ -131,3 +131,11 @@ export enum Korreksjonsgrunn {
     HENT_INNTEKTER_TO_MÅNEDER_FREM = 'HENT_INNTEKTER_TO_MÅNEDER_FREM',
     HENT_INNTEKTER_PÅ_NYTT = 'HENT_INNTEKTER_PÅ_NYTT',
 }
+
+export interface PageableRefusjon {
+    currentPage: number;
+    refusjoner: Refusjon[];
+    size: number;
+    totalItems: number;
+    totalPages: number;
+}

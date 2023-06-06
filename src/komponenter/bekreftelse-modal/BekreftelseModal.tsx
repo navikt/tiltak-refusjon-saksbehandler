@@ -1,6 +1,5 @@
-import Modal from 'nav-frontend-modal';
-import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { CSSProperties, FunctionComponent } from 'react';
+import { Modal, Heading } from '@navikt/ds-react';
 import BEMHelper from '../../utils/bem';
 import LagreOgAvbrytKnapp from '../LagreOgAvbrytKnapp';
 import VerticalSpacer from '../VerticalSpacer';
@@ -29,22 +28,26 @@ const BekreftelseModal: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Modal
-                isOpen={props.isOpen}
-                onRequestClose={() => props.lukkModal()}
-                contentLabel="modal"
+                open={props.isOpen}
+                onClose={() => props.lukkModal()}
+                aria-label="modal"
                 className={cls.element('container')}
                 style={{ content: props.containerStyle }}
             >
-                <div className={cls.element('wrapper')}>
-                    <Innholdstittel className={cls.element('tittel')}>{props.tittel}</Innholdstittel>
-                    {props.children}
-                    <div className={cls.element('knapp-panel')}>
-                        <VerticalSpacer rem={2} />
-                        <LagreOgAvbrytKnapp lagreFunksjon={props.bekreft} avbryt={() => props.lukkModal()}>
-                            OK
-                        </LagreOgAvbrytKnapp>
+                <Modal.Content>
+                    <div className={cls.element('wrapper')}>
+                        <Heading size="large" className={cls.element('tittel')}>
+                            {props.tittel}
+                        </Heading>
+                        {props.children}
+                        <div className={cls.element('knapp-panel')}>
+                            <VerticalSpacer rem={2} />
+                            <LagreOgAvbrytKnapp lagreFunksjon={props.bekreft} avbryt={() => props.lukkModal()}>
+                                OK
+                            </LagreOgAvbrytKnapp>
+                        </div>
                     </div>
-                </div>
+                </Modal.Content>
             </Modal>
         </div>
     );

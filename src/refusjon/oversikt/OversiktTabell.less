@@ -1,0 +1,53 @@
+.oversiktTabell {
+    &__linkPanel {
+        background-color: white;
+        margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+        &__linkPanel {
+            //width: calc(100% - 3rem);
+            border-radius: 4px;
+            padding: 0 0.75rem;
+        }
+
+        &__linkpanel_title_row {
+            display: flex;
+        }
+
+        &__title_row_column {
+            margin-right: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            &:nth-child(1) {
+                font-weight: 600;
+                min-width: 5rem;
+            }
+
+            &:nth-child(2) {
+                min-width: 6rem;
+            }
+
+            &:nth-child(3) {
+                min-width: 6rem;
+            }
+
+            &:nth-child(4) {
+                min-width: 3rem;
+            }
+
+            &:nth-child(5) {
+                margin-right: 2rem;
+                width: 100%;
+            }
+
+            &:nth-child(6) {
+                justify-content: flex-end;
+                margin-right: 0rem;
+            }
+        }
+    }
+}

@@ -5,11 +5,12 @@ import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import BEMHelper from '../../utils/bem';
 import { formatterDato } from '../../utils/datoUtils';
 import { Refusjon } from '../refusjon';
+import './OversiktTabell.less';
 
 type Props = {
     refusjoner: Refusjon[];
 };
-const cls = BEMHelper('oversikt');
+const cls = BEMHelper('oversiktTabell');
 
 const OversiktTabell: FunctionComponent<Props> = (props) => {
     const history = useHistory();

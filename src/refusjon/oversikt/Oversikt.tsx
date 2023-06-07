@@ -1,8 +1,6 @@
-import { ReactComponent as InfoIkon } from '@/asset/image/info.svg';
+import React, { FunctionComponent } from 'react';
+import Info from './Info';
 import { Pagination } from '@navikt/ds-react';
-import { Undertittel } from 'nav-frontend-typografi';
-import { FunctionComponent, PropsWithChildren } from 'react';
-import styled from 'styled-components';
 import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import { useFilter } from './FilterContext';
@@ -11,24 +9,6 @@ import OversiktTabell from './OversiktTabell';
 import './oversikt.less';
 
 const cls = BEMHelper('oversikt');
-
-const AvrundetHvitBoks = styled.div`
-    border-radius: 4px;
-    background-color: white;
-    padding: 2rem 1rem;
-    display: flex;
-    align-items: center;
-    > * {
-        margin-right: 1rem;
-    }
-`;
-
-const Info: FunctionComponent<{ tekst: string }> = (props: PropsWithChildren<{ tekst: string }>) => (
-    <AvrundetHvitBoks>
-        <InfoIkon />
-        <Undertittel tag="p">{props.tekst}</Undertittel>
-    </AvrundetHvitBoks>
-);
 
 const Oversikt: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
@@ -46,7 +26,7 @@ const Oversikt: FunctionComponent = () => {
     return (
         <nav className={cls.className} aria-label="Main">
             <div role="list">
-                <LabelRad className={cls.className} />
+                <LabelRad />
                 <OversiktTabell refusjoner={refusjonerPage.refusjoner} />
             </div>
 

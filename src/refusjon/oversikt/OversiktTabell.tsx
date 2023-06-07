@@ -1,16 +1,16 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import { LinkPanel, BodyShort } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import BEMHelper from '../../utils/bem';
 import { formatterDato } from '../../utils/datoUtils';
 import { Refusjon } from '../refusjon';
+import './OversiktTabell.less';
 
 type Props = {
     refusjoner: Refusjon[];
 };
-const cls = BEMHelper('oversikt');
-const Kolonne: FunctionComponent = (props) => <div className={cls.element('kolonne')}>{props.children}</div>;
+const cls = BEMHelper('oversiktTabell');
 
 const OversiktTabell: FunctionComponent<Props> = (props) => {
     const history = useHistory();
@@ -19,8 +19,9 @@ const OversiktTabell: FunctionComponent<Props> = (props) => {
         <>
             {props.refusjoner.map((refusjon) => (
                 //@ts-ignore
-                <LenkepanelBase
-                    className={cls.element('rad')}
+                <LinkPanel
+                    className={cls.element('linkPanel')}
+                    border={false}
                     role="listitem"
                     key={refusjon.id}
                     onClick={(event) => {
@@ -32,30 +33,52 @@ const OversiktTabell: FunctionComponent<Props> = (props) => {
                     }}
                     href={`/refusjon/${refusjon.id}`}
                 >
-                    <Kolonne aria-labelledby={cls.element('veileder')}>
-                        {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.veilederNavIdent}
-                    </Kolonne>
-                    <Kolonne aria-labelledby={cls.element('deltaker')}>
-                        {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.deltakerFornavn}{' '}
-                        {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.deltakerEtternavn}
-                    </Kolonne>
-                    <Kolonne aria-labelledby={cls.element('arbeidsgiver')}>
-                        {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.bedriftNavn}
-                    </Kolonne>
-                    <Kolonne aria-labelledby={cls.element('enhet')}>
-                        <strong>{refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.enhet}</strong>
-                    </Kolonne>
-                    <Kolonne aria-labelledby={cls.element('status')}>
-                        <StatusTekst
-                            status={refusjon.status}
-                            tilskuddFom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom}
-                            tilskuddTom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom}
-                        />
-                    </Kolonne>
-                    <Kolonne aria-labelledby={cls.element('frist-godkjenning')}>
-                        {formatterDato(refusjon.fristForGodkjenning)}
-                    </Kolonne>
-                </LenkepanelBase>
+                    <LinkPanel.Title className={cls.element('linkpanel_title_row')}>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('veileder')}
+                        >
+                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.veilederNavIdent}
+                        </BodyShort>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('deltaker')}
+                        >
+                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.deltakerFornavn}{' '}
+                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.deltakerEtternavn}
+                        </BodyShort>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('arbeidsgiver')}
+                        >
+                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.bedriftNavn}
+                        </BodyShort>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('enhet')}
+                        >
+                            <strong>{refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.enhet}</strong>
+                        </BodyShort>
+                        <div className={cls.element('title_row_column')}>
+                            <StatusTekst
+                                status={refusjon.status}
+                                tilskuddFom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom}
+                                tilskuddTom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom}
+                            />
+                        </div>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('frist-godkjenning')}
+                        >
+                            {formatterDato(refusjon.fristForGodkjenning)}
+                        </BodyShort>
+                    </LinkPanel.Title>
+                </LinkPanel>
             ))}
         </>
     );

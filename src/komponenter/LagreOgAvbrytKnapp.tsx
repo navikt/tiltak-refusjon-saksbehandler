@@ -2,8 +2,8 @@ import KnappBase, { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
 import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { Alert } from '@navikt/ds-react';
 import { Nettressurs, Status } from '../nettressurs';
-import { handterFeil } from '../utils/apiFeilUtils';
 import VerticalSpacer from './VerticalSpacer';
+import { ApiError, FeilkodeError } from '../types/errors';
 
 type Props = {
     lagreFunksjon: () => Promise<any>;
@@ -25,9 +25,17 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
             await props.lagreFunksjon();
             setOppslag({ status: Status.Sendt });
         } catch (error) {
-            const feilmelding = 'feilmelding' in (error as any) ? (error as any).feilmelding : 'Uventet feil';
+            let feilmelding = '';
+            if (error instanceof FeilkodeError || error instanceof ApiError) {
+                feilmelding = error.message;
+            } else {
+                feilmelding =
+                    !!error && typeof error === 'object' && 'feilmelding' in error
+                        ? (error.feilmelding as string)
+                        : 'Uventet feil';
+            }
             setOppslag({ status: Status.Feil, error: feilmelding });
-            handterFeil(error as any, setFeilmelding);
+            setFeilmelding(feilmelding);
         }
     };
 

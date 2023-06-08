@@ -18,6 +18,7 @@ import {
     WEEKDAYS_SHORT,
 } from './forlengFristUtils';
 import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
+import { FeilkodeError } from '../../types/errors';
 
 const cls = BEMHelper('forleng-frist');
 
@@ -72,7 +73,7 @@ const ForlengFrist: FunctionComponent = () => {
             setSkjemaGruppeFeilmeldinger([]);
             return oppdatereRefusjonFrist();
         } else {
-            return Promise.reject();
+            return Promise.reject(new FeilkodeError('Alle påkrevde felter må være utfylt'));
         }
     };
 

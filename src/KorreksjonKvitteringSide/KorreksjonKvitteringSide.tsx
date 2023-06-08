@@ -1,12 +1,12 @@
 import { Tag } from '@navikt/ds-react';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
+import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import { korreksjonStatusTekst } from '../messages';
 import InformasjonFraAvtalen from '../refusjon/RefusjonSide/InformasjonFraAvtalen';
-import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen';
+import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraAMeldingenGammel from '../refusjon/RefusjonSide/InntekterFraAmeldingenGammel';
 import InntekterFraTiltaketSvar from '../refusjon/RefusjonSide/InntekterFraTiltaketSvar';
 import InntekterFraTiltaketSvarGammel from '../refusjon/RefusjonSide/InntekterFraTiltaketSvarGammel';

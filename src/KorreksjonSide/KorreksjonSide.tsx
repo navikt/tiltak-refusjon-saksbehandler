@@ -1,17 +1,17 @@
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
-import { KorreksjonStatus } from '../refusjon/refusjon';
+import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import BekreftOppgjørKorreksjon from '../refusjon/RefusjonSide/BekreftOppgjørKorreksjon';
 import BekreftSlettKorreksjon from '../refusjon/RefusjonSide/BekreftSlettKorreksjon';
 import BekreftTilbakekrevKorreksjon from '../refusjon/RefusjonSide/BekreftTilbakekrevKorreksjon';
 import BekreftUtbetalKorreksjon from '../refusjon/RefusjonSide/BekreftUtbetalKorreksjon';
 import InformasjonFraAvtalen from '../refusjon/RefusjonSide/InformasjonFraAvtalen';
-import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen';
+import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFraTiltaketSpørsmål';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
+import { KorreksjonStatus } from '../refusjon/refusjon';
 import { useHentKorreksjon } from '../services/rest-service';
 
 const KorreksjonSide: FunctionComponent = () => {

@@ -1,15 +1,17 @@
+import { Alert, Heading } from '@navikt/ds-react';
 import _ from 'lodash';
-import { Radio } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
-import { Alert } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { lønnsbeskrivelseTekst } from '../../messages';
-import { setInntektslinjeOpptjentIPeriode } from '../../services/rest-service';
-import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT, NORSK_MÅNEDÅR_FORMAT } from '../../utils/datoUtils';
-import { formatterPenger } from '../../utils/PengeUtils';
-import { Inntektsgrunnlag, Refusjonsgrunnlag } from '../refusjon';
+import VerticalSpacer from '../../../komponenter/VerticalSpacer';
+import { lønnsbeskrivelseTekst } from '../../../messages';
+import { formatterPenger } from '../../../utils/PengeUtils';
+import BEMHelper from '../../../utils/bem';
+import { NORSK_DATO_OG_TID_FORMAT, formatterDato, formatterPeriode, månedsNavn } from '../../../utils/datoUtils';
+import { Inntektsgrunnlag, Refusjonsgrunnlag } from '../../refusjon';
+import './inntektsMelding.less';
+import InntektsmeldingTabellBody from './inntektsmeldingTabell/InntektsmeldingTabellBody';
+import InntektsmeldingTabellHeader from './inntektsmeldingTabell/InntektsmeldingTabellHeader';
 
 const GråBoks = styled.div`
     background-color: #eee;
@@ -62,6 +64,7 @@ type Props = {
 };
 
 const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
+    const cls = BEMHelper('inntektsmelding');
     const antallInntekterSomErMedIGrunnlag = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erMedIInntektsgrunnlag
     ).length;
@@ -74,6 +77,9 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
         !!props.inntektsgrunnlag &&
         props.inntektsgrunnlag.inntekter.length > 0 &&
         antallInntekterSomErMedIGrunnlag === 0;
+
+    const inntektGrupperObjekt = _.groupBy(props.inntektsgrunnlag?.inntekter, (inntekt) => inntekt.måned);
+    const inntektGrupperListe = Object.entries(inntektGrupperObjekt);
 
     return (
         <GråBoks>
@@ -100,7 +106,32 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                     .
                 </i>
             )}
-            {props.inntektsgrunnlag &&
+
+            {props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && (
+                <>
+                    <VerticalSpacer rem={1} />
+                    {inntektGrupperListe.map(([aarManed, inntektslinjer]) => (
+                        <>
+                            <Heading level="4" size="small" style={{ display: 'flex', justifyContent: 'center' }}>
+                                Inntekt rapportert for {månedsNavn(aarManed)} ({aarManed})
+                            </Heading>
+                            <div style={{ borderTop: '1px solid #06893b' }}>
+                                <table className={cls.element('inntektstabell')}>
+                                    <InntektsmeldingTabellHeader refusjonsgrunnlag={props.refusjonsgrunnlag} />
+                                    <InntektsmeldingTabellBody
+                                        inntektslinjer={inntektslinjer}
+                                        kvitteringVisning={props.kvitteringVisning}
+                                        korreksjonId={props.korreksjonId}
+                                    />
+                                </table>
+                            </div>
+                            <VerticalSpacer rem={1} />
+                        </>
+                    ))}
+                </>
+            )}
+
+            {/* {props.inntektsgrunnlag &&
                 props.inntektsgrunnlag.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && (
                     <>
                         <VerticalSpacer rem={1} />
@@ -184,23 +215,21 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
 
                                         <td>{formatterPenger(inntekt.beløp)}</td>
                                     </tr>
-                                ))}
-                                {/* {props.inntektsgrunnlag?.bruttoLønn && (
-                                    <tr>
-                                        <td colSpan={3}>
-                                            <b>Sum</b>
-                                        </td>
-                                        <td>
-                                            <b style={{ whiteSpace: 'nowrap' }}>
-                                                {formatterPenger(props.inntektsgrunnlag.bruttoLønn)}
-                                            </b>
-                                        </td>
-                                    </tr>
-                                )} */}
-                            </tbody>
+                                ))} */}
+            {props.inntektsgrunnlag?.bruttoLønn && (
+                <tr>
+                    <td colSpan={3}>
+                        <b>Sum</b>
+                    </td>
+                    <td>
+                        <b style={{ whiteSpace: 'nowrap' }}>{formatterPenger(props.inntektsgrunnlag.bruttoLønn)}</b>
+                    </td>
+                </tr>
+            )}
+            {/* </tbody>
                         </InntekterTabell>
                     </>
-                )}
+                )} */}
             {ingenInntekter && (
                 <>
                     <VerticalSpacer rem={1} />

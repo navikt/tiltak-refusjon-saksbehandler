@@ -1,0 +1,24 @@
+.label-rad {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .label-rad {
+        display: flex;
+        justify-content: space-between;
+        height: fit-content;
+        background-color: white;
+        border-radius: 4px;
+        margin-bottom: 1.25rem;
+        padding: 0 1rem;
+
+        &__kolonne {
+            margin-right: 0.25rem;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.25rem 0;
+        }
+    }
+}

@@ -3,7 +3,7 @@ import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { Feature } from '../featureToggles/features';
 import { Filter, useFilter } from '../refusjon/oversikt/FilterContext';
-import { Korreksjon, Korreksjonsgrunn, Refusjon } from '../refusjon/refusjon';
+import { Korreksjon, Korreksjonsgrunn, PageableRefusjon, Refusjon } from '../refusjon/refusjon';
 import { ApiError, FeilkodeError } from '../types/errors';
 
 const api = axios.create({
@@ -46,7 +46,7 @@ export const useHentRefusjoner = (filter: Filter) => {
         sjekkForOnsketRefusjonAktør(key, value)
     ).length;
     const urlSearchParams = new URLSearchParams(removeEmpty(filter));
-    const { data } = useSWR<Refusjon[]>(manglerSøkekriterier ? null : `/refusjon?${urlSearchParams}`, swrConfig);
+    const { data } = useSWR<PageableRefusjon>(manglerSøkekriterier ? null : `/refusjon?${urlSearchParams}`, swrConfig);
     return data;
 };
 

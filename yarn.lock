@@ -8494,16 +8494,6 @@ nav-frontend-knapper@^2.0.18:
   resolved "https://registry.yarnpkg.com/nav-frontend-knapper/-/nav-frontend-knapper-2.1.4.tgz#8eea6a82a5f014987e22a4aba02f847a1382e220"
   integrity sha512-qq4d6mZ1wlvo62cNe4rwWbTgupEyJlaQzZNuYLWCCkIbSDNR6vz/pkfAue57lsFgeAXAWK4YC13r/8MbMu6f+w==
 
-nav-frontend-lenkepanel-style@^0.3.44:
-  version "0.3.49"
-  resolved "https://registry.yarnpkg.com/nav-frontend-lenkepanel-style/-/nav-frontend-lenkepanel-style-0.3.49.tgz#705dc7fd71bdb96ea40f9bdb65263c1f604f7ca3"
-  integrity sha512-r3ot1Yo8TGDt5lbiT7M2IUzwb2/Ch5zqjQRaTOvID38nWqRzqQw41andvjQpj2fDACxPM2t4DFvsvssewfQLvA==
-
-nav-frontend-lenkepanel@^1.0.64:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/nav-frontend-lenkepanel/-/nav-frontend-lenkepanel-1.1.2.tgz#263b12874bd1598b7c9d3fa4b1ce9860f6d915c0"
-  integrity sha512-toSS00PsGk6eOkV4y8s7demyKPgaNZ45HU0RAcO6X8++vaIZQZO5LJj+SpOd0e74Uy09A3tEwDnlL2ifDfNlgw==
-
 nav-frontend-lenker-style@^0.2.33:
   version "0.2.42"
   resolved "https://registry.yarnpkg.com/nav-frontend-lenker-style/-/nav-frontend-lenker-style-0.2.42.tgz#8d751254fe884fdf48fc19f696e40230b348285d"
@@ -8523,16 +8513,6 @@ nav-frontend-lukknapp@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nav-frontend-lukknapp/-/nav-frontend-lukknapp-2.0.2.tgz#c074bbf4b1a6a89b3d00ac4358c739ec2b46bd8d"
   integrity sha512-ItSQSmbfSE8GPDcAGkWGIVydYUuzvYAMVJ9pMKpItvAUfZ+Dt7HyYLXjfSxwi10ign4fpi9dsZGKfsFYyOQ2RQ==
-
-nav-frontend-modal-style@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/nav-frontend-modal-style/-/nav-frontend-modal-style-2.0.2.tgz#d92bb6877cad7940366d60b263721b7984224b96"
-  integrity sha512-XKKE1Y+AAGobT218eKOV/cmTgauudG7nU30PUeLTfiQnCeuzt6ZRhwM7cdUfgCVVlAfK/pNHbZYK1vGr8l1iGw==
-
-nav-frontend-modal@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/nav-frontend-modal/-/nav-frontend-modal-2.0.2.tgz#361051a991d9f523373725e0031e61040848ef52"
-  integrity sha512-Ajm2OdNyS/JAjgK9xas0vNOUQ6iUudy6Fhx4w/RmMJY2TSGB23FKTL8+cgi/Th+PbeUkPvZDbDyB0nQf7db5Ug==
 
 nav-frontend-paneler-style@^2.0.1:
   version "2.0.2"

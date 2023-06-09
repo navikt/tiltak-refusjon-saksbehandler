@@ -2,8 +2,6 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, ReactElement } from 'react';
 import { Tag } from '@navikt/ds-react';
 import { useParams } from 'react-router';
-import { Feature } from '../../featureToggles/features';
-import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { statusTekst } from '../../messages';
@@ -21,6 +19,8 @@ import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import TidligereRefunderbarBeløpKvittering from '../RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../RefusjonSide/Utregning';
 import Statusmelding from './Statusmelding';
+import { useInnloggetBruker } from '../../bruker/BrukerContext';
+import { BrukerContextType } from '../../bruker/BrukerContextType';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
     if (refusjon.status === RefusjonStatus.UTBETALING_FEILET) {
@@ -37,12 +37,12 @@ const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId);
+    const brukerContext: BrukerContextType = useInnloggetBruker();
     const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
-    const featureToggles = useFeatureToggles();
 
     return (
         <HvitBoks>
-            {featureToggles[Feature.Korreksjon] && !refusjon.korreksjonId && <OpprettKorreksjon />}
+            {brukerContext.innloggetBruker.harKorreksjonTilgang && !refusjon.korreksjonId && <OpprettKorreksjon />}
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -7,12 +7,12 @@ import { RefusjonStatus, Tiltak } from '../refusjon';
 import { useFilter } from './FilterContext';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import VisRefusjonerFilter from './VisRefusjonerFilter';
-import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
-import { Feature } from '../../featureToggles/features';
-
+import { useInnloggetBruker } from '../../bruker/BrukerContext';
+import { BrukerContextType } from '../../bruker/BrukerContextType';
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
-    const featureToggles = useFeatureToggles();
+    const brukerContext: BrukerContextType = useInnloggetBruker();
+
     return (
         <div role="menubar" aria-label="meny for filtrering av refusjoner">
             <VisRefusjonerFilter />
@@ -72,7 +72,7 @@ const Filtermeny: FunctionComponent = () => {
                             name={'status'}
                             onChange={() => oppdaterFilter({ status: RefusjonStatus.UTGÅTT })}
                         />
-                        {featureToggles[Feature.Korreksjon] && (
+                        {brukerContext.innloggetBruker.harKorreksjonTilgang && (
                             <Radio
                                 role="radio"
                                 label={storForbokstav(statusTekst[RefusjonStatus.KORRIGERT])}

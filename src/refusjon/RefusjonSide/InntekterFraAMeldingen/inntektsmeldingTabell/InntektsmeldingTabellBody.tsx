@@ -20,9 +20,7 @@ const InntektsmeldingTabellBody: FunctionComponent<Props> = (props) => {
                 ['måned', 'opptjeningsperiodeFom', 'opptjeningsperiodeTom', 'opptjent', 'beskrivelse', 'id']
             ).map((inntekt) => (
                 <tr key={inntekt.id}>
-                    <td>
-                        {/* inntekt.id */} {inntektBeskrivelse(inntekt.beskrivelse)}
-                    </td>
+                    <td>{inntektBeskrivelse(inntekt.beskrivelse)}</td>
                     <td>{formatterDato(inntekt.måned, NORSK_MÅNEDÅR_FORMAT)}</td>
 
                     <td>
@@ -32,13 +30,11 @@ const InntektsmeldingTabellBody: FunctionComponent<Props> = (props) => {
                             <em>Ikke rapportert opptjenings&shy;periode</em>
                         )}
                     </td>
-                    {props.inntektslinjer.filter((inntekt) => inntekt.erOpptjentIPeriode) && (
-                        <InntektValg
-                            inntekt={inntekt}
-                            korreksjonId={props.korreksjonId}
-                            kvitteringVisning={props.kvitteringVisning}
-                        />
-                    )}
+                    <InntektValg
+                        inntekt={inntekt}
+                        korreksjonId={props.korreksjonId}
+                        kvitteringVisning={props.kvitteringVisning}
+                    />
                     <td>{formatterPenger(inntekt.beløp)}</td>
                 </tr>
             ))}

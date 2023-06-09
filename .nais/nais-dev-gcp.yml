@@ -16,6 +16,8 @@ spec:
       enabled: true
       allowAllUsers: true
       tenant: trygdeetaten.no
+      extra:
+        - "NAVident"
     sidecar:
       enabled: true
   liveness:

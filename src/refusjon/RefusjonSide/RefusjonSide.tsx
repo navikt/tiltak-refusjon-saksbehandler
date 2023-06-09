@@ -1,19 +1,19 @@
-import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Alert } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import Lenke from 'nav-frontend-lenker';
+import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
-import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { useHentRefusjon } from '../../services/rest-service';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
-import InntekterFraAMeldingen from './InntekterFraAMeldingen';
+import InntekterFraAMeldingen from './InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraTiltaketSvarGammel from './InntekterFraTiltaketSvarGammel';
 import './RefusjonSide.less';
-import Utregning from './Utregning';
-import Lenke from 'nav-frontend-lenker';
 import TidligereRefunderbarBeløpKvittering from './TidligereRefunderbarBeløpKvittering';
+import Utregning from './Utregning';
 
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();

@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import { Element } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { Inntektslinje } from '../refusjon';
-import { inntektBeskrivelse } from './InntekterFraAMeldingen';
+import { inntektBeskrivelse } from './InntekterFraAMeldingen/InntekterFraAMeldingen';
 
 type Props = {
     inntekter: Inntektslinje[];

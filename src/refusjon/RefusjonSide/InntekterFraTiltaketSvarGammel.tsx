@@ -1,10 +1,11 @@
 import _ from 'lodash';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
+import { BodyShort } from '@navikt/ds-react';
 
 const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
     if (!props.refusjonsgrunnlag.inntektsgrunnlag) {
@@ -33,13 +34,13 @@ const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Ref
                 Er inntektene som vi har hentet ({formatterPenger(sumInntekterOpptjentIPeriode)}) kun fra tiltaket{' '}
                 {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?{' '}
             </Element>
-            <Normaltekst>{svar()}</Normaltekst>
+            <BodyShort size="small">{svar()}</BodyShort>
             {props.refusjonsgrunnlag.endretBruttoLønn !== null &&
                 props.refusjonsgrunnlag.endretBruttoLønn !== undefined && (
                     <>
                         <VerticalSpacer rem={1} />
                         <Element>Korrigert bruttolønn:</Element>
-                        <Normaltekst>{formatterPenger(props.refusjonsgrunnlag.endretBruttoLønn)}</Normaltekst>
+                        <BodyShort size="small">{formatterPenger(props.refusjonsgrunnlag.endretBruttoLønn)}</BodyShort>
                     </>
                 )}
         </div>

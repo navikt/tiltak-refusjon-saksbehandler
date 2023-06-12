@@ -1,6 +1,5 @@
 import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
-import { Knapp } from 'nav-frontend-knapper';
-import { Input, Label } from 'nav-frontend-skjema';
+import { Button, Label, TextField } from '@navikt/ds-react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -88,7 +87,14 @@ const ForlengFrist: FunctionComponent = () => {
 
     return (
         <div>
-            <Knapp onClick={() => setOpen(!open)}>Forleng frist</Knapp>
+            <Button
+                size="small"
+                variant="secondary"
+                style={{ backgroundColor: 'white' }}
+                onClick={() => setOpen(!open)}
+            >
+                Forleng frist
+            </Button>
             <BekreftelseModal
                 isOpen={open}
                 lukkModal={lukkModalOgResettState}
@@ -122,15 +128,17 @@ const ForlengFrist: FunctionComponent = () => {
                                     </Label>
                                 </div>
                                 <div className={cls.element('input-wrapper')}>
-                                    <Input
-                                        feil={finnFeilMeldingFraInputDialog(
+                                    <TextField
+                                        label=""
+                                        hideLabel
+                                        error={finnFeilMeldingFraInputDialog(
                                             ['ugyldig-datoformat', 'for-kort-frist', 'for-lang-frist'],
                                             skjemaGruppeFeilmeldinger
                                         )}
                                         onChange={(event) => setDatoFraInputFelt(event.target.value)}
                                         className={cls.element('input-felt-dato')}
                                         id="dato-input"
-                                        bredde="S"
+                                        size="small"
                                         value={datoFraInputFelt}
                                     />
                                 </div>

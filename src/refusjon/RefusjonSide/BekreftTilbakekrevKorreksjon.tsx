@@ -1,7 +1,5 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
-import { Alert } from '@navikt/ds-react';
+import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { fullførKorreksjonVedTilbakekreving } from '../../services/rest-service';
@@ -13,7 +11,7 @@ const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
 
     return (
         <div>
-            <Knapp onClick={() => setisOpen(true)}>Fullfør tilbakekreving</Knapp>
+            <Button onClick={() => setisOpen(true)}>Fullfør tilbakekreving</Button>
 
             <BekreftelseModal
                 isOpen={isOpen}
@@ -21,10 +19,10 @@ const BekreftTilbakekrevKorreksjon: FunctionComponent = () => {
                 tittel="Merk korreksjon for tilbakekreving"
                 bekreft={() => fullførKorreksjonVedTilbakekreving(korreksjonId)}
             >
-                <Normaltekst>
+                <BodyShort size="small">
                     Ved å fullføre korreksjonen vil arbeidsgiver få en bekreftelse på at utbetalt beløp er for høyt, og
                     at det vil bli tilbakekrevd.
-                </Normaltekst>
+                </BodyShort>
                 <VerticalSpacer rem={1} />
                 <Alert variant="info" size="small">
                     Du må iverksette en manuell tilbakekrevingsprosess

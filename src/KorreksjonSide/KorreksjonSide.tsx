@@ -1,4 +1,4 @@
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import HvitBoks from '../komponenter/hvitboks/HvitBoks';
@@ -13,6 +13,7 @@ import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldin
 import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFraTiltaketSpørsmål';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { useHentKorreksjon } from '../services/rest-service';
+import { BodyShort } from '@navikt/ds-react';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
@@ -42,11 +43,11 @@ const KorreksjonSide: FunctionComponent = () => {
             </div>
 
             <VerticalSpacer rem={1} />
-            <Normaltekst>
+            <BodyShort size="small">
                 Dette er en korreksjon av tidligere utbetalt refusjon. Det beregnes her et foreløpig oppgjør fratrukket
                 beløpet som er utbetalt tidligere. Dette er foreløpig et utkast, og den vises ikke for arbeidsgiver før
                 den fullføres.
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}

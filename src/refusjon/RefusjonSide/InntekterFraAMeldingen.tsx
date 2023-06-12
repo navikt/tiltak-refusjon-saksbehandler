@@ -1,8 +1,7 @@
 import _ from 'lodash';
-import { Radio } from 'nav-frontend-skjema';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { Alert } from '@navikt/ds-react';
+import { Alert, BodyShort, RadioGroup, Radio } from '@navikt/ds-react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../messages';
@@ -80,10 +79,10 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
             <Fleks>
                 <Undertittel style={{ marginBottom: '1rem' }}>Inntekter hentet fra a-meldingen</Undertittel>
                 {props.inntektsgrunnlag && (
-                    <Normaltekst>
+                    <BodyShort size="small">
                         Sist hentet:{' '}
                         {formatterDato(props.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
-                    </Normaltekst>
+                    </BodyShort>
                 )}
             </Fleks>
             {harBruttolønn && (
@@ -143,30 +142,37 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                                             <td>
                                                 {!props.kvitteringVisning && props.korreksjonId && (
                                                     <div style={{ display: 'flex', columnGap: '3em' }}>
-                                                        <Radio
-                                                            label={'Ja'}
-                                                            checked={inntekt.erOpptjentIPeriode === true}
-                                                            onChange={(e) => {
-                                                                setInntektslinjeOpptjentIPeriode(
-                                                                    props.korreksjonId!,
-                                                                    inntekt.id,
-                                                                    true
-                                                                );
-                                                            }}
-                                                            name={inntekt.id}
-                                                        />
-                                                        <Radio
-                                                            label={'Nei'}
-                                                            checked={inntekt.erOpptjentIPeriode === false}
-                                                            onChange={(e) => {
-                                                                setInntektslinjeOpptjentIPeriode(
-                                                                    props.korreksjonId!,
-                                                                    inntekt.id,
-                                                                    false
-                                                                );
-                                                            }}
-                                                            name={inntekt.id}
-                                                        />
+                                                        <RadioGroup legend="">
+                                                            <Radio
+                                                                checked={inntekt.erOpptjentIPeriode === true}
+                                                                onChange={(e) => {
+                                                                    setInntektslinjeOpptjentIPeriode(
+                                                                        props.korreksjonId!,
+                                                                        inntekt.id,
+                                                                        true
+                                                                    );
+                                                                }}
+                                                                name={inntekt.id}
+                                                                value={inntekt.erOpptjentIPeriode}
+                                                            >
+                                                                Ja
+                                                            </Radio>
+
+                                                            <Radio
+                                                                checked={inntekt.erOpptjentIPeriode === false}
+                                                                onChange={(e) => {
+                                                                    setInntektslinjeOpptjentIPeriode(
+                                                                        props.korreksjonId!,
+                                                                        inntekt.id,
+                                                                        false
+                                                                    );
+                                                                }}
+                                                                name={inntekt.id}
+                                                                value={inntekt.erOpptjentIPeriode}
+                                                            >
+                                                                Nei
+                                                            </Radio>
+                                                        </RadioGroup>
                                                     </div>
                                                 )}
                                                 {props.kvitteringVisning && (

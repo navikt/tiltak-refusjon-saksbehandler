@@ -1,9 +1,10 @@
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, ReactNode } from 'react';
 import './Utregningsrad.less';
 import BEMHelper from '../../utils/bem';
 import { visSatsMedEttDesimal } from '../../utils/utregningUtil';
 import { formatterPenger } from '../../utils/PengeUtils';
+import { BodyShort } from '@navikt/ds-react';
 
 interface Props {
     labelIkon?: React.ReactNode;
@@ -24,7 +25,8 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
     const setOperator = (operator?: string | ReactNode) =>
         operator ? <Systemtittel className={cls.element('operator')}>{operator}</Systemtittel> : null;
 
-    const setLabelSats = (sats?: number) => (sats ? <Normaltekst>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null);
+    const setLabelSats = (sats?: number) =>
+        sats ? <BodyShort size="small">({visSatsMedEttDesimal(sats)}%)</BodyShort> : null;
 
     const border = () => {
         switch (props.border) {
@@ -47,15 +49,21 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
             <div className={cls.element('utregning-label')}>
                 <div className={cls.element('label-innhold')}>
                     {setIkon(props.labelIkon)}
-                    {typeof props.labelTekst == 'string' ?  <Normaltekst id={labelTekstString}>{props.labelTekst}</Normaltekst> : props.labelTekst}
+                    {typeof props.labelTekst == 'string' ? (
+                        <BodyShort size="small" id={labelTekstString}>
+                            {props.labelTekst}
+                        </BodyShort>
+                    ) : (
+                        props.labelTekst
+                    )}
                 </div>
                 {setLabelSats(props.labelSats)}
             </div>
             <div className={cls.element('utregning-verdi')}>
                 {setOperator(props.verdiOperator)}
-                <Normaltekst className={cls.element('sum')} aria-labelledby={labelTekstString}>
+                <BodyShort size="small" className={cls.element('sum')} aria-labelledby={labelTekstString}>
                     {props.ikkePenger || typeof props.verdi === 'string' ? props.verdi : formatterPenger(props.verdi)}
-                </Normaltekst>
+                </BodyShort>
             </div>
         </div>
     );

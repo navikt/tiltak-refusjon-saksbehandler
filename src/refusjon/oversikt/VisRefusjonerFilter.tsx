@@ -50,7 +50,6 @@ const VisRefusjonerFilter: FunctionComponent = () => {
                                 key={it.value}
                                 name="aktivSøketype"
                                 value={it.value}
-                                checked={aktivSøketype?.type?.toString() === it.value}
                                 onChange={() => {
                                     setAktivSøketype({ type: it.value, søkeVerdi: undefined });
                                     setInputKey(inputKey + 1); // Brukes for å unmounte søkeinput, slik at søkeord tømmes

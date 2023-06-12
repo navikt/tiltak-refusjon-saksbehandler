@@ -30,7 +30,7 @@ const GrunnlagTilForlengelse: FunctionComponent<Props> = (props) => {
                         name="begrunnelse"
                         onClick={() => setGrunnlag('Ikke mottatt SMS med lenke til refusjon og varsel')}
                     >
-                        Ikke motttatt SMS med lenke til refusjon og varsel
+                        Ikke mottatt SMS med lenke til refusjon og varsel
                     </Radio>
                     <Radio value={true} name="begrunnelse" onClick={() => setGrunnlag('Annet')}>
                         Annet

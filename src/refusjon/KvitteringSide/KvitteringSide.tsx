@@ -1,18 +1,17 @@
-import { Innholdstittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, ReactElement } from 'react';
 import { Tag } from '@navikt/ds-react';
+import { Innholdstittel } from 'nav-frontend-typografi';
+import { FunctionComponent, ReactElement } from 'react';
 import { useParams } from 'react-router';
-import { Feature } from '../../featureToggles/features';
 import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
-import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
+import { Feature } from '../../featureToggles/features';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { statusTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
-import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
+import { NORSK_DATO_OG_TID_FORMAT, formatterDato } from '../../utils/datoUtils';
 import { storForbokstav } from '../../utils/stringUtils';
-import { Refusjon, RefusjonStatus } from '../refusjon';
 import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
-import InntekterFraAMeldingen from '../RefusjonSide/InntekterFraAMeldingen';
+import InntekterFraAMeldingen from '../RefusjonSide/InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraAMeldingenGammel from '../RefusjonSide/InntekterFraAmeldingenGammel';
 import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
 import InntekterFraTiltaketSvarGammel from '../RefusjonSide/InntekterFraTiltaketSvarGammel';
@@ -20,6 +19,7 @@ import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import TidligereRefunderbarBeløpKvittering from '../RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../RefusjonSide/Utregning';
+import { Refusjon, RefusjonStatus } from '../refusjon';
 import Statusmelding from './Statusmelding';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {

@@ -42,22 +42,21 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 <CheckboxGroup legend="">
                     {[Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT, Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM].map(
                         (it, index) => (
-                            <React.Fragment key={index}>
-                                <Checkbox
-                                    checked={grunner.has(it)}
-                                    onChange={(e) => {
-                                        const nyeGrunner = new Set(grunner);
-                                        if (e.currentTarget.checked) {
-                                            nyeGrunner.add(it);
-                                        } else {
-                                            nyeGrunner.delete(it);
-                                        }
-                                        setGrunner(nyeGrunner);
-                                    }}
-                                >
-                                    {korreksjonsgrunnTekst[it]}
-                                </Checkbox>
-                            </React.Fragment>
+                            <Checkbox
+                                key={index}
+                                checked={grunner.has(it)}
+                                onChange={(e) => {
+                                    const nyeGrunner = new Set(grunner);
+                                    if (e.currentTarget.checked) {
+                                        nyeGrunner.add(it);
+                                    } else {
+                                        nyeGrunner.delete(it);
+                                    }
+                                    setGrunner(nyeGrunner);
+                                }}
+                            >
+                                {korreksjonsgrunnTekst[it]}
+                            </Checkbox>
                         )
                     )}
                 </CheckboxGroup>

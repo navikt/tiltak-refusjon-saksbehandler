@@ -1,11 +1,9 @@
 import axios from 'axios';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState } from 'react';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
-import { Element } from 'nav-frontend-typografi';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { useCookies } from 'react-cookie';
+import { TextField, Button, Label } from '@navikt/ds-react';
 
 const AAD_COOKIE_NAME = `aad-token`,
     TOKENX_COOKIE_NAME = `tokenx-token`;
@@ -35,9 +33,9 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
     if (props.innloggetBruker !== undefined) {
         return (
             <div style={{ display: 'flex', justifyContent: 'flex-end', backgroundColor: 'white', padding: '0.5rem' }}>
-                <Flatknapp style={{ marginLeft: '0.5rem' }} onClick={loggUtClick}>
+                <Button variant="tertiary" onClick={loggUtClick}>
                     Logg ut
-                </Flatknapp>
+                </Button>
             </div>
         );
     }
@@ -45,18 +43,25 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <VerticalSpacer rem={2} />
-            <Element>Logg inn med NAV-ident</Element>
+            <Label>Logg inn med NAV-ident</Label>
             <VerticalSpacer rem={1} />
-            <div style={{ display: 'flex' }}>
-                <Input
+            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                <TextField
+                    hideLabel
+                    label=""
                     placeholder="Logg inn som"
                     value={subject}
                     onChange={(event) => setSubject(event.currentTarget.value)}
                     maxLength={7}
                 />
-                <Hovedknapp style={{ marginLeft: '0.5rem' }} disabled={!subject} onClick={() => loggInnKnapp(subject)}>
+                <Button
+                    variant="primary"
+                    style={{ marginLeft: '0.5rem' }}
+                    disabled={!subject}
+                    onClick={() => loggInnKnapp(subject)}
+                >
                     Logg inn
-                </Hovedknapp>
+                </Button>
             </div>
             <VerticalSpacer rem={2} />
         </div>

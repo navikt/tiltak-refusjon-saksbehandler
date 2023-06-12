@@ -1,11 +1,9 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { Input } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentKorreksjon, utbetalKorreksjon } from '../../services/rest-service';
+import { BodyShort, TextField, Button } from '@navikt/ds-react';
 
 const BekreftUtbetalKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
@@ -16,7 +14,9 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
 
     return (
         <div>
-            <Knapp onClick={() => setisOpen(true)}>Send korreksjon til utbetaling</Knapp>
+            <Button variant="secondary" onClick={() => setisOpen(true)}>
+                Send korreksjon til utbetaling
+            </Button>
 
             <BekreftelseModal
                 isOpen={isOpen}
@@ -24,27 +24,27 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
                 tittel="Send korreksjon til utbetaling"
                 bekreft={() => utbetalKorreksjon(korreksjonId, beslutterIdent, kostnadssted)}
             >
-                <Normaltekst>
+                <BodyShort size="small">
                     For å utbetale korreksjon må det besluttes av noen med budsjettdisponeringsmyndighet. Skriv inn
                     denne personens NAV-ident under når denne personen har godkjent.
-                </Normaltekst>
+                </BodyShort>
                 <VerticalSpacer rem={1} />
-                <Normaltekst>
+                <BodyShort size="small">
                     Du må også oppi hvilken enhet korreksjonen skal kostnadsføres på. Den opprinnelige refusjonen ble
                     kostnadsført på enhet {korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.enhet}.
-                </Normaltekst>
+                </BodyShort>
                 <VerticalSpacer rem={1} />
 
-                <Input
+                <TextField
                     label="Beslutters NAV-ident"
-                    bredde="S"
+                    size="small"
                     value={beslutterIdent}
                     onChange={(e) => setBeslutterIdent(e.currentTarget.value)}
                 />
                 <VerticalSpacer rem={1} />
-                <Input
+                <TextField
                     label="Kostnadssted"
-                    bredde="S"
+                    size="small"
                     value={kostnadssted}
                     maxLength={4}
                     onChange={(e) => {

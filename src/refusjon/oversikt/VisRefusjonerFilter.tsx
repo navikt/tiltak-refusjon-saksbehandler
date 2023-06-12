@@ -1,6 +1,5 @@
-import { Radio } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useState, Fragment, useEffect } from 'react';
-import { ExpansionCard } from '@navikt/ds-react';
+import { ExpansionCard, RadioGroup, Radio } from '@navikt/ds-react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { Filter, RefusjonsAktor, useFilter } from './FilterContext';
 import { søkevalg } from './søkeValg';
@@ -37,13 +36,20 @@ const VisRefusjonerFilter: FunctionComponent = () => {
                     <ExpansionCard.Title size="small">Vis refusjoner</ExpansionCard.Title>
                 </ExpansionCard.Header>
                 <ExpansionCard.Content>
-                    {søkevalg({ inputKey, aktivSøketype, oppdaterFilter }).map((it) => (
-                        <Fragment key={it.value}>
+                    <RadioGroup
+                        size="small"
+                        legend=""
+                        value={
+                            aktivSøketype === undefined
+                                ? setAktivSøketype({ type: 'veilederNavIdent', søkeVerdi: undefined })
+                                : aktivSøketype.type
+                        }
+                    >
+                        {søkevalg({ inputKey, aktivSøketype, oppdaterFilter }).map((it) => (
                             <Radio
-                                label={it.label}
+                                key={it.value}
                                 name="aktivSøketype"
                                 value={it.value}
-                                checked={aktivSøketype?.type?.toString() === it.value}
                                 onChange={() => {
                                     setAktivSøketype({ type: it.value, søkeVerdi: undefined });
                                     setInputKey(inputKey + 1); // Brukes for å unmounte søkeinput, slik at søkeord tømmes
@@ -51,10 +57,11 @@ const VisRefusjonerFilter: FunctionComponent = () => {
                                 }}
                                 role="radio"
                                 style={{ marginBottom: '1rem' }}
-                            />
-                            <VerticalSpacer rem={1} />
-                        </Fragment>
-                    ))}
+                            >
+                                {it.label}
+                            </Radio>
+                        ))}
+                    </RadioGroup>
                     <VerticalSpacer rem={1} />
                     {
                         søkevalg({ inputKey, aktivSøketype, oppdaterFilter }).find(

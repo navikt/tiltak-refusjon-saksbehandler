@@ -1,9 +1,8 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { fullførKorreksjonVedOppgjort } from '../../services/rest-service';
+import { BodyShort, Button } from '@navikt/ds-react';
 
 const BekreftOppgjørKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
@@ -11,7 +10,7 @@ const BekreftOppgjørKorreksjon: FunctionComponent = () => {
 
     return (
         <div>
-            <Knapp onClick={() => setisOpen(true)}>Fullfør</Knapp>
+            <Button onClick={() => setisOpen(true)}>Fullfør</Button>
 
             <BekreftelseModal
                 isOpen={isOpen}
@@ -19,9 +18,9 @@ const BekreftOppgjørKorreksjon: FunctionComponent = () => {
                 tittel="Merk korreksjon som oppgjort"
                 bekreft={() => fullførKorreksjonVedOppgjort(korreksjonId)}
             >
-                <Normaltekst>
+                <BodyShort size="small">
                     Ved å fullføre korreksjonen vil arbeidsgiver få en bekreftelse på at utbetalt beløp er riktig.
-                </Normaltekst>
+                </BodyShort>
             </BekreftelseModal>
         </div>
     );

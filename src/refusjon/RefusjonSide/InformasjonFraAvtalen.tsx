@@ -1,5 +1,5 @@
 import { Calender, File, FileContent, Money, Office1, People, Warning } from '@navikt/ds-icons';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
@@ -8,6 +8,7 @@ import { tiltakstypeTekst } from '../../messages';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Tilskuddsgrunnlag } from '../refusjon';
+import { BodyShort } from '@navikt/ds-react';
 
 const IkonRad = styled.div`
     display: flex;
@@ -49,11 +50,11 @@ const InformasjonFraAvtalen: FunctionComponent<{
                 <div>
                     <div style={{ display: 'flex' }}>
                         <Element>Bedriftsnavn: </Element>
-                        <Normaltekst>{props.tilskuddsgrunnlag.bedriftNavn}</Normaltekst>
+                        <BodyShort size="small">{props.tilskuddsgrunnlag.bedriftNavn}</BodyShort>
                     </div>
                     <div style={{ display: 'flex' }}>
                         <Element>Virksomhetsnummer: </Element>
-                        <Normaltekst>{props.tilskuddsgrunnlag.bedriftNr}</Normaltekst>
+                        <BodyShort size="small">{props.tilskuddsgrunnlag.bedriftNr}</BodyShort>
                     </div>
                 </div>
             </IkonRad>
@@ -61,48 +62,48 @@ const InformasjonFraAvtalen: FunctionComponent<{
             <IkonRad>
                 <File />
                 <Element>Refusjonsnummer: </Element>
-                <Normaltekst>{refusjonsnummer}</Normaltekst>
+                <BodyShort size="small">{refusjonsnummer}</BodyShort>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
                 <People />
                 <Element>Deltaker: </Element>
-                <Normaltekst>
+                <BodyShort size="small">
                     {props.tilskuddsgrunnlag.deltakerFornavn} {props.tilskuddsgrunnlag.deltakerEtternavn}
-                </Normaltekst>
+                </BodyShort>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
                 <Calender />
                 <Element>Periode: </Element>
-                <Normaltekst>
+                <BodyShort size="small">
                     {formatterPeriode(props.tilskuddsgrunnlag.tilskuddFom, props.tilskuddsgrunnlag.tilskuddTom)}
-                </Normaltekst>
+                </BodyShort>
             </IkonRad>
             <VerticalSpacer rem={1} />
             {props.fristForGodkjenning && (
                 <IkonRad>
                     <Warning />
                     <Element>Frist: </Element>
-                    <Normaltekst>
+                    <BodyShort size="small">
                         {formatterDato(props.fristForGodkjenning)}
                         {props.forrigeFristForGodkjenning
                             ? `  (tidligere frist: ${formatterDato(props.forrigeFristForGodkjenning)})`
                             : ''}
-                    </Normaltekst>
+                    </BodyShort>
                 </IkonRad>
             )}
             <VerticalSpacer rem={1} />
             <IkonRad>
                 <FileContent />
                 <Element>Avtalt beløp for perioden:</Element>
-                <Normaltekst>Inntil {formatterPenger(props.tilskuddsgrunnlag.tilskuddsbeløp)}</Normaltekst>
+                <BodyShort size="small">Inntil {formatterPenger(props.tilskuddsgrunnlag.tilskuddsbeløp)}</BodyShort>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
                 <Money />
                 <Element>Kontonummer:</Element>
-                <Normaltekst>
+                <BodyShort size="small">
                     {props.bedriftKontonummerInnhentetTidspunkt ? (
                         <>
                             {props.bedriftKontonummer ?? 'Ikke funnet'} (hentet{' '}
@@ -111,13 +112,13 @@ const InformasjonFraAvtalen: FunctionComponent<{
                     ) : (
                         'Ikke oppgitt'
                     )}
-                </Normaltekst>
+                </BodyShort>
             </IkonRad>
             <VerticalSpacer rem={1} />
             <IkonRad>
                 <Money />
                 <Element>KID:</Element>
-                <Normaltekst>{props.bedriftKid ? props.bedriftKid : 'Ikke oppgitt'}</Normaltekst>
+                <BodyShort size="small">{props.bedriftKid ? props.bedriftKid : 'Ikke oppgitt'}</BodyShort>
             </IkonRad>
         </GråBoks>
     );

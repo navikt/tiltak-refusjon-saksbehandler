@@ -1,7 +1,7 @@
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
-import { Input, InputProps } from 'nav-frontend-skjema';
 import React, { FormEvent, FunctionComponent, useState } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import { TextField, TextFieldProps } from '@navikt/ds-react';
 
 interface Props {
     utførSøk: (søkeord: string) => void;
@@ -10,7 +10,7 @@ interface Props {
     tidligereSok?: string;
 };
 
-export const SøkeInput: FunctionComponent<Props & { inputProps?: InputProps }> = (props) => {
+export const SøkeInput: FunctionComponent<Props & { textFieldProps?: TextFieldProps }> = (props) => {
     const [søkeord, setSøkeord] = useState<string>(props.tidligereSok ?? '');
     const [feil, setFeil] = useState<string>();
 
@@ -45,13 +45,14 @@ export const SøkeInput: FunctionComponent<Props & { inputProps?: InputProps }> 
 
     return (
         <>
-            <Input
-                {...props.inputProps}
+            <TextField
+                {...props.textFieldProps}
+                label=""
                 value={søkeord}
                 onChange={onChange}
                 onBlur={onBlur}
                 onKeyPress={enterKlikk}
-                feil={feil}
+                error={feil}
             />
             <VerticalSpacer rem={0.5} />
             <Søkeknapp onClick={utførSøk} />

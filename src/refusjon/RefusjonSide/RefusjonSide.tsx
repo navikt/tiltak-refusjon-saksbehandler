@@ -1,6 +1,6 @@
-import { Alert } from '@navikt/ds-react';
+import { Element, Innholdstittel } from 'nav-frontend-typografi';
+import { Alert, BodyShort } from '@navikt/ds-react';
 import Lenke from 'nav-frontend-lenker';
-import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
@@ -57,7 +57,7 @@ const RefusjonSide: FunctionComponent = () => {
             </div>
 
             <VerticalSpacer rem={1} />
-            <Normaltekst>
+            <BodyShort size="small">
                 Vi henter inntektsopplysninger for deltakeren fra a-meldingen automatisk. Hvis inntektsopplysningene
                 ikke stemmer så må det{' '}
                 <EksternLenke href={'https://www.altinn.no/skjemaoversikt/a-ordningen/a-melding2/'}>
@@ -65,7 +65,7 @@ const RefusjonSide: FunctionComponent = () => {
                 </EksternLenke>
                 Feriepenger, innskudd obligatorisk tjenestepensjon, arbeidsgiveravgiften og lønnstilskuddsprosenten er
                 hentet fra avtalen om midlertidig lønnstilskudd.
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}

@@ -1,4 +1,4 @@
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
@@ -7,6 +7,7 @@ import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import { GrønnBoks } from './InntekterFraTiltaketSpørsmål';
 import InntekterOpptjentIPeriodeTabell from './InntekterOpptjentIPeriodeTabell';
+import { BodyShort } from '@navikt/ds-react';
 
 type Props = {
     refusjonsgrunnlag: Refusjonsgrunnlag;
@@ -46,13 +47,15 @@ const InntekterFraTiltaketSvar: FunctionComponent<Props> = (props) => {
                     Er inntektene du har valgt ({formatterPenger(valgtBruttoLønn as number)}) kun fra tiltaket{' '}
                     {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?{' '}
                 </Element>
-                <Normaltekst>{props.refusjonsgrunnlag.inntekterKunFraTiltaket ? 'Ja' : 'Nei'}</Normaltekst>
+                <BodyShort size="small">{props.refusjonsgrunnlag.inntekterKunFraTiltaket ? 'Ja' : 'Nei'}</BodyShort>
                 {props.refusjonsgrunnlag.endretBruttoLønn !== null &&
                     props.refusjonsgrunnlag.endretBruttoLønn !== undefined && (
                         <>
                             <VerticalSpacer rem={1} />
                             <Element>Korrigert bruttolønn:</Element>
-                            <Normaltekst>{formatterPenger(props.refusjonsgrunnlag.endretBruttoLønn)}</Normaltekst>
+                            <BodyShort size="small">
+                                {formatterPenger(props.refusjonsgrunnlag.endretBruttoLønn)}
+                            </BodyShort>
                         </>
                     )}
             </GrønnBoks>

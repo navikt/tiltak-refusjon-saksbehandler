@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { Alert } from '@navikt/ds-react';
+import { Alert, BodyShort } from '@navikt/ds-react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../messages';
@@ -69,10 +69,10 @@ const InntekterFraAMeldingenGammel: FunctionComponent<{
             <Fleks>
                 <Undertittel style={{ marginBottom: '1rem' }}>Inntekter hentet fra a-meldingen</Undertittel>
                 {props.inntektsgrunnlag && (
-                    <Normaltekst>
+                    <BodyShort size="small">
                         Sist hentet:{' '}
                         {formatterDato(props.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
-                    </Normaltekst>
+                    </BodyShort>
                 )}
             </Fleks>
             {props.inntektsgrunnlag?.bruttoLønn !== undefined && props.inntektsgrunnlag?.bruttoLønn !== null && (

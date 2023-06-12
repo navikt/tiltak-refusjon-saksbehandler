@@ -1,6 +1,3 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { Checkbox } from 'nav-frontend-skjema';
-import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
@@ -9,6 +6,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { korreksjonsgrunnTekst } from '../../messages';
 import { opprettKorreksjonsutkast } from '../../services/rest-service';
 import { Korreksjonsgrunn } from '../refusjon';
+import { Button, BodyShort, ErrorMessage, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 
 const OpprettKorreksjon: FunctionComponent<{}> = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
@@ -18,7 +16,9 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
     const [feilmelding, setFeilmelding] = useState<string>('');
     return (
         <>
-            <Knapp onClick={() => setÅpen(true)}>Opprett korreksjonsutkast</Knapp>
+            <Button variant="secondary" onClick={() => setÅpen(true)}>
+                Opprett korreksjonsutkast
+            </Button>
             <BekreftelseModal
                 isOpen={åpen}
                 lukkModal={() => {
@@ -37,13 +37,13 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 }}
                 tittel={'Opprett korreksjonsutkast'}
             >
-                <Normaltekst>Hvorfor skal det korrigeres?</Normaltekst>
+                <BodyShort size="small">Hvorfor skal det korrigeres?</BodyShort>
                 <VerticalSpacer rem={1} />
-                {[Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT, Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM].map(
-                    (it, index) => (
-                        <React.Fragment key={index}>
+                <CheckboxGroup legend="">
+                    {[Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT, Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM].map(
+                        (it, index) => (
                             <Checkbox
-                                label={korreksjonsgrunnTekst[it]}
+                                key={index}
                                 checked={grunner.has(it)}
                                 onChange={(e) => {
                                     const nyeGrunner = new Set(grunner);
@@ -54,12 +54,13 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                                     }
                                     setGrunner(nyeGrunner);
                                 }}
-                            />
-                            <VerticalSpacer rem={1} />
-                        </React.Fragment>
-                    )
-                )}
-                {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
+                            >
+                                {korreksjonsgrunnTekst[it]}
+                            </Checkbox>
+                        )
+                    )}
+                </CheckboxGroup>
+                {feilmelding && <ErrorMessage>{feilmelding}</ErrorMessage>}
             </BekreftelseModal>
         </>
     );

@@ -33,7 +33,7 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
     if (props.innloggetBruker !== undefined) {
         return (
             <div style={{ display: 'flex', justifyContent: 'flex-end', backgroundColor: 'white', padding: '0.5rem' }}>
-                <Button variant="tertiary" style={{ marginLeft: '0.5rem' }} onClick={loggUtClick}>
+                <Button variant="tertiary" onClick={loggUtClick}>
                     Logg ut
                 </Button>
             </div>

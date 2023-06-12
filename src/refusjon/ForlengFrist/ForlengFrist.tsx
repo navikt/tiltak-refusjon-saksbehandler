@@ -90,7 +90,7 @@ const ForlengFrist: FunctionComponent = () => {
             <Button
                 size="small"
                 variant="secondary"
-                style={{ backgroundColor: 'white' }}
+                className={cls.element('openButton')}
                 onClick={() => setOpen(!open)}
             >
                 Forleng frist

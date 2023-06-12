@@ -35,8 +35,8 @@ const LagreKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     return (
         <div>
             <Button
-                //spinner={oppslag.status === Status.LasterInn}
-                //disabled={oppslag.status === Status.LasterInn}
+                loading={oppslag.status === Status.LasterInn}
+                disabled={oppslag.status === Status.LasterInn}
                 onClick={onClick}
                 {...knappBaseProps}
             ></Button>

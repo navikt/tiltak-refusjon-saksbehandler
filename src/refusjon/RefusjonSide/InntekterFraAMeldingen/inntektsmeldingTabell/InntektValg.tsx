@@ -13,7 +13,7 @@ const InntektValg: FunctionComponent<Props> = (props) => {
     return (
         <td>
             {!props.kvitteringVisning && (
-                <RadioGroup legend="" className="inntektsmelding__Inntekt_valg_radio_group" style={{ display: 'flex' }}>
+                <RadioGroup legend="" className="inntektsmelding__Inntekt_valg_radio_group">
                     <Radio
                         value="ja"
                         checked={props.inntekt.erOpptjentIPeriode}

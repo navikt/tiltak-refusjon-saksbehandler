@@ -1,6 +1,5 @@
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert, Heading, BodyShort } from '@navikt/ds-react';
 import _ from 'lodash';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
@@ -65,12 +64,14 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
     return (
         <GråBoks>
             <Fleks>
-                <Undertittel style={{ marginBottom: '1rem' }}>Inntekter hentet fra a-meldingen</Undertittel>
+                <Heading size="small" style={{ marginBottom: '1rem' }}>
+                    Inntekter hentet fra a-meldingen
+                </Heading>
                 {props.inntektsgrunnlag && (
-                    <Normaltekst>
+                    <BodyShort size="small">
                         Sist hentet:{' '}
                         {formatterDato(props.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
-                    </Normaltekst>
+                    </BodyShort>
                 )}
             </Fleks>
             {harBruttolønn && (

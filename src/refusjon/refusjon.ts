@@ -39,7 +39,6 @@ export interface Refusjon {
     unntakOmInntekterFremitid: number;
     hentInntekterLengerFrem: string;
     harTattStillingTilAlleInntektslinjer: boolean;
-    forrigeRefusjonSomSkalSendesFørst?: Refusjon;
 }
 
 export interface Korreksjon {

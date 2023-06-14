@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import { Element } from 'nav-frontend-typografi';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { Inntektslinje } from '../refusjon';
 import { inntektBeskrivelse } from './InntekterFraAMeldingen/InntekterFraAMeldingen';
+import { Label } from '@navikt/ds-react';
 
 type Props = {
     inntekter: Inntektslinje[];
@@ -78,8 +78,8 @@ const InntekterOpptjentIPeriodeTabell: FunctionComponent<Props> = (props) => {
             </InntekterTabell>
             <br />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Element>Sum bruttolønn</Element>
-                <Element>{inntekterHuketAvForOpptjentIPeriode.length >= 1 && sumInntekterOpptjentIPeriode}</Element>
+                <Label>Sum bruttolønn</Label>
+                <Label>{inntekterHuketAvForOpptjentIPeriode.length >= 1 && sumInntekterOpptjentIPeriode}</Label>
             </div>
         </div>
     );

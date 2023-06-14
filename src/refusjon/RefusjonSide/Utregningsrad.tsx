@@ -1,10 +1,9 @@
-import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, ReactNode } from 'react';
 import './Utregningsrad.less';
 import BEMHelper from '../../utils/bem';
 import { visSatsMedEttDesimal } from '../../utils/utregningUtil';
 import { formatterPenger } from '../../utils/PengeUtils';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 
 interface Props {
     labelIkon?: React.ReactNode;
@@ -23,7 +22,11 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
         ikon ? ikon : <div className={cls.element('ikon-placeholder')} aria-hidden={true} />;
 
     const setOperator = (operator?: string | ReactNode) =>
-        operator ? <Systemtittel className={cls.element('operator')}>{operator}</Systemtittel> : null;
+        operator ? (
+            <Heading size="medium" className={cls.element('operator')}>
+                {operator}
+            </Heading>
+        ) : null;
 
     const setLabelSats = (sats?: number) =>
         sats ? <BodyShort size="small">({visSatsMedEttDesimal(sats)}%)</BodyShort> : null;

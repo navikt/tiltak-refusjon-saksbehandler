@@ -1,7 +1,7 @@
-import { Radio } from 'nav-frontend-skjema';
 import { FunctionComponent } from 'react';
 import { setInntektslinjeOpptjentIPeriode } from '../../../../services/rest-service';
 import { Inntektslinje } from '../../../refusjon';
+import { RadioGroup, Radio } from '@navikt/ds-react';
 
 interface Props {
     inntekt: Inntektslinje;
@@ -13,17 +13,19 @@ const InntektValg: FunctionComponent<Props> = (props) => {
     return (
         <td>
             {!props.kvitteringVisning && (
-                <div className="inntektsmelding__inntektsvalg">
+                <RadioGroup legend="" className="inntektsmelding__Inntekt_valg_radio_group" style={{ display: 'flex' }}>
                     <Radio
-                        label="Ja"
+                        value="ja"
                         checked={props.inntekt.erOpptjentIPeriode}
                         onChange={() => {
                             setInntektslinjeOpptjentIPeriode(props.korreksjonId!!, props.inntekt.id, true);
                         }}
                         name={props.inntekt.id}
-                    />
+                    >
+                        Ja
+                    </Radio>
                     <Radio
-                        label="Nei"
+                        value="nei"
                         checked={
                             typeof props.inntekt.erOpptjentIPeriode === 'boolean' && !props.inntekt.erOpptjentIPeriode
                         }
@@ -31,8 +33,10 @@ const InntektValg: FunctionComponent<Props> = (props) => {
                             setInntektslinjeOpptjentIPeriode(props.korreksjonId!!, props.inntekt.id, false);
                         }}
                         name={props.inntekt.id}
-                    />
-                </div>
+                    >
+                        Nei
+                    </Radio>
+                </RadioGroup>
             )}
             {props.kvitteringVisning && (
                 <div className="inntektsmelding__valgtInntekt">

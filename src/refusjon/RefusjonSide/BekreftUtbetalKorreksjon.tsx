@@ -36,6 +36,7 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
 
                 <TextField
+                    style={{ width: '25%' }}
                     label="Beslutters NAV-ident"
                     size="small"
                     value={beslutterIdent}
@@ -43,6 +44,7 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
                 />
                 <VerticalSpacer rem={1} />
                 <TextField
+                    style={{ width: '25%' }}
                     label="Kostnadssted"
                     size="small"
                     value={kostnadssted}

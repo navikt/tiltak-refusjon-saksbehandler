@@ -1,5 +1,4 @@
-import { Tag } from '@navikt/ds-react';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Tag, Heading } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
@@ -23,7 +22,9 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
         <HvitBoks>
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Korreksjon av refusjon</Innholdstittel>
+                <Heading size="large" role="heading">
+                    Korreksjon av refusjon
+                </Heading>
                 <Tag variant="info">{storForbokstav(korreksjonStatusTekst[korreksjon.status])}</Tag>
             </div>
             <VerticalSpacer rem={2} />

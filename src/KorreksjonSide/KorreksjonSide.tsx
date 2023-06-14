@@ -1,4 +1,3 @@
-import { Innholdstittel } from 'nav-frontend-typografi';
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
@@ -13,7 +12,7 @@ import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFr
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { KorreksjonStatus } from '../refusjon/refusjon';
 import { useHentKorreksjon } from '../services/rest-service';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
@@ -39,7 +38,9 @@ const KorreksjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Korreksjonsutkast</Innholdstittel>
+                <Heading size="large" role="heading">
+                    Korreksjonsutkast
+                </Heading>
             </div>
 
             <VerticalSpacer rem={1} />

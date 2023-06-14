@@ -1,6 +1,4 @@
-import { Element, Innholdstittel } from 'nav-frontend-typografi';
-import { Alert, BodyShort } from '@navikt/ds-react';
-import Lenke from 'nav-frontend-lenker';
+import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
@@ -21,26 +19,9 @@ const RefusjonSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
-            {refusjon.forrigeRefusjonSomSkalSendesFørst != null && (
-                <>
-                    <Alert variant="warning" size="small">
-                        <Lenke href={'/refusjon/' + refusjon.forrigeRefusjonSomSkalSendesFørst.id}>
-                            <b>Refusjon:</b>{' '}
-                            {refusjon.forrigeRefusjonSomSkalSendesFørst.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr}-
-                            {refusjon.forrigeRefusjonSomSkalSendesFørst.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}
-                        </Lenke>{' '}
-                        må sendes inn før du kan sende inn denne refusjonen:{' '}
-                        {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr +
-                            '-' +
-                            refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}
-                        .
-                    </Alert>
-                    <VerticalSpacer rem={1} />
-                </>
-            )}
             {refusjon.status === 'KLAR_FOR_INNSENDING' && refusjon.refusjonsgrunnlag.inntektsgrunnlag === null && (
                 <Alert variant="info" size="small">
-                    <Element> Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.</Element>
+                    <Label> Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.</Label>
                     Det har aldri vært forsøkt hentet inntektsgrunnlag og kontonummer, noe som gjøres hver gang
                     arbeidsgiver åpner refusjoner som er klare for innsending.
                 </Alert>
@@ -48,7 +29,7 @@ const RefusjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Beregning av refusjon</Innholdstittel>
+                <Heading size="large">Beregning av refusjon</Heading>
                 <StatusTekst
                     status={refusjon.status}
                     tilskuddFom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom}

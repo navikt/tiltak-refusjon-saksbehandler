@@ -9,8 +9,7 @@ import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stillingsprosent } from '@/asset/image/stillingsprosent.svg';
 import { ReactComponent as RefusjonAvLønn } from '@/asset/image/refusjonAvLønn.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
-import { Systemtittel } from 'nav-frontend-typografi';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -34,7 +33,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
     const { beregning, tilskuddsgrunnlag, forrigeRefusjonMinusBeløp } = props;
     return (
         <GråRamme>
-            <Systemtittel>Utregningen</Systemtittel>
+            <Heading size="medium">Utregningen</Heading>
             <VerticalSpacer rem={1} />
             <Utregningsrad
                 labelIkon={<Pengesekken />}

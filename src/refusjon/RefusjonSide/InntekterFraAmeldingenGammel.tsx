@@ -1,7 +1,6 @@
 import _ from 'lodash';
-import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../messages';
@@ -67,7 +66,9 @@ const InntekterFraAMeldingenGammel: FunctionComponent<{
     return (
         <GråBoks>
             <Fleks>
-                <Undertittel style={{ marginBottom: '1rem' }}>Inntekter hentet fra a-meldingen</Undertittel>
+                <Heading size="small" style={{ marginBottom: '1rem' }}>
+                    Inntekter hentet fra a-meldingen
+                </Heading>
                 {props.inntektsgrunnlag && (
                     <BodyShort size="small">
                         Sist hentet:{' '}

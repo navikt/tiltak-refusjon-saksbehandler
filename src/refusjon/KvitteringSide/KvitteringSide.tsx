@@ -1,5 +1,4 @@
-import { Tag } from '@navikt/ds-react';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Tag, Heading } from '@navikt/ds-react';
 import { FunctionComponent, ReactElement } from 'react';
 import { useParams } from 'react-router';
 import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
@@ -48,7 +47,9 @@ const KvitteringSide: FunctionComponent = () => {
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Kvittering for refusjon</Innholdstittel>
+                <Heading size="large" role="heading">
+                    Kvittering for refusjon
+                </Heading>
                 {etikettForRefusjonStatus(refusjon)}
             </div>
             <VerticalSpacer rem={1} />

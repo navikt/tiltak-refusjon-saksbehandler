@@ -2,7 +2,7 @@ import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState }
 import { Alert, Button, ButtonProps } from '@navikt/ds-react';
 import { Nettressurs, Status } from '../nettressurs';
 import VerticalSpacer from './VerticalSpacer';
-import { ApiError, FeilkodeError } from '../types/errors';
+import { handterFeil } from '../utils/apiFeilUtils';
 
 type Props = {
     lagreFunksjon: () => Promise<any>;
@@ -24,17 +24,19 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
             await props.lagreFunksjon();
             setOppslag({ status: Status.Sendt });
         } catch (error) {
-            let feilmelding = '';
-            if (error instanceof FeilkodeError || error instanceof ApiError) {
-                feilmelding = error.message;
+            if (error instanceof Error) {
+                handterFeil(error, (melding) => {
+                    setOppslag({ status: Status.Feil, error: melding });
+                    setFeilmelding(melding);
+                });
             } else {
-                feilmelding =
+                const feilmelding =
                     !!error && typeof error === 'object' && 'feilmelding' in error
                         ? (error.feilmelding as string)
                         : 'Uventet feil';
+                setOppslag({ status: Status.Feil, error: feilmelding });
+                setFeilmelding(feilmelding);
             }
-            setOppslag({ status: Status.Feil, error: feilmelding });
-            setFeilmelding(feilmelding);
         }
     };
 

@@ -91,6 +91,7 @@ const KvitteringSide: FunctionComponent = () => {
             <Utregning
                 beregning={refusjonsgrunnlag.beregning}
                 tilskuddsgrunnlag={refusjonsgrunnlag.tilskuddsgrunnlag}
+                forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
             />
             <VerticalSpacer rem={4} />
             <SummeringBoks refusjonsgrunnlag={refusjonsgrunnlag} enhet={refusjonsgrunnlag.tilskuddsgrunnlag.enhet} />

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState, PropsWithChildren } from 'react';
 import { hentInnloggetBruker } from '../services/rest-service';
 import { BrukerContextType, InnloggetBruker } from './BrukerContextType';
 import LokalLogin from '../LokalLogin/LokalLogin';
@@ -14,7 +14,7 @@ export const useInnloggetBruker = () => {
     return context;
 };
 
-export const BrukerProvider: FunctionComponent = (props) => {
+export const BrukerProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker>();
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export const BrukerProvider: FunctionComponent = (props) => {
                         innloggetBruker,
                     }}
                 >
-                    {props.children}
+                    <div>{props.children}</div>
                 </BrukerContext.Provider>
             )}
         </>

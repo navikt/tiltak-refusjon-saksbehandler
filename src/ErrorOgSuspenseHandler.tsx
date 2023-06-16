@@ -1,22 +1,15 @@
-import React, { FunctionComponent, Suspense } from 'react';
-import { Alert } from '@navikt/ds-react';
+import React, { FunctionComponent, Suspense, PropsWithChildren } from 'react';
+
 import ErrorBoundary from './ErrorBoundary';
 
-interface Props {}
-
-const ErrorOgSuspenseHandler: FunctionComponent<Props> = (props) => {
+const ErrorOgSuspenseHandler: FunctionComponent<PropsWithChildren> = (props) => {
     const key = window.location.pathname;
     return (
         // @ts-ignore
-        <ErrorBoundary
-            key={key}
-            fallback={
-                <Alert variant="error" size="small">
-                    Feil ved lasting.
-                </Alert>
-            }
-        >
-            <Suspense fallback={null}>{props.children}</Suspense>
+        <ErrorBoundary key={key}>
+            <Suspense fallback={null}>
+                <div>{props.children}</div>
+            </Suspense>
         </ErrorBoundary>
     );
 };

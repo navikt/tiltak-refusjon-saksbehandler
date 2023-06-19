@@ -30,7 +30,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
         setInntekterKunFraTiltaket(checked);
         if (checked) {
             setEndretBruttoLønn(undefined);
-            endreBruttolønn(korreksjonId, checked, undefined);
+            endreBruttolønn(korreksjonId!, checked, undefined);
         }
     };
 
@@ -90,7 +90,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
                                 setEndretBruttoLønn(verdi as number);
                             }
                         }}
-                        onBlur={() => endreBruttolønn(korreksjonId, false, endretBruttoLønn)}
+                        onBlur={() => endreBruttolønn(korreksjonId!, false, endretBruttoLønn)}
                         value={endretBruttoLønn}
                     />
                 </>

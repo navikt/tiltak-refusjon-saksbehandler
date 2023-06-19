@@ -16,7 +16,7 @@ const BekreftOppgjørKorreksjon: FunctionComponent = () => {
                 isOpen={isOpen}
                 lukkModal={() => setisOpen(false)}
                 tittel="Merk korreksjon som oppgjort"
-                bekreft={() => fullførKorreksjonVedOppgjort(korreksjonId)}
+                bekreft={() => fullførKorreksjonVedOppgjort(korreksjonId!)}
             >
                 <BodyShort size="small">
                     Ved å fullføre korreksjonen vil arbeidsgiver få en bekreftelse på at utbetalt beløp er riktig.

@@ -16,7 +16,7 @@ import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
 
 const KorreksjonKvitteringSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId);
+    const korreksjon = useHentKorreksjon(korreksjonId!);
 
     return (
         <HvitBoks>

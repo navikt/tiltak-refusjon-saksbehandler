@@ -16,7 +16,7 @@ import { BodyShort, Heading } from '@navikt/ds-react';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId);
+    const korreksjon = useHentKorreksjon(korreksjonId!);
 
     const korreksjonstype = (): KorreksjonStatus | null => {
         if (!korreksjon.refusjonsgrunnlag.beregning) {

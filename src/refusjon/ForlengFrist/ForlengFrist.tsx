@@ -23,7 +23,7 @@ const cls = BEMHelper('forleng-frist');
 
 const ForlengFrist: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
     const [open, setOpen] = useState<boolean>(false);
     const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(
         new Date(Date.parse(refusjon.fristForGodkjenning))
@@ -78,7 +78,7 @@ const ForlengFrist: FunctionComponent = () => {
 
     const oppdatereRefusjonFrist = async () => {
         const valgGrunn = grunnlag.includes('Annet') ? annetGrunnlag : grunnlag;
-        await forlengFrist(refusjonId, {
+        await forlengFrist(refusjonId!, {
             nyFrist: formatDateToIsoDateFormat(datoFraInputFelt),
             årsak: valgGrunn,
         });
@@ -105,7 +105,6 @@ const ForlengFrist: FunctionComponent = () => {
                 <div className={cls.className}>
                     <div className={cls.element('container')}>
                         <div className={cls.element('dato-velger')}>
-                            {/*@ts-ignore*/}
                             <DayPicker
                                 initialMonth={datoFraDatoVelger}
                                 selectedDays={datoFraDatoVelger}

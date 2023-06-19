@@ -12,7 +12,7 @@ import KorreksjonKvitteringSide from '../KorreksjonKvitteringSide/KorreksjonKvit
 
 const Advarsler: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId);
+    const korreksjon = useHentKorreksjon(korreksjonId!);
 
     return (
         <>
@@ -35,7 +35,7 @@ const Advarsler: FunctionComponent = () => {
 
 const Komponent: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId);
+    const korreksjon = useHentKorreksjon(korreksjonId!);
 
     switch (korreksjon.status) {
         case KorreksjonStatus.UTKAST:

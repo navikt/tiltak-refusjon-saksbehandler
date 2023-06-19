@@ -105,7 +105,6 @@ const ForlengFrist: FunctionComponent = () => {
                 <div className={cls.className}>
                     <div className={cls.element('container')}>
                         <div className={cls.element('dato-velger')}>
-                            {/*@ts-ignore*/}
                             <DayPicker
                                 initialMonth={datoFraDatoVelger}
                                 selectedDays={datoFraDatoVelger}

@@ -18,7 +18,6 @@ const OversiktTabell: FunctionComponent<Props> = (props) => {
     return (
         <>
             {props.refusjoner.map((refusjon) => (
-                //@ts-ignore
                 <LinkPanel
                     className={cls.element('linkPanel')}
                     border={false}

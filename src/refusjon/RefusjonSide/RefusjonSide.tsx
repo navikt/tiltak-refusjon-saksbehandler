@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
@@ -21,7 +21,10 @@ const RefusjonSide: FunctionComponent = () => {
         <HvitBoks>
             {refusjon.status === 'KLAR_FOR_INNSENDING' && refusjon.refusjonsgrunnlag.inntektsgrunnlag === null && (
                 <Alert variant="info" size="small">
-                    <Label> Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.</Label>
+                    <Heading spacing size="small">
+                        {' '}
+                        Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.
+                    </Heading>
                     Det har aldri vært forsøkt hentet inntektsgrunnlag og kontonummer, noe som gjøres hver gang
                     arbeidsgiver åpner refusjoner som er klare for innsending.
                 </Alert>

@@ -18,47 +18,40 @@ function App() {
             <ScrollToTop />
             <AdvarselBannerTestversjon />
             <InternflateDekoratør />
-            <Routes>
-                <Route
-                    path="*"
-                    element={
-                        <BrukerProvider>
-                            <FeatureToggleProvider>
-                                <FilterProvider>
-                                    <div style={{ minHeight: '10rem', padding: '0.5rem' }}>
-                                        <Routes>
-                                            <Route
-                                                path="/"
-                                                element={
-                                                    <ErrorOgSuspenseHandler>
-                                                        <OversiktSide />
-                                                    </ErrorOgSuspenseHandler>
-                                                }
-                                            ></Route>
-                                            <Route
-                                                path="/refusjon/:refusjonId"
-                                                element={
-                                                    <ErrorOgSuspenseHandler>
-                                                        <Refusjon />
-                                                    </ErrorOgSuspenseHandler>
-                                                }
-                                            ></Route>
-                                            <Route
-                                                path="/korreksjon/:korreksjonId"
-                                                element={
-                                                    <ErrorOgSuspenseHandler>
-                                                        <Korreksjon />
-                                                    </ErrorOgSuspenseHandler>
-                                                }
-                                            ></Route>
-                                        </Routes>
-                                    </div>
-                                </FilterProvider>
-                            </FeatureToggleProvider>
-                        </BrukerProvider>
-                    }
-                ></Route>
-            </Routes>
+            <BrukerProvider>
+                <FeatureToggleProvider>
+                    <FilterProvider>
+                        <div style={{ minHeight: '10rem', padding: '0.5rem' }}>
+                            <Routes>
+                                <Route
+                                    path="/"
+                                    element={
+                                        <ErrorOgSuspenseHandler>
+                                            <OversiktSide />
+                                        </ErrorOgSuspenseHandler>
+                                    }
+                                ></Route>
+                                <Route
+                                    path="/refusjon/:refusjonId"
+                                    element={
+                                        <ErrorOgSuspenseHandler>
+                                            <Refusjon />
+                                        </ErrorOgSuspenseHandler>
+                                    }
+                                ></Route>
+                                <Route
+                                    path="/korreksjon/:korreksjonId"
+                                    element={
+                                        <ErrorOgSuspenseHandler>
+                                            <Korreksjon />
+                                        </ErrorOgSuspenseHandler>
+                                    }
+                                ></Route>
+                            </Routes>
+                        </div>
+                    </FilterProvider>
+                </FeatureToggleProvider>
+            </BrukerProvider>
         </BrowserRouter>
     );
 }

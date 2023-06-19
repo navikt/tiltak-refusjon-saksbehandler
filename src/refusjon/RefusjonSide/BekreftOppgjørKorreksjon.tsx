@@ -6,6 +6,9 @@ import { BodyShort, Button } from '@navikt/ds-react';
 
 const BekreftOppgjørKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
+
+    if(korreksjonId === undefined) return null
+
     const [isOpen, setisOpen] = useState(false);
 
     return (

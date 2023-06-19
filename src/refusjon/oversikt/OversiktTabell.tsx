@@ -1,6 +1,6 @@
 import { LinkPanel, BodyShort } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import BEMHelper from '../../utils/bem';
 import { formatterDato } from '../../utils/datoUtils';
@@ -13,7 +13,7 @@ type Props = {
 const cls = BEMHelper('oversiktTabell');
 
 const OversiktTabell: FunctionComponent<Props> = (props) => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -26,7 +26,7 @@ const OversiktTabell: FunctionComponent<Props> = (props) => {
                     key={refusjon.id}
                     onClick={(event) => {
                         event.preventDefault();
-                        history.push({
+                        navigate({
                             pathname: `/refusjon/${refusjon.id}`,
                             search: window.location.search,
                         });

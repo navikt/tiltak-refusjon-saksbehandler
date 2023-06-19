@@ -7,6 +7,9 @@ import { BodyShort, TextField, Button } from '@navikt/ds-react';
 
 const MerkForUnntakOmInntekterToMånederFrem: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
+
+    if(refusjonId === undefined) return null
+
     const refusjon = useHentRefusjon(refusjonId);
     const [open, setOpen] = useState<boolean>(false);
     const [merking, setMerking] = useState<number>(refusjon.unntakOmInntekterFremitid);

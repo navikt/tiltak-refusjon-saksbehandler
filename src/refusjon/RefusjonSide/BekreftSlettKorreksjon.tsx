@@ -1,15 +1,18 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { slettKorreksjonsutkast, useHentKorreksjon } from '../../services/rest-service';
 import { BodyShort, Button } from '@navikt/ds-react';
 
 const BekreftSlettKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
+
+    if (korreksjonId === undefined) return null;
+
     const korreksjon = useHentKorreksjon(korreksjonId);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [åpen, setÅpen] = useState(false);
     return (
@@ -26,7 +29,7 @@ const BekreftSlettKorreksjon: FunctionComponent = () => {
                 lukkModal={() => setÅpen(false)}
                 bekreft={async () => {
                     await slettKorreksjonsutkast(korreksjonId);
-                    history.push('/refusjon/' + korreksjon.korrigererRefusjonId);
+                    navigate('/refusjon/' + korreksjon.korrigererRefusjonId);
                 }}
                 tittel={'Slett korreksjonsutkast'}
             >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import './App.css';
 import { BrukerProvider } from './bruker/BrukerContext';
@@ -18,31 +18,47 @@ function App() {
             <ScrollToTop />
             <AdvarselBannerTestversjon />
             <InternflateDekoratør />
-            <Switch>
-                <BrukerProvider>
-                    <FeatureToggleProvider>
-                        <FilterProvider>
-                            <div style={{ minHeight: '10rem', padding: '0.5rem' }}>
-                                <Route exact path="/">
-                                    <ErrorOgSuspenseHandler>
-                                        <OversiktSide />
-                                    </ErrorOgSuspenseHandler>
-                                </Route>
-                                <Route path="/refusjon/:refusjonId">
-                                    <ErrorOgSuspenseHandler>
-                                        <Refusjon />
-                                    </ErrorOgSuspenseHandler>
-                                </Route>
-                                <Route path="/korreksjon/:korreksjonId">
-                                    <ErrorOgSuspenseHandler>
-                                        <Korreksjon />
-                                    </ErrorOgSuspenseHandler>
-                                </Route>
-                            </div>
-                        </FilterProvider>
-                    </FeatureToggleProvider>
-                </BrukerProvider>
-            </Switch>
+            <Routes>
+                <Route
+                    path="*"
+                    element={
+                        <BrukerProvider>
+                            <FeatureToggleProvider>
+                                <FilterProvider>
+                                    <div style={{ minHeight: '10rem', padding: '0.5rem' }}>
+                                        <Routes>
+                                            <Route
+                                                path="/"
+                                                element={
+                                                    <ErrorOgSuspenseHandler>
+                                                        <OversiktSide />
+                                                    </ErrorOgSuspenseHandler>
+                                                }
+                                            ></Route>
+                                            <Route
+                                                path="/refusjon/:refusjonId"
+                                                element={
+                                                    <ErrorOgSuspenseHandler>
+                                                        <Refusjon />
+                                                    </ErrorOgSuspenseHandler>
+                                                }
+                                            ></Route>
+                                            <Route
+                                                path="/korreksjon/:korreksjonId"
+                                                element={
+                                                    <ErrorOgSuspenseHandler>
+                                                        <Korreksjon />
+                                                    </ErrorOgSuspenseHandler>
+                                                }
+                                            ></Route>
+                                        </Routes>
+                                    </div>
+                                </FilterProvider>
+                            </FeatureToggleProvider>
+                        </BrukerProvider>
+                    }
+                ></Route>
+            </Routes>
         </BrowserRouter>
     );
 }

@@ -26,6 +26,9 @@ const Fleks = styled.div`
 
 const Advarsler: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
+
+    if (refusjonId === undefined) return null;
+
     const refusjon = useHentRefusjon(refusjonId);
     const featureToggles = useFeatureToggles();
 
@@ -46,6 +49,9 @@ const Advarsler: FunctionComponent = () => {
 
 const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
+
+    if (refusjonId === undefined) return null;
+
     const refusjon = useHentRefusjon(refusjonId);
     const featureToggles = useFeatureToggles();
 

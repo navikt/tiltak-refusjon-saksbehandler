@@ -35,6 +35,9 @@ const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
 };
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
+
+    if (refusjonId === undefined) return null;
+
     const refusjon = useHentRefusjon(refusjonId);
     const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
     const featureToggles = useFeatureToggles();

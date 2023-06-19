@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { korreksjonsgrunnTekst } from '../../messages';
@@ -10,7 +10,10 @@ import { Button, BodyShort, ErrorMessage, Checkbox, CheckboxGroup } from '@navik
 
 const OpprettKorreksjon: FunctionComponent<{}> = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-    const history = useHistory();
+
+    if (refusjonId === undefined) return null;
+
+    const navigate = useNavigate();
     const [åpen, setÅpen] = useState(false);
     const [grunner, setGrunner] = useState<Set<Korreksjonsgrunn>>(new Set<Korreksjonsgrunn>());
     const [feilmelding, setFeilmelding] = useState<string>('');
@@ -28,7 +31,7 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 bekreft={async () => {
                     try {
                         const korreksjon = await opprettKorreksjonsutkast(refusjonId, Array.from(grunner));
-                        history.push('/refusjon/' + korreksjon.id);
+                        navigate('/refusjon/' + korreksjon.id);
                     } catch (error) {
                         const feilmelding =
                             'feilmelding' in (error as any) ? (error as any).feilmelding : 'Uventet feil';

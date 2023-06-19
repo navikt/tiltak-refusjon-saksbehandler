@@ -7,6 +7,9 @@ import { BodyShort, TextField, Button } from '@navikt/ds-react';
 
 const BekreftUtbetalKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
+
+    if (korreksjonId === undefined) return null;
+
     const [isOpen, setisOpen] = useState(false);
     const [beslutterIdent, setBeslutterIdent] = useState('');
     const [kostnadssted, setKostnadssted] = useState('');

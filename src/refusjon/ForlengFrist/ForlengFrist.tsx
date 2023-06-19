@@ -23,6 +23,9 @@ const cls = BEMHelper('forleng-frist');
 
 const ForlengFrist: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
+
+    if (refusjonId === undefined) return null;
+
     const refusjon = useHentRefusjon(refusjonId);
     const [open, setOpen] = useState<boolean>(false);
     const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(

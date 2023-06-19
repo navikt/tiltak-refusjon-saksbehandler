@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState, PropsWithChildren } from 'react';
 import { RefusjonStatus, Tiltak } from '../refusjon';
 import { useOversiktCookie } from './OversiktCookie/OversiktCookie';
 import { AktivSøk } from './VisRefusjonerFilter';
@@ -35,11 +35,7 @@ export const useFilter = () => {
     return context;
 };
 
-interface FilterProviderProps {
-    children: ReactNode;
-}
-
-export const FilterProvider: FunctionComponent<FilterProviderProps> = (props) => {
+export const FilterProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [filter, setFilter] = useState<Filter>({});
     const filterCookie = useOversiktCookie();
 
@@ -95,7 +91,7 @@ export const FilterProvider: FunctionComponent<FilterProviderProps> = (props) =>
                 sjekkForOnsketRefusjonAktør,
             }}
         >
-            <div>{props.children}</div>
+            {props.children}
         </FilterContext.Provider>
     );
 };

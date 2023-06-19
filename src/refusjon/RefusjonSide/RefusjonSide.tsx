@@ -22,7 +22,6 @@ const RefusjonSide: FunctionComponent = () => {
             {refusjon.status === 'KLAR_FOR_INNSENDING' && refusjon.refusjonsgrunnlag.inntektsgrunnlag === null && (
                 <Alert variant="info" size="small">
                     <Heading spacing size="small">
-                        {' '}
                         Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.
                     </Heading>
                     Det har aldri vært forsøkt hentet inntektsgrunnlag og kontonummer, noe som gjøres hver gang

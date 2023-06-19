@@ -7,10 +7,7 @@ import { BodyShort, TextField, Button } from '@navikt/ds-react';
 
 const MerkForUnntakOmInntekterToMånederFrem: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-
-    if(refusjonId === undefined) return null
-
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
     const [open, setOpen] = useState<boolean>(false);
     const [merking, setMerking] = useState<number>(refusjon.unntakOmInntekterFremitid);
 
@@ -24,7 +21,7 @@ const MerkForUnntakOmInntekterToMånederFrem: FunctionComponent = () => {
                     setMerking(refusjon.unntakOmInntekterFremitid);
                 }}
                 bekreft={async () => {
-                    await merkForUnntakOmInntekterToMånederFrem(refusjonId, merking);
+                    await merkForUnntakOmInntekterToMånederFrem(refusjonId!, merking);
                     setOpen(false);
                 }}
                 tittel={'Merk refusjonen for henting av inntekter frem i tid'}

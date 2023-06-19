@@ -18,7 +18,9 @@ export const BrukerProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker>();
 
     useEffect(() => {
-        hentInnloggetBruker().then(setInnloggetBruker);
+        hentInnloggetBruker()
+            .then(setInnloggetBruker)
+            .catch(() => {});
     }, []);
 
     return (

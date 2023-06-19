@@ -18,9 +18,6 @@ export const GrønnBoks = styled.div`
 
 const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
     const { korreksjonId } = useParams<{korreksjonId: string}>();
-
-    if(korreksjonId === undefined) return null
-
     const refusjonsgrunnlag = props.refusjonsgrunnlag;
     const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjonsgrunnlag.inntekterKunFraTiltaket);
     const [endretBruttoLønn, setEndretBruttoLønn] = useState(refusjonsgrunnlag.endretBruttoLønn);
@@ -33,7 +30,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
         setInntekterKunFraTiltaket(checked);
         if (checked) {
             setEndretBruttoLønn(undefined);
-            endreBruttolønn(korreksjonId, checked, undefined);
+            endreBruttolønn(korreksjonId!, checked, undefined);
         }
     };
 
@@ -93,7 +90,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
                                 setEndretBruttoLønn(verdi as number);
                             }
                         }}
-                        onBlur={() => endreBruttolønn(korreksjonId, false, endretBruttoLønn)}
+                        onBlur={() => endreBruttolønn(korreksjonId!, false, endretBruttoLønn)}
                         value={endretBruttoLønn}
                     />
                 </>

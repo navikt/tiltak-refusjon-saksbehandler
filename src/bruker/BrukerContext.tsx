@@ -34,7 +34,7 @@ export const BrukerProvider: FunctionComponent<PropsWithChildren> = (props) => {
                         innloggetBruker,
                     }}
                 >
-                    <div>{props.children}</div>
+                    {props.children}
                 </BrukerContext.Provider>
             )}
         </>

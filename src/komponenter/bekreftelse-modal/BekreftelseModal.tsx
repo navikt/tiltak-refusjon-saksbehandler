@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent, ReactNode } from 'react';
+import React, { CSSProperties, FunctionComponent, PropsWithChildren } from 'react';
 import { Modal, Heading } from '@navikt/ds-react';
 import BEMHelper from '../../utils/bem';
 import LagreOgAvbrytKnapp from '../LagreOgAvbrytKnapp';
@@ -9,12 +9,11 @@ interface Props {
     isOpen: boolean;
     lukkModal: () => void;
     bekreft: () => Promise<any>;
-    children?: ReactNode;
     tittel: string;
     containerStyle?: CSSProperties;
 }
 
-const BekreftelseModal: FunctionComponent<Props> = (props) => {
+const BekreftelseModal: FunctionComponent<Props & PropsWithChildren> = (props) => {
     const cls = BEMHelper('bekreftelse-modal');
     const setModalElement = () => {
         if (document.getElementById('root')) {
@@ -40,7 +39,7 @@ const BekreftelseModal: FunctionComponent<Props> = (props) => {
                         <Heading size="large" className={cls.element('tittel')}>
                             {props.tittel}
                         </Heading>
-                        <div>{props.children}</div>
+                        {props.children}
                         <div className={cls.element('knapp-panel')}>
                             <VerticalSpacer rem={2} />
                             <LagreOgAvbrytKnapp lagreFunksjon={props.bekreft} avbryt={() => props.lukkModal()}>

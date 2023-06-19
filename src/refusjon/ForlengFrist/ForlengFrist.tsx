@@ -23,10 +23,7 @@ const cls = BEMHelper('forleng-frist');
 
 const ForlengFrist: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-
-    if (refusjonId === undefined) return null;
-
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
     const [open, setOpen] = useState<boolean>(false);
     const [datoFraDatoVelger, setDatoFraDatoVelger] = useState<Date>(
         new Date(Date.parse(refusjon.fristForGodkjenning))
@@ -81,7 +78,7 @@ const ForlengFrist: FunctionComponent = () => {
 
     const oppdatereRefusjonFrist = async () => {
         const valgGrunn = grunnlag.includes('Annet') ? annetGrunnlag : grunnlag;
-        await forlengFrist(refusjonId, {
+        await forlengFrist(refusjonId!, {
             nyFrist: formatDateToIsoDateFormat(datoFraInputFelt),
             årsak: valgGrunn,
         });

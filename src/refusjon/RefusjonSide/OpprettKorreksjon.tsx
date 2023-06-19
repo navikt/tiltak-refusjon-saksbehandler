@@ -10,9 +10,6 @@ import { Button, BodyShort, ErrorMessage, Checkbox, CheckboxGroup } from '@navik
 
 const OpprettKorreksjon: FunctionComponent<{}> = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-
-    if (refusjonId === undefined) return null;
-
     const navigate = useNavigate();
     const [åpen, setÅpen] = useState(false);
     const [grunner, setGrunner] = useState<Set<Korreksjonsgrunn>>(new Set<Korreksjonsgrunn>());
@@ -30,7 +27,7 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 }}
                 bekreft={async () => {
                     try {
-                        const korreksjon = await opprettKorreksjonsutkast(refusjonId, Array.from(grunner));
+                        const korreksjon = await opprettKorreksjonsutkast(refusjonId!, Array.from(grunner));
                         navigate('/refusjon/' + korreksjon.id);
                     } catch (error) {
                         const feilmelding =

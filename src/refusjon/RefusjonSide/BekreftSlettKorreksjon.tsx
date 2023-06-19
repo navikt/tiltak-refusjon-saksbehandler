@@ -7,11 +7,7 @@ import { BodyShort, Button } from '@navikt/ds-react';
 
 const BekreftSlettKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-
-    if (korreksjonId === undefined) return null;
-
-    const korreksjon = useHentKorreksjon(korreksjonId);
-
+    const korreksjon = useHentKorreksjon(korreksjonId!);
     const navigate = useNavigate();
 
     const [åpen, setÅpen] = useState(false);
@@ -28,7 +24,7 @@ const BekreftSlettKorreksjon: FunctionComponent = () => {
                 isOpen={åpen}
                 lukkModal={() => setÅpen(false)}
                 bekreft={async () => {
-                    await slettKorreksjonsutkast(korreksjonId);
+                    await slettKorreksjonsutkast(korreksjonId!);
                     navigate('/refusjon/' + korreksjon.korrigererRefusjonId);
                 }}
                 tittel={'Slett korreksjonsutkast'}

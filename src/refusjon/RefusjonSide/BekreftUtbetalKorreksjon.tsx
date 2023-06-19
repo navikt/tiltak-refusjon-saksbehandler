@@ -7,13 +7,10 @@ import { BodyShort, TextField, Button } from '@navikt/ds-react';
 
 const BekreftUtbetalKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-
-    if (korreksjonId === undefined) return null;
-
     const [isOpen, setisOpen] = useState(false);
     const [beslutterIdent, setBeslutterIdent] = useState('');
     const [kostnadssted, setKostnadssted] = useState('');
-    const korreksjon = useHentKorreksjon(korreksjonId);
+    const korreksjon = useHentKorreksjon(korreksjonId!);
 
     return (
         <div>
@@ -25,7 +22,7 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
                 isOpen={isOpen}
                 lukkModal={() => setisOpen(false)}
                 tittel="Send korreksjon til utbetaling"
-                bekreft={() => utbetalKorreksjon(korreksjonId, beslutterIdent, kostnadssted)}
+                bekreft={() => utbetalKorreksjon(korreksjonId!, beslutterIdent, kostnadssted)}
             >
                 <BodyShort size="small">
                     For å utbetale korreksjon må det besluttes av noen med budsjettdisponeringsmyndighet. Skriv inn

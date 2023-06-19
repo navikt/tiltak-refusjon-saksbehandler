@@ -15,10 +15,7 @@ import Utregning from './Utregning';
 
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-
-    if (refusjonId === undefined) return null;
-
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
 
     return (
         <HvitBoks>

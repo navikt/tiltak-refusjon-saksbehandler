@@ -26,5 +26,10 @@
         "@babel/node": "7.22.5",
         "@babel/preset-env": "7.22.5",
         "nodemon": "2.0.22"
+    },
+    "resolutions": {
+        "lodash": "4.17.21",
+        "follow-redirects": "1.15.0",
+        "color-string": "1.5.5"
     }
 }

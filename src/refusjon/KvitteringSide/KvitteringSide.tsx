@@ -1,4 +1,4 @@
-import { Tag, Heading } from '@navikt/ds-react';
+import { Heading, Tag } from '@navikt/ds-react';
 import { FunctionComponent, ReactElement } from 'react';
 import { useParams } from 'react-router';
 import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
@@ -65,7 +65,7 @@ const KvitteringSide: FunctionComponent = () => {
             />
             <VerticalSpacer rem={2} />
 
-            {refusjon.harTattStillingTilAlleInntektslinjer ? (
+            {refusjon.refusjonsgrunnlag?.inntektsgrunnlag?.inntekter.find((i) => i.erOpptjentIPeriode === true) ? (
                 <>
                     <InntekterFraAMeldingen
                         inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag}

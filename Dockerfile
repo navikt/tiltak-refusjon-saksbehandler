@@ -1,7 +1,4 @@
-FROM navikt/node-express:12.2.0-alpine
-
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+FROM ghcr.io/navikt/baseimages/node-express:16
 
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV

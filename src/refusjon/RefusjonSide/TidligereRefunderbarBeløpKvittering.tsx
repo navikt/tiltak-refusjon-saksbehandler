@@ -3,7 +3,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
 import BEMHelper from '../../utils/bem';
 import { formatterPenger } from '../../utils/PengeUtils';
-import { Refusjon, Refusjonsgrunnlag } from '../refusjon';
+import { Refusjonsgrunnlag } from '../refusjon';
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
 
 interface Properties {

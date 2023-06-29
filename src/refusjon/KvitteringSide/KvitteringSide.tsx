@@ -77,7 +77,7 @@ const KvitteringSide: FunctionComponent = () => {
                     <VerticalSpacer rem={2} />
                     <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjonsgrunnlag} />
                     <VerticalSpacer rem={2} />
-                    <TidligereRefunderbarBeløpKvittering refusjon={refusjon} />
+                    <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
                 </>
             ) : (
                 <>
@@ -85,7 +85,7 @@ const KvitteringSide: FunctionComponent = () => {
                     <VerticalSpacer rem={2} />
                     <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjonsgrunnlag} />
                     <VerticalSpacer rem={2} />
-                    <TidligereRefunderbarBeløpKvittering refusjon={refusjon} />
+                    <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
                 </>
             )}
             <VerticalSpacer rem={2} />

@@ -48,11 +48,6 @@ const TidligereRefunderbarBeløp: FunctionComponent<Properties> = ({ refusjonsgr
                     trekkes fra er det beløpet dere har fått i refusjon av NAV.
                 </BodyShort>
                 <VerticalSpacer rem={0.5} />
-                <BodyShort size="small">
-                    Har dere søkt om refusjon for fravær og venter på rett beløp så må dere vente med å fylle ut
-                    refusjon for {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}. Fristen
-                    vil automatisk utsettes mens dere venter på rett beløp.
-                </BodyShort>
             </div>
             <Alert variant="info" size="small">
                 Refusjon av utbetalt lønn kan være aktuelt dersom dere har søkt om, eller fått utbetalt, refusjon for

@@ -144,3 +144,16 @@ export const setInntektslinjeOpptjentIPeriode = async (
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };
+
+export const settTidligereRefunderbarBeløp = async (
+    korreksjonId: string,
+    fratrekkRefunderbarBeløp: boolean | null,
+    refunderbarBeløp?: number | null
+): Promise<any> => {
+    const response = await api.post(`/korreksjon/${korreksjonId}/fratrekk-sykepenger`, {
+        fratrekkRefunderbarBeløp,
+        refunderbarBeløp,
+    });
+    await mutate(`/korreksjon/${korreksjonId}`);
+    return response.data;
+};

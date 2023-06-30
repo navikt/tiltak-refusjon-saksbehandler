@@ -68,7 +68,7 @@ const RefusjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
-            <TidligereRefunderbarBeløpKvittering refusjon={refusjon} />
+            <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning

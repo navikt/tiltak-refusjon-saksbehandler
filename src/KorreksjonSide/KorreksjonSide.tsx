@@ -13,6 +13,7 @@ import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { KorreksjonStatus } from '../refusjon/refusjon';
 import { useHentKorreksjon } from '../services/rest-service';
 import { BodyShort, Heading } from '@navikt/ds-react';
+import TidligereRefunderbarBeløp from './TidligereRefunderbarBeløp';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
@@ -68,6 +69,7 @@ const KorreksjonSide: FunctionComponent = () => {
             {korreksjon.harTattStillingTilAlleInntektslinjer && (
                 <>
                     <InntekterFraTiltaketSpørsmål refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                    <TidligereRefunderbarBeløp refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
                     <VerticalSpacer rem={2} />
                     {korreksjon.refusjonsgrunnlag.beregning && (
                         <>

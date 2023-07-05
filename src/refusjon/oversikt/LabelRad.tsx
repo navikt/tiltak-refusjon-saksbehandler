@@ -7,6 +7,9 @@ const LabelRad = () => {
     const cls = BEMHelper('label-rad');
     return (
         <div className={cls.className} aria-label="rad overkrifter for kolonnene i refusonslisten">
+            <div className={cls.element('kolonne')} id={cls.element('lopenummer')}>
+                <Label>Løpenr.</Label>
+            </div>
             <div className={cls.element('kolonne')} id={cls.element('veileder')}>
                 <Label>Veileder</Label>
             </div>

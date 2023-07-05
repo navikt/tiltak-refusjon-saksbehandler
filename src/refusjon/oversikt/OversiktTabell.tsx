@@ -36,6 +36,14 @@ const OversiktTabell: FunctionComponent<Props> = (props) => {
                         <BodyShort
                             size="small"
                             className={cls.element('title_row_column')}
+                            aria-labelledby={cls.element('lopenummer')}
+                        >
+                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr}-
+                            {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}
+                        </BodyShort>
+                        <BodyShort
+                            size="small"
+                            className={cls.element('title_row_column')}
                             aria-labelledby={cls.element('veileder')}
                         >
                             {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.veilederNavIdent}

@@ -8,6 +8,7 @@
         &__linkPanel {
             border-radius: 4px;
             padding: 0 0.75rem;
+            width: fit-content;
         }
 
         &__linkpanel_title_row {
@@ -15,42 +16,44 @@
         }
 
         &__title_row_column {
-            margin-right: 2rem;
-            width: 100%;
             display: flex;
             justify-content: flex-start;
             align-items: center;
 
             &:nth-child(1) {
                 font-weight: 600;
-                min-width: 5rem;
+                min-width: 5.5rem;
+                margin-left: 0.5rem;
             }
 
             &:nth-child(2) {
                 font-weight: 600;
-                min-width: 5rem;
+                margin-left: 0.5rem;
             }
 
             &:nth-child(3) {
-                min-width: 6rem;
+                margin-left: 3rem;
+                min-width: 6.5rem;
             }
 
             &:nth-child(4) {
-                min-width: 6rem;
+                min-width: 6.5rem;
+                margin-left: 2rem;
             }
 
             &:nth-child(5) {
-                min-width: 3rem;
+                margin-left: 2rem;
             }
 
             &:nth-child(6) {
-                margin-right: 2rem;
+                margin-left: 3rem;
                 width: 100%;
+                min-width: 6rem;
             }
 
             &:nth-child(7) {
+                margin-left: 3rem;
                 justify-content: flex-end;
-                margin-right: 0rem;
             }
         }
     }

@@ -5,22 +5,23 @@ import { ReactComponent as MinusTegn } from '@/asset/image/minusTegn.svg';
 import { ReactComponent as Pengesekken } from '@/asset/image/pengesekkdollar.svg';
 import { ReactComponent as PlussTegn } from '@/asset/image/plussTegn.svg';
 import { ReactComponent as ProsentTegn } from '@/asset/image/prosentTegn.svg';
+import { ReactComponent as RefusjonAvLønn } from '@/asset/image/refusjonAvLønn.svg';
 import { ReactComponent as Sparegris } from '@/asset/image/sparegris.svg';
 import { ReactComponent as Stillingsprosent } from '@/asset/image/stillingsprosent.svg';
-import { ReactComponent as RefusjonAvLønn } from '@/asset/image/refusjonAvLønn.svg';
 import { ReactComponent as Stranden } from '@/asset/image/strand.svg';
 import { Alert, Heading } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { formatterPenger } from '../../utils/PengeUtils';
-import { Beregning, Tilskuddsgrunnlag } from '../refusjon';
+import { Beregning, Inntektsgrunnlag, Tilskuddsgrunnlag } from '../refusjon';
 import Utregningsrad from './Utregningsrad';
 
 interface Props {
     beregning?: Beregning;
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     forrigeRefusjonMinusBeløp?: number;
+    inntektsgrunnlag?: Inntektsgrunnlag;
 }
 
 const GråRamme = styled.div`
@@ -31,6 +32,13 @@ const GråRamme = styled.div`
 
 const Utregning: FunctionComponent<Props> = (props) => {
     const { beregning, tilskuddsgrunnlag, forrigeRefusjonMinusBeløp } = props;
+    const bruttoLønnsInntekter = props.inntektsgrunnlag?.inntekter.filter(
+        (inntekt) => inntekt.erMedIInntektsgrunnlag && inntekt.erOpptjentIPeriode === true
+    );
+    const ferietrekkInntekter = props.inntektsgrunnlag?.inntekter.filter(
+        (inntekt) => inntekt.beskrivelse === 'trekkILoennForFerie'
+    );
+
     return (
         <GråRamme>
             <Heading size="medium">Utregningen</Heading>
@@ -39,6 +47,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 labelIkon={<Pengesekken />}
                 labelTekst={'Bruttolønn i perioden'}
                 verdi={beregning?.lønn || 0}
+                inntekter={bruttoLønnsInntekter}
             />
 
             {beregning && beregning.fratrekkLønnFerie !== 0 && (
@@ -49,6 +58,8 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     verdi={
                         beregning.fratrekkLønnFerie < 0 ? beregning.fratrekkLønnFerie * -1 : beregning.fratrekkLønnFerie
                     }
+                    inntekter={ferietrekkInntekter}
+                    tilskuddsgunnlag={props.tilskuddsgrunnlag}
                 />
             )}
 

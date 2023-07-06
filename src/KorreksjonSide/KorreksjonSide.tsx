@@ -1,3 +1,4 @@
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
@@ -12,7 +13,6 @@ import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFr
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { KorreksjonStatus } from '../refusjon/refusjon';
 import { useHentKorreksjon } from '../services/rest-service';
-import { BodyShort, Heading } from '@navikt/ds-react';
 import TidligereRefunderbarBeløp from './TidligereRefunderbarBeløp';
 
 const KorreksjonSide: FunctionComponent = () => {
@@ -77,6 +77,7 @@ const KorreksjonSide: FunctionComponent = () => {
                                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                                 forrigeRefusjonMinusBeløp={korreksjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
+                                inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
                             />
                             <VerticalSpacer rem={1} />
                             {korreksjonstype() === 'TILLEGSUTBETALING' && <BekreftUtbetalKorreksjon />}

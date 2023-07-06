@@ -1,4 +1,4 @@
-import { Tag, Heading } from '@navikt/ds-react';
+import { Heading, Tag } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
@@ -9,11 +9,11 @@ import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldin
 import InntekterFraAMeldingenGammel from '../refusjon/RefusjonSide/InntekterFraAmeldingenGammel';
 import InntekterFraTiltaketSvar from '../refusjon/RefusjonSide/InntekterFraTiltaketSvar';
 import InntekterFraTiltaketSvarGammel from '../refusjon/RefusjonSide/InntekterFraTiltaketSvarGammel';
+import TidligereRefunderbarBeløpKvittering from '../refusjon/RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { useHentKorreksjon } from '../services/rest-service';
 import { storForbokstav } from '../utils/stringUtils';
 import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
-import TidligereRefunderbarBeløpKvittering from '../refusjon/RefusjonSide/TidligereRefunderbarBeløpKvittering';
 
 const KorreksjonKvitteringSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
@@ -59,6 +59,7 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
             <Utregning
                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
             />
             <VerticalSpacer rem={4} />
             <KorreksjonSummeringBoks

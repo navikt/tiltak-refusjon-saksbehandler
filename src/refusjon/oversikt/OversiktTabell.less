@@ -4,10 +4,11 @@
         margin-bottom: 1rem;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 950px) {
         &__linkPanel {
             border-radius: 4px;
             padding: 0 0.75rem;
+            width: fit-content;
         }
 
         &__linkpanel_title_row {
@@ -15,37 +16,96 @@
         }
 
         &__title_row_column {
-            margin-right: 2rem;
-            width: 100%;
             display: flex;
             justify-content: flex-start;
             align-items: center;
 
             &:nth-child(1) {
                 font-weight: 600;
-                min-width: 5rem;
+                min-width: 4.5rem;
             }
 
             &:nth-child(2) {
-                min-width: 6rem;
+                font-weight: 600;
             }
 
             &:nth-child(3) {
-                min-width: 6rem;
+                margin-left: 2rem;
+                min-width: 6.5rem;
             }
 
             &:nth-child(4) {
-                min-width: 3rem;
+                min-width: 6.5rem;
+                margin-left: 1rem;
             }
 
             &:nth-child(5) {
-                margin-right: 2rem;
-                width: 100%;
+                margin-left: 1rem;
             }
 
             &:nth-child(6) {
+                margin-left: 1rem;
+                width: 100%;
+                min-width: 7rem;
+            }
+
+            &:nth-child(7) {
+                margin-left: 2rem;
                 justify-content: flex-end;
-                margin-right: 0rem;
+            }
+        }
+    }
+
+    @media (min-width: 1100px) {
+        &__linkPanel {
+            border-radius: 4px;
+            padding: 0 0.75rem;
+            width: fit-content;
+        }
+
+        &__linkpanel_title_row {
+            display: flex;
+        }
+
+        &__title_row_column {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            &:nth-child(1) {
+                font-weight: 600;
+                min-width: 5.5rem;
+                margin-left: 0.5rem;
+            }
+
+            &:nth-child(2) {
+                font-weight: 600;
+                margin-left: 0.5rem;
+            }
+
+            &:nth-child(3) {
+                margin-left: 3rem;
+                min-width: 6.5rem;
+            }
+
+            &:nth-child(4) {
+                min-width: 6.5rem;
+                margin-left: 2rem;
+            }
+
+            &:nth-child(5) {
+                margin-left: 2rem;
+            }
+
+            &:nth-child(6) {
+                margin-left: 3rem;
+                width: 100%;
+                min-width: 6rem;
+            }
+
+            &:nth-child(7) {
+                margin-left: 3rem;
+                justify-content: flex-end;
             }
         }
     }

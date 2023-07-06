@@ -36,7 +36,7 @@ const OversiktTabell: FunctionComponent<Props> = (props) => {
                         <BodyShort
                             size="small"
                             className={cls.element('title_row_column')}
-                            aria-labelledby={cls.element('lopenummer')}
+                            aria-labelledby={cls.element('refusjon')}
                         >
                             {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr}-
                             {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}

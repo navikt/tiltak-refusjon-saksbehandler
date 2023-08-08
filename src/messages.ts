@@ -183,6 +183,6 @@ export const lønnsbeskrivelseTekst: { [key: string]: string } = {
 
 export const korreksjonsgrunnTekst: { [key in Korreksjonsgrunn]: string } = {
     UTBETALT_HELE_TILSKUDDSBELØP: 'Utbetalt hele tilskuddsbeløpet',
-    HENT_INNTEKTER_TO_MÅNEDER_FREM: 'Inntekter rapportert etter tilskuddsperioden (2 måneder)',
+    HENT_INNTEKTER_TO_MÅNEDER_FREM: 'Inntekter rapportert etter tilskuddsperioden (maks 12 måneder)',
     HENT_INNTEKTER_PÅ_NYTT: 'Beregnet refusjon på mangelfullt inntektsgrunnlag',
 };

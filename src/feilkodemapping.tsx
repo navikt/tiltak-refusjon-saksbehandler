@@ -11,7 +11,8 @@ export type Feilkode =
     | 'INGEN_BESLUTTER'
     | 'KOSTNADSSTED_MANGLER'
     | 'FOR_LANG_FORLENGELSE_AV_FRIST'
-    | 'HAR_ALLERDE_UNNTAK_OM_INNTEKTER_1_MND_FREM';
+    | 'HAR_ALLERDE_UNNTAK_OM_INNTEKTER_1_MND_FREM'
+    | 'KORREKSJON_KOSTNADSSTED_ANNET_FYLKE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     TEKNISK_FEIL_INNTEKTSOPPSLAG: 'Feil ved inntektsoppslag.',
@@ -28,4 +29,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FOR_LANG_FORLENGELSE_AV_FRIST: 'For lang forlengelse av frist',
     HAR_ALLERDE_UNNTAK_OM_INNTEKTER_1_MND_FREM:
         'Arbeidsgiver har allerede merket refusjonen for å hente 1 eksta måned.',
+    KORREKSJON_KOSTNADSSTED_ANNET_FYLKE: 'Kostnadsstedet må være i samme fylke som refusjonen',
 };

@@ -1,15 +1,15 @@
-import { Tag } from '@navikt/ds-react';
-import { Innholdstittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import { Heading, Tag } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
+import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import { korreksjonStatusTekst } from '../messages';
 import InformasjonFraAvtalen from '../refusjon/RefusjonSide/InformasjonFraAvtalen';
-import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen';
+import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraAMeldingenGammel from '../refusjon/RefusjonSide/InntekterFraAmeldingenGammel';
 import InntekterFraTiltaketSvar from '../refusjon/RefusjonSide/InntekterFraTiltaketSvar';
 import InntekterFraTiltaketSvarGammel from '../refusjon/RefusjonSide/InntekterFraTiltaketSvarGammel';
+import TidligereRefunderbarBeløpKvittering from '../refusjon/RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { useHentKorreksjon } from '../services/rest-service';
 import { storForbokstav } from '../utils/stringUtils';
@@ -17,13 +17,15 @@ import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
 
 const KorreksjonKvitteringSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId);
+    const korreksjon = useHentKorreksjon(korreksjonId!);
 
     return (
         <HvitBoks>
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Korreksjon av refusjon</Innholdstittel>
+                <Heading size="large" role="heading">
+                    Korreksjon av refusjon
+                </Heading>
                 <Tag variant="info">{storForbokstav(korreksjonStatusTekst[korreksjon.status])}</Tag>
             </div>
             <VerticalSpacer rem={2} />
@@ -52,10 +54,12 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
                     <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
                 </>
             )}
+            <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             <Utregning
                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
             />
             <VerticalSpacer rem={4} />
             <KorreksjonSummeringBoks

@@ -99,10 +99,15 @@ export const merkForUnntakOmInntekterToMånederFrem = async (refusjonId: string,
     return response.data;
 };
 
-export const opprettKorreksjonsutkast = async (refusjonId: string, korreksjonsgrunner: Korreksjonsgrunn[]) => {
+export const opprettKorreksjonsutkast = async (
+    refusjonId: string,
+    korreksjonsgrunner: Korreksjonsgrunn[],
+    unntakOmInntekterFremitid?: number
+) => {
     const response = await api.post<Refusjon>(`/korreksjon/opprett-korreksjonsutkast`, {
         korreksjonsgrunner,
         refusjonId,
+        unntakOmInntekterFremitid,
     });
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;
@@ -140,6 +145,19 @@ export const setInntektslinjeOpptjentIPeriode = async (
     const response = await api.post(`/korreksjon/${korreksjonId}/set-inntektslinje-opptjent-i-periode`, {
         inntektslinjeId,
         erOpptjentIPeriode,
+    });
+    await mutate(`/korreksjon/${korreksjonId}`);
+    return response.data;
+};
+
+export const settTidligereRefunderbarBeløp = async (
+    korreksjonId: string,
+    fratrekkRefunderbarBeløp: boolean | null,
+    refunderbarBeløp?: number | null
+): Promise<any> => {
+    const response = await api.post(`/korreksjon/${korreksjonId}/fratrekk-sykepenger`, {
+        fratrekkRefunderbarBeløp,
+        refunderbarBeløp,
     });
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;

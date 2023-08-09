@@ -1,10 +1,10 @@
+import { Label } from '@navikt/ds-react';
 import _ from 'lodash';
-import { Element } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { formatterPeriode } from '../../utils/datoUtils';
+import { NORSK_MÅNEDÅR_FORMAT, formatterDato, formatterPeriode } from '../../utils/datoUtils';
 import { Inntektslinje } from '../refusjon';
-import { inntektBeskrivelse } from './InntekterFraAMeldingen';
+import { inntektBeskrivelse } from './InntekterFraAMeldingen/InntekterFraAMeldingen';
 
 type Props = {
     inntekter: Inntektslinje[];
@@ -58,7 +58,7 @@ const InntekterOpptjentIPeriodeTabell: FunctionComponent<Props> = (props) => {
                     {sorterInntektslinjer(inntekterHuketAvForOpptjentIPeriode).map((inntekt) => (
                         <tr key={inntekt.id}>
                             <td>{inntektBeskrivelse(inntekt.beskrivelse)}</td>
-                            <td>{inntekt.måned}</td>
+                            <td>{formatterDato(inntekt.måned, NORSK_MÅNEDÅR_FORMAT)}</td>
                             <td>
                                 {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
                                     formatterPeriode(
@@ -78,8 +78,8 @@ const InntekterOpptjentIPeriodeTabell: FunctionComponent<Props> = (props) => {
             </InntekterTabell>
             <br />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Element>Sum bruttolønn</Element>
-                <Element>{inntekterHuketAvForOpptjentIPeriode.length >= 1 && sumInntekterOpptjentIPeriode}</Element>
+                <Label>Sum bruttolønn</Label>
+                <Label>{inntekterHuketAvForOpptjentIPeriode.length >= 1 && sumInntekterOpptjentIPeriode}</Label>
             </div>
         </div>
     );

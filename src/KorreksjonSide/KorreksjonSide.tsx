@@ -1,22 +1,23 @@
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import { BodyShort, Heading } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
-import { KorreksjonStatus } from '../refusjon/refusjon';
+import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import BekreftOppgjørKorreksjon from '../refusjon/RefusjonSide/BekreftOppgjørKorreksjon';
 import BekreftSlettKorreksjon from '../refusjon/RefusjonSide/BekreftSlettKorreksjon';
 import BekreftTilbakekrevKorreksjon from '../refusjon/RefusjonSide/BekreftTilbakekrevKorreksjon';
 import BekreftUtbetalKorreksjon from '../refusjon/RefusjonSide/BekreftUtbetalKorreksjon';
 import InformasjonFraAvtalen from '../refusjon/RefusjonSide/InformasjonFraAvtalen';
-import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen';
+import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFraTiltaketSpørsmål';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
+import { KorreksjonStatus } from '../refusjon/refusjon';
 import { useHentKorreksjon } from '../services/rest-service';
+import TidligereRefunderbarBeløp from './TidligereRefunderbarBeløp';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId);
+    const korreksjon = useHentKorreksjon(korreksjonId!);
 
     const korreksjonstype = (): KorreksjonStatus | null => {
         if (!korreksjon.refusjonsgrunnlag.beregning) {
@@ -38,15 +39,17 @@ const KorreksjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Korreksjonsutkast</Innholdstittel>
+                <Heading size="large" role="heading">
+                    Korreksjonsutkast
+                </Heading>
             </div>
 
             <VerticalSpacer rem={1} />
-            <Normaltekst>
+            <BodyShort size="small">
                 Dette er en korreksjon av tidligere utbetalt refusjon. Det beregnes her et foreløpig oppgjør fratrukket
                 beløpet som er utbetalt tidligere. Dette er foreløpig et utkast, og den vises ikke for arbeidsgiver før
                 den fullføres.
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
@@ -66,6 +69,7 @@ const KorreksjonSide: FunctionComponent = () => {
             {korreksjon.harTattStillingTilAlleInntektslinjer && (
                 <>
                     <InntekterFraTiltaketSpørsmål refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                    <TidligereRefunderbarBeløp refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
                     <VerticalSpacer rem={2} />
                     {korreksjon.refusjonsgrunnlag.beregning && (
                         <>
@@ -73,6 +77,7 @@ const KorreksjonSide: FunctionComponent = () => {
                                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                                 forrigeRefusjonMinusBeløp={korreksjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
+                                inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
                             />
                             <VerticalSpacer rem={1} />
                             {korreksjonstype() === 'TILLEGSUTBETALING' && <BekreftUtbetalKorreksjon />}

@@ -1,37 +1,35 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { slettKorreksjonsutkast, useHentKorreksjon } from '../../services/rest-service';
+import { BodyShort, Button } from '@navikt/ds-react';
 
 const BekreftSlettKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId);
-
-    const history = useHistory();
+    const korreksjon = useHentKorreksjon(korreksjonId!);
+    const navigate = useNavigate();
 
     const [åpen, setÅpen] = useState(false);
     return (
         <>
-            <Knapp
+            <Button
                 onClick={() => {
                     setÅpen(true);
                 }}
             >
                 Slett korreksjonsutkast
-            </Knapp>
+            </Button>
             <BekreftelseModal
                 isOpen={åpen}
                 lukkModal={() => setÅpen(false)}
                 bekreft={async () => {
-                    await slettKorreksjonsutkast(korreksjonId);
-                    history.push('/refusjon/' + korreksjon.korrigererRefusjonId);
+                    await slettKorreksjonsutkast(korreksjonId!);
+                    navigate('/refusjon/' + korreksjon.korrigererRefusjonId);
                 }}
                 tittel={'Slett korreksjonsutkast'}
             >
-                <Normaltekst>Vil du slette utkastet?</Normaltekst>
+                <BodyShort size="small">Vil du slette utkastet?</BodyShort>
             </BekreftelseModal>
         </>
     );

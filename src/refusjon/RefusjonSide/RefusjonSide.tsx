@@ -1,46 +1,29 @@
-import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import { Alert } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { Alert, BodyShort, Heading } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
-import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { useHentRefusjon } from '../../services/rest-service';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
-import InntekterFraAMeldingen from './InntekterFraAMeldingen';
+import InntekterFraAMeldingen from './InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraTiltaketSvarGammel from './InntekterFraTiltaketSvarGammel';
 import './RefusjonSide.less';
-import Utregning from './Utregning';
-import Lenke from 'nav-frontend-lenker';
 import TidligereRefunderbarBeløpKvittering from './TidligereRefunderbarBeløpKvittering';
+import Utregning from './Utregning';
 
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
 
     return (
         <HvitBoks>
-            {refusjon.forrigeRefusjonSomSkalSendesFørst != null && (
-                <>
-                    <Alert variant="warning" size="small">
-                        <Lenke href={'/refusjon/' + refusjon.forrigeRefusjonSomSkalSendesFørst.id}>
-                            <b>Refusjon:</b>{' '}
-                            {refusjon.forrigeRefusjonSomSkalSendesFørst.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr}-
-                            {refusjon.forrigeRefusjonSomSkalSendesFørst.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}
-                        </Lenke>{' '}
-                        må sendes inn før du kan sende inn denne refusjonen:{' '}
-                        {refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr +
-                            '-' +
-                            refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}
-                        .
-                    </Alert>
-                    <VerticalSpacer rem={1} />
-                </>
-            )}
             {refusjon.status === 'KLAR_FOR_INNSENDING' && refusjon.refusjonsgrunnlag.inntektsgrunnlag === null && (
                 <Alert variant="info" size="small">
-                    <Element> Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.</Element>
+                    <Heading spacing size="small">
+                        Obs! Arbeidsgiver har ikke vært inne på denne refusjonen.
+                    </Heading>
                     Det har aldri vært forsøkt hentet inntektsgrunnlag og kontonummer, noe som gjøres hver gang
                     arbeidsgiver åpner refusjoner som er klare for innsending.
                 </Alert>
@@ -48,7 +31,7 @@ const RefusjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Innholdstittel role="heading">Beregning av refusjon</Innholdstittel>
+                <Heading size="large">Beregning av refusjon</Heading>
                 <StatusTekst
                     status={refusjon.status}
                     tilskuddFom={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom}
@@ -57,7 +40,7 @@ const RefusjonSide: FunctionComponent = () => {
             </div>
 
             <VerticalSpacer rem={1} />
-            <Normaltekst>
+            <BodyShort size="small">
                 Vi henter inntektsopplysninger for deltakeren fra a-meldingen automatisk. Hvis inntektsopplysningene
                 ikke stemmer så må det{' '}
                 <EksternLenke href={'https://www.altinn.no/skjemaoversikt/a-ordningen/a-melding2/'}>
@@ -65,7 +48,7 @@ const RefusjonSide: FunctionComponent = () => {
                 </EksternLenke>
                 Feriepenger, innskudd obligatorisk tjenestepensjon, arbeidsgiveravgiften og lønnstilskuddsprosenten er
                 hentet fra avtalen om midlertidig lønnstilskudd.
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={2} />
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
@@ -85,13 +68,14 @@ const RefusjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
-            <TidligereRefunderbarBeløpKvittering refusjon={refusjon} />
+            <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning
                     beregning={refusjon.refusjonsgrunnlag.beregning}
                     tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                     forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
+                    inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag}
                 />
             )}
         </HvitBoks>

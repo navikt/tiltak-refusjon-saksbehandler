@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { ReactComponent as InfoIkon } from '@/asset/image/info.svg';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 
 const AvrundetHvitBoks = styled.div`
     border-radius: 4px;
@@ -17,7 +17,7 @@ const AvrundetHvitBoks = styled.div`
 const Info: FunctionComponent<{ tekst: string }> = (props: PropsWithChildren<{ tekst: string }>) => (
     <AvrundetHvitBoks>
         <InfoIkon />
-        <Undertittel tag="p">{props.tekst}</Undertittel>
+        <Heading size="small">{props.tekst}</Heading>
     </AvrundetHvitBoks>
 );
 

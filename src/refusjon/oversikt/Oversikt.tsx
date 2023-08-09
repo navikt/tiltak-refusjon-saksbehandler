@@ -6,8 +6,6 @@ import BEMHelper from '../../utils/bem';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import OversiktTabell from './OversiktTabell';
-import './oversikt.less';
-
 const cls = BEMHelper('oversikt');
 
 const Oversikt: FunctionComponent = () => {

@@ -1,11 +1,11 @@
 import { ReactComponent as Pengesedler } from '@/asset/image/pengesedler.svg';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import { formatterPeriode } from '../utils/datoUtils';
 import { formatterPenger } from '../utils/PengeUtils';
 import { Korreksjon, Refusjonsgrunnlag } from '../refusjon/refusjon';
+import { BodyShort, Label } from '@navikt/ds-react';
 
 const Boks = styled.div`
     display: flex;
@@ -31,9 +31,9 @@ const KorreksjonSummeringBoks: FunctionComponent<Props> = (props) => {
                 {props.refusjonsgrunnlag.beregning?.refusjonsbeløp != null &&
                     props.refusjonsgrunnlag.beregning?.refusjonsbeløp < 0 && (
                         <>
-                            <Element>Korreksjon med minusbeløp</Element>
+                            <Label>Korreksjon med minusbeløp</Label>
                             <VerticalSpacer rem={0.5} />
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 <b>{formatterPenger(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for
                                 perioden{' '}
                                 {formatterPeriode(
@@ -41,15 +41,15 @@ const KorreksjonSummeringBoks: FunctionComponent<Props> = (props) => {
                                     props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
                                 )}{' '}
                                 . Denne må tilbakekreves.
-                            </Normaltekst>
+                            </BodyShort>
                         </>
                     )}
                 {props.refusjonsgrunnlag.beregning?.refusjonsbeløp != null &&
                     props.refusjonsgrunnlag.beregning?.refusjonsbeløp >= 0 && (
                         <>
-                            <Element>Arbeidsgiver vil få utbetalt</Element>
+                            <Label>Arbeidsgiver vil få utbetalt</Label>
                             <VerticalSpacer rem={0.5} />
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 <b>{formatterPenger(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for
                                 perioden{' '}
                                 {formatterPeriode(
@@ -57,8 +57,8 @@ const KorreksjonSummeringBoks: FunctionComponent<Props> = (props) => {
                                     props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
                                 )}{' '}
                                 til kontonummer {props.refusjonsgrunnlag.bedriftKontonummer}
-                            </Normaltekst>
-                            <Normaltekst>Midlene vil bli kostnadsført på enhet {props.enhet}</Normaltekst>
+                            </BodyShort>
+                            <BodyShort size="small">Midlene vil bli kostnadsført på enhet {props.enhet}</BodyShort>
                         </>
                     )}
             </div>

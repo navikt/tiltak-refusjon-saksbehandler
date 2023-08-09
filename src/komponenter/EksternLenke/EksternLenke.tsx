@@ -1,16 +1,16 @@
 import { ReactComponent as TilEkstern } from '@/asset/image/ekstern-lenke.svg';
-import Lenke, { Props } from 'nav-frontend-lenker';
 import React from 'react';
 import './EksternLenke.less';
+import { Link, LinkProps } from '@navikt/ds-react';
 
-const EksternLenke: React.FunctionComponent<Props> = (props) => {
+const EksternLenke: React.FunctionComponent<LinkProps> = (props) => {
     const onClick = (event: any) => {};
 
     return (
-        <Lenke target="_blank" onClick={onClick} {...props}>
+        <Link target="_blank" onClick={onClick} {...props}>
             {props.children}
             <TilEkstern className="ekstern-lenke-icon" />
-        </Lenke>
+        </Link>
     );
 };
 

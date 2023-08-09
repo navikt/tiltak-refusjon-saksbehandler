@@ -1,16 +1,15 @@
-import KnappBase, { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
 import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Button, ButtonProps } from '@navikt/ds-react';
 import { Nettressurs, Status } from '../nettressurs';
 import VerticalSpacer from './VerticalSpacer';
-import { ApiError, FeilkodeError } from '../types/errors';
+import { handterFeil } from '../utils/apiFeilUtils';
 
 type Props = {
     lagreFunksjon: () => Promise<any>;
     avbryt: () => void;
 } & HTMLAttributes<HTMLDivElement>;
 
-const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
+const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
     const [feilmelding, setFeilmelding] = useState('');
 
@@ -25,17 +24,19 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
             await props.lagreFunksjon();
             setOppslag({ status: Status.Sendt });
         } catch (error) {
-            let feilmelding = '';
-            if (error instanceof FeilkodeError || error instanceof ApiError) {
-                feilmelding = error.message;
+            if (error instanceof Error) {
+                handterFeil(error, (melding) => {
+                    setOppslag({ status: Status.Feil, error: melding });
+                    setFeilmelding(melding);
+                });
             } else {
-                feilmelding =
+                const feilmelding =
                     !!error && typeof error === 'object' && 'feilmelding' in error
                         ? (error.feilmelding as string)
                         : 'Uventet feil';
+                setOppslag({ status: Status.Feil, error: feilmelding });
+                setFeilmelding(feilmelding);
             }
-            setOppslag({ status: Status.Feil, error: feilmelding });
-            setFeilmelding(feilmelding);
         }
     };
 
@@ -48,14 +49,16 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <KnappBase
-                    spinner={oppslag.status === Status.LasterInn}
+                <Button
+                    style={{ padding: '0.5rem 2.5rem' }}
+                    loading={oppslag.status === Status.LasterInn}
                     disabled={oppslag.status === Status.LasterInn}
                     onClick={onClick}
-                    type="hoved"
                     {...knappBaseProps}
-                />
-                <Knapp onClick={props.avbryt}>Avbryt</Knapp>
+                ></Button>
+                <Button style={{ padding: '0.5rem 3rem' }} variant="secondary" onClick={props.avbryt}>
+                    Avbryt
+                </Button>
             </div>
             {oppslag.status === Status.Feil && (
                 <>

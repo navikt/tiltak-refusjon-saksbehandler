@@ -3,20 +3,8 @@
         margin-bottom: 0.75rem;
     }
 
-    &__utregning-rad {
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        height: 3.5rem;
+    &__utregning-wrapper {
         border-bottom: 1px solid #c6c2bf;
-
-        svg {
-            min-width: 1.25rem;
-            min-height: 1.25rem;
-            margin-right: 0.5rem;
-            padding-bottom: 0.275rem;
-        }
-
         &--tykkbunn {
             border-bottom: 1.25px solid #3e3832;
         }
@@ -25,11 +13,23 @@
         }
     }
 
+    &__utregning-rad {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        height: 3.5rem;
+
+        svg {
+            min-width: 1.25rem;
+            min-height: 1.25rem;
+            margin-right: 0.5rem;
+        }
+    }
+
     &__utregning-verdi svg {
         min-width: 0.875rem;
-        min-height: 0.875rem;
         margin-right: 0.5rem;
-        padding-top: 0.375rem;
+        margin-top: 0.4rem;
     }
 
     &__utregning-label,

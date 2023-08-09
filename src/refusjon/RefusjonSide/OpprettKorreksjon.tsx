@@ -1,24 +1,25 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { Checkbox } from 'nav-frontend-skjema';
-import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { korreksjonsgrunnTekst } from '../../messages';
 import { opprettKorreksjonsutkast } from '../../services/rest-service';
 import { Korreksjonsgrunn } from '../refusjon';
+import { Button, BodyShort, ErrorMessage, Checkbox, CheckboxGroup, TextField } from '@navikt/ds-react';
 
 const OpprettKorreksjon: FunctionComponent<{}> = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [åpen, setÅpen] = useState(false);
     const [grunner, setGrunner] = useState<Set<Korreksjonsgrunn>>(new Set<Korreksjonsgrunn>());
+    const [unntakOmInntekterFremitid, setUnntakOmInntekterFremitid] = useState<number>();
     const [feilmelding, setFeilmelding] = useState<string>('');
     return (
         <>
-            <Knapp onClick={() => setÅpen(true)}>Opprett korreksjonsutkast</Knapp>
+            <Button variant="secondary" onClick={() => setÅpen(true)}>
+                Opprett korreksjonsutkast
+            </Button>
             <BekreftelseModal
                 isOpen={åpen}
                 lukkModal={() => {
@@ -27,8 +28,12 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 }}
                 bekreft={async () => {
                     try {
-                        const korreksjon = await opprettKorreksjonsutkast(refusjonId, Array.from(grunner));
-                        history.push('/refusjon/' + korreksjon.id);
+                        const korreksjon = await opprettKorreksjonsutkast(
+                            refusjonId!,
+                            Array.from(grunner),
+                            unntakOmInntekterFremitid
+                        );
+                        navigate('/refusjon/' + korreksjon.id);
                     } catch (error) {
                         const feilmelding =
                             'feilmelding' in (error as any) ? (error as any).feilmelding : 'Uventet feil';
@@ -37,13 +42,13 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                 }}
                 tittel={'Opprett korreksjonsutkast'}
             >
-                <Normaltekst>Hvorfor skal det korrigeres?</Normaltekst>
+                <BodyShort size="small">Hvorfor skal det korrigeres?</BodyShort>
                 <VerticalSpacer rem={1} />
-                {[Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT, Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM].map(
-                    (it, index) => (
-                        <React.Fragment key={index}>
+                <CheckboxGroup legend="">
+                    {[Korreksjonsgrunn.HENT_INNTEKTER_PÅ_NYTT, Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM].map(
+                        (it, index) => (
                             <Checkbox
-                                label={korreksjonsgrunnTekst[it]}
+                                key={index}
                                 checked={grunner.has(it)}
                                 onChange={(e) => {
                                     const nyeGrunner = new Set(grunner);
@@ -54,12 +59,30 @@ const OpprettKorreksjon: FunctionComponent<{}> = () => {
                                     }
                                     setGrunner(nyeGrunner);
                                 }}
-                            />
-                            <VerticalSpacer rem={1} />
-                        </React.Fragment>
-                    )
+                            >
+                                {korreksjonsgrunnTekst[it]}
+                            </Checkbox>
+                        )
+                    )}
+                </CheckboxGroup>
+                {grunner.has(Korreksjonsgrunn.HENT_INNTEKTER_TO_MÅNEDER_FREM) && (
+                    <TextField
+                        style={{ width: '25%' }}
+                        size="small"
+                        label={`Antall måneder etter perioden det skal hentes innteker (maks 12)`}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                            const verdi: string = event.currentTarget.value;
+                            if (verdi.match(/^\d*$/) && parseInt(verdi, 10) <= 12) {
+                                setUnntakOmInntekterFremitid(parseInt(verdi, 10));
+                            }
+                            if (!verdi) {
+                                setUnntakOmInntekterFremitid(2);
+                            }
+                        }}
+                        value={unntakOmInntekterFremitid}
+                    />
                 )}
-                {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
+                {feilmelding && <ErrorMessage>{feilmelding}</ErrorMessage>}
             </BekreftelseModal>
         </>
     );

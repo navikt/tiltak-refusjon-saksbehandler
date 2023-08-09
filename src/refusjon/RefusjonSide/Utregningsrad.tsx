@@ -1,9 +1,12 @@
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, ReactNode } from 'react';
-import './Utregningsrad.less';
+import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import { formatterPenger } from '../../utils/PengeUtils';
 import BEMHelper from '../../utils/bem';
 import { visSatsMedEttDesimal } from '../../utils/utregningUtil';
-import { formatterPenger } from '../../utils/PengeUtils';
+import { Inntektslinje, Tilskuddsgrunnlag } from '../refusjon';
+import './Utregningsrad.less';
+import UtregningsradHvaInngårIDette from './UtregningsradHvaInngårIDette';
 
 interface Props {
     labelIkon?: React.ReactNode;
@@ -13,6 +16,8 @@ interface Props {
     verdi: number | string;
     ikkePenger?: boolean;
     border?: 'NORMAL' | 'TYKK' | 'INGEN';
+    inntekter?: Inntektslinje[];
+    tilskuddsgunnlag?: Tilskuddsgrunnlag;
 }
 
 const cls = BEMHelper('utregning-rad');
@@ -22,9 +27,14 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
         ikon ? ikon : <div className={cls.element('ikon-placeholder')} aria-hidden={true} />;
 
     const setOperator = (operator?: string | ReactNode) =>
-        operator ? <Systemtittel className={cls.element('operator')}>{operator}</Systemtittel> : null;
+        operator ? (
+            <Heading size="medium" className={cls.element('operator')}>
+                {operator}
+            </Heading>
+        ) : null;
 
-    const setLabelSats = (sats?: number) => (sats ? <Normaltekst>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null);
+    const setLabelSats = (sats?: number) =>
+        sats ? <BodyShort size="small">({visSatsMedEttDesimal(sats)}%)</BodyShort> : null;
 
     const border = () => {
         switch (props.border) {
@@ -43,20 +53,40 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
     const labelTekstString = typeof props.labelTekst === 'string' ? props.labelTekst : undefined;
 
     return (
-        <div className={cls.element('utregning-rad', border())}>
-            <div className={cls.element('utregning-label')}>
-                <div className={cls.element('label-innhold')}>
-                    {setIkon(props.labelIkon)}
-                    {typeof props.labelTekst == 'string' ?  <Normaltekst id={labelTekstString}>{props.labelTekst}</Normaltekst> : props.labelTekst}
+        <div className={cls.element('utregning-wrapper', border())}>
+            <div className={cls.element('utregning-rad')}>
+                <div className={cls.element('utregning-label')}>
+                    <div className={cls.element('label-innhold')}>
+                        {setIkon(props.labelIkon)}
+                        {typeof props.labelTekst == 'string' ? (
+                            <BodyShort size="small" id={labelTekstString}>
+                                {props.labelTekst}
+                            </BodyShort>
+                        ) : (
+                            props.labelTekst
+                        )}
+                    </div>
+                    {setLabelSats(props.labelSats)}
                 </div>
-                {setLabelSats(props.labelSats)}
+                <div className={cls.element('utregning-verdi')}>
+                    {setOperator(props.verdiOperator)}
+                    <BodyShort size="small" className={cls.element('sum')} aria-labelledby={labelTekstString}>
+                        {props.ikkePenger || typeof props.verdi === 'string'
+                            ? props.verdi
+                            : formatterPenger(props.verdi)}
+                    </BodyShort>
+                </div>
             </div>
-            <div className={cls.element('utregning-verdi')}>
-                {setOperator(props.verdiOperator)}
-                <Normaltekst className={cls.element('sum')} aria-labelledby={labelTekstString}>
-                    {props.ikkePenger || typeof props.verdi === 'string' ? props.verdi : formatterPenger(props.verdi)}
-                </Normaltekst>
-            </div>
+
+            {props.inntekter && (
+                <>
+                    <UtregningsradHvaInngårIDette
+                        inntekter={props.inntekter}
+                        tilskuddsgrunnlag={props.tilskuddsgunnlag}
+                    />
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
         </div>
     );
 };

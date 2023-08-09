@@ -1,6 +1,5 @@
-import KnappBase, { KnappBaseProps } from 'nav-frontend-knapper';
 import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Button, ButtonProps } from '@navikt/ds-react';
 import VerticalSpacer from './VerticalSpacer';
 import { Nettressurs, Status } from '../nettressurs';
 
@@ -8,7 +7,7 @@ type Props = {
     lagreFunksjon: () => Promise<any>;
 } & HTMLAttributes<HTMLDivElement>;
 
-const LagreKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
+const LagreKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
 
     // Fungerer i praksis som "omit lagreFunksjon"
@@ -35,12 +34,12 @@ const LagreKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
 
     return (
         <div>
-            <KnappBase
-                spinner={oppslag.status === Status.LasterInn}
+            <Button
+                loading={oppslag.status === Status.LasterInn}
                 disabled={oppslag.status === Status.LasterInn}
                 onClick={onClick}
                 {...knappBaseProps}
-            />
+            ></Button>
             {oppslag.status === Status.Feil && (
                 <>
                     <VerticalSpacer rem={0.5} />

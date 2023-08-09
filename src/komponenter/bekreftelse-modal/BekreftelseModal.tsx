@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from 'react';
+import React, { CSSProperties, FunctionComponent, PropsWithChildren } from 'react';
 import { Modal, Heading } from '@navikt/ds-react';
 import BEMHelper from '../../utils/bem';
 import LagreOgAvbrytKnapp from '../LagreOgAvbrytKnapp';
@@ -13,7 +13,7 @@ interface Props {
     containerStyle?: CSSProperties;
 }
 
-const BekreftelseModal: FunctionComponent<Props> = (props) => {
+const BekreftelseModal: FunctionComponent<Props & PropsWithChildren> = (props) => {
     const cls = BEMHelper('bekreftelse-modal');
     const setModalElement = () => {
         if (document.getElementById('root')) {

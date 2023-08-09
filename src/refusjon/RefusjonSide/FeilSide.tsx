@@ -1,6 +1,5 @@
-import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react';
 import { useParams } from 'react-router';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -17,16 +16,16 @@ type Props = {
 
 const FeilSide: FunctionComponent<Props> = (props) => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
     return (
         <HvitBoks>
             <Alert variant={props.advarselType} size="small">
                 {props.feiltekst}
             </Alert>
             <VerticalSpacer rem={2} />
-            <Innholdstittel>
+            <Heading size="large">
                 Refusjon av {tiltakstypeTekst[refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}
-            </Innholdstittel>
+            </Heading>
             <VerticalSpacer rem={1} />
             <InformasjonFraAvtalen
                 tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}

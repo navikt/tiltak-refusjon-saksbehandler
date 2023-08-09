@@ -1,6 +1,4 @@
 import _ from 'lodash';
-import { Input, Label, RadioPanel } from 'nav-frontend-skjema';
-import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
@@ -10,18 +8,7 @@ import { endreBruttolønn } from '../../services/rest-service';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import InntekterOpptjentIPeriodeTabell from './InntekterOpptjentIPeriodeTabell';
-
-const RadioPakning = styled.div`
-    display: flex;
-    flex-direction: row;
-    label {
-        flex-grow: 1;
-        margin-right: 0.5rem;
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-`;
+import { RadioGroup, Radio, TextField, Label, Heading } from '@navikt/ds-react';
 
 export const GrønnBoks = styled.div`
     background-color: #ccf1d6;
@@ -43,7 +30,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
         setInntekterKunFraTiltaket(checked);
         if (checked) {
             setEndretBruttoLønn(undefined);
-            endreBruttolønn(korreksjonId, checked, undefined);
+            endreBruttolønn(korreksjonId!, checked, undefined);
         }
     };
 
@@ -56,7 +43,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
 
     return (
         <GrønnBoks>
-            <Undertittel>Inntekter fra {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}</Undertittel>
+            <Heading size="small">Inntekter fra {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}</Heading>
             <VerticalSpacer rem={1} />
 
             <InntekterOpptjentIPeriodeTabell inntekter={props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter!} />
@@ -72,27 +59,28 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
             <p>
                 <i>Du skal svare "nei" hvis noen av inntektene er fra f. eks. vanlig lønn eller lønnstilskudd</i>
             </p>
-            <RadioPakning>
-                <RadioPanel
+            <RadioGroup legend="">
+                <Radio 
                     name="inntekterKunFraTiltaket"
-                    label="Ja"
                     value={'ja'}
                     checked={inntekterKunFraTiltaket === true}
                     onChange={() => svarPåSpørsmål(true)}
-                />
-                <RadioPanel
+                >Ja
+                </Radio>
+                <Radio 
                     name="inntekterKunFraTiltaket"
-                    label="Nei"
                     value={'nei'}
                     checked={inntekterKunFraTiltaket === false}
                     onChange={() => svarPåSpørsmål(false)}
-                />
-            </RadioPakning>
+                    >
+                        Nei
+                </Radio>
+            </RadioGroup>
             {inntekterKunFraTiltaket === false && (
                 <>
                     <VerticalSpacer rem={1} />
-                    <Input
-                        bredde={'S'}
+                    <TextField
+                        size="small"
                         label={`Skriv inn bruttolønn utbetalt for ${
                             tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]
                         }`}
@@ -102,7 +90,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
                                 setEndretBruttoLønn(verdi as number);
                             }
                         }}
-                        onBlur={() => endreBruttolønn(korreksjonId, false, endretBruttoLønn)}
+                        onBlur={() => endreBruttolønn(korreksjonId!, false, endretBruttoLønn)}
                         value={endretBruttoLønn}
                     />
                 </>

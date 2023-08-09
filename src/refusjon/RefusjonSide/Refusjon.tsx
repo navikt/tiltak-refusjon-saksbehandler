@@ -26,7 +26,7 @@ const Fleks = styled.div`
 
 const Advarsler: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
     const brukerContext: BrukerContextType = useInnloggetBruker();
 
     return (
@@ -46,7 +46,7 @@ const Advarsler: FunctionComponent = () => {
 
 const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
     const brukerContext: BrukerContextType = useInnloggetBruker();
 
     switch (refusjon.status) {

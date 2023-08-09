@@ -35,7 +35,7 @@ const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
 };
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
-    const refusjon = useHentRefusjon(refusjonId);
+    const refusjon = useHentRefusjon(refusjonId!);
     const brukerContext: BrukerContextType = useInnloggetBruker();
     const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
 

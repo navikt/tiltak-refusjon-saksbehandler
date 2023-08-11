@@ -24,14 +24,6 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
         );
         setisOpen(true);
     };
-    // if (isOpen && !enhetNavnTilskudd) {
-    //     hentEnhet(korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.enhet, korreksjon.id).then((res) => setEnhetNavnTilskudd(res));
-    // }
-    // useEffect(() => {
-    //     if (isOpen) {
-    //         hentEnhet(korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.enhet, korreksjon.id).then((res) => setEnhetNavnTilskudd(res));
-    //     }
-    // }, [isOpen])
 
     const visUlikEnhetAdvarsel = () => {
         if (kostnadssted && kostnadssted.length === 4 && korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.enhet) {

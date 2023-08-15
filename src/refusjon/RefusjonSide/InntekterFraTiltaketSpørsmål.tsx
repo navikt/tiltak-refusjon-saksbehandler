@@ -1,5 +1,6 @@
+import { Heading, Label, Radio, RadioGroup, TextField } from '@navikt/ds-react';
 import _ from 'lodash';
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -8,7 +9,6 @@ import { endreBruttolønn } from '../../services/rest-service';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import InntekterOpptjentIPeriodeTabell from './InntekterOpptjentIPeriodeTabell';
-import { RadioGroup, Radio, TextField, Label, Heading } from '@navikt/ds-react';
 
 export const GrønnBoks = styled.div`
     background-color: #ccf1d6;
@@ -59,17 +59,17 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
             <p>
                 <i>Du skal svare "nei" hvis noen av inntektene er fra f. eks. vanlig lønn eller lønnstilskudd</i>
             </p>
-            <RadioGroup legend="">
+            <RadioGroup legend="" value={inntekterKunFraTiltaket}>
                 <Radio 
                     name="inntekterKunFraTiltaket"
-                    value={'ja'}
+                    value={true}
                     checked={inntekterKunFraTiltaket === true}
                     onChange={() => svarPåSpørsmål(true)}
                 >Ja
                 </Radio>
                 <Radio 
                     name="inntekterKunFraTiltaket"
-                    value={'nei'}
+                    value={false}
                     checked={inntekterKunFraTiltaket === false}
                     onChange={() => svarPåSpørsmål(false)}
                     >

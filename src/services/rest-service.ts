@@ -161,3 +161,8 @@ export const settTidligereRefunderbarBeløp = async (
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };
+
+export const hentEnhet = async (enhet: string, korreksjonId: string) => {
+    const response = await api.get<string>(`/korreksjon/${korreksjonId}/hent-enhet/${enhet}`);
+    return response.data;
+};

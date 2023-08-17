@@ -77,7 +77,8 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
             </Fleks>
             {harBruttolønn && (
                 <i>
-                    Her hentes inntekter rapportert inn til a-meldingen for måneden refusjonen gjelder for (
+                    Her hentes inntekter i form av fastlønn, timelønn, faste tillegg og uregelmessige tillegg knyttet
+                    til arbeidet tid, som er rapportert inn i a-meldingen for måneden refusjonen gjelder for (
                     {formatterPeriode(
                         props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
                         props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
@@ -86,7 +87,7 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                     {props.unntakOmInntekterFremitid === 1 &&
                         props.hentInntekterLengerFrem !== null &&
                         'og 1 måned frem'}
-                    .
+                    . Løsningen henter også inntekt rapportert inn fra veldedige eller allmennyttige organisasjoner.
                 </i>
             )}
 

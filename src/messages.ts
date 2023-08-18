@@ -186,7 +186,7 @@ export const korreksjonsgrunnTekst: { [key in Korreksjonsgrunn]: string } = {
     HENT_INNTEKTER_TO_MÅNEDER_FREM:
         'Brukt feil inntektslinje og skal hente inntekter lenger ferm i tid (velg antall måneder)',
     TRUKKET_FEIL_FOR_FRAVÆR: 'Trukket av feil beløp for fravær',
-    OPPDATERTAMELDING: 'Oppdatert A-melding',
+    OPPDATERT_AMELDING: 'Oppdatert A-melding',
     ANNEN_GRUNN: 'Annen grunn',
     UTBETALT_HELE_TILSKUDDSBELØP: 'Utbetalt hele tilskuddsbeløpet',
 };

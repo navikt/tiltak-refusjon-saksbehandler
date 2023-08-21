@@ -19,6 +19,8 @@ const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
 const swrConfig = {
     fetcher: axiosFetcher,
     suspense: true,
+    revalidateOnFocus: false,
+    refreshInterval: 120000,
 };
 
 api.interceptors.response.use(

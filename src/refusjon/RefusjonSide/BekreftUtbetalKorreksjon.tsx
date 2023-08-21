@@ -8,16 +8,11 @@ import { useHentKorreksjon, utbetalKorreksjon } from '../../services/rest-servic
 const BekreftUtbetalKorreksjon: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const [isOpen, setisOpen] = useState(false);
-    const [kostnadssted] = useState('');
     const korreksjon = useHentKorreksjon(korreksjonId!);
-
-    const openModal = () => {
-        setisOpen(true);
-    };
 
     return (
         <div>
-            <Button variant="secondary" onClick={() => openModal()}>
+            <Button variant="secondary" onClick={() => setisOpen(true)}>
                 Send korreksjon til utbetaling
             </Button>
 
@@ -25,7 +20,7 @@ const BekreftUtbetalKorreksjon: FunctionComponent = () => {
                 isOpen={isOpen}
                 lukkModal={() => setisOpen(false)}
                 tittel="Send korreksjon til utbetaling"
-                bekreft={() => utbetalKorreksjon(korreksjonId!, kostnadssted)}
+                bekreft={() => utbetalKorreksjon(korreksjonId!)}
             >
                 <BodyShort size="small">
                     Korreksjonen vil bli kostnadsført på den samme enheten som den opprinnelige refusjonen. Refusjonen

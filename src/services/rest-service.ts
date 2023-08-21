@@ -120,10 +120,8 @@ export const slettKorreksjonsutkast = async (korreksjonId: string) => {
     return response.data;
 };
 
-export const utbetalKorreksjon = async (korreksjonId: string, kostnadssted: string) => {
-    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/utbetal-korreksjon`, {
-        kostnadssted,
-    });
+export const utbetalKorreksjon = async (korreksjonId: string) => {
+    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/utbetal-korreksjon`);
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };

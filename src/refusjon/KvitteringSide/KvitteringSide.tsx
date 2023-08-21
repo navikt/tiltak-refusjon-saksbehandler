@@ -41,7 +41,9 @@ const KvitteringSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
-            {brukerContext.innloggetBruker.harKorreksjonTilgang && !refusjon.korreksjonId && <OpprettKorreksjon />}
+            {brukerContext.innloggetBruker.harKorreksjonTilgang &&
+                refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
+                !refusjon.korreksjonId && <OpprettKorreksjon />}
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

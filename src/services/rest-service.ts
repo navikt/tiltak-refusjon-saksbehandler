@@ -102,12 +102,14 @@ export const merkForUnntakOmInntekterToMånederFrem = async (refusjonId: string,
 export const opprettKorreksjonsutkast = async (
     refusjonId: string,
     korreksjonsgrunner: Korreksjonsgrunn[],
-    unntakOmInntekterFremitid?: number
+    unntakOmInntekterFremitid?: number,
+    annenKorreksjonsGrunn?: string
 ) => {
     const response = await api.post<Refusjon>(`/korreksjon/opprett-korreksjonsutkast`, {
         korreksjonsgrunner,
         refusjonId,
         unntakOmInntekterFremitid,
+        annenKorreksjonsGrunn,
     });
     await mutate(`/refusjon/${refusjonId}`);
     return response.data;

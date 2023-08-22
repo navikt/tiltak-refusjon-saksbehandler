@@ -39,6 +39,7 @@ export interface Refusjon {
     unntakOmInntekterFremitid: number;
     hentInntekterLengerFrem: string;
     harTattStillingTilAlleInntektslinjer: boolean;
+    maksForlengelse: string;
 }
 
 export interface Korreksjon {

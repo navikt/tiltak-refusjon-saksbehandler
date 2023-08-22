@@ -1,4 +1,4 @@
-import { LinkPanel, BodyShort } from '@navikt/ds-react';
+import { BodyShort, LinkPanel } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StatusTekst from '../../komponenter/StatusTekst/StatusTekst';
@@ -82,7 +82,15 @@ const OversiktTabell: FunctionComponent<Props> = (props) => {
                             className={cls.element('title_row_column')}
                             aria-labelledby={cls.element('frist-godkjenning')}
                         >
-                            {formatterDato(refusjon.fristForGodkjenning)}
+                            <span
+                                style={
+                                    refusjon.fristForGodkjenning === refusjon.maksForlengelse
+                                        ? { color: 'red' }
+                                        : undefined
+                                }
+                            >
+                                {formatterDato(refusjon.fristForGodkjenning)}
+                            </span>
                         </BodyShort>
                     </LinkPanel.Title>
                 </LinkPanel>

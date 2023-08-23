@@ -9,6 +9,7 @@ import { endreBruttolønn } from '../../services/rest-service';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import InntekterOpptjentIPeriodeTabell from './InntekterOpptjentIPeriodeTabell';
+import BEMHelper from '../../utils/bem';
 
 export const GrønnBoks = styled.div`
     background-color: #ccf1d6;
@@ -17,6 +18,7 @@ export const GrønnBoks = styled.div`
 `;
 
 const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
+    const cls = BEMHelper('refusjonside');
     const { korreksjonId } = useParams<{korreksjonId: string}>();
     const refusjonsgrunnlag = props.refusjonsgrunnlag;
     const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjonsgrunnlag.inntekterKunFraTiltaket);
@@ -59,7 +61,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
             <p>
                 <i>Du skal svare "nei" hvis noen av inntektene er fra f. eks. vanlig lønn eller lønnstilskudd</i>
             </p>
-            <RadioGroup legend="" value={inntekterKunFraTiltaket}>
+            <RadioGroup legend="" className={cls.element('inntekter-kun-fra-tiltaket')} value={inntekterKunFraTiltaket}>
                 <Radio 
                     name="inntekterKunFraTiltaket"
                     value={true}

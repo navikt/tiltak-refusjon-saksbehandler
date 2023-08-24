@@ -15,6 +15,7 @@ import InntekterFraAMeldingenGammel from '../RefusjonSide/InntekterFraAmeldingen
 import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
 import InntekterFraTiltaketSvarGammel from '../RefusjonSide/InntekterFraTiltaketSvarGammel';
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
+import SjekkReberegning from '../RefusjonSide/SjekkReberegning';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import TidligereRefunderbarBeløpKvittering from '../RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../RefusjonSide/Utregning';
@@ -44,6 +45,7 @@ const KvitteringSide: FunctionComponent = () => {
             {featureToggles[Feature.Korreksjon] &&
                 !refusjon.korreksjonId &&
                 refusjon.status !== RefusjonStatus.UTBETALING_FEILET && <OpprettKorreksjon />}
+            {featureToggles[Feature.Korreksjon] && <SjekkReberegning />}
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

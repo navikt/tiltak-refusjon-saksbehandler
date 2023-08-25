@@ -42,10 +42,12 @@ const KvitteringSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
-            {featureToggles[Feature.Korreksjon] &&
-                !refusjon.korreksjonId &&
-                refusjon.status !== RefusjonStatus.UTBETALING_FEILET && <OpprettKorreksjon />}
-            {featureToggles[Feature.Korreksjon] && <SjekkReberegning />}
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                {featureToggles[Feature.Korreksjon] &&
+                    !refusjon.korreksjonId &&
+                    refusjon.status !== RefusjonStatus.UTBETALING_FEILET && <OpprettKorreksjon />}
+                {featureToggles[Feature.Korreksjon] && <SjekkReberegning />}
+            </div>
 
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

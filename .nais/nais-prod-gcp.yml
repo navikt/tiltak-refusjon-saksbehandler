@@ -18,7 +18,7 @@ spec:
       tenant: nav.no
       claims:
         extra:
-          - "NAVident"
+          - NAVident
     sidecar:
       enabled: true
   liveness:

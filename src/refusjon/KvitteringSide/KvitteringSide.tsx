@@ -13,6 +13,7 @@ import InntekterFraAMeldingenGammel from '../RefusjonSide/InntekterFraAmeldingen
 import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
 import InntekterFraTiltaketSvarGammel from '../RefusjonSide/InntekterFraTiltaketSvarGammel';
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
+import SjekkReberegning from '../RefusjonSide/SjekkReberegning';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
 import TidligereRefunderbarBeløpKvittering from '../RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../RefusjonSide/Utregning';
@@ -41,10 +42,12 @@ const KvitteringSide: FunctionComponent = () => {
 
     return (
         <HvitBoks>
-            {brukerContext.innloggetBruker.harKorreksjonTilgang &&
-                refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
-                !refusjon.korreksjonId && <OpprettKorreksjon />}
-
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                {brukerContext.innloggetBruker.harKorreksjonTilgang &&
+                    refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
+                    !refusjon.korreksjonId && <OpprettKorreksjon />}
+                {brukerContext.innloggetBruker.harKorreksjonTilgang && <SjekkReberegning />}
+            </div>
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Heading size="large" role="heading">

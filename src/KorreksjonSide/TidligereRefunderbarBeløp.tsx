@@ -57,10 +57,10 @@ const TidligereRefunderbarBeløp: FunctionComponent<Properties> = ({ refusjonsgr
             <VerticalSpacer rem={1.75} />
             <Label>Har deltaker hatt fravær med lønn som blir refundert av NAV i denne perioden?</Label>
 
-            <RadioGroup legend="" className={cls.element('fratrekk-sykepenger-radiogroup')}>
+            <RadioGroup legend="" className={cls.element('fratrekk-sykepenger-radiogroup')} value={fratrekk}>
                 <Radio
                     name=""
-                    value={'Ja'}
+                    value={true}
                     checked={fratrekk === true}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         setFratrekk(event.currentTarget.checked);
@@ -70,7 +70,7 @@ const TidligereRefunderbarBeløp: FunctionComponent<Properties> = ({ refusjonsgr
                 </Radio>
                 <Radio
                     name=""
-                    value={'Nei'}
+                    value={false}
                     checked={fratrekk === false}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         setFratrekk(!event.currentTarget.checked);

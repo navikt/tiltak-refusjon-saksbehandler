@@ -3,7 +3,7 @@ import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { Feature } from '../featureToggles/features';
 import { Filter, useFilter } from '../refusjon/oversikt/FilterContext';
-import { Korreksjon, Korreksjonsgrunn, PageableRefusjon, Refusjon } from '../refusjon/refusjon';
+import { Beregning, Korreksjon, Korreksjonsgrunn, PageableRefusjon, Refusjon } from '../refusjon/refusjon';
 import { ApiError, FeilkodeError } from '../types/errors';
 
 const api = axios.create({
@@ -19,6 +19,8 @@ const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
 const swrConfig = {
     fetcher: axiosFetcher,
     suspense: true,
+    revalidateOnFocus: false,
+    refreshInterval: 120000,
 };
 
 api.interceptors.response.use(
@@ -164,5 +166,13 @@ export const settTidligereRefunderbarBeløp = async (
 
 export const hentEnhet = async (enhet: string, korreksjonId: string) => {
     const response = await api.get<string>(`/korreksjon/${korreksjonId}/hent-enhet/${enhet}`);
+    return response.data;
+};
+
+export const sjekkReberegning = async (refusjonId: string, harFerietrekkForSammeMåned: boolean, minusBeløp: number) => {
+    const response = await api.post<Beregning>(`/refusjon/reberegn-dry/${refusjonId}`, {
+        harFerietrekkForSammeMåned,
+        minusBeløp,
+    });
     return response.data;
 };

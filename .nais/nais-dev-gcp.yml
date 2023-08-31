@@ -18,7 +18,7 @@ spec:
       tenant: trygdeetaten.no
       claims:
         extra:
-          - "NAVident"
+          - NAVident
     sidecar:
       enabled: true
   liveness:

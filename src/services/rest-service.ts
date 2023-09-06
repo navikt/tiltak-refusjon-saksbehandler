@@ -57,6 +57,11 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
+export const useHentErKorreksjonEnhet = (refusjonId: string) => {
+    const { data } = useSWR<Boolean>(`/refusjon/er-korreksjon-enhet/${refusjonId}`, swrConfig);
+    return data;
+};
+
 export const useHentRefusjon = (refusjonId: string) => {
     const { data } = useSWR<Refusjon>(`/refusjon/${refusjonId}`, swrConfig);
     return data!;
@@ -122,11 +127,8 @@ export const slettKorreksjonsutkast = async (korreksjonId: string) => {
     return response.data;
 };
 
-export const utbetalKorreksjon = async (korreksjonId: string, beslutterNavIdent: string, kostnadssted: string) => {
-    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/utbetal-korreksjon`, {
-        beslutterNavIdent,
-        kostnadssted,
-    });
+export const utbetalKorreksjon = async (korreksjonId: string) => {
+    const response = await api.post<Refusjon>(`/korreksjon/${korreksjonId}/utbetal-korreksjon`);
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };

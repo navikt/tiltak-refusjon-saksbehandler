@@ -4,8 +4,9 @@ import { RefusjonStatus, Tiltak } from '../refusjon';
 import { useFilter } from './FilterContext';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import VisRefusjonerFilter from './VisRefusjonerFilter';
-import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
-import { Feature } from '../../featureToggles/features';
+import { useInnloggetBruker } from '../../bruker/BrukerContext';
+import { BrukerContextType } from '../../bruker/BrukerContextType';
+
 interface OptionProps {
     value: string;
     label?: string;
@@ -14,7 +15,7 @@ interface OptionProps {
 
 const Filtermeny: FunctionComponent = () => {
     const { filter, oppdaterFilter } = useFilter();
-    const featureToggles = useFeatureToggles();
+    const brukerContext: BrukerContextType = useInnloggetBruker();
 
     const refusjonFilterStatus: OptionProps[] = [
         { value: '', label: 'Alle' },
@@ -24,7 +25,11 @@ const Filtermeny: FunctionComponent = () => {
         { value: RefusjonStatus.SENDT_KRAV, label: 'Sendt Krav' },
         { value: RefusjonStatus.UTBETALT, label: 'Utbetalt' },
         { value: RefusjonStatus.UTGÅTT, label: 'Utgått' },
-        { value: RefusjonStatus.KORRIGERT, label: 'Korrigert', hidden: !featureToggles[Feature.Korreksjon] },
+        {
+            value: RefusjonStatus.KORRIGERT,
+            label: 'Korrigert',
+            hidden: !brukerContext.innloggetBruker.harKorreksjonTilgang,
+        },
     ];
 
     const refusjonFilterTiltak: OptionProps[] = [

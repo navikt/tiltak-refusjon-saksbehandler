@@ -3,8 +3,6 @@ import { Alert } from '@navikt/ds-react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Feature } from '../../featureToggles/features';
-import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 import TilbakeTilOversikt from '../../komponenter/tilbake-til-oversikt/TilbakeTilOversikt';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { useHentRefusjon } from '../../services/rest-service';
@@ -16,6 +14,8 @@ import { RefusjonStatus } from '../refusjon';
 import FeilSide from './FeilSide';
 import HenterInntekterBoks from './HenterInntekterBoks';
 import RefusjonSide from './RefusjonSide';
+import { useInnloggetBruker } from '../../bruker/BrukerContext';
+import { BrukerContextType } from '../../bruker/BrukerContextType';
 
 const Fleks = styled.div`
     display: flex;
@@ -27,11 +27,11 @@ const Fleks = styled.div`
 const Advarsler: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
-    const featureToggles = useFeatureToggles();
+    const brukerContext: BrukerContextType = useInnloggetBruker();
 
     return (
         <>
-            {featureToggles[Feature.Korreksjon] && refusjon.korreksjonId && (
+            {brukerContext.innloggetBruker.harKorreksjonTilgang && refusjon.korreksjonId && (
                 <>
                     <Alert variant="info" size="small">
                         Denne refusjonen er det gjort korrigeringer på.{' '}
@@ -47,7 +47,7 @@ const Advarsler: FunctionComponent = () => {
 const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
-    const featureToggles = useFeatureToggles();
+    const brukerContext: BrukerContextType = useInnloggetBruker();
 
     switch (refusjon.status) {
         case RefusjonStatus.FOR_TIDLIG:
@@ -64,7 +64,9 @@ const Komponent: FunctionComponent = () => {
                 <>
                     <Fleks>
                         <ForlengFrist />
-                        {featureToggles[Feature.Korreksjon] && <MerkForUnntakOmInntekterToMånederFrem />}
+                        {brukerContext.innloggetBruker.harKorreksjonTilgang && (
+                            <MerkForUnntakOmInntekterToMånederFrem />
+                        )}
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <RefusjonSide />

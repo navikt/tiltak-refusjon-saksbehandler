@@ -1,12 +1,10 @@
 import { Heading, Tag } from '@navikt/ds-react';
 import { FunctionComponent, ReactElement } from 'react';
 import { useParams } from 'react-router';
-import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
-import { Feature } from '../../featureToggles/features';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { statusTekst } from '../../messages';
-import { useHentRefusjon } from '../../services/rest-service';
+import { useHentErKorreksjonEnhet, useHentRefusjon } from '../../services/rest-service';
 import { NORSK_DATO_OG_TID_FORMAT, formatterDato } from '../../utils/datoUtils';
 import { storForbokstav } from '../../utils/stringUtils';
 import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
@@ -21,6 +19,8 @@ import TidligereRefunderbarBeløpKvittering from '../RefusjonSide/TidligereRefun
 import Utregning from '../RefusjonSide/Utregning';
 import { Refusjon, RefusjonStatus } from '../refusjon';
 import Statusmelding from './Statusmelding';
+import { useInnloggetBruker } from '../../bruker/BrukerContext';
+import { BrukerContextType } from '../../bruker/BrukerContextType';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
     if (refusjon.status === RefusjonStatus.UTBETALING_FEILET) {
@@ -37,18 +37,19 @@ const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
 const KvitteringSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
+    const erKorreksjonEnhet = useHentErKorreksjonEnhet(refusjonId!);
+    const brukerContext: BrukerContextType = useInnloggetBruker();
     const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
-    const featureToggles = useFeatureToggles();
 
     return (
         <HvitBoks>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {featureToggles[Feature.Korreksjon] &&
+                {brukerContext.innloggetBruker.harKorreksjonTilgang &&
+                    refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
                     !refusjon.korreksjonId &&
-                    refusjon.status !== RefusjonStatus.UTBETALING_FEILET && <OpprettKorreksjon />}
-                {featureToggles[Feature.Korreksjon] && <SjekkReberegning />}
+                    erKorreksjonEnhet && <OpprettKorreksjon />}
+                {brukerContext.innloggetBruker.harKorreksjonTilgang && <SjekkReberegning />}
             </div>
-
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Heading size="large" role="heading">

@@ -21,6 +21,8 @@ import { Refusjon, RefusjonStatus } from '../refusjon';
 import Statusmelding from './Statusmelding';
 import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { BrukerContextType } from '../../bruker/BrukerContextType';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
+import { Feature } from '../../featureToggles/features';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
     if (refusjon.status === RefusjonStatus.UTBETALING_FEILET) {
@@ -40,6 +42,7 @@ const KvitteringSide: FunctionComponent = () => {
     const erKorreksjonEnhet = useHentErKorreksjonEnhet(refusjonId!);
     const brukerContext: BrukerContextType = useInnloggetBruker();
     const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
+    const featureToggles = useFeatureToggles();
 
     return (
         <HvitBoks>
@@ -48,7 +51,7 @@ const KvitteringSide: FunctionComponent = () => {
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
                     !refusjon.korreksjonId &&
                     erKorreksjonEnhet && <OpprettKorreksjon />}
-                {brukerContext.innloggetBruker.harKorreksjonTilgang && <SjekkReberegning />}
+                {featureToggles[Feature.Korreksjon] && <SjekkReberegning />}
             </div>
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

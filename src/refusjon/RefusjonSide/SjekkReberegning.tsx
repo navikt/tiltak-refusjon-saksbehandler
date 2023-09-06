@@ -30,7 +30,7 @@ const SjekkReberegning: FunctionComponent = () => {
                 lukkModal={() => setÅpen(false)}
                 tittel="Sjekk reberegning"
                 bekreft={async () => setÅpen(false)}
-                containerStyle={{ minWidth: '50rem' }}
+                containerStyle={{ minWidth: '40rem' }}
             >
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center' }}>

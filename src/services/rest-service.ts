@@ -67,6 +67,11 @@ export const useHentRefusjon = (refusjonId: string) => {
     return data!;
 };
 
+export const useHentHendelselogg = (refusjonId: string) => {
+    const { data } = useSWR<Refusjon>(`/refusjon/${refusjonId}/hendelselogg`, swrConfig);
+    return data!;
+};
+
 export const useHentKorreksjon = (korreksjonId: string) => {
     const { data } = useSWR<Korreksjon>(`/korreksjon/${korreksjonId}`, swrConfig);
     return data!;

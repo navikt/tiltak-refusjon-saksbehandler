@@ -25,6 +25,7 @@ const Oversikt: FunctionComponent = () => {
         <nav className={cls.className} aria-label="Main">
             <div role="list">
                 <LabelRad />
+                hej
                 <OversiktTabell refusjoner={refusjonerPage.refusjoner} />
             </div>
 

@@ -16,6 +16,7 @@ import HenterInntekterBoks from './HenterInntekterBoks';
 import RefusjonSide from './RefusjonSide';
 import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { BrukerContextType } from '../../bruker/BrukerContextType';
+import HendelsesLogg from '../Hendelseslogg/Hendelseslogg';
 
 const Fleks = styled.div`
     display: flex;
@@ -64,6 +65,7 @@ const Komponent: FunctionComponent = () => {
                 <>
                     <Fleks>
                         <ForlengFrist />
+                        <HendelsesLogg />
                         {brukerContext.innloggetBruker.harKorreksjonTilgang && (
                             <MerkForUnntakOmInntekterToMånederFrem />
                         )}

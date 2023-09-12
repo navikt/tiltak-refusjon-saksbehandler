@@ -5,6 +5,8 @@ import { Feature } from '../featureToggles/features';
 import { Filter, useFilter } from '../refusjon/oversikt/FilterContext';
 import { Beregning, Korreksjon, Korreksjonsgrunn, PageableRefusjon, Refusjon } from '../refusjon/refusjon';
 import { ApiError, FeilkodeError } from '../types/errors';
+import Hendelseslogg from '../refusjon/Hendelseslogg/Hendelseslogg';
+import { Hendelse } from '../refusjon/Hendelseslogg/Hendelseslogg.spec';
 
 const api = axios.create({
     baseURL: '/api/saksbehandler',
@@ -68,7 +70,7 @@ export const useHentRefusjon = (refusjonId: string) => {
 };
 
 export const useHentHendelselogg = (refusjonId: string) => {
-    const { data } = useSWR<Refusjon>(`/refusjon/${refusjonId}/hendelselogg`, swrConfig);
+    const { data } = useSWR<Hendelse[]>(`/refusjon/${refusjonId}/hendelselogg`, swrConfig);
     return data!;
 };
 

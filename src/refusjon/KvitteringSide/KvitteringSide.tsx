@@ -1,10 +1,10 @@
 import { Heading, Tag } from '@navikt/ds-react';
-import { FunctionComponent, ReactElement } from 'react';
+import React, { FunctionComponent, ReactElement, useState } from 'react';
 import { useParams } from 'react-router';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { statusTekst } from '../../messages';
-import { useHentErKorreksjonEnhet, useHentRefusjon } from '../../services/rest-service';
+import { useHentErKorreksjonEnhet, useHentHendelselogg, useHentRefusjon } from '../../services/rest-service';
 import { NORSK_DATO_OG_TID_FORMAT, formatterDato } from '../../utils/datoUtils';
 import { storForbokstav } from '../../utils/stringUtils';
 import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
@@ -43,6 +43,7 @@ const KvitteringSide: FunctionComponent = () => {
     const brukerContext: BrukerContextType = useInnloggetBruker();
     const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
     const featureToggles = useFeatureToggles();
+    const hendelselogg = useHentHendelselogg(refusjonId!);
 
     return (
         <HvitBoks>
@@ -53,6 +54,7 @@ const KvitteringSide: FunctionComponent = () => {
                     erKorreksjonEnhet && <OpprettKorreksjon />}
                 {featureToggles[Feature.Korreksjon] && <SjekkReberegning />}
             </div>
+
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Heading size="large" role="heading">

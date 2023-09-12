@@ -1,33 +1,20 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import BEMHelper from '../../utils/bem';
 import bekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { Button, Modal, Table } from '@navikt/ds-react';
 import { storForbokstav } from '../../utils/stringUtils';
+import { Hendelse } from './Hendelseslogg.spec';
+import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
+
+type Props = {
+    hendelser: Hendelse[];
+};
 
 const cls = BEMHelper('hendelseslogg');
-const HendelsesLogg = () => {
-    // const { data: hendelser, isLoading, isError } = useHendelser();
-    // const { data: refusjoner } = useRefusjoner();o
+
+const HendelsesLogg: FunctionComponent<Props> = (props) => {
     const [open, setOpen] = useState<boolean>(false);
-    const sortertListe = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-
-    //
-    // if (isLoading) {
-    //     return <Spinner />;
-    // }
-    //
-    // if (isError) {
-    //     return <Feilmelding />;
-    // }
-
-    // const refusjonerMedHendelser = refusjoner?.map((refusjon) => {
-    //     const hendelserForRefusjon = hendelser?.filter((hendelse) => hendelse.refusjonId === refusjon.id);
-    //     return {
-    //         ...refusjon,
-    //         hendelser: hendelserForRefusjon,
-    //     };
-    // });
 
     return (
         <div>
@@ -50,27 +37,29 @@ const HendelsesLogg = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        hei
                         <Table>
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell scope="col"> Tidspunkt </Table.HeaderCell>
-                                    <Table.HeaderCell scope="col"> Hendelse </Table.HeaderCell>
                                     <Table.HeaderCell scope="col"> Utført av </Table.HeaderCell>
+                                    <Table.HeaderCell scope="col"> Hendelse </Table.HeaderCell>
+                                    <Table.HeaderCell scope="col"> Tidspunkt </Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {sortertListe.map((varsel) => (
-                                    <Table.Row key={varsel} role="row">
+                                {props.hendelser.map((varsel) => (
+                                    <Table.Row key={varsel.id} role="row">
+                                        {['utførtAv', 'event'].map((label) => (
+                                            <Table.DataCell role="cell" aria-labelledby={label} key={label}>
+                                                <div style={{ display: 'flex' }} aria-labelledby="varsel">
+                                                    <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
+                                                        {storForbokstav(varsel[label as keyof Hendelse] || '')}
+                                                    </span>
+                                                </div>
+                                            </Table.DataCell>
+                                        ))}
                                         <Table.DataCell role="cell" aria-labelledby="tidspunkt">
-                                            1
+                                            {formatterDato(varsel.tidspunkt, NORSK_DATO_OG_TID_FORMAT)}
                                         </Table.DataCell>
-                                        <Table.DataCell role="cell">
-                                            <div style={{ display: 'flex' }} aria-labelledby="varsel">
-                                                <span style={{ marginRight: '0.5rem' }} aria-hidden="true"></span>
-                                            </div>
-                                        </Table.DataCell>
-                                        <Table.DataCell role="cell" aria-labelledby="utført_av"></Table.DataCell>
                                     </Table.Row>
                                 ))}
                             </Table.Body>
@@ -79,12 +68,6 @@ const HendelsesLogg = () => {
                 </Modal.Body>
             </Modal>
         </div>
-        // <div className="hendelseslogg">
-        //     <div className="hendelseslogg__tittel">
-        //     </div>
-        //     <div className="hendelseslogg__innhold">
-        //     </div>
-        // </div>
     );
 };
 export default HendelsesLogg;

@@ -1,11 +1,11 @@
-import React, { FunctionComponent, Suspense } from 'react';
+import React, { FunctionComponent, Suspense, useEffect, useState } from 'react';
 import { Alert } from '@navikt/ds-react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import TilbakeTilOversikt from '../../komponenter/tilbake-til-oversikt/TilbakeTilOversikt';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentRefusjon } from '../../services/rest-service';
+import { useHentHendelselogg, useHentRefusjon } from '../../services/rest-service';
 import { formatterDato } from '../../utils/datoUtils';
 import ForlengFrist from '../ForlengFrist/ForlengFrist';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';
@@ -49,6 +49,7 @@ const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
     const brukerContext: BrukerContextType = useInnloggetBruker();
+    const hendelselogg = useHentHendelselogg(refusjonId!);
 
     switch (refusjon.status) {
         case RefusjonStatus.FOR_TIDLIG:
@@ -65,10 +66,10 @@ const Komponent: FunctionComponent = () => {
                 <>
                     <Fleks>
                         <ForlengFrist />
-                        <HendelsesLogg />
                         {brukerContext.innloggetBruker.harKorreksjonTilgang && (
                             <MerkForUnntakOmInntekterToMånederFrem />
                         )}
+                        <HendelsesLogg hendelser={hendelselogg} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <RefusjonSide />
@@ -94,7 +95,15 @@ const Komponent: FunctionComponent = () => {
         case RefusjonStatus.UTBETALT:
         case RefusjonStatus.UTBETALING_FEILET:
         case RefusjonStatus.KORRIGERT:
-            return <KvitteringSide />;
+            return (
+                <>
+                    <Fleks>
+                        <HendelsesLogg hendelser={hendelselogg} />
+                    </Fleks>
+                    <VerticalSpacer rem={1} />
+                    <KvitteringSide />;
+                </>
+            );
     }
 };
 

@@ -29,7 +29,7 @@ const setup = (router, authClient, tokenEndpoint) => {
                             return;
                         }
                     }
-                    oboTokenCache.delete(tokenFraAzure);
+                    oboTokenCache.del(tokenFraAzure);
                     authUtils.getOnBehalfOfAccessToken(authClient, tokenEndpoint, req).then(
                         (access_token) => {
                             options.headers.Authorization = `Bearer ${access_token}`;

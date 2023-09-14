@@ -9,6 +9,7 @@ const server = express();
 
 async function startApp() {
     try {
+        global.tokenCache = new Map();
         server.use(express.json());
         server.use(express.urlencoded({ extended: true }));
 

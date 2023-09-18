@@ -24,6 +24,7 @@ const azureAd = () => {
         discoveryUrl: envVar({ name: 'AZURE_APP_WELL_KNOWN_URL' }),
         clientId: envVar({ name: 'AZURE_APP_CLIENT_ID' }),
         clientJwks: JSON.parse(envVar({ name: 'AZURE_APP_JWKS' })),
+        openIdJwksUri: JSON.parse(envVar({ name: 'AZURE_OPENID_CONFIG_JWKS_URI' })),
         redirectUri: envVar({ name: 'AAD_REDIRECT_URL' }),
         logoutRedirectUri: envVar({ name: 'AAD_LOGOUT_REDIRECT_URL' }),
         tokenEndpointAuthMethod: 'private_key_jwt',

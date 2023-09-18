@@ -18,9 +18,10 @@ async function startApp() {
 
         const azureAuthClient = await azure.client();
         const tokenEndpoint = await azure.azureTokenEndpoint();
+        const azureJwksClient = azure.azureJwksClient();
 
         // setup routes
-        server.use('/', routes.setup(azureAuthClient, tokenEndpoint));
+        server.use('/', routes.setup(azureAuthClient, tokenEndpoint, azureJwksClient));
 
         const port = 3000;
         server.listen(port, () => logger.info(`Listening on port ${port}`));

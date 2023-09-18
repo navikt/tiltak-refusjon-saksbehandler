@@ -22,7 +22,7 @@ const setup = (router, authClient, tokenEndpoint) => {
                         const decodedOboTokenFraCache = jwt.decode(oboTokenFraCache, { complete: true });
                         if (
                             decodedOboTokenFraCache &&
-                            decodedOboTokenFraCache.payload.exp > (new Date().getTime() - 1) / 1000
+                            decodedOboTokenFraCache.payload.exp - 60 > new Date().getTime() / 1000
                         ) {
                             options.headers.Authorization = `Bearer ${oboTokenFraCache}`;
                             resolve(options);

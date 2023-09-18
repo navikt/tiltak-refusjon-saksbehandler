@@ -7,7 +7,7 @@ import config from './config';
 
 const router = express.Router();
 
-const ensureAuthenticated = async (azureAdConfig, azureJwksClient) => async (req, res, next) => {
+const ensureAuthenticated = (azureAdConfig, azureJwksClient) => async (req, res, next) => {
     if (req.headers['authorization']) {
         const bearerToken = req.headers.authorization?.replace('Bearer', '').trim();
         const decoded = jwt.decode(bearerToken, { complete: true });

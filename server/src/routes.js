@@ -3,7 +3,7 @@ import path from 'path';
 import jwt from 'jsonwebtoken';
 import apiProxy from './proxy/api-proxy';
 import decoratorProxy from './proxy/decorator-proxy';
-import config from '../config';
+import config from './config';
 
 const router = express.Router();
 

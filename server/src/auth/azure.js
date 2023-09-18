@@ -2,6 +2,7 @@ import { custom, Issuer } from 'openid-client';
 import config from '../config';
 import httpProxy from '../proxy/http-proxy';
 import logger from '../logger';
+import jwksClient from 'jwks-rsa';
 
 const metadata = () => {
     const azureAdConfig = config.azureAd();
@@ -27,6 +28,14 @@ const client = async () => {
     return new issuer.Client(metadata(), jwks);
 };
 
+const azureJwksClient = () => {
+    const azureAdConfig = config.azureAd();
+    const azureJwksClient = jwksClient({
+        jwksUri: azureAdConfig.openIdJwksUri,
+    });
+    return azureJwksClient;
+};
+
 const azureTokenEndpoint = async () => {
     const azureConfig = {
         discoveryUrl: process.env.AZURE_APP_WELL_KNOWN_URL,
@@ -39,4 +48,4 @@ const azureTokenEndpoint = async () => {
     return issuer.token_endpoint;
 };
 
-export default { client, azureTokenEndpoint };
+export default { client, azureTokenEndpoint, azureJwksClient };

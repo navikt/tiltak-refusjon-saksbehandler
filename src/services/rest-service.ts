@@ -57,11 +57,6 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
-export const useHentErKorreksjonEnhet = (refusjonId: string) => {
-    const { data } = useSWR<Boolean>(`/refusjon/er-korreksjon-enhet/${refusjonId}`, swrConfig);
-    return data;
-};
-
 export const useHentRefusjon = (refusjonId: string) => {
     const { data } = useSWR<Refusjon>(`/refusjon/${refusjonId}`, swrConfig);
     return data!;

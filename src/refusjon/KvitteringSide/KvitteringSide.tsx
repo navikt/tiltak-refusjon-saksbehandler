@@ -49,7 +49,7 @@ const KvitteringSide: FunctionComponent = () => {
                 {brukerContext.innloggetBruker.harKorreksjonTilgang &&
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
                     !refusjon.korreksjonId && <OpprettKorreksjon />}
-                {featureToggles[Feature.Korreksjon] && <SjekkReberegning />}
+                {featureToggles[Feature.Reberegning] && <SjekkReberegning />}
             </div>
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

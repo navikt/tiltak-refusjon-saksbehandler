@@ -1,3 +1,3 @@
 export enum Feature {
-    Korreksjon = 'reberegningKnapp',
+    Reberegning = 'reberegningKnapp',
 }

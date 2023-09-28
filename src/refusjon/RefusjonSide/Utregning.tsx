@@ -31,7 +31,7 @@ const GråRamme = styled.div`
 `;
 
 const Utregning: FunctionComponent<Props> = (props) => {
-    const { beregning, tilskuddsgrunnlag, forrigeRefusjonMinusBeløp } = props;
+    const { beregning, tilskuddsgrunnlag } = props;
     const bruttoLønnsInntekter = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erMedIInntektsgrunnlag && inntekt.erOpptjentIPeriode === true
     );

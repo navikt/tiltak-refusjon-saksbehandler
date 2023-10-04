@@ -122,6 +122,7 @@ export interface Beregning {
     tidligereUtbetalt: number;
     fratrekkLønnFerie: number;
     sumUtgifterFratrukketRefundertBeløp: number;
+    lønnFratrukketFerie: number;
     tidligereRefundertBeløp: number;
 }
 

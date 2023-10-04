@@ -31,7 +31,7 @@ const GråRamme = styled.div`
 `;
 
 const Utregning: FunctionComponent<Props> = (props) => {
-    const { beregning, tilskuddsgrunnlag, forrigeRefusjonMinusBeløp } = props;
+    const { beregning, tilskuddsgrunnlag } = props;
     const bruttoLønnsInntekter = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erMedIInntektsgrunnlag && inntekt.erOpptjentIPeriode === true
     );
@@ -127,7 +127,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
             </>
 
             <VerticalSpacer rem={3} />
-            {beregning && (beregning.overTilskuddsbeløp || beregning.tidligereUtbetalt > 0) && (
+            {beregning && (beregning.overTilskuddsbeløp || beregning.tidligereUtbetalt !== 0) && (
                 <Utregningsrad
                     labelIkon={<Pengesekken />}
                     labelTekst="Beregning basert på innhentede innteker"
@@ -144,30 +144,12 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     border="TYKK"
                 />
             )}
-            {beregning && beregning.tidligereUtbetalt > 0 && (
+            {beregning && beregning.tidligereUtbetalt !== 0 && (
                 <Utregningsrad
                     labelIkon={<Endret />}
                     labelTekst="Tidligere utbetalt"
                     verdiOperator={<MinusTegn />}
                     verdi={beregning.tidligereUtbetalt}
-                    border="TYKK"
-                />
-            )}
-            {forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0 && (
-                <Utregningsrad
-                    labelIkon={<Endret />}
-                    labelTekst={'Resterende fratrekk for ferie fra tidligere refusjoner'}
-                    verdiOperator={<MinusTegn />}
-                    verdi={forrigeRefusjonMinusBeløp}
-                    border="TYKK"
-                />
-            )}
-            {props.beregning?.tidligereUtbetalt != null && props.beregning?.tidligereUtbetalt < 0 && (
-                <Utregningsrad
-                    labelTekst="Tidligere utbetalt"
-                    verdiOperator={<ErlikTegn />}
-                    verdi={props.beregning?.tidligereUtbetalt ?? 0}
-                    ikkePenger={props.beregning === undefined}
                     border="TYKK"
                 />
             )}

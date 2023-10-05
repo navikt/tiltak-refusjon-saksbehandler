@@ -1,23 +1,22 @@
 import React, { FunctionComponent, useState } from 'react';
 import BEMHelper from '../../utils/bem';
-import bekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
-import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { Button, Modal, Table } from '@navikt/ds-react';
 import { storForbokstav } from '../../utils/stringUtils';
-import { Hendelse } from './Hendelseslogg.spec';
+import { Hendelse, HendelseType, EventTyper } from './Hendelseslogg.spec';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
+import { File } from '@navikt/ds-icons';
+import './Hendelseslogg.less';
 
 type Props = {
     hendelser: Hendelse[];
 };
-
 const cls = BEMHelper('hendelseslogg');
 
 const HendelsesLogg: FunctionComponent<Props> = (props) => {
     const [open, setOpen] = useState<boolean>(false);
 
     return (
-        <div>
+        <div className={cls.className}>
             <Button
                 size="small"
                 variant="secondary"
@@ -30,41 +29,50 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                 open={open}
                 onClose={() => setOpen(false)}
                 aria-label="Hendelseslogg"
-                className={cls.element('container')}
+                className={cls.element('modal')}
             >
                 <Modal.Header>
                     <h1>Hendelseslogg</h1>
                 </Modal.Header>
                 <Modal.Body>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <Table>
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell scope="col"> Utført av </Table.HeaderCell>
-                                    <Table.HeaderCell scope="col"> Hendelse </Table.HeaderCell>
-                                    <Table.HeaderCell scope="col"> Tidspunkt </Table.HeaderCell>
+                    <Table>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell scope="col"> Tidspunkt </Table.HeaderCell>
+                                <Table.HeaderCell scope="col"> Hendelse </Table.HeaderCell>
+                                <Table.HeaderCell scope="col"> Utført av </Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {props.hendelser.map((varsel) => (
+                                <Table.Row key={varsel.id} role="row">
+                                    <Table.DataCell role="cell" aria-labelledby="tidspunkt">
+                                        {formatterDato(varsel.tidspunkt, NORSK_DATO_OG_TID_FORMAT)}
+                                    </Table.DataCell>
+                                    <Table.DataCell
+                                        className={cls.className}
+                                        role="cell"
+                                        aria-labelledby={'event'}
+                                        key={'event'}
+                                    >
+                                        <div className={cls.element('ikonRad')}>
+                                            <File />
+                                            <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
+                                                {storForbokstav(HendelseType[varsel.event as EventTyper])}
+                                            </span>
+                                        </div>
+                                    </Table.DataCell>
+                                    <Table.DataCell role="cell" aria-labelledby={'utførtAv'} key={'utførtAv'}>
+                                        <div className={'ikonRad'} aria-labelledby="varsel">
+                                            <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
+                                                {storForbokstav(varsel['utførtAv' as keyof Hendelse] || '')}
+                                            </span>
+                                        </div>
+                                    </Table.DataCell>
                                 </Table.Row>
-                            </Table.Header>
-                            <Table.Body>
-                                {props.hendelser.map((varsel) => (
-                                    <Table.Row key={varsel.id} role="row">
-                                        {['utførtAv', 'event'].map((label) => (
-                                            <Table.DataCell role="cell" aria-labelledby={label} key={label}>
-                                                <div style={{ display: 'flex' }} aria-labelledby="varsel">
-                                                    <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
-                                                        {storForbokstav(varsel[label as keyof Hendelse] || '')}
-                                                    </span>
-                                                </div>
-                                            </Table.DataCell>
-                                        ))}
-                                        <Table.DataCell role="cell" aria-labelledby="tidspunkt">
-                                            {formatterDato(varsel.tidspunkt, NORSK_DATO_OG_TID_FORMAT)}
-                                        </Table.DataCell>
-                                    </Table.Row>
-                                ))}
-                            </Table.Body>
-                        </Table>
-                    </div>
+                            ))}
+                        </Table.Body>
+                    </Table>
                 </Modal.Body>
             </Modal>
         </div>

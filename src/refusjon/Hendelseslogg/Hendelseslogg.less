@@ -1,8 +1,21 @@
 .hendelseslogg {
     display: flex;
-    width: 5rem;
+    flex-direction: column;
+
+    &__modal {
+        max-width: 60rem;
+        width: 50rem;
+        padding: 2rem;
+    }
+
     &__openButton {
-        background-color: white; // Secondary button har gjennomsiktig farge.
+        background-color: white;
         align-self: flex-end;
+    }
+
+    &__ikonRad {
+        display: flex;
+        align-items: center;
+        margin-right: 0.5rem;
     }
 }

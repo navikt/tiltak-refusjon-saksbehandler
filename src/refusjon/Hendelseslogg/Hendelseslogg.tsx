@@ -56,10 +56,7 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                                         key={'event'}
                                     >
                                         <div className={cls.element('ikonRad')}>
-                                            <File />
-                                            <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
-                                                {storForbokstav(HendelseType[varsel.event as EventTyper])}
-                                            </span>
+                                            {HendelseType[varsel.event as EventTyper]}
                                         </div>
                                     </Table.DataCell>
                                     <Table.DataCell role="cell" aria-labelledby={'utførtAv'} key={'utførtAv'}>

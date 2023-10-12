@@ -54,12 +54,16 @@ const Komponent: FunctionComponent = () => {
     switch (refusjon.status) {
         case RefusjonStatus.FOR_TIDLIG:
             return (
-                <FeilSide
-                    advarselType="info"
-                    feiltekst={`Du kan søke om refusjon fra ${formatterDato(
-                        refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
-                    )} når perioden er over.`}
-                />
+                <Fleks>
+                    {/*<HendelsesLogg hendelser={hendelselogg} />*/}
+
+                    <FeilSide
+                        advarselType="info"
+                        feiltekst={`Du kan søke om refusjon fra ${formatterDato(
+                            refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
+                        )} når perioden er over.`}
+                    />
+                </Fleks>
             );
         case RefusjonStatus.KLAR_FOR_INNSENDING:
             return (

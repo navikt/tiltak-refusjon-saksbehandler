@@ -56,6 +56,7 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                                         key={'event'}
                                     >
                                         <div className={cls.element('ikonRad')}>
+                                            {varsel.event}
                                             {HendelseType[varsel.event as EventTyper]}
                                         </div>
                                     </Table.DataCell>

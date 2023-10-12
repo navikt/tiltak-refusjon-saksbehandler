@@ -6,6 +6,8 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
+import HendelsesLogg from '../Hendelseslogg/Hendelseslogg';
+import { Hendelse } from '../Hendelseslogg/Hendelseslogg.spec';
 
 type AlertStripeType = 'info' | 'success' | 'warning' | 'error';
 

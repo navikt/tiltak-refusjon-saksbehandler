@@ -2,10 +2,11 @@ import React, { FunctionComponent, useState } from 'react';
 import BEMHelper from '../../utils/bem';
 import { Button, Modal, Table } from '@navikt/ds-react';
 import { storForbokstav } from '../../utils/stringUtils';
-import { Hendelse, HendelseType, EventTyper } from './Hendelseslogg.spec';
+import HendelseIkon from './Hendelseslogg.spec';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
-import { File } from '@navikt/ds-icons';
 import './Hendelseslogg.less';
+import { Hendelse, HendelseType } from '../refusjon';
+import { hendelseTekst } from '../../messages';
 
 type Props = {
     hendelser: Hendelse[];
@@ -55,9 +56,12 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                                         aria-labelledby={'event'}
                                         key={'event'}
                                     >
-                                        <div className={cls.element('ikonRad')}>
-                                            {varsel.event}
-                                            {HendelseType[varsel.event as EventTyper]}
+                                        <div className={cls.element('ikonRad')} about={varsel.event}>
+                                            <HendelseIkon hendelse={varsel.event as HendelseType} />
+                                            <span style={{ marginLeft: '0.2rem' }}>
+                                                {' '}
+                                                {hendelseTekst[varsel.event]}{' '}
+                                            </span>
                                         </div>
                                     </Table.DataCell>
                                     <Table.DataCell role="cell" aria-labelledby={'utførtAv'} key={'utførtAv'}>

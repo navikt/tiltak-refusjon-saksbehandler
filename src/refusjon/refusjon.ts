@@ -142,3 +142,30 @@ export interface PageableRefusjon {
     totalItems: number;
     totalPages: number;
 }
+
+export enum HendelseType {
+    RefusjonOpprettet = 'RefusjonOpprettet',
+    BeregningUtført = 'BeregningUtført',
+    GodkjentAvArbeidsgiver = 'GodkjentAvArbeidsgiver',
+    RefusjonGodkjentNullBeløp = 'RefusjonGodkjentNullBeløp',
+    RefusjonGodkjentMinusBeløp = 'RefusjonGodkjentMinusBeløp',
+    FristForlenget = 'FristForlenget',
+    KorreksjonBeregningUtført = 'KorreksjonBeregningUtført',
+    KorreksjonMerketForOppgjort = 'KorreksjonMerketForOppgjort',
+    KorreksjonMerketForTilbakekreving = 'KorreksjonMerketForTilbakekreving',
+    KorreksjonSendtTilUtbetaling = 'KorreksjonSendtTilUtbetaling',
+    KLAR = 'KLAR',
+    REVARSEL = 'REVARSEL',
+    FRIST_FORLENGET = 'FRIST_FORLENGET',
+    KORRIGERT = 'KORRIGERT',
+}
+
+export interface Hendelse {
+    id: string;
+    // appImageId: string;
+    refusonId: string;
+    event: HendelseType;
+    smsType?: string;
+    utførtAv?: string;
+    tidspunkt: string;
+}

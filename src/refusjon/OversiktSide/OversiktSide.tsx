@@ -13,7 +13,6 @@ const OversiktSide: FunctionComponent = () => {
             <div className={cls.element('wrapper')}>
                 <div className={cls.element('meny')}>
                     <Filtermeny />
-                    dasda
                 </div>
                 <div className={cls.element('container')}>
                     <Suspense fallback={<OversiktSkeleton />}>

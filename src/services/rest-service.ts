@@ -3,10 +3,8 @@ import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { Feature } from '../featureToggles/features';
 import { Filter, useFilter } from '../refusjon/oversikt/FilterContext';
-import { Beregning, Korreksjon, Korreksjonsgrunn, PageableRefusjon, Refusjon } from '../refusjon/refusjon';
+import { Beregning, Hendelse, Korreksjon, Korreksjonsgrunn, PageableRefusjon, Refusjon } from '../refusjon/refusjon';
 import { ApiError, FeilkodeError } from '../types/errors';
-import Hendelseslogg from '../refusjon/Hendelseslogg/Hendelseslogg';
-import { Hendelse } from '../refusjon/Hendelseslogg/Hendelseslogg.spec';
 
 const api = axios.create({
     baseURL: '/api/saksbehandler',

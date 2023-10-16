@@ -5,6 +5,7 @@ import {
     DocPencilIcon,
     ClockIcon,
     PersonPencilIcon,
+    XMarkOctagonIcon,
 } from '@navikt/aksel-icons';
 import { FunctionComponent, ReactNode } from 'react';
 import { HendelseType } from '../refusjon';
@@ -24,10 +25,14 @@ const hendelsesIkon: { [key in HendelseType]: ReactNode } = {
     KorreksjonMerketForOppgjort: <PersonPencilIcon />,
     KorreksjonMerketForTilbakekreving: <PersonPencilIcon />,
     KorreksjonSendtTilUtbetaling: <PersonPencilIcon />,
-    KLAR: <EnvelopeClosedIcon />,
-    REVARSEL: <EnvelopeClosedIcon />,
-    FRIST_FORLENGET: <EnvelopeClosedIcon />,
-    KORRIGERT: <EnvelopeClosedIcon />,
+    MerketForInntekterFrem: <PersonPencilIcon />,
+    RefusjonVarselKlar: <EnvelopeClosedIcon />,
+    RefusjonVarselRevarsel: <EnvelopeClosedIcon />,
+    RefusjonVarselFristForlenget: <EnvelopeClosedIcon />,
+    RefusjonVarselKorrigert: <EnvelopeClosedIcon />,
+    RefusjonAnnullert: <XMarkOctagonIcon />,
+    RefusjonForkortet: <ClockIcon />,
+    TilskuddsperioderIRefusjonAnnullertManuelt: <XMarkOctagonIcon />,
 };
 
 const HendelseIkon: FunctionComponent<Props> = (props): ReactNode => {

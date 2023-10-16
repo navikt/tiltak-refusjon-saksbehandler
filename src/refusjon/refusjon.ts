@@ -154,10 +154,14 @@ export enum HendelseType {
     KorreksjonMerketForOppgjort = 'KorreksjonMerketForOppgjort',
     KorreksjonMerketForTilbakekreving = 'KorreksjonMerketForTilbakekreving',
     KorreksjonSendtTilUtbetaling = 'KorreksjonSendtTilUtbetaling',
-    KLAR = 'KLAR',
-    REVARSEL = 'REVARSEL',
-    FRIST_FORLENGET = 'FRIST_FORLENGET',
-    KORRIGERT = 'KORRIGERT',
+    MerketForInntekterFrem = 'MerketForInntekterFrem',
+    RefusjonVarselKlar = 'RefusjonVarselKlar',
+    RefusjonVarselRevarsel = 'RefusjonVarselRevarsel',
+    RefusjonVarselFristForlenget = 'RefusjonVarselFristForlenget',
+    RefusjonVarselKorrigert = 'RefusjonVarselKorrigert',
+    RefusjonAnnullert = 'RefusjonAnnullert',
+    RefusjonForkortet = 'RefusjonForkortet',
+    TilskuddsperioderIRefusjonAnnullertManuelt = 'TilskuddsperioderIRefusjonAnnullertManuelt',
 }
 
 export interface Hendelse {

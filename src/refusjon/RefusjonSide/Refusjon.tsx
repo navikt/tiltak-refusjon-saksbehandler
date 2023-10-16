@@ -54,16 +54,18 @@ const Komponent: FunctionComponent = () => {
     switch (refusjon.status) {
         case RefusjonStatus.FOR_TIDLIG:
             return (
-                <Fleks>
-                    {/*<HendelsesLogg hendelser={hendelselogg} />*/}
-
+                <>
+                    <Fleks>
+                        <HendelsesLogg hendelser={hendelselogg} />
+                    </Fleks>
+                    <VerticalSpacer rem={1} />
                     <FeilSide
                         advarselType="info"
                         feiltekst={`Du kan søke om refusjon fra ${formatterDato(
                             refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
                         )} når perioden er over.`}
                     />
-                </Fleks>
+                </>
             );
         case RefusjonStatus.KLAR_FOR_INNSENDING:
             return (
@@ -92,7 +94,15 @@ const Komponent: FunctionComponent = () => {
                 </>
             );
         case RefusjonStatus.ANNULLERT:
-            return <FeilSide advarselType="warning" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />;
+            return (
+                <>
+                    <Fleks>
+                        <HendelsesLogg hendelser={hendelselogg} />
+                    </Fleks>
+                    <VerticalSpacer rem={1} />
+                    <FeilSide advarselType="warning" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />
+                </>
+            );
         case RefusjonStatus.SENDT_KRAV:
         case RefusjonStatus.GODKJENT_MINUSBELØP:
         case RefusjonStatus.GODKJENT_NULLBELØP:

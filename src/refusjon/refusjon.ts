@@ -162,6 +162,7 @@ export enum HendelseType {
     RefusjonAnnullert = 'RefusjonAnnullert',
     RefusjonForkortet = 'RefusjonForkortet',
     TilskuddsperioderIRefusjonAnnullertManuelt = 'TilskuddsperioderIRefusjonAnnullertManuelt',
+    SaksbehandlerMerketForInntekterLengerFrem = 'SaksbehandlerMerketForInntekterLengerFrem',
 }
 
 export interface Hendelse {
@@ -170,6 +171,16 @@ export interface Hendelse {
     refusonId: string;
     event: HendelseType;
     smsType?: string;
-    utførtAv?: string;
+    utførtAv: string;
+    utførtRolle: string; //BrukerRolle?,
     tidspunkt: string;
+    metadata: HendelseMetadata | HendelseMetadata2;
+}
+
+export interface HendelseMetadata {
+    antallMndFremITid: number;
+}
+
+export interface HendelseMetadata2 {
+    dager: number;
 }

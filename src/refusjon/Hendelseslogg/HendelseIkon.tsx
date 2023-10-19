@@ -33,6 +33,7 @@ const hendelsesIkon: { [key in HendelseType]: ReactNode } = {
     RefusjonAnnullert: <XMarkOctagonIcon />,
     RefusjonForkortet: <ClockIcon />,
     TilskuddsperioderIRefusjonAnnullertManuelt: <XMarkOctagonIcon />,
+    SaksbehandlerMerketForInntekterLengerFrem: <PersonPencilIcon />,
 };
 
 const HendelseIkon: FunctionComponent<Props> = (props): ReactNode => {

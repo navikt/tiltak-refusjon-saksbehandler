@@ -94,14 +94,19 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                                             <div className={cls.element('ikonRad')} about={varsel.event}>
                                                 <HendelseIkon hendelse={varsel.event as HendelseType} />
                                                 <span style={{ marginLeft: '0.2rem' }}>
-                                                    {hendelseTekst[varsel.event]}
+                                                    {hendelseTekst[varsel.event] +
+                                                        ` ${
+                                                            varsel.metadata && 'antallMndFremITid' in varsel.metadata
+                                                                ? `(${varsel.metadata.antallMndFremITid} måneder)`
+                                                                : ''
+                                                        }`}
                                                 </span>
                                             </div>
                                         </Table.DataCell>
                                         <Table.DataCell role="cell" aria-labelledby={'utførtAv'} key={'utførtAv'}>
                                             <div className={'ikonRad'} aria-labelledby="varsel">
                                                 <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
-                                                    {storForbokstav(varsel['utførtAv' as keyof Hendelse] || '')}
+                                                    {storForbokstav(varsel.utførtAv)}
                                                 </span>
                                             </div>
                                         </Table.DataCell>

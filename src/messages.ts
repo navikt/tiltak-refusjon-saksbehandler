@@ -210,4 +210,5 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     RefusjonAnnullert: 'Annullert',
     RefusjonForkortet: 'Forkortet',
     TilskuddsperioderIRefusjonAnnullertManuelt: 'Annulert manuellt',
+    SaksbehandlerMerketForInntekterLengerFrem: 'Merket for inntekter lenger frem',
 };

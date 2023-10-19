@@ -106,7 +106,7 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                                         <Table.DataCell role="cell" aria-labelledby={'utførtAv'} key={'utførtAv'}>
                                             <div className={'ikonRad'} aria-labelledby="varsel">
                                                 <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
-                                                    {storForbokstav(varsel.utførtAv)}
+                                                    {storForbokstav(varsel.utførtAv ? varsel.utførtAv : '')}
                                                 </span>
                                             </div>
                                         </Table.DataCell>

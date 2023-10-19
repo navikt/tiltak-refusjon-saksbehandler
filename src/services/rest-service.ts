@@ -3,7 +3,7 @@ import useSWR, { mutate } from 'swr';
 import { InnloggetBruker } from '../bruker/BrukerContextType';
 import { Feature } from '../featureToggles/features';
 import { Filter, useFilter } from '../refusjon/oversikt/FilterContext';
-import { Beregning, Korreksjon, Korreksjonsgrunn, PageableRefusjon, Refusjon } from '../refusjon/refusjon';
+import { Beregning, Hendelse, Korreksjon, Korreksjonsgrunn, PageableRefusjon, Refusjon } from '../refusjon/refusjon';
 import { ApiError, FeilkodeError } from '../types/errors';
 
 const api = axios.create({
@@ -59,6 +59,11 @@ const removeEmpty = (obj: any) => {
 
 export const useHentRefusjon = (refusjonId: string) => {
     const { data } = useSWR<Refusjon>(`/refusjon/${refusjonId}`, swrConfig);
+    return data!;
+};
+
+export const useHentHendelselogg = (refusjonId: string) => {
+    const { data } = useSWR<Hendelse[]>(`/refusjon/${refusjonId}/hendelselogg`, swrConfig);
     return data!;
 };
 

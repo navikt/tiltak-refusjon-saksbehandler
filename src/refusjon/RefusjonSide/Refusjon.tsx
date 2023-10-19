@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import TilbakeTilOversikt from '../../komponenter/tilbake-til-oversikt/TilbakeTilOversikt';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentRefusjon } from '../../services/rest-service';
+import { useHentHendelselogg, useHentRefusjon } from '../../services/rest-service';
 import { formatterDato } from '../../utils/datoUtils';
 import ForlengFrist from '../ForlengFrist/ForlengFrist';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';
@@ -16,6 +16,7 @@ import HenterInntekterBoks from './HenterInntekterBoks';
 import RefusjonSide from './RefusjonSide';
 import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { BrukerContextType } from '../../bruker/BrukerContextType';
+import HendelsesLogg from '../Hendelseslogg/Hendelseslogg';
 
 const Fleks = styled.div`
     display: flex;
@@ -48,16 +49,23 @@ const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
     const brukerContext: BrukerContextType = useInnloggetBruker();
+    const hendelselogg = useHentHendelselogg(refusjonId!);
 
     switch (refusjon.status) {
         case RefusjonStatus.FOR_TIDLIG:
             return (
-                <FeilSide
-                    advarselType="info"
-                    feiltekst={`Du kan søke om refusjon fra ${formatterDato(
-                        refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
-                    )} når perioden er over.`}
-                />
+                <>
+                    <Fleks>
+                        <HendelsesLogg hendelser={hendelselogg} />
+                    </Fleks>
+                    <VerticalSpacer rem={1} />
+                    <FeilSide
+                        advarselType="info"
+                        feiltekst={`Du kan søke om refusjon fra ${formatterDato(
+                            refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
+                        )} når perioden er over.`}
+                    />
+                </>
             );
         case RefusjonStatus.KLAR_FOR_INNSENDING:
             return (
@@ -67,6 +75,7 @@ const Komponent: FunctionComponent = () => {
                         {brukerContext.innloggetBruker.harKorreksjonTilgang && (
                             <MerkForUnntakOmInntekterToMånederFrem />
                         )}
+                        <HendelsesLogg hendelser={hendelselogg} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <RefusjonSide />
@@ -85,14 +94,30 @@ const Komponent: FunctionComponent = () => {
                 </>
             );
         case RefusjonStatus.ANNULLERT:
-            return <FeilSide advarselType="warning" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />;
+            return (
+                <>
+                    <Fleks>
+                        <HendelsesLogg hendelser={hendelselogg} />
+                    </Fleks>
+                    <VerticalSpacer rem={1} />
+                    <FeilSide advarselType="warning" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />
+                </>
+            );
         case RefusjonStatus.SENDT_KRAV:
         case RefusjonStatus.GODKJENT_MINUSBELØP:
         case RefusjonStatus.GODKJENT_NULLBELØP:
         case RefusjonStatus.UTBETALT:
         case RefusjonStatus.UTBETALING_FEILET:
         case RefusjonStatus.KORRIGERT:
-            return <KvitteringSide />;
+            return (
+                <>
+                    <Fleks>
+                        <HendelsesLogg hendelser={hendelselogg} />
+                    </Fleks>
+                    <VerticalSpacer rem={1} />
+                    <KvitteringSide />;
+                </>
+            );
     }
 };
 

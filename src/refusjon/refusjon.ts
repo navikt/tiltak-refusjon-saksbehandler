@@ -171,8 +171,8 @@ export interface Hendelse {
     refusonId: string;
     event: HendelseType;
     smsType?: string;
-    utførtAv: string;
-    utførtRolle: string; //BrukerRolle?,
+    utførtAv?: string;
+    utførtRolle?: string;
     tidspunkt: string;
     metadata: HendelseMetadata | HendelseMetadata2;
 }

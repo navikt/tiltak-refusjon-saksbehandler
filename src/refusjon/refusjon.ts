@@ -172,7 +172,6 @@ export interface Hendelse {
     event: HendelseType;
     smsType?: string;
     utførtAv?: string;
-    utførtRolle?: string;
     tidspunkt: string;
     metadata: HendelseMetadata;
 }

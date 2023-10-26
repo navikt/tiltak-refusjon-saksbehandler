@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import TilbakeTilOversikt from '../../komponenter/tilbake-til-oversikt/TilbakeTilOversikt';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import { useHentHendelselogg, useHentRefusjon } from '../../services/rest-service';
+import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato } from '../../utils/datoUtils';
 import ForlengFrist from '../ForlengFrist/ForlengFrist';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';
@@ -49,14 +49,13 @@ const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
     const brukerContext: BrukerContextType = useInnloggetBruker();
-    const hendelselogg = useHentHendelselogg(refusjonId!);
 
     switch (refusjon.status) {
         case RefusjonStatus.FOR_TIDLIG:
             return (
                 <>
                     <Fleks>
-                        <HendelsesLogg hendelser={hendelselogg} />
+                        <HendelsesLogg refusjonId={refusjonId} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <FeilSide
@@ -75,7 +74,7 @@ const Komponent: FunctionComponent = () => {
                         {brukerContext.innloggetBruker.harKorreksjonTilgang && (
                             <MerkForUnntakOmInntekterToMånederFrem />
                         )}
-                        <HendelsesLogg hendelser={hendelselogg} />
+                        <HendelsesLogg  refusjonId={refusjonId} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <RefusjonSide />
@@ -97,7 +96,7 @@ const Komponent: FunctionComponent = () => {
             return (
                 <>
                     <Fleks>
-                        <HendelsesLogg hendelser={hendelselogg} />
+                        <HendelsesLogg  refusjonId={refusjonId} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <FeilSide advarselType="warning" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />
@@ -112,7 +111,7 @@ const Komponent: FunctionComponent = () => {
             return (
                 <>
                     <Fleks>
-                        <HendelsesLogg hendelser={hendelselogg} />
+                        <HendelsesLogg  refusjonId={refusjonId} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <KvitteringSide />;

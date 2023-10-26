@@ -62,10 +62,10 @@ export const useHentRefusjon = (refusjonId: string) => {
     return data!;
 };
 
-export const useHentHendelselogg = (refusjonId: string) => {
-    const { data } = useSWR<Hendelse[]>(`/refusjon/${refusjonId}/hendelselogg`, swrConfig);
-    return data!;
-};
+export const hentHendelser = async (refusjonId: string) => {
+    const response = await api.get<Hendelse[]>(`/refusjon/${refusjonId}/hendelselogg`);
+    return response.data;
+}
 
 export const useHentKorreksjon = (korreksjonId: string) => {
     const { data } = useSWR<Korreksjon>(`/korreksjon/${korreksjonId}`, swrConfig);

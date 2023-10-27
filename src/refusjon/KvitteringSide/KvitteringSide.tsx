@@ -48,6 +48,7 @@ const KvitteringSide: FunctionComponent = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 {brukerContext.innloggetBruker.harKorreksjonTilgang &&
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
+                    refusjon.status !== RefusjonStatus.GODKJENT_MINUSBELØP &&
                     !refusjon.korreksjonId && <OpprettKorreksjon />}
                 {featureToggles[Feature.Reberegning] && <SjekkReberegning />}
             </div>

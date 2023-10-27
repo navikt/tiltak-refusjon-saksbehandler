@@ -60,6 +60,7 @@ const KorreksjonKvitteringSide: FunctionComponent = () => {
                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                 inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
+                korreksjonSide={true}
             />
             <VerticalSpacer rem={4} />
             <KorreksjonSummeringBoks

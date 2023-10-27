@@ -22,6 +22,7 @@ interface Props {
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     forrigeRefusjonMinusBeløp?: number;
     inntektsgrunnlag?: Inntektsgrunnlag;
+    korreksjonSide?: Boolean;
 }
 
 const GråRamme = styled.div`
@@ -144,12 +145,12 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     border="TYKK"
                 />
             )}
-            {beregning && beregning.tidligereUtbetalt !== 0 && (
+            {((beregning && beregning.tidligereUtbetalt !== 0) || props.korreksjonSide === true) && (
                 <Utregningsrad
                     labelIkon={<Endret />}
                     labelTekst="Tidligere utbetalt"
                     verdiOperator={<MinusTegn />}
-                    verdi={beregning.tidligereUtbetalt}
+                    verdi={beregning ? beregning.tidligereUtbetalt : 0}
                     border="TYKK"
                 />
             )}

@@ -24,7 +24,7 @@ const FeilSide: FunctionComponent<Props> = (props) => {
 
     return (
         <HvitBoks>
-            {featureToggles[Feature.OpprettNullBelopKorreksjon] && (
+            {!refusjon.korreksjonId && featureToggles[Feature.OpprettNullBelopKorreksjon] && (
                 <>
                     <OpprettKorreksjon />
                     <VerticalSpacer rem={1} />

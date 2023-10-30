@@ -50,7 +50,9 @@ const KvitteringSide: FunctionComponent = () => {
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
                     refusjon.status !== RefusjonStatus.UTGÅTT &&
                     !refusjon.korreksjonId) ||
-                    featureToggles[Feature.OpprettNullBelopKorreksjon]) && <OpprettKorreksjon />}
+                    (!refusjon.korreksjonId && featureToggles[Feature.OpprettNullBelopKorreksjon])) && (
+                    <OpprettKorreksjon />
+                )}
                 {featureToggles[Feature.Reberegning] && <SjekkReberegning />}
             </div>
             <VerticalSpacer rem={2} />

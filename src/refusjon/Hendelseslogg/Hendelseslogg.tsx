@@ -16,7 +16,6 @@ type Props = {
 const cls = BEMHelper('hendelseslogg');
 
 interface SortertListe extends Hendelse {
-    antallLike: number;
     skjules: boolean;
 }
 
@@ -36,14 +35,14 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
     );
 
     useEffect(() => {
-        setHendelselogg({ status: Status.LasterInn });
         if (open) {
+            setHendelselogg({ status: Status.LasterInn });
             hentHendelser(props.refusjonId!)
                 .then((data: Hendelse[]) =>
                     setHendelselogg({
                         status: Status.Lastet,
                         data: data
-                            .map((v) => ({ ...v, antallLike: 1, skjules: false }))
+                            .map((v) => ({ ...v, skjules: false }))
                             .sort((a, b) => {
                                 if (a.tidspunkt < b.tidspunkt) {
                                     return -1;
@@ -67,7 +66,6 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
             const gjeldendeVarsel = hendelselogg.data[i];
 
             if (forrigeVarsel.event === gjeldendeVarsel.event && forrigeVarsel.utførtAv === gjeldendeVarsel.utførtAv) {
-                gjeldendeVarsel.antallLike = forrigeVarsel.antallLike + 1;
                 forrigeVarsel.skjules = true;
                 finnesMinstEnSomSkjules = true;
             }
@@ -96,7 +94,7 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                 <Modal.Body>
                     {finnesMinstEnSomSkjules && (
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <CheckboxGroup legend="" onChange={(value: any[]) => setKomprimer(value)}>
+                            <CheckboxGroup legend="" onChange={(value: any) => setKomprimer(value)}>
                                 <Checkbox value="ikke_komprimer">Vis alle hendelser</Checkbox>
                             </CheckboxGroup>
                         </div>

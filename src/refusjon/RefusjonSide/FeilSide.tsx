@@ -24,7 +24,12 @@ const FeilSide: FunctionComponent<Props> = (props) => {
 
     return (
         <HvitBoks>
-            {featureToggles[Feature.OpprettNullBelopKorreksjon] && <OpprettKorreksjon />}
+            {featureToggles[Feature.OpprettNullBelopKorreksjon] && (
+                <>
+                    <OpprettKorreksjon />
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
             <Alert variant={props.advarselType} size="small">
                 {props.feiltekst}
             </Alert>

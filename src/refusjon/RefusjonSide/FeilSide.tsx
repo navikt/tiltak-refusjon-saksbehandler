@@ -6,6 +6,9 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
+import { Feature } from '../../featureToggles/features';
+import OpprettKorreksjon from './OpprettKorreksjon';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 
 type AlertStripeType = 'info' | 'success' | 'warning' | 'error';
 
@@ -17,8 +20,11 @@ type Props = {
 const FeilSide: FunctionComponent<Props> = (props) => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
+    const featureToggles = useFeatureToggles();
+
     return (
         <HvitBoks>
+            {featureToggles[Feature.OpprettNullBelopKorreksjon] && <OpprettKorreksjon />}
             <Alert variant={props.advarselType} size="small">
                 {props.feiltekst}
             </Alert>

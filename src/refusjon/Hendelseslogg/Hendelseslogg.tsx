@@ -15,14 +15,16 @@ type Props = {
 };
 const cls = BEMHelper('hendelseslogg');
 
-interface SortertListe extends Hendelse {
+interface HendelseMedVisningsstatus extends Hendelse {
     skjules: boolean;
 }
 
 const HendelsesLogg: FunctionComponent<Props> = (props) => {
     const [open, setOpen] = useState<boolean>(false);
     const [visAlle, setVisAlle] = useState<boolean>(false);
-    const [hendelselogg, setHendelselogg] = useState<Nettressurs<SortertListe[]>>({ status: Status.IkkeLastet });
+    const [hendelseslogg, setHendelseslogg] = useState<Nettressurs<HendelseMedVisningsstatus[]>>({
+        status: Status.IkkeLastet,
+    });
 
     const UtgråetTekst: FunctionComponent<PropsWithChildren<{ grå: boolean; title?: string }>> = ({
         children,
@@ -36,10 +38,10 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
 
     useEffect(() => {
         if (open) {
-            setHendelselogg({ status: Status.LasterInn });
+            setHendelseslogg({ status: Status.LasterInn });
             hentHendelser(props.refusjonId!)
                 .then((data: Hendelse[]) =>
-                    setHendelselogg({
+                    setHendelseslogg({
                         status: Status.Lastet,
                         data: data
                             .map((v) => ({ ...v, skjules: false }))
@@ -54,16 +56,16 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                             }),
                     })
                 )
-                .catch((error: Error) => setHendelselogg({ status: Status.Feil, error: error.message }));
+                .catch((error: Error) => setHendelseslogg({ status: Status.Feil, error: error.message }));
         }
     }, [open]);
 
     let finnesMinstEnSomSkjules = false;
 
-    if (hendelselogg.status === Status.Lastet) {
-        for (let i = 1; i < hendelselogg.data.length; i++) {
-            const forrigeVarsel = hendelselogg.data[i - 1];
-            const gjeldendeVarsel = hendelselogg.data[i];
+    if (hendelseslogg.status === Status.Lastet) {
+        for (let i = 1; i < hendelseslogg.data.length; i++) {
+            const forrigeVarsel = hendelseslogg.data[i - 1];
+            const gjeldendeVarsel = hendelseslogg.data[i];
 
             if (forrigeVarsel.event === gjeldendeVarsel.event && forrigeVarsel.utførtAv === gjeldendeVarsel.utførtAv) {
                 forrigeVarsel.skjules = true;
@@ -80,7 +82,7 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                 className={cls.element('openButton')}
                 onClick={() => setOpen(!open)}
             >
-                Hendelselogg
+                Hendelseslogg
             </Button>
             <Modal
                 open={open}
@@ -108,8 +110,8 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {hendelselogg.status === Status.Lastet &&
-                                hendelselogg.data
+                            {hendelseslogg.status === Status.Lastet &&
+                                hendelseslogg.data
                                     .filter((v) => !v.skjules || visAlle)
                                     .map((varsel) => (
                                         <Table.Row key={varsel.id} role="row">

@@ -43,6 +43,9 @@ const KvitteringSide: FunctionComponent = () => {
     const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
     const featureToggles = useFeatureToggles();
 
+    console.log('Feature', featureToggles[Feature.OpprettNullBelopKorreksjon]);
+    console.log('Reberegning', featureToggles[Feature.Reberegning]);
+
     return (
         <HvitBoks>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>

@@ -74,7 +74,7 @@ const Komponent: FunctionComponent = () => {
                         {brukerContext.innloggetBruker.harKorreksjonTilgang && (
                             <MerkForUnntakOmInntekterToMånederFrem />
                         )}
-                        <HendelsesLogg  refusjonId={refusjonId} />
+                        <HendelsesLogg refusjonId={refusjonId} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <RefusjonSide />
@@ -83,6 +83,9 @@ const Komponent: FunctionComponent = () => {
         case RefusjonStatus.UTGÅTT:
             return (
                 <>
+                    <Fleks>
+                        <HendelsesLogg refusjonId={refusjonId} />
+                    </Fleks>
                     <VerticalSpacer rem={1} />
                     <FeilSide
                         advarselType="warning"
@@ -96,7 +99,7 @@ const Komponent: FunctionComponent = () => {
             return (
                 <>
                     <Fleks>
-                        <HendelsesLogg  refusjonId={refusjonId} />
+                        <HendelsesLogg refusjonId={refusjonId} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <FeilSide advarselType="warning" feiltekst="Refusjonen er annullert. Avtalen ble annullert." />
@@ -111,7 +114,7 @@ const Komponent: FunctionComponent = () => {
             return (
                 <>
                     <Fleks>
-                        <HendelsesLogg  refusjonId={refusjonId} />
+                        <HendelsesLogg refusjonId={refusjonId} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
                     <KvitteringSide />;

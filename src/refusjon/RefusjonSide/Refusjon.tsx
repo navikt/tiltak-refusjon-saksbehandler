@@ -16,6 +16,9 @@ import HenterInntekterBoks from './HenterInntekterBoks';
 import RefusjonSide from './RefusjonSide';
 import { useInnloggetBruker } from '../../bruker/BrukerContext';
 import { BrukerContextType } from '../../bruker/BrukerContextType';
+import { Feature } from '../../featureToggles/features';
+import OpprettKorreksjon from './OpprettKorreksjon';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 
 const Fleks = styled.div`
     display: flex;
@@ -48,6 +51,7 @@ const Komponent: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
     const brukerContext: BrukerContextType = useInnloggetBruker();
+    const featureToggles = useFeatureToggles();
 
     switch (refusjon.status) {
         case RefusjonStatus.FOR_TIDLIG:
@@ -76,6 +80,7 @@ const Komponent: FunctionComponent = () => {
             return (
                 <>
                     <VerticalSpacer rem={1} />
+                    {featureToggles[Feature.OpprettNullBelopKorreksjon] && <OpprettKorreksjon />}
                     <FeilSide
                         advarselType="warning"
                         feiltekst={`Fristen for å søke om refusjon for denne perioden gikk ut ${formatterDato(

@@ -58,7 +58,7 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                 )
                 .catch((error: Error) => setHendelseslogg({ status: Status.Feil, error: error.message }));
         }
-    }, [open]);
+    }, [open, props.refusjonId]);
 
     let finnesMinstEnSomSkjules = false;
 

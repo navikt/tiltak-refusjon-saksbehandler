@@ -205,10 +205,10 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     MerketForInntekterFrem: 'Merket for inntekter frem',
     RefusjonVarselKlar: 'Sendt varsel på sms',
     RefusjonVarselRevarsel: 'Sendt påminnelse på sms',
-    RefusjonVarselFristForlenget: 'Frist forlenget',dd
+    RefusjonVarselFristForlenget: 'Frist forlenget',
     RefusjonVarselKorrigert: 'Korrigert',
     RefusjonAnnullert: 'Annullert',
     RefusjonForkortet: 'Forkortet',
-    TilskuddsperioderIRefusjonAnnullertManuelt: 'Annullert manuelt',
+    TilskuddsperioderIRefusjonAnnullertManuelt: 'Annulert manuelt',
     SaksbehandlerMerketForInntekterLengerFrem: 'Merket for inntekter lenger frem',
 };

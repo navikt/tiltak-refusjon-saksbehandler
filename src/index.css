@@ -10,8 +10,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 
-Secondary-knappen i designsystemet har transparent bakgrunn som standard. 
+/*
+Secondary-knappen i designsystemet har transparent bakgrunn som standard.
 Det liker vi ikke.
 */
 .navds-button--secondary {

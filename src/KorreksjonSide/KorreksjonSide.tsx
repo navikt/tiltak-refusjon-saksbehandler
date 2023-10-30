@@ -66,28 +66,32 @@ const KorreksjonSide: FunctionComponent = () => {
                 korreksjonId={korreksjon.id}
             />
             <VerticalSpacer rem={2} />
-            {korreksjon.harTattStillingTilAlleInntektslinjer && (
-                <>
-                    <InntekterFraTiltaketSpørsmål refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
-                    <TidligereRefunderbarBeløp refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
-                    <VerticalSpacer rem={2} />
-                    {korreksjon.refusjonsgrunnlag.beregning &&
-                        typeof korreksjon.refusjonsgrunnlag.fratrekkRefunderbarBeløp === 'boolean' && (
-                            <>
-                                <Utregning
-                                    beregning={korreksjon.refusjonsgrunnlag.beregning}
-                                    tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
-                                    forrigeRefusjonMinusBeløp={korreksjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
-                                    inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
-                                />
-                                <VerticalSpacer rem={1} />
-                                {korreksjonstype() === 'TILLEGSUTBETALING' && <BekreftUtbetalKorreksjon />}
-                                {korreksjonstype() === 'TILBAKEKREVING' && <BekreftTilbakekrevKorreksjon />}
-                                {korreksjonstype() === 'OPPGJORT' && <BekreftOppgjørKorreksjon />}
-                            </>
-                        )}
-                </>
-            )}
+            {korreksjon.refusjonsgrunnlag.inntektsgrunnlag?.inntekter.length !== 0 &&
+                korreksjon.harTattStillingTilAlleInntektslinjer && (
+                    <>
+                        <InntekterFraTiltaketSpørsmål refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                        <TidligereRefunderbarBeløp refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                        <VerticalSpacer rem={2} />
+                        {korreksjon.refusjonsgrunnlag.beregning &&
+                            typeof korreksjon.refusjonsgrunnlag.fratrekkRefunderbarBeløp === 'boolean' && (
+                                <>
+                                    <Utregning
+                                        beregning={korreksjon.refusjonsgrunnlag.beregning}
+                                        tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
+                                        forrigeRefusjonMinusBeløp={
+                                            korreksjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp
+                                        }
+                                        inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
+                                        korreksjonSide={true}
+                                    />
+                                    <VerticalSpacer rem={1} />
+                                    {korreksjonstype() === 'TILLEGSUTBETALING' && <BekreftUtbetalKorreksjon />}
+                                    {korreksjonstype() === 'TILBAKEKREVING' && <BekreftTilbakekrevKorreksjon />}
+                                    {korreksjonstype() === 'OPPGJORT' && <BekreftOppgjørKorreksjon />}
+                                </>
+                            )}
+                    </>
+                )}
         </HvitBoks>
     );
 };

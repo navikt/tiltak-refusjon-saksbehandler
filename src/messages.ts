@@ -1,4 +1,4 @@
-import { Korreksjonsgrunn } from './refusjon/refusjon';
+import { HendelseType, Korreksjonsgrunn } from './refusjon/refusjon';
 import { KorreksjonStatus, RefusjonStatus, Tiltak } from './refusjon/refusjon';
 
 export const tiltakstypeTekst: { [key in Tiltak]: string } = {
@@ -189,4 +189,26 @@ export const korreksjonsgrunnTekst: { [key in Korreksjonsgrunn]: string } = {
     OPPDATERT_AMELDING: 'Oppdatert A-melding',
     ANNEN_GRUNN: 'Annen grunn',
     UTBETALT_HELE_TILSKUDDSBELØP: 'Utbetalt hele tilskuddsbeløpet',
+};
+
+export const hendelseTekst: { [key in HendelseType]: string } = {
+    RefusjonOpprettet: 'Refusjon opprettet',
+    BeregningUtført: 'Beregning utført',
+    GodkjentAvArbeidsgiver: 'Godkjent av arbeidsgiver',
+    RefusjonGodkjentNullBeløp: 'Refusjon godkjent med nullbeløp',
+    RefusjonGodkjentMinusBeløp: 'Refusjon godkjent med minusbeløp',
+    FristForlenget: 'Frist forlenget',
+    KorreksjonBeregningUtført: 'Korreksjonberegning utført',
+    KorreksjonMerketForOppgjort: 'Korreksjon merket for oppgjort',
+    KorreksjonMerketForTilbakekreving: 'Korreksjon merket for tilbakekreving',
+    KorreksjonSendtTilUtbetaling: 'Korreksjon sendt til utbetaling',
+    MerketForInntekterFrem: 'Merket for inntekter frem',
+    RefusjonVarselKlar: 'Sendt varsel på sms',
+    RefusjonVarselRevarsel: 'Sendt påminnelse på sms',
+    RefusjonVarselFristForlenget: 'Frist forlenget',
+    RefusjonVarselKorrigert: 'Korrigert',
+    RefusjonAnnullert: 'Annullert',
+    RefusjonForkortet: 'Forkortet',
+    TilskuddsperioderIRefusjonAnnullertManuelt: 'Annullert manuelt',
+    SaksbehandlerMerketForInntekterLengerFrem: 'Merket for inntekter lenger frem',
 };

@@ -142,3 +142,40 @@ export interface PageableRefusjon {
     totalItems: number;
     totalPages: number;
 }
+
+export enum HendelseType {
+    RefusjonOpprettet = 'RefusjonOpprettet',
+    BeregningUtført = 'BeregningUtført',
+    GodkjentAvArbeidsgiver = 'GodkjentAvArbeidsgiver',
+    RefusjonGodkjentNullBeløp = 'RefusjonGodkjentNullBeløp',
+    RefusjonGodkjentMinusBeløp = 'RefusjonGodkjentMinusBeløp',
+    FristForlenget = 'FristForlenget',
+    KorreksjonBeregningUtført = 'KorreksjonBeregningUtført',
+    KorreksjonMerketForOppgjort = 'KorreksjonMerketForOppgjort',
+    KorreksjonMerketForTilbakekreving = 'KorreksjonMerketForTilbakekreving',
+    KorreksjonSendtTilUtbetaling = 'KorreksjonSendtTilUtbetaling',
+    MerketForInntekterFrem = 'MerketForInntekterFrem',
+    RefusjonVarselKlar = 'RefusjonVarselKlar',
+    RefusjonVarselRevarsel = 'RefusjonVarselRevarsel',
+    RefusjonVarselFristForlenget = 'RefusjonVarselFristForlenget',
+    RefusjonVarselKorrigert = 'RefusjonVarselKorrigert',
+    RefusjonAnnullert = 'RefusjonAnnullert',
+    RefusjonForkortet = 'RefusjonForkortet',
+    TilskuddsperioderIRefusjonAnnullertManuelt = 'TilskuddsperioderIRefusjonAnnullertManuelt',
+    SaksbehandlerMerketForInntekterLengerFrem = 'SaksbehandlerMerketForInntekterLengerFrem',
+}
+
+export interface Hendelse {
+    id: string;
+    // appImageId: string;
+    refusonId: string;
+    event: HendelseType;
+    smsType?: string;
+    utførtAv?: string;
+    tidspunkt: string;
+    metadata: HendelseMetadata;
+}
+
+export interface HendelseMetadata {
+    antallMndFremITid: number;
+}

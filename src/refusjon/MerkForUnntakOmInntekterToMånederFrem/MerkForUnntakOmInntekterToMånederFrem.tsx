@@ -13,7 +13,7 @@ const MerkForUnntakOmInntekterToMånederFrem: FunctionComponent = () => {
 
     return (
         <div>
-            <Button size="small" variant="secondary" style={{backgroundColor:'white'}} onClick={() => setOpen(!open)}>Hent inntekter lenger frem</Button>
+            <Button size="small" variant="secondary" onClick={() => setOpen(!open)}>Hent inntekter lenger frem</Button>
             <BekreftelseModal
                 isOpen={open}
                 lukkModal={() => {

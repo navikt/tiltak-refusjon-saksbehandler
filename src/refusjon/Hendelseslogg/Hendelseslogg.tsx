@@ -1,6 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 import BEMHelper from '../../utils/bem';
-import { Button, Checkbox, CheckboxGroup, Modal, Table } from '@navikt/ds-react';
+import { Button, Checkbox, Modal, Table } from '@navikt/ds-react';
 import { storForbokstav } from '../../utils/stringUtils';
 import HendelseIkon from './HendelseIkon';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '../../utils/datoUtils';
@@ -21,7 +21,7 @@ interface SortertListe extends Hendelse {
 
 const HendelsesLogg: FunctionComponent<Props> = (props) => {
     const [open, setOpen] = useState<boolean>(false);
-    const [komprimer, setKomprimer] = useState<string[]>(['']);
+    const [visAlle, setVisAlle] = useState<boolean>(false);
     const [hendelselogg, setHendelselogg] = useState<Nettressurs<SortertListe[]>>({ status: Status.IkkeLastet });
 
     const UtgråetTekst: FunctionComponent<PropsWithChildren<{ grå: boolean; title?: string }>> = ({
@@ -94,9 +94,9 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                 <Modal.Body>
                     {finnesMinstEnSomSkjules && (
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <CheckboxGroup legend="" onChange={(value: any) => setKomprimer(value)}>
-                                <Checkbox value="ikke_komprimer">Vis alle hendelser</Checkbox>
-                            </CheckboxGroup>
+                            <Checkbox checked={visAlle} onClick={() => setVisAlle(!visAlle)}>
+                                Vis alle hendelser
+                            </Checkbox>
                         </div>
                     )}
                     <Table>
@@ -110,7 +110,7 @@ const HendelsesLogg: FunctionComponent<Props> = (props) => {
                         <Table.Body>
                             {hendelselogg.status === Status.Lastet &&
                                 hendelselogg.data
-                                    .filter((v) => !v.skjules || komprimer.includes('ikke_komprimer'))
+                                    .filter((v) => !v.skjules || visAlle)
                                     .map((varsel) => (
                                         <Table.Row key={varsel.id} role="row">
                                             <Table.DataCell role="cell" aria-labelledby="tidspunkt">

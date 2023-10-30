@@ -21,7 +21,7 @@ const Filtermeny: FunctionComponent = () => {
         { value: '', label: 'Alle' },
         { value: RefusjonStatus.FOR_TIDLIG, label: 'For tidlig' },
         { value: RefusjonStatus.KLAR_FOR_INNSENDING, label: 'Klar for Innsending' },
-        { value: RefusjonStatus.ANNULLERT, label: 'Annulert' },
+        { value: RefusjonStatus.ANNULLERT, label: 'Annullert' },
         { value: RefusjonStatus.SENDT_KRAV, label: 'Sendt Krav' },
         { value: RefusjonStatus.UTBETALT, label: 'Utbetalt' },
         { value: RefusjonStatus.UTGÅTT, label: 'Utgått' },

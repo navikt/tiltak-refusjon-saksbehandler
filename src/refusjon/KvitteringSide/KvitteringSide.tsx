@@ -49,6 +49,7 @@ const KvitteringSide: FunctionComponent = () => {
                 {((brukerContext.innloggetBruker.harKorreksjonTilgang &&
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
                     refusjon.status !== RefusjonStatus.UTGÅTT &&
+                    refusjon.status !== RefusjonStatus.GODKJENT_MINUSBELØP &&
                     !refusjon.korreksjonId) ||
                     (!refusjon.korreksjonId && featureToggles[Feature.OpprettNullBelopKorreksjon])) && (
                     <OpprettKorreksjon />

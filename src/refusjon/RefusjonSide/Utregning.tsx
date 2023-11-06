@@ -32,7 +32,7 @@ const GråRamme = styled.div`
 `;
 
 const Utregning: FunctionComponent<Props> = (props) => {
-    const { beregning, tilskuddsgrunnlag } = props;
+    const { beregning, tilskuddsgrunnlag, forrigeRefusjonMinusBeløp } = props;
     const bruttoLønnsInntekter = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erMedIInntektsgrunnlag && inntekt.erOpptjentIPeriode === true
     );
@@ -142,6 +142,15 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelIkon={<Pengesekken />}
                     labelTekst="Tilskuddsbeløp (avtalt beløp for perioden)"
                     verdi={props.tilskuddsgrunnlag.tilskuddsbeløp}
+                    border="TYKK"
+                />
+            )}
+            {forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0 && (
+                <Utregningsrad
+                    labelIkon={<Endret />}
+                    labelTekst={'Resterende fratrekk for ferie fra tidligere refusjoner'}
+                    verdiOperator={<MinusTegn />}
+                    verdi={forrigeRefusjonMinusBeløp}
                     border="TYKK"
                 />
             )}

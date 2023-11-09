@@ -1,23 +1,25 @@
 import React, { FunctionComponent } from 'react';
 import Info from './Info';
 import { Pagination } from '@navikt/ds-react';
-import { useHentRefusjoner } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import OversiktTabell from './OversiktTabell';
+import { PageableRefusjon } from '../refusjon';
 const cls = BEMHelper('oversikt');
 
-const Oversikt: FunctionComponent = () => {
-    const { filter, oppdaterFilter } = useFilter();
+type Props = {
+    refusjonerPage?: PageableRefusjon;
+};
 
-    const refusjonerPage = useHentRefusjoner(filter);
+const Oversikt: FunctionComponent<Props> = (props) => {
+    const { oppdaterFilter } = useFilter();
 
-    if (refusjonerPage === undefined) {
+    if (props.refusjonerPage === undefined) {
         return <Info tekst="Oppgi søkekriterier for å finne refusjoner" />;
     }
 
-    if (refusjonerPage.totalItems === 0) {
+    if (props.refusjonerPage.totalItems === 0) {
         return <Info tekst="Finner ingen refusjoner" />;
     }
 
@@ -25,14 +27,14 @@ const Oversikt: FunctionComponent = () => {
         <nav className={cls.className} aria-label="Main">
             <div role="list">
                 <LabelRad />
-                <OversiktTabell refusjoner={refusjonerPage.refusjoner} />
+                <OversiktTabell refusjoner={props.refusjonerPage.refusjoner} />
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Pagination
-                    page={refusjonerPage.currentPage + 1}
+                    page={props.refusjonerPage.currentPage + 1}
                     onPageChange={(x) => oppdaterFilter({ page: x - 1 })}
-                    count={refusjonerPage.totalPages}
+                    count={props.refusjonerPage.totalPages}
                     boundaryCount={1}
                     siblingCount={1}
                 />

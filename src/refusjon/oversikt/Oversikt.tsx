@@ -5,15 +5,10 @@ import BEMHelper from '../../utils/bem';
 import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import OversiktTabell from './OversiktTabell';
-import { PageableRefusjon } from '../refusjon';
 import { useHentRefusjoner } from '../../services/rest-service';
 const cls = BEMHelper('oversikt');
 
-type Props = {
-    refusjonerPage?: PageableRefusjon;
-};
-
-const Oversikt: FunctionComponent<Props> = (props) => {
+const Oversikt: FunctionComponent = () => {
     const { oppdaterFilter, filter } = useFilter();
 
     const refusjonerPage = useHentRefusjoner(filter);

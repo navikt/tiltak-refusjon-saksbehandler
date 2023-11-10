@@ -6,6 +6,7 @@ import { useFilter } from './FilterContext';
 import LabelRad from './LabelRad';
 import OversiktTabell from './OversiktTabell';
 import { PageableRefusjon } from '../refusjon';
+import { useHentRefusjoner } from '../../services/rest-service';
 const cls = BEMHelper('oversikt');
 
 type Props = {
@@ -13,13 +14,15 @@ type Props = {
 };
 
 const Oversikt: FunctionComponent<Props> = (props) => {
-    const { oppdaterFilter } = useFilter();
+    const { oppdaterFilter, filter } = useFilter();
 
-    if (props.refusjonerPage === undefined) {
+    const refusjonerPage = useHentRefusjoner(filter);
+
+    if (refusjonerPage === undefined) {
         return <Info tekst="Oppgi søkekriterier for å finne refusjoner" />;
     }
 
-    if (props.refusjonerPage.totalItems === 0) {
+    if (refusjonerPage.totalItems === 0) {
         return <Info tekst="Finner ingen refusjoner" />;
     }
 
@@ -27,14 +30,14 @@ const Oversikt: FunctionComponent<Props> = (props) => {
         <nav className={cls.className} aria-label="Main">
             <div role="list">
                 <LabelRad />
-                <OversiktTabell refusjoner={props.refusjonerPage.refusjoner} />
+                <OversiktTabell refusjoner={refusjonerPage.refusjoner} />
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Pagination
-                    page={props.refusjonerPage.currentPage + 1}
+                    page={refusjonerPage.currentPage + 1}
                     onPageChange={(x) => oppdaterFilter({ page: x - 1 })}
-                    count={props.refusjonerPage.totalPages}
+                    count={refusjonerPage.totalPages}
                     boundaryCount={1}
                     siblingCount={1}
                 />

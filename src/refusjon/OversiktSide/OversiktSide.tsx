@@ -5,20 +5,17 @@ import Filtermeny from '../oversikt/Filtermeny';
 import Oversikt from '../oversikt/Oversikt';
 import './OversiktSide.less';
 import Banner from '../oversikt/Banner';
-import { useFilter } from '../oversikt/FilterContext';
-import { useHentRefusjoner } from '../../services/rest-service';
+import BannerLaster from '../oversikt/BannerLaster';
 
 const cls = BEMHelper('OversiktSide');
 
 const OversiktSide: FunctionComponent = () => {
-    const { filter } = useFilter();
-
-    const refusjonerPage = useHentRefusjoner(filter);
-
     return (
         <div className={cls.className}>
             <div className={cls.element('banner')}>
-                <Banner refusjoner={refusjonerPage} />
+                <Suspense fallback={<BannerLaster />}>
+                    <Banner />
+                </Suspense>
             </div>
             <div className={cls.element('oversikt')}>
                 <div className={cls.element('wrapper')}>
@@ -27,7 +24,7 @@ const OversiktSide: FunctionComponent = () => {
                     </div>
                     <div className={cls.element('container')}>
                         <Suspense fallback={<OversiktSkeleton />}>
-                            <Oversikt refusjonerPage={refusjonerPage} />
+                            <Oversikt />
                         </Suspense>
                     </div>
                 </div>

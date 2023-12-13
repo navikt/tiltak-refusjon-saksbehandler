@@ -183,7 +183,7 @@ export const sjekkReberegning = async (refusjonId: string, harFerietrekkForSamme
 };
 
 export const settMinusbeløpManuelt = async (korreksjonId: string, beløp: number) => {
-    const response = await api.put(`/korreksjon/${korreksjonId}/sett-minusbeløp-manuelt`, { minusbeløp: beløp });
+    const response = await api.put(`/korreksjon/${korreksjonId}/sett-manuelt-minusbelop`, { minusbeløp: beløp });
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };

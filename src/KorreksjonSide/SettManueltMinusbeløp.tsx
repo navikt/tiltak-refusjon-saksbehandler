@@ -26,7 +26,7 @@ const SettManueltMinusbeløp: FunctionComponent = () => {
                             description="Skriv inn manuelt minusbeløp her. Dette vil bli lagt til i utregningen som om det hadde ligget i minusbeløptabellen"
                             onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                 const verdi: string = event.currentTarget.value;
-                                if (verdi.match(/^[?-]\d*$/)) {
+                                if (verdi.match(/^-\d*$/)) {
                                     setBelop(verdi);
                                 }
                                 if (!verdi) {

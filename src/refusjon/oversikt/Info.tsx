@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { ReactComponent as InfoIkon } from '@/asset/image/info.svg';
+import InfoIkon from '@/asset/image/info.svg?react';
 import { Heading } from '@navikt/ds-react';
 
 const AvrundetHvitBoks = styled.div`

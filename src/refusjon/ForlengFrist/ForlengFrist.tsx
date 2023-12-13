@@ -1,8 +1,9 @@
-import { ReactComponent as Calender } from '@/asset/image/calender2.svg';
+import Calender from '@/asset/image/calender2.svg?react';
 import { Button, Label, TextField } from '@navikt/ds-react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import DayPicker from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
+import { nb } from 'date-fns/locale';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 import { useParams } from 'react-router';
 import BekreftelseModal from '../../komponenter/bekreftelse-modal/BekreftelseModal';
 import { forlengFrist, useHentRefusjon } from '../../services/rest-service';
@@ -106,14 +107,11 @@ const ForlengFrist: FunctionComponent = () => {
                     <div className={cls.element('container')}>
                         <div className={cls.element('dato-velger')}>
                             <DayPicker
-                                initialMonth={datoFraDatoVelger}
-                                selectedDays={datoFraDatoVelger}
+                                defaultMonth={datoFraDatoVelger}
+                                selected={datoFraDatoVelger}
                                 onDayClick={(day) => setDatoFraDatoVelger(day)}
-                                locale="no"
-                                months={MONTHS}
-                                weekdaysShort={WEEKDAYS_SHORT}
-                                firstDayOfWeek={1}
-                                disabledDays={{
+                                locale={nb}
+                                disabled={{
                                     before: new Date(Date.parse(refusjon.fristForGodkjenning)),
                                 }}
                             />

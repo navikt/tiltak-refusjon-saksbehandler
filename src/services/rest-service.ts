@@ -65,7 +65,7 @@ export const useHentRefusjon = (refusjonId: string) => {
 export const hentHendelser = async (refusjonId: string) => {
     const response = await api.get<Hendelse[]>(`/refusjon/${refusjonId}/hendelselogg`);
     return response.data;
-}
+};
 
 export const useHentKorreksjon = (korreksjonId: string) => {
     const { data } = useSWR<Korreksjon>(`/korreksjon/${korreksjonId}`, swrConfig);
@@ -179,5 +179,11 @@ export const sjekkReberegning = async (refusjonId: string, harFerietrekkForSamme
         harFerietrekkForSammeMåned,
         minusBeløp,
     });
+    return response.data;
+};
+
+export const settMinusbeløpManuelt = async (korreksjonId: string, beløp: number) => {
+    const response = await api.put(`/korreksjon/${korreksjonId}/sett-manuelt-minusbelop`, { minusbeløp: beløp });
+    await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };

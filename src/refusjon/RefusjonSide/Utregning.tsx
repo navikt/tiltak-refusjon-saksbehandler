@@ -40,6 +40,8 @@ const Utregning: FunctionComponent<Props> = (props) => {
         (inntekt) => inntekt.beskrivelse === 'trekkILoennForFerie'
     );
 
+    const harMinusBeløp = forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0;
+
     return (
         <GråRamme>
             <Heading size="medium">Utregningen</Heading>
@@ -128,7 +130,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
             </>
 
             <VerticalSpacer rem={3} />
-            {beregning && (beregning.overTilskuddsbeløp || beregning.tidligereUtbetalt !== 0) && (
+            {beregning && (beregning.overTilskuddsbeløp || beregning.tidligereUtbetalt !== 0 || harMinusBeløp) && (
                 <Utregningsrad
                     labelIkon={<Pengesekken />}
                     labelTekst="Beregning basert på innhentede innteker"
@@ -145,16 +147,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     border="TYKK"
                 />
             )}
-            {beregning && forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0 && (
-                <Utregningsrad
-                    labelIkon={<Pengesekken />}
-                    labelTekst="Beregning basert på innhentede innteker"
-                    verdiOperator={<ErlikTegn />}
-                    verdi={beregning.beregnetBeløp}
-                    border="TYKK"
-                />
-            )}
-            {forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0 && (
+            {harMinusBeløp && (
                 <Utregningsrad
                     labelIkon={<Endret />}
                     labelTekst={'Resterende fratrekk for ferie fra tidligere refusjoner'}

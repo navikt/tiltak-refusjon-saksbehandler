@@ -17,15 +17,21 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Test
+        run: npm run test
       - name: Server yarn install
         working-directory: ./server
         run: yarn install
       - name: Server yarn build
         working-directory: ./server
         run: yarn build
-      - name: Frontend yarn install
+      - name: Frontend npm install
         run: npm i
-      - name: Frontend yarn build
+      - name: Frontend npm build
         run: npm run build
       - name: Bygg, tag og push Docker-image
         run: |

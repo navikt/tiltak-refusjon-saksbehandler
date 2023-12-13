@@ -21,6 +21,8 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
+      - name: Frontend npm install
+        run: npm ci
       - name: Test
         run: npm run test
       - name: Server yarn install
@@ -29,8 +31,6 @@ jobs:
       - name: Server yarn build
         working-directory: ./server
         run: yarn build
-      - name: Frontend npm install
-        run: npm i
       - name: Frontend npm build
         run: npm run build
       - name: Bygg, tag og push Docker-image

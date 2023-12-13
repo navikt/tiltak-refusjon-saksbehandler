@@ -2,11 +2,11 @@ import 'dotenv/config';
 import logger from './logger';
 
 const envVar = ({ name, required = true }) => {
-    if (!import.meta.env[name] && required) {
+    if (!process.env[name] && required) {
         logger.error(`Missing required environment variable '${name}'`);
         process.exit(1);
     }
-    return import.meta.env[name];
+    return process.env[name];
 };
 
 const server = () => {

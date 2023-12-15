@@ -1,12 +1,17 @@
-import { Alert, TextField } from '@navikt/ds-react';
+import { Alert, Switch, TextField } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFeatureToggles } from '../featureToggles/FeatureToggleProvider';
 import { Feature } from '../featureToggles/features';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
-import { settMinusbeløpManuelt } from '../services/rest-service';
+import { settHarFerietrekkForSammeMåned, settMinusbeløpManuelt } from '../services/rest-service';
 
-const SettManueltMinusbeløp: FunctionComponent = () => {
+
+type Props = {
+    harFerietrekkForSammeMåned: boolean;
+};
+
+const OverstyrMinusbeløpOgFerietrekk: FunctionComponent<Props> = (props) => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const [belop, setBelop] = useState<string>('');
     const featureToggles = useFeatureToggles();
@@ -36,6 +41,15 @@ const SettManueltMinusbeløp: FunctionComponent = () => {
                             onBlur={() => settMinusbeløpManuelt(korreksjonId!, parseInt(belop, 10))}
                             value={belop}
                         />
+
+                        <VerticalSpacer rem={1} />
+                        <Switch
+                            description='Huk av her hvis det allerde er trukket feriepenger for samme måned. Da vil ingen ferietrekk bli regnet med her.'
+                            checked={props.harFerietrekkForSammeMåned}
+                            onChange={(e) => settHarFerietrekkForSammeMåned(korreksjonId!, e.currentTarget.checked)}
+                        >
+                            Har ferietrekk for samme måned?
+                        </Switch>
                     </Alert>
                 </div>
                 <VerticalSpacer rem={1} />
@@ -44,4 +58,4 @@ const SettManueltMinusbeløp: FunctionComponent = () => {
     }
 };
 
-export default SettManueltMinusbeløp;
+export default OverstyrMinusbeløpOgFerietrekk;

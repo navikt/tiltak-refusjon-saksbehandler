@@ -187,3 +187,11 @@ export const settMinusbeløpManuelt = async (korreksjonId: string, beløp: numbe
     await mutate(`/korreksjon/${korreksjonId}`);
     return response.data;
 };
+
+export const settHarFerietrekkForSammeMåned = async (korreksjonId: string, harFerietrekkForSammeMåned: boolean) => {
+    const response = await api.put(`/korreksjon/${korreksjonId}/har-ferietrekk-for-samme-maaned`, {
+        harFerietrekkForSammeMåned,
+    });
+    await mutate(`/korreksjon/${korreksjonId}`);
+    return response.data;
+};

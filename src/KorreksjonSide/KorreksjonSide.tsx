@@ -13,7 +13,7 @@ import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFr
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { KorreksjonStatus } from '../refusjon/refusjon';
 import { useHentKorreksjon } from '../services/rest-service';
-import SettManueltMinusbeløp from './SettManueltMinusbeløp';
+import OverstyrMinusbeløpOgFerietrekk from './OverstyrMinusbeløpOgFerietrekk';
 import TidligereRefunderbarBeløp from './TidligereRefunderbarBeløp';
 
 const KorreksjonSide: FunctionComponent = () => {
@@ -76,7 +76,11 @@ const KorreksjonSide: FunctionComponent = () => {
                         {korreksjon.refusjonsgrunnlag.beregning &&
                             typeof korreksjon.refusjonsgrunnlag.fratrekkRefunderbarBeløp === 'boolean' && (
                                 <>
-                                    <SettManueltMinusbeløp />
+                                    <OverstyrMinusbeløpOgFerietrekk
+                                        harFerietrekkForSammeMåned={
+                                            korreksjon.refusjonsgrunnlag.harFerietrekkForSammeMåned
+                                        }
+                                    />
                                     <Utregning
                                         beregning={korreksjon.refusjonsgrunnlag.beregning}
                                         tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}

@@ -65,6 +65,7 @@ export interface Refusjonsgrunnlag {
     beregning?: Beregning;
     forrigeRefusjonMinusBeløp?: number;
     fratrekkRefunderbarBeløp?: boolean;
+    harFerietrekkForSammeMåned: boolean;
 }
 
 export interface Tilskuddsgrunnlag {

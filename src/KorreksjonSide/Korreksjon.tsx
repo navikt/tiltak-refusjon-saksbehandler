@@ -43,6 +43,8 @@ const Komponent: FunctionComponent = () => {
         case KorreksjonStatus.TILBAKEKREVING:
         case KorreksjonStatus.OPPGJORT:
         case KorreksjonStatus.TILLEGSUTBETALING:
+        case KorreksjonStatus.TILLEGGSUTBETALING_UTBETALT:
+        case KorreksjonStatus.TILLEGGSUTBETALING_FEILET:
             return <KorreksjonKvitteringSide />;
     }
 };

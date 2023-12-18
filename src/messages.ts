@@ -26,6 +26,8 @@ export const korreksjonStatusTekst: { [key in KorreksjonStatus]: string } = {
     TILLEGSUTBETALING: 'korreksjon sendt til utbetaling',
     OPPGJORT: 'korreksjon oppgjort',
     TILBAKEKREVING: 'korreksjon skal tilbakekreves',
+    TILLEGGSUTBETALING_UTBETALT: 'korreksjon utbetalt',
+    TILLEGGSUTBETALING_FEILET: 'utbetaling feilet',
 };
 
 export const inntektstypeTekst: { [key: string]: string } = {

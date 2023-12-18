@@ -32,7 +32,15 @@
         "test": "craco test"
     },
     "eslintConfig": {
-        "extends": "react-app"
+        "extends": "react-app",
+        "parserOptions": {
+            "project": [
+                "./tsconfig.json"
+            ]
+        },
+        "rules": {
+            "@typescript-eslint/switch-exhaustiveness-check": "error"
+        }
     },
     "browserslist": {
         "production": [

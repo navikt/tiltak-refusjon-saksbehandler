@@ -23,17 +23,18 @@ export default defineConfig({
             '/modiacontextholder/api/decorator': {
                 target: 'http://localhost:8081',
                 bypass(req, res, options) {
-                    try {
-                        axios
-                            .get('http://localhost:8081/api/saksbehandler/innlogget-bruker', {
-                                headers: req.headers,
-                            })
-                            .then((response) => {
+                    axios
+                        .get('http://localhost:8081/api/saksbehandler/innlogget-bruker', {
+                            headers: req.headers,
+                        })
+                        .then(
+                            (response) => {
                                 res.end(JSON.stringify({ ...response.data, ident: response.data.identifikator || '' }));
-                            });
-                    } catch (error) {
-                        res.end(JSON.stringify({ authenticated: false }));
-                    }
+                            },
+                            (error) => {
+                                res.end(JSON.stringify({ authenticated: false }));
+                            }
+                        );
                 },
             },
             '/internarbeidsflatedecorator': {

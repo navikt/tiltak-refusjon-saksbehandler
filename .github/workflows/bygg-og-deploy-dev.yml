@@ -29,7 +29,7 @@ jobs:
       - name: Server yarn build
         working-directory: ./server
         run: yarn build
-      - name: Frontend npm build
+      - name: Frontend - test, lint og bygg
         run: npm run test-and-build
       - name: Bygg, tag og push Docker-image
         run: |

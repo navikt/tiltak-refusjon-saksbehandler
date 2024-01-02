@@ -6,6 +6,9 @@ const axios = require('axios');
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    preview: {
+        port: 3000
+    },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, '/src'),

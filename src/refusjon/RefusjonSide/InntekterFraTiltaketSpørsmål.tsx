@@ -19,7 +19,7 @@ export const GrønnBoks = styled.div`
 
 const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
     const cls = BEMHelper('refusjonside');
-    const { korreksjonId } = useParams<{korreksjonId: string}>();
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const refusjonsgrunnlag = props.refusjonsgrunnlag;
     const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjonsgrunnlag.inntekterKunFraTiltaket);
     const [endretBruttoLønn, setEndretBruttoLønn] = useState(refusjonsgrunnlag.endretBruttoLønn);
@@ -40,42 +40,45 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
     // .filter((inntekt) => inntekt.erOpptjentIPeriode)
     // .map((el) => el.beløp)
     // .reduce((el, el2) => el + el2, 0);
-    const inntekterOpptentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter.filter((inntekt) => inntekt.erOpptjentIPeriode);
+    const inntekterOpptentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter.filter(
+        (inntekt) => inntekt.erOpptjentIPeriode
+    );
     const sumInntekterOpptjentIPeriode = _.sumBy(inntekterOpptentIPeriode, 'beløp');
 
     return (
         <GrønnBoks>
-            <Heading size="small">Inntekter fra {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}</Heading>
+            <Heading size="small">
+                Inntekter fra {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}
+            </Heading>
             <VerticalSpacer rem={1} />
 
             <InntekterOpptjentIPeriodeTabell inntekter={props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter!} />
 
-
-
             <VerticalSpacer rem={1} />
-                    <Label htmlFor={'inntekterKunFraTiltaket'}>
-                        Er inntektene som du har huket av for{' '}
-                        {sumInntekterOpptjentIPeriode > 0 && <>({formatterPenger(sumInntekterOpptjentIPeriode)})</>} kun
-                        fra tiltaket {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
-                    </Label>
+            <Label htmlFor={'inntekterKunFraTiltaket'}>
+                Er inntektene som du har huket av for{' '}
+                {sumInntekterOpptjentIPeriode > 0 && <>({formatterPenger(sumInntekterOpptjentIPeriode)})</>} kun fra
+                tiltaket {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
+            </Label>
             <p>
                 <i>Du skal svare "nei" hvis noen av inntektene er fra f. eks. vanlig lønn eller lønnstilskudd</i>
             </p>
             <RadioGroup legend="" className={cls.element('inntekter-kun-fra-tiltaket')} value={inntekterKunFraTiltaket}>
-                <Radio 
+                <Radio
                     name="inntekterKunFraTiltaket"
                     value={true}
                     checked={inntekterKunFraTiltaket === true}
                     onChange={() => svarPåSpørsmål(true)}
-                >Ja
+                >
+                    Ja
                 </Radio>
-                <Radio 
+                <Radio
                     name="inntekterKunFraTiltaket"
                     value={false}
                     checked={inntekterKunFraTiltaket === false}
                     onChange={() => svarPåSpørsmål(false)}
-                    >
-                        Nei
+                >
+                    Nei
                 </Radio>
             </RadioGroup>
             {inntekterKunFraTiltaket === false && (

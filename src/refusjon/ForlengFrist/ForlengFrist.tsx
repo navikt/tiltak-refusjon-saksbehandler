@@ -14,8 +14,6 @@ import {
     ForlengeDatoSkjemaGruppeFeil,
     formatDateToIsoDateFormat,
     getDateStringFraDatoVelger,
-    MONTHS,
-    WEEKDAYS_SHORT,
 } from './forlengFristUtils';
 import GrunnlagTilForlengelse from './GrunnlagTilForlengelse';
 import { FeilkodeError } from '../../types/errors';

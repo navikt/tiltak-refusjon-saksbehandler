@@ -12,24 +12,24 @@ interface Properties {
     refusjonsgrunnlag: Refusjonsgrunnlag;
 }
 
-const TidligereRefunderbarBeløp: FunctionComponent<Properties> = ({ refusjonsgrunnlag }: PropsWithChildren<Properties>) => {
-    const { korreksjonId } = useParams<{korreksjonId: string}>();
-    const { inntektsgrunnlag, inntekterKunFraTiltaket, fratrekkRefunderbarBeløp, beregning } =
-        refusjonsgrunnlag;
+const TidligereRefunderbarBeløp: FunctionComponent<Properties> = ({
+    refusjonsgrunnlag,
+}: PropsWithChildren<Properties>) => {
+    const { korreksjonId } = useParams<{ korreksjonId: string }>();
+    const { inntektsgrunnlag, inntekterKunFraTiltaket, fratrekkRefunderbarBeløp, beregning } = refusjonsgrunnlag;
     const [fratrekk, setFratrekk] = useState<boolean | undefined>(fratrekkRefunderbarBeløp);
     const [belop, setBelop] = useState<string>(beregning?.tidligereRefundertBeløp?.toString() ?? '');
 
     useEffect(() => {
         setFratrekk(fratrekkRefunderbarBeløp);
     }, [fratrekkRefunderbarBeløp]);
-    if (
-        inntektsgrunnlag === undefined ||
-        inntekterKunFraTiltaket === null
-    ) {
+    if (inntektsgrunnlag === undefined || inntekterKunFraTiltaket === null) {
         return null;
     }
 
-    const inntekterOpptentIPeriode = refusjonsgrunnlag.inntektsgrunnlag?.inntekter.filter((inntekt) => inntekt.erOpptjentIPeriode);
+    const inntekterOpptentIPeriode = refusjonsgrunnlag.inntektsgrunnlag?.inntekter.filter(
+        (inntekt) => inntekt.erOpptjentIPeriode
+    );
     const sumInntekterOpptjentIPeriode = _.sumBy(inntekterOpptentIPeriode, 'beløp');
 
     const erFratrekStørre = fratrekkRefunderbarBeløp && parseInt(belop, 10) - sumInntekterOpptjentIPeriode > 0;
@@ -44,8 +44,8 @@ const TidligereRefunderbarBeløp: FunctionComponent<Properties> = ({ refusjonsgr
                 <BodyShort size="small">
                     Har dere fått utbetalt refusjon av lønn på grunn av fravær for deltaker, for eksempel refusjon av
                     sykepenger, så skal dette beløpet trekkes fra refusjon om{' '}
-                    {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}. Beløpet som skal
-                    trekkes fra er det beløpet dere har fått i refusjon av NAV.
+                    {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}. Beløpet som skal trekkes fra er
+                    det beløpet dere har fått i refusjon av NAV.
                 </BodyShort>
                 <VerticalSpacer rem={0.5} />
             </div>

@@ -3,15 +3,14 @@ import { Filter, RefusjonsAktor } from './FilterContext';
 import { SøkeInput } from './SøkeInput';
 import { AktivSøk, tomtSøkeInput } from './VisRefusjonerFilter';
 
-
 interface SøkeValg {
     value: keyof RefusjonsAktor;
     label: string;
-    input: React.ReactNode
+    input: React.ReactNode;
 }
 
 interface Props {
-    inputKey: number
+    inputKey: number;
     aktivSøketype: AktivSøk | undefined;
     oppdaterFilter: (nyttFilter: Partial<Filter>) => void;
 }
@@ -36,7 +35,7 @@ export const søkevalg = (props: Props): SøkeValg[] => {
                     valider={(verdi: string) =>
                         verdi.search(/^[A-Z]\d{6}$/) === -1 ? 'Ikke gyldig NAV-ident' : undefined
                     }
-                    textFieldProps={{ placeholder: 'NAV-ident', maxLength: 7, label:'',}}
+                    textFieldProps={{ placeholder: 'NAV-ident', maxLength: 7, label: '' }}
                     tidligereSok={aktivSøketype?.søkeVerdi}
                 />
             ),
@@ -54,7 +53,7 @@ export const søkevalg = (props: Props): SøkeValg[] => {
                     valider={(verdi: string) =>
                         verdi.search(/^\d{11}$/) === -1 ? 'Ikke gyldig fødselsnummer' : undefined
                     }
-                    textFieldProps={{ placeholder: 'Fødselsnummer', maxLength: 11, label:'' }}
+                    textFieldProps={{ placeholder: 'Fødselsnummer', maxLength: 11, label: '' }}
                     tidligereSok={aktivSøketype?.søkeVerdi}
                 />
             ),
@@ -72,7 +71,7 @@ export const søkevalg = (props: Props): SøkeValg[] => {
                     valider={(verdi: string) =>
                         verdi.search(/^\d{9}$/) === -1 ? 'Ikke gyldig virksomhetsnummer' : undefined
                     }
-                    textFieldProps={{ placeholder: 'Virksomhetsnummer', maxLength: 9, label:'' }}
+                    textFieldProps={{ placeholder: 'Virksomhetsnummer', maxLength: 9, label: '' }}
                     tidligereSok={aktivSøketype?.søkeVerdi}
                 />
             ),
@@ -90,7 +89,7 @@ export const søkevalg = (props: Props): SøkeValg[] => {
                     valider={(verdi: string) =>
                         verdi.search(/^\d{4}$/) === -1 ? 'Ikke gyldig enhetsnummer' : undefined
                     }
-                    textFieldProps={{ placeholder: 'Enhet (4 siffer)', maxLength: 4, label:'' }}
+                    textFieldProps={{ placeholder: 'Enhet (4 siffer)', maxLength: 4, label: '' }}
                     tidligereSok={aktivSøketype?.søkeVerdi}
                 />
             ),
@@ -108,10 +107,10 @@ export const søkevalg = (props: Props): SøkeValg[] => {
                     valider={(verdi: string) =>
                         verdi.search('^[0-9]*$') === -1 ? 'Ikke gyldig avtalenummer' : undefined
                     }
-                    textFieldProps={{ placeholder: 'Avtalenummer', maxLength: 7, label:'' }}
+                    textFieldProps={{ placeholder: 'Avtalenummer', maxLength: 7, label: '' }}
                     tidligereSok={aktivSøketype?.søkeVerdi}
                 />
             ),
         },
     ];
-}
+};

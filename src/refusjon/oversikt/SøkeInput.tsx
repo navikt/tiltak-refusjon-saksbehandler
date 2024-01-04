@@ -1,6 +1,6 @@
 import React, { FormEvent, FunctionComponent, useState } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
-import {Search } from '@navikt/ds-icons'
+import { Search } from '@navikt/ds-icons';
 import { TextField, TextFieldProps, Button } from '@navikt/ds-react';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
     feiletSøk: () => void;
     valider: (verdi: string) => string | undefined;
     tidligereSok?: string;
-};
+}
 
 export const SøkeInput: FunctionComponent<Props & { textFieldProps?: TextFieldProps }> = (props) => {
     const [søkeord, setSøkeord] = useState<string>(props.tidligereSok ?? '');
@@ -55,7 +55,9 @@ export const SøkeInput: FunctionComponent<Props & { textFieldProps?: TextFieldP
                 error={feil}
             />
             <VerticalSpacer rem={0.5} />
-            <Button variant='secondary' onClick={utførSøk} icon={<Search />}>Søk</Button>
+            <Button variant="secondary" onClick={utførSøk} icon={<Search />}>
+                Søk
+            </Button>
         </>
     );
 };

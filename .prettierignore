@@ -1,7 +1,11 @@
 # Ignore files:
-build
+build/
 tsconfig.json
 tsconfig.base.json
 tslint.json
 package-lock.json
-.github
+.github/
+npm-shrinkwrap.json
+dist/
+.nais/
+.babelrc

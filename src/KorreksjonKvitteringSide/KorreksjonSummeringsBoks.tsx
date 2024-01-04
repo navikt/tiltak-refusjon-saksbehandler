@@ -1,4 +1,4 @@
-import { ReactComponent as Pengesedler } from '@/asset/image/pengesedler.svg';
+import Pengesedler from '@/asset/image/pengesedler.svg?react';
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../komponenter/VerticalSpacer';

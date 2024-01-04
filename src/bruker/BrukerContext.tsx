@@ -25,7 +25,7 @@ export const BrukerProvider: FunctionComponent<PropsWithChildren> = (props) => {
 
     return (
         <>
-            {(process.env.NODE_ENV === 'development' || window.location.hostname.includes('-labs')) && (
+            {(import.meta.env.NODE_ENV === 'development' || window.location.hostname.includes('-labs')) && (
                 <LokalLogin innloggetBruker={innloggetBruker} />
             )}
             {innloggetBruker && (

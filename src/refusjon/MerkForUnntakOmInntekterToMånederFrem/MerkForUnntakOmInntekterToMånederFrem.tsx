@@ -13,7 +13,9 @@ const MerkForUnntakOmInntekterToMånederFrem: FunctionComponent = () => {
 
     return (
         <div>
-            <Button size="small" variant="secondary" onClick={() => setOpen(!open)}>Hent inntekter lenger frem</Button>
+            <Button size="small" variant="secondary" onClick={() => setOpen(!open)}>
+                Hent inntekter lenger frem
+            </Button>
             <BekreftelseModal
                 isOpen={open}
                 lukkModal={() => {
@@ -28,27 +30,26 @@ const MerkForUnntakOmInntekterToMånederFrem: FunctionComponent = () => {
                 containerStyle={{ minWidth: 'unset' }}
             >
                 <BodyShort size="small">
-                    Hvis unntaksregelen er aktivert vil systemet hente inntekter for valgt antall måneder etter perioden, i
-                    stedet for én måned som standard. Nytt inntektsoppslag vil gjøres neste gang arbeidsgiver åpner
-                    refusjonen.
+                    Hvis unntaksregelen er aktivert vil systemet hente inntekter for valgt antall måneder etter
+                    perioden, i stedet for én måned som standard. Nytt inntektsoppslag vil gjøres neste gang
+                    arbeidsgiver åpner refusjonen.
                 </BodyShort>
                 <VerticalSpacer rem={1} />
                 <TextField
-                    style={{width:"25%"}}
-                        size="small"
-                        label={`Antall ekstra måneder etter perioden systemet skal hente innteker (maks 12)`}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                            const verdi: string = event.currentTarget.value;
-                            if (verdi.match(/^\d*$/) && parseInt(verdi, 10) <= 12) {
-                                setMerking(parseInt(verdi, 10));
-                            }
-                            if(!verdi) {
-                                setMerking(refusjon.unntakOmInntekterFremitid);
-                            }
-                        }}
-                        value={merking}
-                    />
-
+                    style={{ width: '25%' }}
+                    size="small"
+                    label={`Antall ekstra måneder etter perioden systemet skal hente innteker (maks 12)`}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        const verdi: string = event.currentTarget.value;
+                        if (verdi.match(/^\d*$/) && parseInt(verdi, 10) <= 12) {
+                            setMerking(parseInt(verdi, 10));
+                        }
+                        if (!verdi) {
+                            setMerking(refusjon.unntakOmInntekterFremitid);
+                        }
+                    }}
+                    value={merking}
+                />
             </BekreftelseModal>
         </div>
     );

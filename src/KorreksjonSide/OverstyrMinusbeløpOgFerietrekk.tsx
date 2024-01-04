@@ -6,7 +6,6 @@ import { Feature } from '../featureToggles/features';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import { settHarFerietrekkForSammeMåned, settMinusbeløpManuelt } from '../services/rest-service';
 
-
 type Props = {
     harFerietrekkForSammeMåned: boolean;
 };
@@ -44,7 +43,7 @@ const OverstyrMinusbeløpOgFerietrekk: FunctionComponent<Props> = (props) => {
 
                         <VerticalSpacer rem={1} />
                         <Switch
-                            description='Huk av her hvis det allerde er trukket feriepenger for samme måned. Da vil ingen ferietrekk bli regnet med her.'
+                            description="Huk av her hvis det allerde er trukket feriepenger for samme måned. Da vil ingen ferietrekk bli regnet med her."
                             checked={props.harFerietrekkForSammeMåned}
                             onChange={(e) => settHarFerietrekkForSammeMåned(korreksjonId!, e.currentTarget.checked)}
                         >

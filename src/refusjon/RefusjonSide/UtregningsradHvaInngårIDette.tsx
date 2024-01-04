@@ -41,9 +41,7 @@ const UtregningsradHvaInngårIDette: FunctionComponent<Props> = (props) => {
                                         <Table.DataCell>
                                             {formatterDato(inntekt.måned, NORSK_MÅNEDÅR_FORMAT)}
                                         </Table.DataCell>
-                                        <Table.DataCell>
-                                            {formatterPenger(inntekt.beløp)}
-                                        </Table.DataCell>
+                                        <Table.DataCell>{formatterPenger(inntekt.beløp)}</Table.DataCell>
                                         <Table.DataCell>
                                             {erFerietrekkForAnnenMåned && (
                                                 <HelpText>

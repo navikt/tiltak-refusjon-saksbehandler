@@ -15,7 +15,7 @@ Secondary-knappen i designsystemet har transparent bakgrunn som standard.
 Det liker vi ikke.
 */
 .navds-button--secondary {
- background-color: white;
+    background-color: white;
 }
 
 code {

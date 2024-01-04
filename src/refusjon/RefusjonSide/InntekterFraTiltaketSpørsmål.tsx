@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';

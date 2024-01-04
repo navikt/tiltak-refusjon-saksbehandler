@@ -1,15 +1,17 @@
-import { Heading, Label, Radio, RadioGroup, TextField } from '@navikt/ds-react';
 import _ from 'lodash';
 import { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
-import { endreBruttolønn } from '../../services/rest-service';
+import { endreBruttolønn, useHentKorreksjon } from '../../services/rest-service';
+import BEMHelper from '../../utils/bem';
+import { formatterPeriode } from '../../utils/datoUtils';
+import { sumInntekterOpptjentIPeriode } from '../../utils/inntekterUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import InntekterOpptjentIPeriodeTabell from './InntekterOpptjentIPeriodeTabell';
-import BEMHelper from '../../utils/bem';
+import { BodyShort, Heading, Label, Radio, RadioGroup, TextField } from '@navikt/ds-react';
 
 export const GrønnBoks = styled.div`
     background-color: #ccf1d6;
@@ -20,13 +22,18 @@ export const GrønnBoks = styled.div`
 const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
     const cls = BEMHelper('refusjonside');
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
+    const korreksjon = useHentKorreksjon(korreksjonId)
+    const { inntektsgrunnlag, tilskuddsgrunnlag } = korreksjon.refusjonsgrunnlag
     const refusjonsgrunnlag = props.refusjonsgrunnlag;
     const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjonsgrunnlag.inntekterKunFraTiltaket);
     const [endretBruttoLønn, setEndretBruttoLønn] = useState(refusjonsgrunnlag.endretBruttoLønn);
+
+    const refusjonNummer = `${tilskuddsgrunnlag.avtaleNr}-${tilskuddsgrunnlag.løpenummer}`;
+    const periode = (formatterPeriode(korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom, korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom, 'DD.MM'));
+    
     if (!refusjonsgrunnlag.inntektsgrunnlag) {
         return null;
     }
-    const bruttoLønn = refusjonsgrunnlag.inntektsgrunnlag.bruttoLønn;
 
     const svarPåSpørsmål = (checked: boolean) => {
         setInntekterKunFraTiltaket(checked);
@@ -36,32 +43,40 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
         }
     };
 
-    // const sumInntekterOpptjentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter
-    // .filter((inntekt) => inntekt.erOpptjentIPeriode)
-    // .map((el) => el.beløp)
-    // .reduce((el, el2) => el + el2, 0);
-    const inntekterOpptentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter.filter(
-        (inntekt) => inntekt.erOpptjentIPeriode
-    );
-    const sumInntekterOpptjentIPeriode = _.sumBy(inntekterOpptentIPeriode, 'beløp');
+    if (
+        inntektsgrunnlag === undefined ||
+        !korreksjon.harTattStillingTilAlleInntektslinjer ||
+        !inntektsgrunnlag?.inntekter?.find((inntekt) => inntekt.erMedIInntektsgrunnlag) ||
+        inntektsgrunnlag?.inntekter.filter((inntekt) => inntekt.erOpptjentIPeriode).length < 1
+    ) {
+        return null;
+    }
+
+    const sumInntekterOpptjent: number = sumInntekterOpptjentIPeriode(inntektsgrunnlag);
 
     return (
         <GrønnBoks>
             <Heading size="small">
-                Inntekter fra {tiltakstypeTekst[refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}
+            Inntekter som skal refunderes for{' '}
+                {formatterPeriode(tilskuddsgrunnlag.tilskuddFom, tilskuddsgrunnlag.tilskuddTom)}
             </Heading>
             <VerticalSpacer rem={1} />
-
+            <BodyShort size="small">
+                Dette er inntekter som er opptjent i perioden. Det vil gjøres en utregning under med sum bruttolønn som
+                grunnlag.
+            </BodyShort>
+            <VerticalSpacer rem={1} />
             <InntekterOpptjentIPeriodeTabell inntekter={props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter!} />
-
             <VerticalSpacer rem={1} />
             <Label htmlFor={'inntekterKunFraTiltaket'}>
-                Er inntektene som du har huket av for{' '}
-                {sumInntekterOpptjentIPeriode > 0 && <>({formatterPenger(sumInntekterOpptjentIPeriode)})</>} kun fra
-                tiltaket {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
+            Er inntektene du har huket av {' '}{sumInntekterOpptjent > 0 && <>({formatterPenger(sumInntekterOpptjent)})</>} 
+            {' '}tilknyttet refusjonssnummer {refusjonNummer} for perioden {periode} for tiltaket {tiltakstypeTekst[korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]} ?
             </Label>
             <p>
-                <i>Du skal svare "nei" hvis noen av inntektene er fra f. eks. vanlig lønn eller lønnstilskudd</i>
+                <i>Du skal svare ja hvis perioden og bruttolønn samsvarer.</i>
+            </p>
+            <p>
+                <i>Du skal svare nei hvis inntekter skal brukes i andre refusjoner tilknyttet andre tilskuddsperioder eller bruttolønn blir høyere.</i>
             </p>
             <RadioGroup legend="" className={cls.element('inntekter-kun-fra-tiltaket')} value={inntekterKunFraTiltaket}>
                 <Radio
@@ -91,7 +106,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
                         }`}
                         onChange={(event: any) => {
                             const verdi = event.currentTarget.value;
-                            if (verdi.match(/^\d*$/) && verdi <= bruttoLønn) {
+                            if (verdi.match(/^\d*$/) && parseInt(verdi, 10) <= sumInntekterOpptjent) {
                                 setEndretBruttoLønn(verdi as number);
                             }
                         }}

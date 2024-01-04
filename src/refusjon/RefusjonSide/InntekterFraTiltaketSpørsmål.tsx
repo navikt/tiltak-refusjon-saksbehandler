@@ -7,7 +7,7 @@ import { tiltakstypeTekst } from '../../messages';
 import { endreBruttolønn, useHentKorreksjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
 import { formatterPeriode } from '../../utils/datoUtils';
-import { sumInntekterOpptjentIPeriode } from '../../utils/inntekterUtiles';
+import { sumInntekterOpptjentIPeriode } from '../../utils/inntekterUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import InntekterOpptjentIPeriodeTabell from './InntekterOpptjentIPeriodeTabell';
@@ -27,7 +27,7 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
     const refusjonsgrunnlag = props.refusjonsgrunnlag;
     const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjonsgrunnlag.inntekterKunFraTiltaket);
     const [endretBruttoLønn, setEndretBruttoLønn] = useState(refusjonsgrunnlag.endretBruttoLønn);
-    
+
     const refusjonNummer = `${tilskuddsgrunnlag.avtaleNr}-${tilskuddsgrunnlag.løpenummer}`;
     const periode = (formatterPeriode(korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom, korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom, 'DD.MM'));
     

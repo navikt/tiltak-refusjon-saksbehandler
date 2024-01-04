@@ -67,7 +67,7 @@ export const hentHendelser = async (refusjonId: string) => {
     return response.data;
 };
 
-export const useHentKorreksjon = (korreksjonId: string) => {
+export const useHentKorreksjon = (korreksjonId?: string) => {
     const { data } = useSWR<Korreksjon>(`/korreksjon/${korreksjonId}`, swrConfig);
     return data!;
 };

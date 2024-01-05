@@ -1,5 +1,4 @@
-import { HendelseType, Korreksjonsgrunn } from './refusjon/refusjon';
-import { KorreksjonStatus, RefusjonStatus, Tiltak } from './refusjon/refusjon';
+import { HendelseType, KorreksjonStatus, Korreksjonsgrunn, RefusjonStatus, Tiltak } from './refusjon/refusjon';
 
 export const tiltakstypeTekst: { [key in Tiltak]: string } = {
     MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
@@ -186,7 +185,7 @@ export const lønnsbeskrivelseTekst: { [key: string]: string } = {
 export const korreksjonsgrunnTekst: { [key in Korreksjonsgrunn]: string } = {
     HENT_INNTEKTER_PÅ_NYTT: 'Brukt feil inntektslinje',
     HENT_INNTEKTER_TO_MÅNEDER_FREM:
-        'Brukt feil inntektslinje og skal hente inntekter lenger ferm i tid (velg antall måneder)',
+        'Brukt feil inntektslinje og skal hente inntekter lenger frem i tid (velg antall måneder)',
     TRUKKET_FEIL_FOR_FRAVÆR: 'Trukket av feil beløp for fravær',
     OPPDATERT_AMELDING: 'Oppdatert A-melding',
     ANNEN_GRUNN: 'Annen grunn',

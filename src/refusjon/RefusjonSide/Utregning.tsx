@@ -53,13 +53,13 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 inntekter={bruttoLønnsInntekter}
             />
 
-            {beregning && beregning.fratrekkLønnFerie !== 0 && (
+            {beregning && beregning.fratrekkLønnFerie !== 0  && (
                 <Utregningsrad
                     labelIkon={<Endret />}
                     labelTekst="Fratrekk for ferie (hentet fra A-meldingen)"
                     verdiOperator={<MinusTegn />}
                     verdi={
-                        beregning.fratrekkLønnFerie < 0 ? beregning.fratrekkLønnFerie * -1 : beregning.fratrekkLønnFerie
+                        beregning!.fratrekkLønnFerie < 0 ? beregning!.fratrekkLønnFerie * -1 : beregning!.fratrekkLønnFerie
                     }
                     inntekter={ferietrekkInntekter}
                     tilskuddsgunnlag={props.tilskuddsgrunnlag}
@@ -139,6 +139,21 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     border="TYKK"
                 />
             )}
+            {beregning!.tidligereUtbetalt < 0 && (
+                <Alert variant="warning" size="small">
+                    Beregnet beløp {formatterPenger(beregning!.beregnetBeløp)} er høyere enn avtalt tilskuddsbeløp,
+                    som er inntil {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden.
+                </Alert>
+            )}
+            {beregning && (beregning.overTilskuddsbeløp || beregning.tidligereUtbetalt > 0 || harMinusBeløp) && (
+                <Utregningsrad
+                    labelIkon={<Pengesekken />}
+                    labelTekst="Avtalt tilskuddsbeløp"
+                    verdiOperator={<ErlikTegn />}
+                    verdi={tilskuddsgrunnlag.tilskuddsbeløp}
+                    border="TYKK"
+                />
+            )}
             {beregning && beregning.overTilskuddsbeløp && beregning.tidligereUtbetalt > 0 && (
                 <Utregningsrad
                     labelIkon={<Pengesekken />}
@@ -157,24 +172,27 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 />
             )}
             {((beregning && beregning.tidligereUtbetalt !== 0) || props.korreksjonSide === true) && (
+                <>
                 <Utregningsrad
                     labelIkon={<Endret />}
-                    labelTekst="Tidligere utbetalt"
+                    labelTekst="Opprinnelig refusjonsbeløp fra refusjonsnummer 3456-6"
                     verdiOperator={<MinusTegn />}
                     verdi={beregning ? beregning.tidligereUtbetalt : 0}
                     border="TYKK"
                 />
+                <p>Det negative beløpet i opprinnelig refusjon, -17 206 kr blir trukket i senere refusjon(er). Vi kompenserer for det i denne korreksjonen.</p>
+                </>
             )}
             <Utregningsrad
                 labelIkon={<RefusjonAvLønn />}
-                labelTekst="Refusjonsbeløp"
+                labelTekst="Nytt korrigert refusjonsbeløp til utbetaling"
                 verdiOperator={<ErlikTegn />}
                 verdi={beregning?.refusjonsbeløp ?? 'kan ikke beregne'}
                 ikkePenger={beregning === undefined}
                 border="TYKK"
             />
             <VerticalSpacer rem={1} />
-            {beregning?.overTilskuddsbeløp && (
+            {beregning?.overTilskuddsbeløp || beregning!.tidligereUtbetalt > 0 && (
                 <Alert variant="warning" size="small">
                     Beregnet beløp er høyere enn refusjonsbeløpet. Avtalt beløp er inntil{' '}
                     {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden. Lønn i denne

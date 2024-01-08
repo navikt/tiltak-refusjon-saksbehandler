@@ -2,12 +2,12 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: tiltak-refusjon-saksbehandler-storybook
-  namespace: arbeidsgiver
+  namespace: team-tiltak
   labels:
-    team: arbeidsgiver
+    team: team-tiltak
 spec:
   image: {{image}}
-  team: arbeidsgiver
+  team: team-tiltak
   port: 3000
   ingresses:
     - https://tiltak-refusjon-storybook.intern.dev.nav.no

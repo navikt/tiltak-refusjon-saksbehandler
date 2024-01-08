@@ -4,7 +4,7 @@ import Utregning from '@/refusjon/RefusjonSide/Utregning';
 import { Tiltak } from '@/refusjon/refusjon';
 
 const meta = {
-    title: 'Ferietrekk',
+    title: 'Utregning',
     args: {},
     parameters: {
         layout: 'fullscreen',
@@ -160,7 +160,7 @@ const refusjon2 = {
 };
 
 export const Minusbelop: Story = {
-    name: 'Ferietrekk',
+    name: 'Minusbeløp grunnet ferietrekk',
     args: {},
     render: (args) => (
         <div>

@@ -1,4 +1,4 @@
-name: Bygg og deploy dev
+name: Bygg og deploy storybook
 
 on:
   workflow_dispatch:

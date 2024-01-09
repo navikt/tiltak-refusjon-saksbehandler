@@ -11,10 +11,10 @@ spec:
   ingresses:
     - https://tiltak-refusjon-storybook.intern.dev.nav.no
   liveness:
-    path: /
+    path: /isAlive
     initialDelay: 10
   readiness:
-    path: /
+    path: /isReady
     initialDelay: 10
   replicas:
     min: 1

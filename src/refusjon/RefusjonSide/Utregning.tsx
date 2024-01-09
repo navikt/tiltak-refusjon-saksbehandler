@@ -9,7 +9,7 @@ import RefusjonAvLønn from '@/asset/image/refusjonAvLønn.svg?react';
 import Sparegris from '@/asset/image/sparegris.svg?react';
 import Stillingsprosent from '@/asset/image/stillingsprosent.svg?react';
 import Stranden from '@/asset/image/strand.svg?react';
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -136,7 +136,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelTekst="Beregning basert på innhentede innteker"
                     verdiOperator={<ErlikTegn />}
                     verdi={beregning.beregnetBeløp}
-                    border="TYKK"
+                    border="INGEN"
                 />
             )}
             {beregning!.tidligereUtbetalt < 0 && (
@@ -172,16 +172,15 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 />
             )}
             {((beregning && beregning.tidligereUtbetalt !== 0) || props.korreksjonSide === true) && (
-                <>
+ 
                 <Utregningsrad
                     labelIkon={<Endret />}
                     labelTekst="Opprinnelig refusjonsbeløp fra refusjonsnummer 3456-6"
                     verdiOperator={<MinusTegn />}
-                    verdi={beregning ? beregning.tidligereUtbetalt : 0}
+                    verdi={beregning ? (beregning.tidligereUtbetalt < 0 ? beregning.tidligereUtbetalt * -1 : beregning.tidligereUtbetalt) : 0}
                     border="TYKK"
+                    underTekst={<><BodyShort size="small" style={{paddingLeft:'2rem'}}>Det negative beløpet i opprinnelig refusjon, -17 206 kr blir trukket i senere refusjon(er).</BodyShort><BodyShort> Vi kompenserer for det i denne korreksjonen.</BodyShort></>}
                 />
-                <p>Det negative beløpet i opprinnelig refusjon, -17 206 kr blir trukket i senere refusjon(er). Vi kompenserer for det i denne korreksjonen.</p>
-                </>
             )}
             <Utregningsrad
                 labelIkon={<RefusjonAvLønn />}

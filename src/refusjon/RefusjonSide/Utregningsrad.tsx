@@ -18,6 +18,7 @@ interface Props {
     border?: 'NORMAL' | 'TYKK' | 'INGEN';
     inntekter?: Inntektslinje[];
     tilskuddsgunnlag?: Tilskuddsgrunnlag;
+    underTekst?: React.ReactNode;
 }
 
 const cls = BEMHelper('utregning-rad');
@@ -77,7 +78,6 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
                     </BodyShort>
                 </div>
             </div>
-
             {props.inntekter && (
                 <>
                     <UtregningsradHvaInngårIDette
@@ -87,6 +87,7 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
                     <VerticalSpacer rem={1} />
                 </>
             )}
+            {props.underTekst}
         </div>
     );
 };

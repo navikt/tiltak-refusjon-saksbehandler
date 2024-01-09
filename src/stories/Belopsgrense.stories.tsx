@@ -169,6 +169,7 @@ const refusjondata = {
         id: '01HKMQG513917TYAVNFSF1WB36',
         innhentetTidspunkt: '2024-01-08T15:26:50.019561',
     },
+    refusjonsnummer: { avtaleNr: 1234, løpenummer: 3 },
 };
 
 export const Belopsgrense: Story = {

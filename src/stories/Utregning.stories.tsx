@@ -61,6 +61,7 @@ const fratrekkData = {
         bruttoLønn: 108115,
         innhentetTidspunkt: '2024-01-08T10:31:43.265423',
     },
+    refusjonsnummer: { avtaleNr: 1234, løpenummer: 3 },
 };
 
 export const OppgjortMinusbeløp: Story = {
@@ -129,6 +130,7 @@ export const MangeInntektslinjer: Story = {
             bruttoLønn: 108115,
             innhentetTidspunkt: '2024-01-08T10:54:55.585342',
         },
+        refusjonsnummer: { avtaleNr: 1234, løpenummer: 3 },
     },
     decorators: [
         (Story, args) => (
@@ -189,6 +191,7 @@ export const KorreksjonTidligereUtbetalt: Story = {
             innhentetTidspunkt: '2024-01-08T10:29:07.387322',
         },
         korreksjonSide: true,
+        refusjonsnummer: { avtaleNr: 1234, løpenummer: 3 },
     },
     decorators: [
         (Story, args) => (

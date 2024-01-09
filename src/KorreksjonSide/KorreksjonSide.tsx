@@ -82,6 +82,10 @@ const KorreksjonSide: FunctionComponent = () => {
                                         }
                                     />
                                     <Utregning
+                                        refusjonsnummer={{
+                                            avtaleNr: korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                                            løpenummer: korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+                                        }}
                                         beregning={korreksjon.refusjonsgrunnlag.beregning}
                                         tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                                         forrigeRefusjonMinusBeløp={

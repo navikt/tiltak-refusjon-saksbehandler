@@ -18,6 +18,7 @@ import { Beregning, Inntektsgrunnlag, Tilskuddsgrunnlag } from '../refusjon';
 import Utregningsrad from './Utregningsrad';
 
 interface Props {
+    refusjonsnummer: { avtaleNr: number; løpenummer: number };
     beregning?: Beregning;
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     forrigeRefusjonMinusBeløp?: number;
@@ -39,6 +40,8 @@ const Utregning: FunctionComponent<Props> = (props) => {
     const ferietrekkInntekter = props.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.beskrivelse === 'trekkILoennForFerie'
     );
+
+    const { refusjonsnummer } = props;
 
     const harMinusBeløp = forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0;
 
@@ -144,7 +147,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     border="INGEN"
                 />
             )}
-            {beregning!.tidligereUtbetalt < 0 && (
+            {beregning?.overTilskuddsbeløp && beregning?.tidligereUtbetalt != 0 && (
                 <Alert variant="warning" size="small">
                     Beregnet beløp {formatterPenger(beregning!.beregnetBeløp)} er høyere enn avtalt tilskuddsbeløp, som
                     er inntil {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden.
@@ -179,8 +182,15 @@ const Utregning: FunctionComponent<Props> = (props) => {
             {((beregning && beregning.tidligereUtbetalt !== 0) || props.korreksjonSide === true) && (
                 <Utregningsrad
                     labelIkon={<Endret />}
-                    labelTekst="Opprinnelig refusjonsbeløp fra refusjonsnummer 3456-6"
-                    verdiOperator={<MinusTegn />}
+                    labelTekst={
+                        refusjonsnummer
+                            ? 'Opprinnelig refusjonsbeløp fra refusjonsnummer ' +
+                              refusjonsnummer?.avtaleNr +
+                              '-' +
+                              refusjonsnummer?.løpenummer
+                            : 'Opprinnelig refusjonsbeløp'
+                    }
+                    verdiOperator={beregning && beregning.tidligereUtbetalt < 0 ? <PlussTegn /> : <MinusTegn />}
                     verdi={
                         beregning
                             ? beregning.tidligereUtbetalt < 0
@@ -192,10 +202,13 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     underTekst={
                         <>
                             <BodyShort size="small" style={{ paddingLeft: '2rem' }}>
-                                Det negative beløpet i opprinnelig refusjon, -17 206 kr blir trukket i senere
+                                Det negative beløpet i opprinnelig refusjon, (
+                                {formatterPenger(beregning?.tidligereUtbetalt || 0)}) blir trukket i senere
                                 refusjon(er).
                             </BodyShort>
-                            <BodyShort> Vi kompenserer for det i denne korreksjonen.</BodyShort>
+                            <BodyShort size="small" style={{ paddingLeft: '2rem' }}>
+                                Vi kompenserer for det i denne korreksjonen.
+                            </BodyShort>
                         </>
                     }
                 />
@@ -209,14 +222,13 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 border="TYKK"
             />
             <VerticalSpacer rem={1} />
-            {beregning?.overTilskuddsbeløp ||
-                (beregning!.tidligereUtbetalt > 0 && (
-                    <Alert variant="warning" size="small">
-                        Beregnet beløp er høyere enn refusjonsbeløpet. Avtalt beløp er inntil{' '}
-                        {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden. Lønn i denne
-                        refusjonsperioden kan ikke endres og dere vil få utbetalt maks av avtalt beløp.
-                    </Alert>
-                ))}
+            {beregning?.overTilskuddsbeløp && beregning?.tidligereUtbetalt == 0 && (
+                <Alert variant="warning" size="small">
+                    Beregnet beløp er høyere enn refusjonsbeløpet. Avtalt beløp er inntil{' '}
+                    {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden. Lønn i denne
+                    refusjonsperioden kan ikke endres og dere vil få utbetalt maks av avtalt beløp.
+                </Alert>
+            )}
         </GråRamme>
     );
 };

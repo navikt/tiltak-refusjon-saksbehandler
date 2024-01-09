@@ -18,6 +18,8 @@ interface Props {
     border?: 'NORMAL' | 'TYKK' | 'INGEN';
     inntekter?: Inntektslinje[];
     tilskuddsgunnlag?: Tilskuddsgrunnlag;
+    underTekst?: React.ReactNode;
+    ignorert?: boolean;
 }
 
 const cls = BEMHelper('utregning-rad');
@@ -70,14 +72,17 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
                 </div>
                 <div className={cls.element('utregning-verdi')}>
                     {setOperator(props.verdiOperator)}
-                    <BodyShort size="small" className={cls.element('sum')} aria-labelledby={labelTekstString}>
+                    <BodyShort
+                        size="small"
+                        className={cls.element('sum') + ' ' + (props.ignorert ? cls.element('ignorert') : '')}
+                        aria-labelledby={labelTekstString}
+                    >
                         {props.ikkePenger || typeof props.verdi === 'string'
                             ? props.verdi
                             : formatterPenger(props.verdi)}
                     </BodyShort>
                 </div>
             </div>
-
             {props.inntekter && (
                 <>
                     <UtregningsradHvaInngårIDette
@@ -87,6 +92,7 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
                     <VerticalSpacer rem={1} />
                 </>
             )}
+            {props.underTekst}
         </div>
     );
 };

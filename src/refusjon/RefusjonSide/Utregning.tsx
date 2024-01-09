@@ -9,7 +9,7 @@ import RefusjonAvLønn from '@/asset/image/refusjonAvLønn.svg?react';
 import Sparegris from '@/asset/image/sparegris.svg?react';
 import Stillingsprosent from '@/asset/image/stillingsprosent.svg?react';
 import Stranden from '@/asset/image/strand.svg?react';
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
@@ -18,6 +18,7 @@ import { Beregning, Inntektsgrunnlag, Tilskuddsgrunnlag } from '../refusjon';
 import Utregningsrad from './Utregningsrad';
 
 interface Props {
+    refusjonsnummer: { avtaleNr: number; løpenummer: number };
     beregning?: Beregning;
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
     forrigeRefusjonMinusBeløp?: number;
@@ -40,7 +41,13 @@ const Utregning: FunctionComponent<Props> = (props) => {
         (inntekt) => inntekt.beskrivelse === 'trekkILoennForFerie'
     );
 
+    const { refusjonsnummer } = props;
+
     const harMinusBeløp = forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0;
+
+    const feriepenger = beregning?.feriepenger || 0;
+    const tjenestepensjon = beregning?.tjenestepensjon || 0;
+    const arbeidsgiveravgift = beregning?.arbeidsgiveravgift || 0;
 
     return (
         <GråRamme>
@@ -59,7 +66,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelTekst="Fratrekk for ferie (hentet fra A-meldingen)"
                     verdiOperator={<MinusTegn />}
                     verdi={
-                        beregning.fratrekkLønnFerie < 0 ? beregning.fratrekkLønnFerie * -1 : beregning.fratrekkLønnFerie
+                        beregning!.fratrekkLønnFerie < 0 ? -beregning!.fratrekkLønnFerie : beregning!.fratrekkLønnFerie
                     }
                     inntekter={ferietrekkInntekter}
                     tilskuddsgunnlag={props.tilskuddsgrunnlag}
@@ -71,22 +78,22 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelIkon={<Stranden />}
                     labelTekst="Feriepenger"
                     labelSats={props.tilskuddsgrunnlag.feriepengerSats}
-                    verdiOperator={<PlussTegn />}
-                    verdi={beregning?.feriepenger || 0}
+                    verdiOperator={feriepenger > 0 ? <PlussTegn /> : <MinusTegn />}
+                    verdi={feriepenger > 0 ? feriepenger : -feriepenger}
                 />
                 <Utregningsrad
                     labelIkon={<Sparegris />}
                     labelTekst="Innskudd obligatorisk tjenestepensjon"
                     labelSats={props.tilskuddsgrunnlag.otpSats}
-                    verdiOperator={<PlussTegn />}
-                    verdi={beregning?.tjenestepensjon || 0}
+                    verdiOperator={tjenestepensjon > 0 ? <PlussTegn /> : <MinusTegn />}
+                    verdi={tjenestepensjon > 0 ? tjenestepensjon : -tjenestepensjon}
                 />
                 <Utregningsrad
                     labelIkon={<Bygg />}
                     labelTekst="Arbeidsgiveravgift"
                     labelSats={props.tilskuddsgrunnlag.arbeidsgiveravgiftSats}
-                    verdiOperator={<PlussTegn />}
-                    verdi={beregning?.arbeidsgiveravgift || 0}
+                    verdiOperator={arbeidsgiveravgift > 0 ? <PlussTegn /> : <MinusTegn />}
+                    verdi={arbeidsgiveravgift > 0 ? arbeidsgiveravgift : -arbeidsgiveravgift}
                     border={beregning && beregning?.tidligereRefundertBeløp > 0 ? 'TYKK' : undefined}
                 />
                 {beregning && beregning?.tidligereRefundertBeløp > 0 ? (
@@ -135,7 +142,23 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelIkon={<Pengesekken />}
                     labelTekst="Beregning basert på innhentede innteker"
                     verdiOperator={<ErlikTegn />}
+                    ignorert={beregning.overTilskuddsbeløp}
                     verdi={beregning.beregnetBeløp}
+                    border="INGEN"
+                />
+            )}
+            {beregning?.overTilskuddsbeløp && beregning?.tidligereUtbetalt != 0 && (
+                <Alert variant="warning" size="small">
+                    Beregnet beløp {formatterPenger(beregning!.beregnetBeløp)} er høyere enn avtalt tilskuddsbeløp, som
+                    er inntil {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden.
+                </Alert>
+            )}
+            {beregning && beregning.overTilskuddsbeløp && (
+                <Utregningsrad
+                    labelIkon={<Pengesekken />}
+                    labelTekst="Avtalt tilskuddsbeløp"
+                    verdiOperator={<ErlikTegn />}
+                    verdi={tilskuddsgrunnlag.tilskuddsbeløp}
                     border="TYKK"
                 />
             )}
@@ -152,29 +175,54 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelIkon={<Endret />}
                     labelTekst={'Resterende fratrekk for ferie fra tidligere refusjoner'}
                     verdiOperator={<MinusTegn />}
-                    verdi={forrigeRefusjonMinusBeløp}
+                    verdi={-forrigeRefusjonMinusBeløp}
                     border="TYKK"
                 />
             )}
             {((beregning && beregning.tidligereUtbetalt !== 0) || props.korreksjonSide === true) && (
                 <Utregningsrad
                     labelIkon={<Endret />}
-                    labelTekst="Tidligere utbetalt"
-                    verdiOperator={<MinusTegn />}
-                    verdi={beregning ? beregning.tidligereUtbetalt : 0}
+                    labelTekst={
+                        refusjonsnummer
+                            ? 'Opprinnelig refusjonsbeløp fra refusjonsnummer ' +
+                              refusjonsnummer?.avtaleNr +
+                              '-' +
+                              refusjonsnummer?.løpenummer
+                            : 'Opprinnelig refusjonsbeløp'
+                    }
+                    verdiOperator={beregning && beregning.tidligereUtbetalt < 0 ? <PlussTegn /> : <MinusTegn />}
+                    verdi={
+                        beregning
+                            ? beregning.tidligereUtbetalt < 0
+                                ? -beregning.tidligereUtbetalt
+                                : beregning.tidligereUtbetalt
+                            : 0
+                    }
                     border="TYKK"
+                    underTekst={
+                        <>
+                            <BodyShort size="small" style={{ paddingLeft: '2rem' }}>
+                                Det negative beløpet i opprinnelig refusjon, (
+                                {formatterPenger(beregning?.tidligereUtbetalt || 0)}) blir trukket i senere
+                                refusjon(er).
+                            </BodyShort>
+                            <BodyShort size="small" style={{ paddingLeft: '2rem' }}>
+                                Vi kompenserer for det i denne korreksjonen.
+                            </BodyShort>
+                        </>
+                    }
                 />
             )}
             <Utregningsrad
                 labelIkon={<RefusjonAvLønn />}
-                labelTekst="Refusjonsbeløp"
+                labelTekst="Nytt korrigert refusjonsbeløp til utbetaling"
                 verdiOperator={<ErlikTegn />}
                 verdi={beregning?.refusjonsbeløp ?? 'kan ikke beregne'}
                 ikkePenger={beregning === undefined}
                 border="TYKK"
             />
             <VerticalSpacer rem={1} />
-            {beregning?.overTilskuddsbeløp && (
+            {beregning?.overTilskuddsbeløp && beregning?.tidligereUtbetalt == 0 && (
                 <Alert variant="warning" size="small">
                     Beregnet beløp er høyere enn refusjonsbeløpet. Avtalt beløp er inntil{' '}
                     {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden. Lønn i denne

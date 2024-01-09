@@ -110,6 +110,7 @@ const refusjonsdata = {
         id: '01HKM6HPY7VC0KTQRTGPGAZ547',
         innhentetTidspunkt: '2024-01-08T10:30:35.335458',
     },
+    refusjonsnummer: { avtaleNr: 1234, løpenummer: 3 },
 };
 
 const korreksjonsdata = {
@@ -279,6 +280,7 @@ const korreksjonsdata = {
         innhentetTidspunkt: '2024-01-08T16:08:55.629546',
     },
     korreksjonSide: true,
+    refusjonsnummer: { avtaleNr: 1234, løpenummer: 3 },
 };
 
 export const MinusbelopKorreksjon: Story = {

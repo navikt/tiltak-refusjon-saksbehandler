@@ -83,6 +83,7 @@ const refusjon1 = {
         bruttoLønn: 20000,
         innhentetTidspunkt: '2024-01-08T14:59:03.430177',
     },
+    refusjonsnummer: { avtaleNr: 1234, løpenummer: 3 },
 };
 
 const refusjon2 = {
@@ -157,6 +158,7 @@ const refusjon2 = {
         id: '01HKMPA5EBMHCKKWGSX3X2RJFJ',
         innhentetTidspunkt: '2024-01-08T15:06:05.259711',
     },
+    refusjonsnummer: { avtaleNr: 1234, løpenummer: 3 },
 };
 
 export const Minusbelop: Story = {

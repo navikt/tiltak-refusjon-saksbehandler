@@ -42,6 +42,10 @@ const Utregning: FunctionComponent<Props> = (props) => {
 
     const harMinusBeløp = forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0;
 
+    const feriepenger = beregning?.feriepenger || 0;
+    const tjenestepensjon = beregning?.tjenestepensjon || 0;
+    const arbeidsgiveravgift = beregning?.arbeidsgiveravgift || 0;
+
     return (
         <GråRamme>
             <Heading size="medium">Utregningen</Heading>
@@ -71,22 +75,22 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelIkon={<Stranden />}
                     labelTekst="Feriepenger"
                     labelSats={props.tilskuddsgrunnlag.feriepengerSats}
-                    verdiOperator={<PlussTegn />}
-                    verdi={beregning?.feriepenger || 0}
+                    verdiOperator={feriepenger > 0 ? <PlussTegn /> : <MinusTegn />}
+                    verdi={feriepenger > 0 ? feriepenger : -feriepenger}
                 />
                 <Utregningsrad
                     labelIkon={<Sparegris />}
                     labelTekst="Innskudd obligatorisk tjenestepensjon"
                     labelSats={props.tilskuddsgrunnlag.otpSats}
-                    verdiOperator={<PlussTegn />}
-                    verdi={beregning?.tjenestepensjon || 0}
+                    verdiOperator={tjenestepensjon > 0 ? <PlussTegn /> : <MinusTegn />}
+                    verdi={tjenestepensjon > 0 ? tjenestepensjon : -tjenestepensjon}
                 />
                 <Utregningsrad
                     labelIkon={<Bygg />}
                     labelTekst="Arbeidsgiveravgift"
                     labelSats={props.tilskuddsgrunnlag.arbeidsgiveravgiftSats}
-                    verdiOperator={<PlussTegn />}
-                    verdi={beregning?.arbeidsgiveravgift || 0}
+                    verdiOperator={arbeidsgiveravgift > 0 ? <PlussTegn /> : <MinusTegn />}
+                    verdi={arbeidsgiveravgift > 0 ? arbeidsgiveravgift : -arbeidsgiveravgift}
                     border={beregning && beregning?.tidligereRefundertBeløp > 0 ? 'TYKK' : undefined}
                 />
                 {beregning && beregning?.tidligereRefundertBeløp > 0 ? (
@@ -146,7 +150,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     er inntil {formatterPenger(tilskuddsgrunnlag.tilskuddsbeløp)} for denne perioden.
                 </Alert>
             )}
-            {beregning && (beregning.overTilskuddsbeløp || beregning.tidligereUtbetalt > 0 || harMinusBeløp) && (
+            {beregning && beregning.overTilskuddsbeløp && (
                 <Utregningsrad
                     labelIkon={<Pengesekken />}
                     labelTekst="Avtalt tilskuddsbeløp"

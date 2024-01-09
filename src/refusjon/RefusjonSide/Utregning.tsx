@@ -152,7 +152,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelIkon={<Endret />}
                     labelTekst={'Resterende fratrekk for ferie fra tidligere refusjoner'}
                     verdiOperator={<MinusTegn />}
-                    verdi={-forrigeRefusjonMinusBeløp}
+                    verdi={forrigeRefusjonMinusBeløp}
                     border="TYKK"
                 />
             )}

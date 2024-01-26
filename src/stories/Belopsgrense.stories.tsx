@@ -31,7 +31,6 @@ const refusjondata = {
         tidligereRefundertBeløp: 0,
         sumUtgifterFratrukketRefundertBeløp: 55849,
         overFemGrunnbeløp: false,
-        commitHash: '',
         id: '01HKMQGE6YT917YK9YMEHD2SGF',
     },
     tilskuddsgrunnlag: {

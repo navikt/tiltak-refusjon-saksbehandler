@@ -31,7 +31,6 @@ const refusjon1 = {
         tidligereRefundertBeløp: 0,
         sumUtgifterFratrukketRefundertBeløp: -6611,
         id: '01HKMNXG6FTAMAMQZG5K2X1DHZ',
-        commitHash: '',
     },
     tilskuddsgrunnlag: {
         avtaleId: 'e34682c9-aaa5-4c15-9744-7d7d0f43b4f5',
@@ -103,7 +102,6 @@ const refusjon2 = {
         sumUtgifterFratrukketRefundertBeløp: 26443,
         overFemGrunnbeløp: false,
         id: '01HKMPAD0Q6SWXXEJDA626E350',
-        commitHash: '',
     },
     tilskuddsgrunnlag: {
         avtaleId: 'd48ebe92-6251-420e-94f9-bba225cc9040',

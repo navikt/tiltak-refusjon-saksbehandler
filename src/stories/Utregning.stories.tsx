@@ -31,7 +31,6 @@ const fratrekkData = {
         fratrekkLønnFerie: 0,
         tidligereRefundertBeløp: 0,
         sumUtgifterFratrukketRefundertBeløp: 140926,
-        commitHash: '123',
         id: '01HKM6MGVB5ENFQRXTSSFAJN8C',
     },
     tilskuddsgrunnlag: {
@@ -99,7 +98,6 @@ export const MangeInntektslinjer: Story = {
             fratrekkLønnFerie: 0,
             tidligereRefundertBeløp: 0,
             sumUtgifterFratrukketRefundertBeløp: 140926,
-            commitHash: '',
             id: '01HKM7YXHNFW7V5N92MG5D89RE',
         },
         tilskuddsgrunnlag: {
@@ -157,7 +155,6 @@ export const KorreksjonTidligereUtbetalt: Story = {
             fratrekkLønnFerie: -35000,
             tidligereRefundertBeløp: 0,
             sumUtgifterFratrukketRefundertBeløp: -3910,
-            commitHash: '',
             id: '01HKM6F11VQ5PCFQF5HYTQRJ4D',
         },
         tilskuddsgrunnlag: {

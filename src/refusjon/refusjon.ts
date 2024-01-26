@@ -108,12 +108,11 @@ export interface Inntektslinje {
     opptjeningsperiodeFom?: string;
     opptjeningsperiodeTom?: string;
     erMedIInntektsgrunnlag: boolean;
-    erOpptjentIPeriode: boolean;
+    erOpptjentIPeriode?: boolean;
 }
 
 export interface Beregning {
     arbeidsgiveravgift: number;
-    commitHash: string;
     feriepenger: number;
     id: string;
     lønn: number;

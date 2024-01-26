@@ -1,27 +1,21 @@
-import { Alert, Heading, BodyShort } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
 import _ from 'lodash';
-import { FunctionComponent } from 'react';
+import { Fragment, FunctionComponent } from 'react';
 import styled from 'styled-components';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../../messages';
 import BEMHelper from '../../../utils/bem';
-import { NORSK_DATO_OG_TID_FORMAT, formatterDato, formatterPeriode, månedsNavn } from '../../../utils/datoUtils';
+import { formatterPeriode, månedsNavn } from '../../../utils/datoUtils';
 import { Inntektsgrunnlag, Refusjonsgrunnlag } from '../../refusjon';
 import './inntektsMelding.less';
 import InntektsmeldingTabellBody from './inntektsmeldingTabell/InntektsmeldingTabellBody';
 import InntektsmeldingTabellHeader from './inntektsmeldingTabell/InntektsmeldingTabellHeader';
+import InntektsMeldingHeader from './InntektsMeldingHeader';
 
 const GråBoks = styled.div`
-    background-color: #eee;
+    background-color: #f7f7f7;
     border-radius: 4px;
     padding: 1.5rem min(1.5rem, 2%);
-`;
-
-const Fleks = styled.div`
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: baseline;
 `;
 
 export const inntektBeskrivelse = (beskrivelse: string | undefined) => {
@@ -64,17 +58,10 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
 
     return (
         <GråBoks>
-            <Fleks>
-                <Heading size="small" style={{ marginBottom: '1rem' }}>
-                    Inntekter hentet fra a-meldingen
-                </Heading>
-                {props.inntektsgrunnlag && (
-                    <BodyShort size="small">
-                        Sist hentet:{' '}
-                        {formatterDato(props.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
-                    </BodyShort>
-                )}
-            </Fleks>
+            <InntektsMeldingHeader
+                refusjonsgrunnlag={props.refusjonsgrunnlag}
+                unntakOmInntekterFremitid={props.unntakOmInntekterFremitid}
+            />
             {harBruttolønn && (
                 <i>
                     Her hentes inntekter i form av fastlønn, timelønn, faste tillegg og uregelmessige tillegg knyttet
@@ -95,7 +82,7 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                 <>
                     <VerticalSpacer rem={1} />
                     {inntektGrupperListeSortert.map(([aarManed, inntektslinjer]) => (
-                        <>
+                        <Fragment key={aarManed}>
                             <Heading level="4" size="small" style={{ display: 'flex', justifyContent: 'center' }}>
                                 Inntekt rapportert for {månedsNavn(aarManed)} ({aarManed})
                             </Heading>
@@ -110,7 +97,7 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                                 </table>
                             </div>
                             <VerticalSpacer rem={1} />
-                        </>
+                        </Fragment>
                     ))}
                 </>
             )}

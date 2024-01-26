@@ -45,7 +45,7 @@ const Komponent: FunctionComponent = () => {
         case KorreksjonStatus.TILLEGSUTBETALING:
         case KorreksjonStatus.TILLEGGSUTBETALING_UTBETALT:
         case KorreksjonStatus.TILLEGGSUTBETALING_FEILET:
-            return <KorreksjonKvitteringSide />;
+            return <KorreksjonKvitteringSide korreksjon={korreksjon} />;
     }
 };
 

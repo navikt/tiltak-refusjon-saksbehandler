@@ -1,6 +1,5 @@
 import { Heading, Tag } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import { useParams } from 'react-router';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import { korreksjonStatusTekst } from '../messages';
@@ -11,14 +10,15 @@ import InntekterFraTiltaketSvar from '../refusjon/RefusjonSide/InntekterFraTilta
 import InntekterFraTiltaketSvarGammel from '../refusjon/RefusjonSide/InntekterFraTiltaketSvarGammel';
 import TidligereRefunderbarBeløpKvittering from '../refusjon/RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
-import { useHentKorreksjon } from '../services/rest-service';
 import { storForbokstav } from '../utils/stringUtils';
 import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
+import { Korreksjon } from '@/refusjon/refusjon';
 
-const KorreksjonKvitteringSide: FunctionComponent = () => {
-    const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId!);
+type Props = {
+    korreksjon: Korreksjon;
+};
 
+const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ korreksjon }) => {
     return (
         <HvitBoks>
             <VerticalSpacer rem={2} />

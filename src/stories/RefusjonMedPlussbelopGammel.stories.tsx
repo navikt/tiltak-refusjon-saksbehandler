@@ -100,6 +100,7 @@ const refusjonPlussbelop: Refusjon = {
             innhentetTidspunkt: '2024-01-19T14:20:55.110261',
         },
         bedriftKontonummer: '10000008145',
+        bedriftKontonummerInnhentetTidspunkt: '2022-05-03T12:45:32.115072',
         bedriftKid: undefined,
         inntekterKunFraTiltaket: true,
         endretBruttoLønn: undefined,

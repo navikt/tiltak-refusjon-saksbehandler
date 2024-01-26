@@ -298,6 +298,7 @@ const refusjonMedNullbelop: Refusjon = {
             innhentetTidspunkt: '2024-01-19T13:50:45.252916',
         },
         bedriftKontonummer: '10000008145',
+        bedriftKontonummerInnhentetTidspunkt: '2022-05-03T12:45:32.115072',
         bedriftKid: undefined,
         inntekterKunFraTiltaket: undefined,
         endretBruttoLønn: undefined,

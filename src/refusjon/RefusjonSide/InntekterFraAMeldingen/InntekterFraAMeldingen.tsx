@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react';
 import _ from 'lodash';
 import { Fragment, FunctionComponent } from 'react';
 import styled from 'styled-components';

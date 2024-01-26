@@ -31,7 +31,6 @@ const refusjonsdata = {
         sumUtgifterFratrukketRefundertBeløp: 26621,
         overFemGrunnbeløp: false,
         id: '01HKM6JYZ4ATAQH5VZ28YZA6RG',
-        commitHash: '',
     },
     tilskuddsgrunnlag: {
         avtaleId: '50844b27-1d75-43b2-bbe5-fe27c75d8340',
@@ -129,7 +128,6 @@ const korreksjonsdata = {
         sumUtgifterFratrukketRefundertBeløp: 56892,
         overFemGrunnbeløp: false,
         id: '01HKMSXH68PBQ8XABNBHPKWGYG',
-        commitHash: '',
     },
     tilskuddsgrunnlag: {
         avtaleId: '50844b27-1d75-43b2-bbe5-fe27c75d8340',

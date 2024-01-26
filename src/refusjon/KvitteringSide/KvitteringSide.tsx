@@ -1,10 +1,8 @@
 import { Heading, Tag } from '@navikt/ds-react';
 import { FunctionComponent, ReactElement } from 'react';
-import { useParams } from 'react-router';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { statusTekst } from '../../messages';
-import { useHentRefusjon } from '../../services/rest-service';
 import { NORSK_DATO_OG_TID_FORMAT, formatterDato } from '../../utils/datoUtils';
 import { storForbokstav } from '../../utils/stringUtils';
 import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
@@ -19,10 +17,10 @@ import TidligereRefunderbarBeløpKvittering from '../RefusjonSide/TidligereRefun
 import Utregning from '../RefusjonSide/Utregning';
 import { Refusjon, RefusjonStatus } from '../refusjon';
 import Statusmelding from './Statusmelding';
-import { useInnloggetBruker } from '../../bruker/BrukerContext';
-import { BrukerContextType } from '../../bruker/BrukerContextType';
+import { InnloggetBruker } from '../../bruker/BrukerContextType';
 import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
 import { Feature } from '../../featureToggles/features';
+import SummeringBoksNullbeløp from '../RefusjonSide/SummeringBoksNullbeløp';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
     if (refusjon.status === RefusjonStatus.UTBETALING_FEILET) {
@@ -36,17 +34,20 @@ const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
         </Tag>
     );
 };
-const KvitteringSide: FunctionComponent = () => {
-    const { refusjonId } = useParams<{ refusjonId: string }>();
-    const refusjon = useHentRefusjon(refusjonId!);
-    const brukerContext: BrukerContextType = useInnloggetBruker();
+
+type Props = {
+    refusjon: Refusjon;
+    innloggetBruker: InnloggetBruker;
+};
+
+const KvitteringSide: FunctionComponent<Props> = ({ refusjon, innloggetBruker }) => {
     const refusjonsgrunnlag = refusjon.refusjonsgrunnlag;
     const featureToggles = useFeatureToggles();
 
     return (
         <HvitBoks>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {((brukerContext.innloggetBruker.harKorreksjonTilgang &&
+                {((innloggetBruker.harKorreksjonTilgang &&
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
                     refusjon.status !== RefusjonStatus.UTGÅTT &&
                     refusjon.status !== RefusjonStatus.GODKJENT_MINUSBELØP &&
@@ -76,7 +77,10 @@ const KvitteringSide: FunctionComponent = () => {
             />
             <VerticalSpacer rem={2} />
 
-            {refusjon.refusjonsgrunnlag?.inntektsgrunnlag?.inntekter.find((i) => i.erOpptjentIPeriode === true) ? (
+            {refusjon.refusjonsgrunnlag?.inntektsgrunnlag?.inntekter.find(
+                // Dersom det ikke finnes en eneste inntektslinje som har blitt huket av (ja eller nei), så viser vi gammel versjon av InntekterFraAMeldingen
+                (i) => i.erOpptjentIPeriode !== null && i.erOpptjentIPeriode !== undefined
+            ) ? (
                 <>
                     <InntekterFraAMeldingen
                         inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag}
@@ -100,14 +104,24 @@ const KvitteringSide: FunctionComponent = () => {
                 </>
             )}
             <VerticalSpacer rem={2} />
-            <Utregning
-                beregning={refusjonsgrunnlag.beregning}
-                tilskuddsgrunnlag={refusjonsgrunnlag.tilskuddsgrunnlag}
-                forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
-                inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag}
-            />
+            {refusjon.refusjonsgrunnlag.beregning && (
+                <Utregning
+                    beregning={refusjonsgrunnlag.beregning}
+                    tilskuddsgrunnlag={refusjonsgrunnlag.tilskuddsgrunnlag}
+                    forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}
+                    inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag}
+                />
+            )}
             <VerticalSpacer rem={4} />
-            <SummeringBoks refusjonsgrunnlag={refusjonsgrunnlag} enhet={refusjonsgrunnlag.tilskuddsgrunnlag.enhet} />
+            {refusjon.status === 'GODKJENT_NULLBELØP' && (
+                <SummeringBoksNullbeløp refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
+            )}
+            {refusjon.status !== 'GODKJENT_NULLBELØP' && (
+                <SummeringBoks
+                    refusjonsgrunnlag={refusjon.refusjonsgrunnlag}
+                    enhet={refusjonsgrunnlag.tilskuddsgrunnlag.enhet}
+                />
+            )}
         </HvitBoks>
     );
 };

@@ -117,7 +117,7 @@ const Komponent: FunctionComponent = () => {
                         <HendelsesLogg refusjonId={refusjonId} />
                     </Fleks>
                     <VerticalSpacer rem={1} />
-                    <KvitteringSide />
+                    <KvitteringSide refusjon={refusjon} innloggetBruker={brukerContext.innloggetBruker} />
                 </>
             );
     }

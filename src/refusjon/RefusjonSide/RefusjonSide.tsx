@@ -72,6 +72,10 @@ const RefusjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning
+                refusjonsnummer={{
+                    avtalenr: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                    løpenummer: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+                }}
                     beregning={refusjon.refusjonsgrunnlag.beregning}
                     tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                     forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}

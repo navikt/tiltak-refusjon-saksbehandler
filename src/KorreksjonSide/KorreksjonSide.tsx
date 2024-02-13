@@ -12,12 +12,14 @@ import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldin
 import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFraTiltaketSpørsmål';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { KorreksjonStatus } from '../refusjon/refusjon';
-import { useHentKorreksjon } from '../services/rest-service';
+import { useHentKorreksjon, useHentRefusjon } from '../services/rest-service';
 import OverstyrMinusbeløpOgFerietrekk from './OverstyrMinusbeløpOgFerietrekk';
 import TidligereRefunderbarBeløp from './TidligereRefunderbarBeløp';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
+    const { refusjonsId } = useParams<{ refusjonsId: string }>();
+    const refusjon = useHentRefusjon(refusjonsId!)
     const korreksjon = useHentKorreksjon(korreksjonId!);
 
     const korreksjonstype = (): KorreksjonStatus | null => {
@@ -82,6 +84,10 @@ const KorreksjonSide: FunctionComponent = () => {
                                         }
                                     />
                                     <Utregning
+                                       refusjonsnummer={{
+                                        avtalenr: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                                        løpenummer: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+                                    }}
                                         beregning={korreksjon.refusjonsgrunnlag.beregning}
                                         tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                                         forrigeRefusjonMinusBeløp={

@@ -4,7 +4,7 @@ import Utregning from '@/refusjon/RefusjonSide/Utregning';
 import { Tiltak } from '@/refusjon/refusjon';
 
 const meta = {
-    title: 'Utregning',
+    title: 'Refusjons Saksbehandler/Utregning',
     args: {},
     parameters: {
         layout: 'fullscreen',
@@ -15,6 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const refusjondata = {
+    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
     forrigeRefusjonMinusBeløp: 0,
     beregning: {
         lønn: 42846,

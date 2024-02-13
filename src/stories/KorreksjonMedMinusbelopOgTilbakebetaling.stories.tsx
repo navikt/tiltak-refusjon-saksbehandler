@@ -1,9 +1,9 @@
 import KorreksjonKvitteringSide from '@/KorreksjonKvitteringSide/KorreksjonKvitteringSide';
-import { Korreksjon, Korreksjonsgrunn, Tiltak, KorreksjonStatus } from '@/refusjon/refusjon';
+import { Korreksjon, Korreksjonsgrunn, Tiltak, KorreksjonStatus, Refusjon, RefusjonStatus } from '@/refusjon/refusjon';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-    title: 'KvitteringKorreksjon',
+    title: 'Refusjons Saksbehandler/Korreksjon kvittering',
     component: KorreksjonKvitteringSide,
     parameters: {
         // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -13,6 +13,119 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const refusjon: Refusjon = {
+    harInntektIAlleMåneder: true,
+    refusjonsgrunnlag: {
+        harFerietrekkForSammeMåned: false,
+        tilskuddsgrunnlag: {
+            avtaleId: 'd5c44c9c-1a97-4db3-abbd-5c738aec0613',
+            tilskuddsperiodeId: '2f6c1c6a-a1d5-4797-8690-8530a8bbf92f',
+            deltakerFornavn: 'Formye',
+            deltakerEtternavn: 'Ferietrekksen',
+            deltakerFnr: '28061827902',
+            veilederNavIdent: 'Z123456',
+            bedriftNavn: 'Kiwi Majorstuen',
+            bedriftNr: '999999999',
+            tilskuddFom: '2023-12-01',
+            tilskuddTom: '2023-12-31',
+            feriepengerSats: 0.12,
+            otpSats: 0.02,
+            arbeidsgiveravgiftSats: 0.141,
+            tiltakstype: Tiltak.SOMMERJOBB,
+            tilskuddsbeløp: 13337,
+            lønnstilskuddsprosent: 40,
+            avtaleNr: 3456,
+            løpenummer: 3,
+            enhet: '1000',
+            id: '01HMRY4Y4RAJJN459TD4GR5BGH',
+        },
+        inntektsgrunnlag: {
+            inntekter: [
+                {
+                    inntektType: 'LOENNSINNTEKT',
+                    beskrivelse: 'fastloenn',
+                    beløp: 30000.0,
+                    måned: '2023-12',
+                    opptjeningsperiodeFom: '2023-12-31',
+                    opptjeningsperiodeTom: '2023-12-31',
+                    erOpptjentIPeriode: true,
+                    id: '01HMRY5C76KY3AB59RK8HZY0VS',
+                    erMedIInntektsgrunnlag: true,
+                },
+                {
+                    inntektType: 'LOENNSINNTEKT',
+                    beskrivelse: 'trekkILoennForFerie',
+                    beløp: -35000.0,
+                    måned: '2023-12',
+                    opptjeningsperiodeFom: '2024-01-31',
+                    opptjeningsperiodeTom: '2023-12-31',
+                    erOpptjentIPeriode: undefined,
+                    id: '01HMRY5C73NSNAV9V59CZWQJMC',
+                    erMedIInntektsgrunnlag: false,
+                },
+                {
+                    inntektType: 'LOENNSINNTEKT',
+                    beskrivelse: 'fastloenn',
+                    beløp: 2000.0,
+                    måned: '2023-12',
+                    opptjeningsperiodeFom: '2023-12-31',
+                    opptjeningsperiodeTom: '2023-12-31',
+                    erOpptjentIPeriode: true,
+                    id: '01HMRY5C76JA8JM24TCGF9K7C5',
+                    erMedIInntektsgrunnlag: true,
+                },
+                {
+                    inntektType: 'LOENNSINNTEKT',
+                    beskrivelse: 'fastloenn',
+                    beløp: 30000.0,
+                    måned: '2023-12',
+                    opptjeningsperiodeFom: '2024-01-31',
+                    opptjeningsperiodeTom: '2023-12-31',
+                    erOpptjentIPeriode: false,
+                    id: '01HMRY5C73TZRM2Z25JMBDS304',
+                    erMedIInntektsgrunnlag: true,
+                },
+            ],
+            bruttoLønn: 62000.0,
+            innhentetTidspunkt: '2024-01-22T16:55:56.518432',
+        },
+        bedriftKontonummer: '10000008145',
+        bedriftKid: undefined,
+        inntekterKunFraTiltaket: true,
+        endretBruttoLønn: undefined,
+        fratrekkRefunderbarBeløp: false,
+        forrigeRefusjonMinusBeløp: 0,
+        beregning: {
+            lønn: 2000,
+            lønnFratrukketFerie: -33000,
+            feriepenger: -3960,
+            tjenestepensjon: -739,
+            arbeidsgiveravgift: -5316,
+            sumUtgifter: -43015,
+            beregnetBeløp: -17206,
+            refusjonsbeløp: -17206,
+            overTilskuddsbeløp: false,
+            tidligereUtbetalt: 0,
+            fratrekkLønnFerie: -35000,
+            tidligereRefundertBeløp: 0,
+            sumUtgifterFratrukketRefundertBeløp: -43015,
+            overFemGrunnbeløp: false,
+            id: '01HMRY5NRKY8X17XB8VQ9KTEFD',
+        },
+    },
+    bedriftNr: '999999999',
+    deltakerFnr: '28061827902',
+    id: '01HMRY4Y4RRKBW8QT5VQAHRA58',
+    fristForGodkjenning: '2024-02-29',
+    forrigeFristForGodkjenning: undefined,
+    unntakOmInntekterFremitid: 0,
+    hentInntekterLengerFrem: 'foobar',
+    godkjentAvArbeidsgiver: '2024-01-22T15:56:12.491915Z',
+    status: RefusjonStatus.KORRIGERT,
+    korreksjonId: '01HMRY76T65RTNQV0T43MDCE8B',
+    harTattStillingTilAlleInntektslinjer: true,
+};
 
 const korreksjon: Korreksjon = {
     korrigererRefusjonId: '01HMRY4Y4RRKBW8QT5VQAHRA58',
@@ -94,7 +207,7 @@ const korreksjon: Korreksjon = {
         inntekterKunFraTiltaket: true,
         endretBruttoLønn: undefined,
         harFerietrekkForSammeMåned: false,
-        fratrekkRefunderbarBeløp: false,
+        fratrekkRefunderbarBeløp: undefined,
         forrigeRefusjonMinusBeløp: 0,
         beregning: {
             lønn: 62000,
@@ -110,6 +223,7 @@ const korreksjon: Korreksjon = {
             fratrekkLønnFerie: -35000,
             tidligereRefundertBeløp: 0,
             sumUtgifterFratrukketRefundertBeløp: 35194,
+            overFemGrunnbeløp: false,
             id: '01HMRY7EJZ3BC5Q80WR5ZWCN0V',
         },
     },
@@ -125,7 +239,7 @@ const korreksjon: Korreksjon = {
 
 export const KorreksjonMedMinusbelopOgTilbakebetaling: Story = {
     name: 'Korreksjon med minusbeløp og tilbakebetaling',
-    args: { korreksjon: korreksjon },
+    args: { refusjon: refusjon, korreksjon: korreksjon },
     decorators: [
         (Story, args) => (
             <div>

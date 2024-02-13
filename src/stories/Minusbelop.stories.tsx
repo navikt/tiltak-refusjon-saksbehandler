@@ -4,7 +4,7 @@ import Utregning from '@/refusjon/RefusjonSide/Utregning';
 import { Tiltak } from '@/refusjon/refusjon';
 
 const meta = {
-    title: 'Utregning',
+    title: 'Refusjons Saksbehandler/Utregning',
     args: {},
     parameters: {
         layout: 'fullscreen',
@@ -15,6 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const refusjon1 = {
+    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
     forrigeRefusjonMinusBeløp: 0,
     beregning: {
         lønn: 20000,
@@ -30,6 +31,7 @@ const refusjon1 = {
         fratrekkLønnFerie: -25000,
         tidligereRefundertBeløp: 0,
         sumUtgifterFratrukketRefundertBeløp: -6611,
+        overFemGrunnbeløp: false,
         id: '01HKMNXG6FTAMAMQZG5K2X1DHZ',
     },
     tilskuddsgrunnlag: {
@@ -85,6 +87,7 @@ const refusjon1 = {
 };
 
 const refusjon2 = {
+    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
     forrigeRefusjonMinusBeløp: -3966,
     beregning: {
         lønn: 20000,

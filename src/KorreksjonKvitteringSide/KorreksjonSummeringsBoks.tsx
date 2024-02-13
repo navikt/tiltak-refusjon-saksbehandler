@@ -34,13 +34,12 @@ const KorreksjonSummeringBoks: FunctionComponent<Props> = (props) => {
                             <Label>Korreksjon med minusbeløp</Label>
                             <VerticalSpacer rem={0.5} />
                             <BodyShort size="small">
-                                <b>{formatterPenger(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for
-                                perioden{' '}
-                                {formatterPeriode(
+                                For perioden{' '} {formatterPeriode(
                                     props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
                                     props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
                                 )}{' '}
-                                . Denne må tilbakekreves.
+                                må det tilbakekreves{' '}
+                                <b>{formatterPenger(Math.abs(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0))}</b>
                             </BodyShort>
                         </>
                     )}

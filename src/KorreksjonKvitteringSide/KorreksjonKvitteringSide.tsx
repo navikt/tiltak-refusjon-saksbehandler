@@ -1,4 +1,4 @@
-import { Heading, Tag } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, Tag } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import HvitBoks from '../komponenter/hvitboks/HvitBoks';
@@ -12,13 +12,14 @@ import TidligereRefunderbarBeløpKvittering from '../refusjon/RefusjonSide/Tidli
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { storForbokstav } from '../utils/stringUtils';
 import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
-import { Korreksjon } from '@/refusjon/refusjon';
+import { Korreksjon, Refusjon } from '@/refusjon/refusjon';
 
 type Props = {
+    refusjon: Refusjon;
     korreksjon: Korreksjon;
 };
 
-const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ korreksjon }) => {
+const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ refusjon, korreksjon }) => {
     return (
         <HvitBoks>
             <VerticalSpacer rem={2} />
@@ -57,12 +58,22 @@ const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ korreksjon }) => {
             <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             <Utregning
+               refusjonsnummer={{
+                avtalenr: refusjon!.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                løpenummer: refusjon!.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+            }}
                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                 inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
                 korreksjonSide={true}
             />
-            <VerticalSpacer rem={4} />
+            <VerticalSpacer rem={2} />
+            {(korreksjon.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0) < 0 && (
+             <Alert variant='warning'>
+                <BodyShort>Du må iverksette manuell tilbakekreving</BodyShort>
+             </Alert>
+            )}
+            <VerticalSpacer rem={2} />
             <KorreksjonSummeringBoks
                 refusjonsgrunnlag={korreksjon.refusjonsgrunnlag}
                 enhet={korreksjon.kostnadssted!}

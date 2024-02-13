@@ -3,7 +3,7 @@ import { Refusjon, Tiltak, RefusjonStatus } from '@/refusjon/refusjon';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-    title: 'KvitteringSide',
+    title: 'Refusjons Saksbehandler/KvitteringSide',
     component: KvitteringSide,
     parameters: {
         // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout

@@ -3,7 +3,7 @@ import React, { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { formatterPenger } from '../../utils/PengeUtils';
 import BEMHelper from '../../utils/bem';
-import { visSatsMedEttDesimal } from '../../utils/utregningUtil';
+import { visSatsMedEttDesimal, visSatsMedNorskFormatering } from '../../utils/utregningUtil';
 import { Inntektslinje, Tilskuddsgrunnlag } from '../refusjon';
 import './Utregningsrad.less';
 import UtregningsradHvaInngårIDette from './UtregningsradHvaInngårIDette';
@@ -36,7 +36,7 @@ const Utregningsrad: FunctionComponent<PropsWithChildren<Props>> = (props) => {
         ) : null;
 
     const setLabelSats = (sats?: number) =>
-        sats ? <BodyShort size="small">({visSatsMedEttDesimal(sats)}%)</BodyShort> : null;
+        sats ? <BodyShort size="small">({visSatsMedNorskFormatering(sats)}%)</BodyShort> : null;
 
     const border = () => {
         switch (props.border) {
@@ -61,15 +61,6 @@ const Utregningsrad: FunctionComponent<PropsWithChildren<Props>> = (props) => {
                     <div className={cls.element('label-innhold')}>
                         {setIkon(props.labelIkon)}
                         {<span id={labelTekstString}>{props.labelTekst}</span>}
-                        {/*
-                        {typeof props.labelTekst == 'string' ? (
-                            <BodyShort size="small" id={labelTekstString}>
-                                {props.labelTekst}
-                            </BodyShort>
-                        ) : (
-                            props.labelTekst
-                        )}
-                        */}
                     </div>
                     {props.labelSats && setLabelSats(props.labelSats)}
                 </div>
@@ -88,17 +79,6 @@ const Utregningsrad: FunctionComponent<PropsWithChildren<Props>> = (props) => {
             {props.children && (
                 <div style={{ marginLeft: '2rem', marginRight: '10rem', marginBottom: '1rem' }}>{props.children}</div>
             )}
-            {/*
-            {props.inntekter && (
-                <>
-                    <UtregningsradHvaInngårIDette
-                        inntekter={props.inntekter}
-                        tilskuddsgrunnlag={props.tilskuddsgunnlag}
-                    />
-                    <VerticalSpacer rem={1} />
-                </>
-            )}
-            */}
         </div>
     );
 };

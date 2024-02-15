@@ -74,6 +74,8 @@ export interface Tilskuddsgrunnlag {
     arbeidsgiveravgiftSats: number;
     avtaleId: string;
     avtaleNr: number;
+    avtaleFom?: string;
+    avtaleTom?: string;
     løpenummer: number;
     bedriftNavn: string;
     bedriftNr: string;

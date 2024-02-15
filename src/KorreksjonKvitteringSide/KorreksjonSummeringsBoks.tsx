@@ -18,7 +18,6 @@ const Boks = styled.div`
 type Props = {
     korreksjon: Korreksjon;
     refusjonsgrunnlag: Refusjonsgrunnlag;
-    enhet: string;
 };
 
 const KorreksjonSummeringBoks: FunctionComponent<Props> = (props) => {
@@ -31,22 +30,23 @@ const KorreksjonSummeringBoks: FunctionComponent<Props> = (props) => {
                 {props.refusjonsgrunnlag.beregning?.refusjonsbeløp != null &&
                     props.refusjonsgrunnlag.beregning?.refusjonsbeløp < 0 && (
                         <>
-                            <Label>Korreksjon med minusbeløp</Label>
                             <VerticalSpacer rem={0.5} />
                             <BodyShort size="small">
-                                For perioden{' '} {formatterPeriode(
+                                Dere skylder{' '}
+                                <b>{formatterPenger(Math.abs(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0))}</b>
+                                {' '}for perioden{' '} 
+                                 {formatterPeriode(
                                     props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
                                     props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
                                 )}{' '}
-                                må det tilbakekreves{' '}
-                                <b>{formatterPenger(Math.abs(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0))}</b>
+                                Beløpet vil tilbakekreves.
                             </BodyShort>
                         </>
                     )}
                 {props.refusjonsgrunnlag.beregning?.refusjonsbeløp != null &&
                     props.refusjonsgrunnlag.beregning?.refusjonsbeløp >= 0 && (
                         <>
-                            <Label>Arbeidsgiver vil få utbetalt</Label>
+                            <Label>Dere får utbetalt</Label>
                             <VerticalSpacer rem={0.5} />
                             <BodyShort size="small">
                                 <b>{formatterPenger(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for
@@ -57,7 +57,6 @@ const KorreksjonSummeringBoks: FunctionComponent<Props> = (props) => {
                                 )}{' '}
                                 til kontonummer {props.refusjonsgrunnlag.bedriftKontonummer}
                             </BodyShort>
-                            <BodyShort size="small">Midlene vil bli kostnadsført på enhet {props.enhet}</BodyShort>
                         </>
                     )}
             </div>

@@ -78,16 +78,14 @@ const Utregning: FunctionComponent<Props> = (props) => {
             </Utregningsrad>
             {beregning && beregning.fratrekkLønnFerie !== 0 && (
                 <Utregningsrad
-                    labelIkon={<Endret />}
+                    labelIkon={<Stranden />}
                     labelTekst="Fratrekk for ferie (hentet fra A-meldingen)"
-                    verdiOperator={<MinusTegn />}
+                    verdiOperator={beregning.fratrekkLønnFerie < 0 ? <MinusTegn /> : <PlussTegn />}
                     verdi={
                         beregning.fratrekkLønnFerie < 0 ? beregning.fratrekkLønnFerie * -1 : beregning.fratrekkLønnFerie
                     }
-                    inntekter={ferietrekkInntekter}
-                    tilskuddsgunnlag={props.tilskuddsgrunnlag}
                 >
-                       <UtregningsradHvaInngårIDette
+                    <UtregningsradHvaInngårIDette
                         inntekter={ferietrekkInntekter || []}
                         tilskuddsgrunnlag={props.tilskuddsgrunnlag}
                     />
@@ -157,7 +155,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 />
             </>
 
-            <VerticalSpacer rem={3} />
+            <VerticalSpacer rem={2} />
             {beregning && (beregning.overTilskuddsbeløp || beregning.tidligereUtbetalt !== 0 || harMinusBeløp) && (
                 <Utregningsrad
                     utgår={beløpOverMaks}
@@ -278,15 +276,21 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 />
             )}
             {beregning?.tidligereUtbetalt === 0 && (
-            <Utregningsrad
-                labelIkon={<Pengesekken />}
-                labelTekst="Avtalt tilskuddsbeløp brukes som beregningsgrunnlag"
-                verdiOperator={<ErlikTegn />}
-                verdi={beregning?.refusjonsbeløp ?? 'kan ikke beregne'}
-                ikkePenger={beregning === undefined}
-                border="TYKK"
-            />
-            )}
+                <>
+                    {beløpOverMaks && beregning && beregning.tidligereUtbetalt !== 0 && (
+                        <Utregningsrad
+                            labelIkon={<Pengesekken />}
+                            labelTekst="Avtalt tilskuddsbeløp brukes som beregningsgrunnlag"
+                            verdiOperator={<ErlikTegn />}
+                            verdi={beregning?.refusjonsbeløp ?? 'kan ikke beregne'}
+                            ikkePenger={beregning === undefined}
+                            border="TYKK"
+                        />
+
+                    )}
+                    {tilUtbetaling(true)}
+                </>
+             )}
         </div>
     );
 };

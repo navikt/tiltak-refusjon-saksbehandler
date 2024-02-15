@@ -36,8 +36,8 @@ const refusjondata = {
     },
     tilskuddsgrunnlag: {
         avtaleId: 'f2cd0387-b5ca-49f8-aa4e-d77b25ccb9a1',
-        avtaleFom: null,
-        avtaleTom: null,
+        avtaleFom: undefined,
+        avtaleTom: undefined,
         tilskuddsperiodeId: '75b2fdf6-1657-4288-acc5-927fe63d00a0',
         deltakerFornavn: 'Bjørnstjerne',
         deltakerEtternavn: 'Bjørnson',

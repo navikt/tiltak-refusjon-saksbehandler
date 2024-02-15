@@ -35,8 +35,8 @@ const refusjonsdata = {
     },
     tilskuddsgrunnlag: {
         avtaleId: '50844b27-1d75-43b2-bbe5-fe27c75d8340',
-        avtaleFom: null,
-        avtaleTom: null,
+        avtaleFom: undefined,
+        avtaleTom: undefined,
         tilskuddsperiodeId: '6f79233e-857d-4f64-8c86-6666afb56cdc',
         deltakerFornavn: 'Bjørnstjerne',
         deltakerEtternavn: 'Bjørnson',
@@ -133,8 +133,8 @@ const korreksjonsdata = {
     },
     tilskuddsgrunnlag: {
         avtaleId: '50844b27-1d75-43b2-bbe5-fe27c75d8340',
-        avtaleFom: null,
-        avtaleTom: null,
+        avtaleFom: undefined,
+        avtaleTom: undefined,
         tilskuddsperiodeId: '6f79233e-857d-4f64-8c86-6666afb56cdc',
         deltakerFornavn: 'Bjørnstjerne',
         deltakerEtternavn: 'Bjørnson',

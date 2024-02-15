@@ -11,6 +11,7 @@ import './inntektsMelding.less';
 import InntektsmeldingTabellBody from './inntektsmeldingTabell/InntektsmeldingTabellBody';
 import InntektsmeldingTabellHeader from './inntektsmeldingTabell/InntektsmeldingTabellHeader';
 import InntektsMeldingHeader from './InntektsMeldingHeader';
+import { formatterPenger } from '@/utils/PengeUtils';
 
 const GråBoks = styled.div`
     background-color: #f7f7f7;
@@ -52,6 +53,8 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
         props.inntektsgrunnlag.inntekter.length > 0 &&
         antallInntekterSomErMedIGrunnlag === 0;
 
+    const månedNavn = månedsNavn(props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom);
+
     const inntektGrupperObjekt = _.groupBy(props.inntektsgrunnlag?.inntekter, (inntekt) => inntekt.måned);
     const inntektGrupperListe = Object.entries(inntektGrupperObjekt);
     const inntektGrupperListeSortert = _.sortBy(inntektGrupperListe, [(i) => i[0]]);
@@ -77,8 +80,22 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                     . Løsningen henter også inntekt rapportert inn fra veldedige eller allmennyttige organisasjoner.
                 </i>
             )}
+                   {props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) &&
+                props.inntektsgrunnlag?.inntekter.filter((i) => i.erMedIInntektsgrunnlag).length > 1 && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <Alert variant="info" size="small">
+                            <div>
+                                Vi har funnet flere innrapporterte inntekter. Huk kun av på Ja for inntekter som er
+                                opptjent i <strong>{månedNavn}</strong>. <br />
+                                Huk av Nei for inntekter som ikke er opptjent i {månedNavn}.
+                            </div>
+                        </Alert>
+                    </>
+                )}
 
-            {props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && (
+            {props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && 
+                (
                 <>
                     <VerticalSpacer rem={1} />
                     {inntektGrupperListeSortert.map(([aarManed, inntektslinjer]) => (

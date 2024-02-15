@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { formatterPeriode } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
-import { Refusjonsgrunnlag } from '../refusjon';
+import { Refusjonsgrunnlag, Tilskuddsgrunnlag } from '../refusjon';
 import { BodyShort, Label } from '@navikt/ds-react';
 
 const Boks = styled.div`
@@ -19,6 +19,11 @@ type Props = {
     refusjonsgrunnlag: Refusjonsgrunnlag;
     enhet: string;
 };
+
+// Dersom vi vet at dette er siste tilskuddsperiode så vil vi vise alternativ tekst
+// som indikerer at man ikke behøver å tilbakebetale beløpet man skylder (med mindre avtale forlenges)
+const erSisteTilskuddsperiodeIAvtalen = (tilskuddsgrunnlag: Tilskuddsgrunnlag) =>
+    tilskuddsgrunnlag.avtaleTom === tilskuddsgrunnlag.tilskuddTom;
 
 const SummeringBoks: FunctionComponent<Props> = (props) => {
     if (props.refusjonsgrunnlag.beregning?.refusjonsbeløp === undefined) {
@@ -64,6 +69,19 @@ const SummeringBoks: FunctionComponent<Props> = (props) => {
                 <div>
                     {props.refusjonsgrunnlag.beregning.lønnFratrukketFerie < 0 && (
                         <>
+                                      {erSisteTilskuddsperiodeIAvtalen(props.refusjonsgrunnlag.tilskuddsgrunnlag) ? (
+                                <BodyShort size="small">
+                                    Fratrekk for ferie er større enn bruttolønn i perioden. Ettersom tiltaket er
+                                    avsluttet vil dette beløpet bli sett bort fra.
+                                    <br />
+                                    Dersom tiltaket forlenges vil beløpet trekkes fra neste periode.
+                                </BodyShort>
+                            ) : (
+                                <BodyShort size="small">
+                                    Siden fratrekk for ferie er større enn bruttolønn i perioden vil det negative
+                                    refusjonsbeløpet overføres til neste periode.
+                                </BodyShort>
+                            )}
                             <VerticalSpacer rem={0.5} />
                             <BodyShort size="small">
                                 {props.refusjonsgrunnlag.beregning.sumUtgifter !==

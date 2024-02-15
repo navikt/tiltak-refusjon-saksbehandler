@@ -12,6 +12,11 @@ type Props = {
     korreksjonId?: string;
 };
 
+const valgtBruttoLønn = (inntekter: Inntektslinje[]) => inntekter
+.filter((inntekt) => inntekt.erOpptjentIPeriode)
+.map((el) => el.beløp)
+.reduce((el, el2) => el + el2, 0);
+
 const InntektsmeldingTabellBody: FunctionComponent<Props> = (props) => {
     return (
         <tbody>
@@ -38,6 +43,10 @@ const InntektsmeldingTabellBody: FunctionComponent<Props> = (props) => {
                     <td>{formatterPenger(inntekt.beløp)}</td>
                 </tr>
             ))}
+            <tr>
+                <td colSpan={4}><b>Sum</b></td>
+                <td><b>{formatterPenger(valgtBruttoLønn(props.inntektslinjer))}</b></td>
+            </tr>
         </tbody>
     );
 };

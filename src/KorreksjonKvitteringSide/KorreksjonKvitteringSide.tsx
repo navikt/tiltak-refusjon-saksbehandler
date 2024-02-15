@@ -13,6 +13,7 @@ import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { storForbokstav } from '../utils/stringUtils';
 import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
 import { Korreksjon, Refusjon } from '@/refusjon/refusjon';
+import { formatterPenger } from '@/utils/PengeUtils';
 
 type Props = {
     refusjon: Refusjon;
@@ -68,15 +69,27 @@ const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ refusjon, korreksj
                 korreksjonSide={true}
             />
             <VerticalSpacer rem={2} />
+            {(korreksjon.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0) >= 0 && (
+             <Alert variant='info'>
+                <BodyShort>
+                    <b>Beslutter NAV:</b>{' '}Beløp blir automatisk utbetalt til arbeidsgiver. 
+                    Midlene blir kostnadsført på enhet {korreksjon.kostnadssted}.
+                </BodyShort>
+         
+   
+             </Alert>
+            )}
             {(korreksjon.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0) < 0 && (
              <Alert variant='warning'>
-                <BodyShort>Du må iverksette manuell tilbakekreving</BodyShort>
+                <BodyShort>
+                    <b>Beslutter NAV:</b>{' '}Du må vurdere tilbakekreving i samsvar med gjeldene rutine på {' '}
+                    <b>{formatterPenger(Math.abs(korreksjon.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0))}</b>
+                </BodyShort>
              </Alert>
             )}
             <VerticalSpacer rem={2} />
             <KorreksjonSummeringBoks
                 refusjonsgrunnlag={korreksjon.refusjonsgrunnlag}
-                enhet={korreksjon.kostnadssted!}
                 korreksjon={korreksjon}
             />
         </HvitBoks>

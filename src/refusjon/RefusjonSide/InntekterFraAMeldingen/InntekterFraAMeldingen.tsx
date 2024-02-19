@@ -1,23 +1,17 @@
 import { Alert, Heading } from '@navikt/ds-react';
 import _ from 'lodash';
 import { Fragment, FunctionComponent } from 'react';
-import styled from 'styled-components';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../../messages';
 import BEMHelper from '../../../utils/bem';
-import { formatterPeriode, månedsNavn } from '../../../utils/datoUtils';
+import { månedsNavn } from '../../../utils/datoUtils';
 import { Inntektsgrunnlag, Refusjonsgrunnlag } from '../../refusjon';
 import './inntektsMelding.less';
 import InntektsmeldingTabellBody from './inntektsmeldingTabell/InntektsmeldingTabellBody';
 import InntektsmeldingTabellHeader from './inntektsmeldingTabell/InntektsmeldingTabellHeader';
 import InntektsMeldingHeader from './InntektsMeldingHeader';
-import { formatterPenger } from '@/utils/PengeUtils';
-
-const GråBoks = styled.div`
-    background-color: #f7f7f7;
-    border-radius: 4px;
-    padding: 1.5rem min(1.5rem, 2%);
-`;
+import KvitteringSide from '@/refusjon/KvitteringSide/KvitteringSide';
+import Boks from '@/komponenter/Boks/Boks';
 
 export const inntektBeskrivelse = (beskrivelse: string | undefined) => {
     if (beskrivelse === undefined) {
@@ -60,39 +54,32 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
     const inntektGrupperListeSortert = _.sortBy(inntektGrupperListe, [(i) => i[0]]);
 
     return (
-        <GråBoks>
+        <Boks variant='grå' >
             <InntektsMeldingHeader
                 refusjonsgrunnlag={props.refusjonsgrunnlag}
                 unntakOmInntekterFremitid={props.unntakOmInntekterFremitid}
             />
             {harBruttolønn && (
                 <i>
-                    Her hentes inntekter i form av fastlønn, timelønn, faste tillegg og uregelmessige tillegg knyttet
-                    til arbeidet tid, som er rapportert inn i a-meldingen for måneden refusjonen gjelder for (
-                    {formatterPeriode(
-                        props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
-                        props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom
-                    )}
-                    ) {props.unntakOmInntekterFremitid ? <>og {props.unntakOmInntekterFremitid} måneder etter</> : ''}
-                    {props.unntakOmInntekterFremitid === 1 &&
-                        props.hentInntekterLengerFrem !== null &&
-                        'og 1 måned frem'}
-                    . Løsningen henter også inntekt rapportert inn fra veldedige eller allmennyttige organisasjoner.
+                    Her hentes inntekter i form av fastlønn, timelønn, faste tillegg,
+                    uregelmessige tillegg knyttet til arbeidet tid og inntekt fra veldedige
+                    eller allmennyttige organisasjoner som er rapportert inn
+                    i A-meldingen for måneden refusjonen gjelder for.
                 </i>
             )}
-                   {props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) &&
-                props.inntektsgrunnlag?.inntekter.filter((i) => i.erMedIInntektsgrunnlag).length > 1 && (
-                    <>
-                        <VerticalSpacer rem={1} />
-                        <Alert variant="info" size="small">
-                            <div>
-                                Vi har funnet flere innrapporterte inntekter. Huk kun av på Ja for inntekter som er
-                                opptjent i <strong>{månedNavn}</strong>. <br />
-                                Huk av Nei for inntekter som ikke er opptjent i {månedNavn}.
-                            </div>
-                        </Alert>
-                    </>
-                )}
+            {!KvitteringSide && props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) &&
+            props.inntektsgrunnlag?.inntekter.filter((i) => i.erMedIInntektsgrunnlag).length > 1 && (
+                <>
+                    <VerticalSpacer rem={1} />
+                    <Alert variant="info" size="small">
+                        <div>
+                            Vi har funnet flere innrapporterte inntekter. Huk kun av på Ja for inntekter som er
+                            opptjent i <strong>{månedNavn}</strong>. <br />
+                            Huk av Nei for inntekter som ikke er opptjent i {månedNavn}.
+                        </div>
+                    </Alert>
+                </>
+            )}
 
             {props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && 
                 (
@@ -138,7 +125,7 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
                     <VerticalSpacer rem={1} />
                 </>
             )}
-        </GråBoks>
+        </Boks>
     );
 };
 

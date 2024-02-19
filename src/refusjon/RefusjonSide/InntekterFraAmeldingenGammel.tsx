@@ -7,12 +7,7 @@ import { lønnsbeskrivelseTekst } from '../../messages';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT, NORSK_MÅNEDÅR_FORMAT } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Inntektsgrunnlag } from '../refusjon';
-
-const GråBoks = styled.div`
-    background-color: #eee;
-    border-radius: 4px;
-    padding: 1.5rem min(1.5rem, 2%);
-`;
+import Boks from '@/komponenter/Boks/Boks';
 
 const Fleks = styled.div`
     display: flex;
@@ -64,7 +59,7 @@ const InntekterFraAMeldingenGammel: FunctionComponent<{
         antallInntekterSomErMedIGrunnlag === 0;
 
     return (
-        <GråBoks>
+        <Boks variant='grå'>
             <Fleks>
                 <Heading size="small" style={{ marginBottom: '1rem' }}>
                     Inntekter hentet fra a-meldingen
@@ -154,7 +149,7 @@ const InntekterFraAMeldingenGammel: FunctionComponent<{
                     <VerticalSpacer rem={1} />
                 </>
             )}
-        </GråBoks>
+        </Boks>
     );
 };
 

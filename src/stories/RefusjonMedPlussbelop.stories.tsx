@@ -53,7 +53,7 @@ const refusjonPlussbelop: Refusjon = {
                 },
                 {
                     inntektType: 'LOENNSINNTEKT',
-                    beskrivelse: 'fastloenn',
+                    beskrivelse: 'loennUtbetaltAvVeldedigEllerAllmennyttigInstitusjonEllerOrganisasjon',
                     beløp: 10000.0,
                     måned: '2023-12',
                     opptjeningsperiodeFom: '2023-12-01',

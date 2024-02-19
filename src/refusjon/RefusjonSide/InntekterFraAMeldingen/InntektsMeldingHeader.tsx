@@ -19,7 +19,7 @@ const InntektsMeldingHeader: FunctionComponent<Properties> = ({
     return (
         <div className={cls.element('header')}>
             <Heading size="small" className={cls.element('header-tittel')}>
-                Inntekter hentet fra a-meldingen for {månedNavn} måned{' '}
+                Inntekter hentet fra A-meldingen for {månedNavn} måned{' '}
                 {refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype === 'SOMMERJOBB' ? (
                     <>
                         {unntakOmInntekterFremitid > 0 ? (
@@ -31,13 +31,13 @@ const InntektsMeldingHeader: FunctionComponent<Properties> = ({
                 ) : (
                     <>{unntakOmInntekterFremitid > 0 && <>og {unntakOmInntekterFremitid} måneder etter</>}</>
                 )}
-            </Heading>
-            {refusjonsgrunnlag.inntektsgrunnlag && (
+                      {refusjonsgrunnlag.inntektsgrunnlag && (
                 <BodyShort size="small">
                     Sist hentet:{' '}
                     {formatterDato(refusjonsgrunnlag.inntektsgrunnlag.innhentetTidspunkt, NORSK_DATO_OG_TID_FORMAT)}
                 </BodyShort>
             )}
+            </Heading>
         </div>
     );
 };

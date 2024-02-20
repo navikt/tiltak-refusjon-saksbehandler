@@ -37,7 +37,7 @@ const SummeringBoks: FunctionComponent<Props> = (props) => {
             </div>
             {props.refusjonsgrunnlag.beregning?.refusjonsbeløp > 0 && (
                 <div>
-                    <Label>Arbeidsgiver får utbetalt</Label>
+                    <Label>Dere får utbetalt</Label>
                     <VerticalSpacer rem={0.5} />
                     <BodyShort size="small">
                         <b>{formatterPenger(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0)}</b> for perioden{' '}
@@ -69,7 +69,7 @@ const SummeringBoks: FunctionComponent<Props> = (props) => {
                 <div>
                     {props.refusjonsgrunnlag.beregning.lønnFratrukketFerie < 0 && (
                         <>
-                                      {erSisteTilskuddsperiodeIAvtalen(props.refusjonsgrunnlag.tilskuddsgrunnlag) ? (
+                            {erSisteTilskuddsperiodeIAvtalen(props.refusjonsgrunnlag.tilskuddsgrunnlag) ? (
                                 <BodyShort size="small">
                                     Fratrekk for ferie er større enn bruttolønn i perioden. Ettersom tiltaket er
                                     avsluttet vil dette beløpet bli sett bort fra.
@@ -97,7 +97,7 @@ const SummeringBoks: FunctionComponent<Props> = (props) => {
                     )}
                     <VerticalSpacer rem={0.5} />
                     <BodyShort size="small">
-                        Arbeidsgiver skylder{' '}
+                        Dere skylder{' '}
                         <b>{formatterPenger(Math.abs(props.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0))}</b> for
                         perioden{' '}
                         {formatterPeriode(

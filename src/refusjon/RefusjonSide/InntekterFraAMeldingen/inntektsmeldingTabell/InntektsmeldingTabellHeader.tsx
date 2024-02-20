@@ -14,7 +14,7 @@ const InntektsmeldingTabellHeader: FunctionComponent<Props> = (props) => {
             <tr>
                 <th>Beskriv&shy;else</th>
                 <th>År/mnd</th>
-                <th>Rapportert opptjenings&shy;periode</th>
+                <th>Opptjenings&shy;periode</th>
                 <th>Opptjent i {månedNavn}?</th>
                 <th>Beløp</th>
             </tr>

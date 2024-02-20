@@ -1,12 +1,10 @@
 import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
-import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { formatterPenger } from '../../utils/PengeUtils';
 import BEMHelper from '../../utils/bem';
-import { visSatsMedEttDesimal, visSatsMedNorskFormatering } from '../../utils/utregningUtil';
+import { visSatsMedNorskFormatering } from '../../utils/utregningUtil';
 import { Inntektslinje, Tilskuddsgrunnlag } from '../refusjon';
 import './Utregningsrad.less';
-import UtregningsradHvaInngårIDette from './UtregningsradHvaInngårIDette';
 
 interface Props {
     labelIkon?: React.ReactNode;
@@ -69,7 +67,8 @@ const Utregningsrad: FunctionComponent<PropsWithChildren<Props>> = (props) => {
                     <BodyShort
                         size="small"
                         className={[cls.element('sum'), props.utgår && cls.element('utgår')].filter((x) => x).join(' ')}
-                        aria-labelledby={labelTekstString}>
+                        aria-labelledby={labelTekstString}
+                    >
                         {props.ikkePenger || typeof props.verdi === 'string'
                             ? props.verdi
                             : formatterPenger(props.verdi)}

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { ChangeEvent, FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 import { Alert, Radio, RadioGroup, TextField, Heading, Label, BodyShort } from '@navikt/ds-react';
 import { Refusjonsgrunnlag } from '../refusjon/refusjon';
@@ -7,6 +6,7 @@ import VerticalSpacer from '../komponenter/VerticalSpacer';
 import BEMHelper from '../utils/bem';
 import { settTidligereRefunderbarBeløp } from '../services/rest-service';
 import { useParams } from 'react-router-dom';
+import sumBy from 'lodash.sumby';
 
 interface Properties {
     refusjonsgrunnlag: Refusjonsgrunnlag;
@@ -30,7 +30,7 @@ const TidligereRefunderbarBeløp: FunctionComponent<Properties> = ({
     const inntekterOpptentIPeriode = refusjonsgrunnlag.inntektsgrunnlag?.inntekter.filter(
         (inntekt) => inntekt.erOpptjentIPeriode
     );
-    const sumInntekterOpptjentIPeriode = _.sumBy(inntekterOpptentIPeriode, 'beløp');
+    const sumInntekterOpptjentIPeriode = sumBy(inntekterOpptentIPeriode, 'beløp');
 
     const erFratrekStørre = fratrekkRefunderbarBeløp && parseInt(belop, 10) - sumInntekterOpptjentIPeriode > 0;
 

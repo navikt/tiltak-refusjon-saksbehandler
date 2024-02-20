@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { FunctionComponent } from 'react';
 import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import styled from 'styled-components';
@@ -8,6 +7,7 @@ import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT, NORSK_MÅNED
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Inntektsgrunnlag } from '../refusjon';
 import Boks from '@/komponenter/Boks/Boks';
+import sortBy from 'lodash.sortby';
 
 const Fleks = styled.div`
     display: flex;
@@ -59,7 +59,7 @@ const InntekterFraAMeldingenGammel: FunctionComponent<{
         antallInntekterSomErMedIGrunnlag === 0;
 
     return (
-        <Boks variant='grå'>
+        <Boks variant="grå">
             <Fleks>
                 <Heading size="small" style={{ marginBottom: '1rem' }}>
                     Inntekter hentet fra a-meldingen
@@ -88,7 +88,7 @@ const InntekterFraAMeldingenGammel: FunctionComponent<{
                                 </tr>
                             </thead>
                             <tbody>
-                                {_.sortBy(
+                                {sortBy(
                                     props.inntektsgrunnlag.inntekter.filter(
                                         (inntekt) => inntekt.erMedIInntektsgrunnlag
                                     ),

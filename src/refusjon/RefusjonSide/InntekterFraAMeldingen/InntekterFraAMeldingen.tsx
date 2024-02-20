@@ -1,5 +1,4 @@
 import { Alert, Heading } from '@navikt/ds-react';
-import _ from 'lodash';
 import { Fragment, FunctionComponent } from 'react';
 import VerticalSpacer from '../../../komponenter/VerticalSpacer';
 import { lønnsbeskrivelseTekst } from '../../../messages';
@@ -12,6 +11,8 @@ import InntektsmeldingTabellHeader from './inntektsmeldingTabell/Inntektsmelding
 import InntektsMeldingHeader from './InntektsMeldingHeader';
 import KvitteringSide from '@/refusjon/KvitteringSide/KvitteringSide';
 import Boks from '@/komponenter/Boks/Boks';
+import groupBy from 'lodash.groupby';
+import sortBy from 'lodash.sortby';
 
 export const inntektBeskrivelse = (beskrivelse: string | undefined) => {
     if (beskrivelse === undefined) {
@@ -49,40 +50,39 @@ const InntekterFraAMeldingen: FunctionComponent<Props> = (props) => {
 
     const månedNavn = månedsNavn(props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom);
 
-    const inntektGrupperObjekt = _.groupBy(props.inntektsgrunnlag?.inntekter, (inntekt) => inntekt.måned);
+    const inntektGrupperObjekt = groupBy(props.inntektsgrunnlag?.inntekter, (inntekt) => inntekt.måned);
     const inntektGrupperListe = Object.entries(inntektGrupperObjekt);
-    const inntektGrupperListeSortert = _.sortBy(inntektGrupperListe, [(i) => i[0]]);
+    const inntektGrupperListeSortert = sortBy(inntektGrupperListe, [(i) => i[0]]);
 
     return (
-        <Boks variant='grå' >
+        <Boks variant="grå">
             <InntektsMeldingHeader
                 refusjonsgrunnlag={props.refusjonsgrunnlag}
                 unntakOmInntekterFremitid={props.unntakOmInntekterFremitid}
             />
             {harBruttolønn && (
                 <i>
-                    Her hentes inntekter i form av fastlønn, timelønn, faste tillegg,
-                    uregelmessige tillegg knyttet til arbeidet tid og inntekt fra veldedige
-                    eller allmennyttige organisasjoner som er rapportert inn
-                    i A-meldingen for måneden refusjonen gjelder for.
+                    Her hentes inntekter i form av fastlønn, timelønn, faste tillegg, uregelmessige tillegg knyttet til
+                    arbeidet tid og inntekt fra veldedige eller allmennyttige organisasjoner som er rapportert inn i
+                    A-meldingen for måneden refusjonen gjelder for.
                 </i>
             )}
-            {!KvitteringSide && props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) &&
-            props.inntektsgrunnlag?.inntekter.filter((i) => i.erMedIInntektsgrunnlag).length > 1 && (
-                <>
-                    <VerticalSpacer rem={1} />
-                    <Alert variant="info" size="small">
-                        <div>
-                            Vi har funnet flere innrapporterte inntekter. Huk kun av på Ja for inntekter som er
-                            opptjent i <strong>{månedNavn}</strong>. <br />
-                            Huk av Nei for inntekter som ikke er opptjent i {månedNavn}.
-                        </div>
-                    </Alert>
-                </>
-            )}
+            {!KvitteringSide &&
+                props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) &&
+                props.inntektsgrunnlag?.inntekter.filter((i) => i.erMedIInntektsgrunnlag).length > 1 && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <Alert variant="info" size="small">
+                            <div>
+                                Vi har funnet flere innrapporterte inntekter. Huk kun av på Ja for inntekter som er
+                                opptjent i <strong>{månedNavn}</strong>. <br />
+                                Huk av Nei for inntekter som ikke er opptjent i {månedNavn}.
+                            </div>
+                        </Alert>
+                    </>
+                )}
 
-            {props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && 
-                (
+            {props.inntektsgrunnlag?.inntekter.find((inntekt) => inntekt.erMedIInntektsgrunnlag) && (
                 <>
                     <VerticalSpacer rem={1} />
                     {inntektGrupperListeSortert.map(([aarManed, inntektslinjer]) => (

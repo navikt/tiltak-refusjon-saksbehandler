@@ -9,6 +9,7 @@ import sortBy from 'lodash.sortby';
 
 type Props = {
     inntekter: Inntektslinje[];
+    månedsNavn: string;
 };
 
 const InntekterTabell = styled.table`
@@ -51,7 +52,7 @@ const InntekterOpptjentIPeriodeTabell: FunctionComponent<Props> = (props) => {
                         <th>Beskriv&shy;else</th>
                         <th>År/mnd</th>
                         <th>Opptjeningsperiode</th>
-                        <th>Opptjent i perioden?</th>
+                        <th>Opptjent i {props.månedsNavn}?</th>
                         <th>Beløp</th>
                     </tr>
                 </thead>

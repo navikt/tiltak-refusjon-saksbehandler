@@ -5,7 +5,7 @@ import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
 import { endreBruttolønn, useHentKorreksjon } from '../../services/rest-service';
 import BEMHelper from '../../utils/bem';
-import { formatterPeriode } from '../../utils/datoUtils';
+import { formatterPeriode, månedsNavn } from '../../utils/datoUtils';
 import { sumInntekterOpptjentIPeriode } from '../../utils/inntekterUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
@@ -21,15 +21,19 @@ export const GrønnBoks = styled.div`
 const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
     const cls = BEMHelper('refusjonside');
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId)
-    const { inntektsgrunnlag, tilskuddsgrunnlag } = korreksjon.refusjonsgrunnlag
+    const korreksjon = useHentKorreksjon(korreksjonId);
+    const { inntektsgrunnlag, tilskuddsgrunnlag } = korreksjon.refusjonsgrunnlag;
     const refusjonsgrunnlag = props.refusjonsgrunnlag;
     const [inntekterKunFraTiltaket, setInntekterKunFraTiltaket] = useState(refusjonsgrunnlag.inntekterKunFraTiltaket);
     const [endretBruttoLønn, setEndretBruttoLønn] = useState(refusjonsgrunnlag.endretBruttoLønn);
 
     const refusjonNummer = `${tilskuddsgrunnlag.avtaleNr}-${tilskuddsgrunnlag.løpenummer}`;
-    const periode = (formatterPeriode(korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom, korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom, 'DD.MM'));
-    
+    const periode = formatterPeriode(
+        korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
+        korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom,
+        'DD.MM'
+    );
+
     if (!refusjonsgrunnlag.inntektsgrunnlag) {
         return null;
     }
@@ -53,10 +57,12 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
 
     const sumInntekterOpptjent: number = sumInntekterOpptjentIPeriode(inntektsgrunnlag);
 
+    const månedNavn = månedsNavn(props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom);
+
     return (
         <GrønnBoks>
             <Heading size="small">
-            Inntekter som skal refunderes for{' '}
+                Inntekter som skal refunderes for{' '}
                 {formatterPeriode(tilskuddsgrunnlag.tilskuddFom, tilskuddsgrunnlag.tilskuddTom)}
             </Heading>
             <VerticalSpacer rem={1} />
@@ -65,17 +71,25 @@ const InntekterFraTiltaketSpørsmål: FunctionComponent<{ refusjonsgrunnlag: Ref
                 grunnlag.
             </BodyShort>
             <VerticalSpacer rem={1} />
-            <InntekterOpptjentIPeriodeTabell inntekter={props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter!} />
+            <InntekterOpptjentIPeriodeTabell
+                inntekter={props.refusjonsgrunnlag.inntektsgrunnlag?.inntekter!}
+                månedsNavn={månedNavn}
+            />
             <VerticalSpacer rem={1} />
             <Label htmlFor={'inntekterKunFraTiltaket'}>
-            Er inntektene du har huket av {' '}{sumInntekterOpptjent > 0 && <>({formatterPenger(sumInntekterOpptjent)})</>} 
-            {' '}tilknyttet refusjonssnummer {refusjonNummer} for perioden {periode} for tiltaket {tiltakstypeTekst[korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
+                Er inntektene du har huket av{' '}
+                {sumInntekterOpptjent > 0 && <>({formatterPenger(sumInntekterOpptjent)})</>} tilknyttet refusjonssnummer{' '}
+                {refusjonNummer} for perioden {periode} for tiltaket{' '}
+                {tiltakstypeTekst[korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
             </Label>
             <p>
                 <i>Du skal svare ja hvis perioden og bruttolønn samsvarer.</i>
             </p>
             <p>
-                <i>Du skal svare nei hvis inntekter skal brukes i andre refusjoner tilknyttet andre tilskuddsperioder eller bruttolønn blir høyere.</i>
+                <i>
+                    Du skal svare nei hvis inntekter skal brukes i andre refusjoner tilknyttet andre tilskuddsperioder
+                    eller bruttolønn blir høyere.
+                </i>
             </p>
             <RadioGroup legend="" className={cls.element('inntekter-kun-fra-tiltaket')} value={inntekterKunFraTiltaket}>
                 <Radio

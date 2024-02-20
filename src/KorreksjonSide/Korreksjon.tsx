@@ -1,7 +1,7 @@
 import React, { FunctionComponent, Suspense } from 'react';
 import { Alert } from '@navikt/ds-react';
 import { useParams } from 'react-router';
-import { useHentKorreksjon } from '../services/rest-service';
+import { useHentKorreksjon, useHentRefusjon } from '../services/rest-service';
 import { korreksjonsgrunnTekst } from '../messages';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import KorreksjonSide from './KorreksjonSide';
@@ -13,6 +13,7 @@ import KorreksjonKvitteringSide from '../KorreksjonKvitteringSide/KorreksjonKvit
 const Advarsler: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const korreksjon = useHentKorreksjon(korreksjonId!);
+
 
     return (
         <>
@@ -36,6 +37,8 @@ const Advarsler: FunctionComponent = () => {
 const Komponent: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
     const korreksjon = useHentKorreksjon(korreksjonId!);
+    const { refusjonsId } = useParams<{ refusjonsId: string }>();
+    const refusjon = useHentRefusjon(refusjonsId!);
 
     switch (korreksjon.status) {
         case KorreksjonStatus.UTKAST:
@@ -45,7 +48,7 @@ const Komponent: FunctionComponent = () => {
         case KorreksjonStatus.TILLEGSUTBETALING:
         case KorreksjonStatus.TILLEGGSUTBETALING_UTBETALT:
         case KorreksjonStatus.TILLEGGSUTBETALING_FEILET:
-            return <KorreksjonKvitteringSide korreksjon={korreksjon} />;
+            return <KorreksjonKvitteringSide refusjon={refusjon} korreksjon={korreksjon} />;
     }
 };
 

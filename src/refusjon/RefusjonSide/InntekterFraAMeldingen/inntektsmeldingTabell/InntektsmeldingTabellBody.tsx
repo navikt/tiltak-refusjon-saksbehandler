@@ -1,10 +1,10 @@
-import _ from 'lodash';
 import { FunctionComponent } from 'react';
 import { formatterPenger } from '../../../../utils/PengeUtils';
 import { NORSK_MÅNEDÅR_FORMAT, formatterDato, formatterPeriode } from '../../../../utils/datoUtils';
 import { Inntektslinje } from '../../../refusjon';
 import { inntektBeskrivelse } from '../InntekterFraAMeldingen';
 import InntektValg from './InntektValg';
+import sortBy from 'lodash.sortby';
 
 type Props = {
     inntektslinjer: Inntektslinje[];
@@ -12,10 +12,16 @@ type Props = {
     korreksjonId?: string;
 };
 
+const valgtBruttoLønn = (inntekter: Inntektslinje[]) =>
+    inntekter
+        .filter((inntekt) => inntekt.erOpptjentIPeriode)
+        .map((el) => el.beløp)
+        .reduce((el, el2) => el + el2, 0);
+
 const InntektsmeldingTabellBody: FunctionComponent<Props> = (props) => {
     return (
         <tbody>
-            {_.sortBy(
+            {sortBy(
                 props.inntektslinjer.filter((i) => i.erMedIInntektsgrunnlag),
                 ['måned', 'opptjeningsperiodeFom', 'opptjeningsperiodeTom', 'opptjent', 'beskrivelse', 'id']
             ).map((inntekt) => (
@@ -38,6 +44,14 @@ const InntektsmeldingTabellBody: FunctionComponent<Props> = (props) => {
                     <td>{formatterPenger(inntekt.beløp)}</td>
                 </tr>
             ))}
+            <tr>
+                <td colSpan={4}>
+                    <b>Sum</b>
+                </td>
+                <td>
+                    <b>{formatterPenger(valgtBruttoLønn(props.inntektslinjer))}</b>
+                </td>
+            </tr>
         </tbody>
     );
 };

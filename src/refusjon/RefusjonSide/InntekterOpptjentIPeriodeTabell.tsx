@@ -1,13 +1,15 @@
 import { Label } from '@navikt/ds-react';
-import _ from 'lodash';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { NORSK_MÅNEDÅR_FORMAT, formatterDato, formatterPeriode } from '../../utils/datoUtils';
 import { Inntektslinje } from '../refusjon';
 import { inntektBeskrivelse } from './InntekterFraAMeldingen/InntekterFraAMeldingen';
+import sumBy from 'lodash.sumby';
+import sortBy from 'lodash.sortby';
 
 type Props = {
     inntekter: Inntektslinje[];
+    månedsNavn: string;
 };
 
 const InntekterTabell = styled.table`
@@ -30,10 +32,10 @@ const InntekterTabell = styled.table`
 
 const InntekterOpptjentIPeriodeTabell: FunctionComponent<Props> = (props) => {
     const inntekterHuketAvForOpptjentIPeriode = props.inntekter.filter((inntekt) => inntekt.erOpptjentIPeriode);
-    const sumInntekterOpptjentIPeriode = _.sumBy(inntekterHuketAvForOpptjentIPeriode, 'beløp');
+    const sumInntekterOpptjentIPeriode = sumBy(inntekterHuketAvForOpptjentIPeriode, 'beløp');
 
     const sorterInntektslinjer = (inntektslinjer: Inntektslinje[]) =>
-        _.sortBy(inntektslinjer, [
+        sortBy(inntektslinjer, [
             'måned',
             'opptjeningsperiodeFom',
             'opptjeningsperiodeTom',
@@ -50,7 +52,7 @@ const InntekterOpptjentIPeriodeTabell: FunctionComponent<Props> = (props) => {
                         <th>Beskriv&shy;else</th>
                         <th>År/mnd</th>
                         <th>Opptjeningsperiode</th>
-                        <th>Opptjent i perioden?</th>
+                        <th>Opptjent i {props.månedsNavn}?</th>
                         <th>Beløp</th>
                     </tr>
                 </thead>

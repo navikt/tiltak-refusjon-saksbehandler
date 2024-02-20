@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
-import { formatterPeriode } from '../../utils/datoUtils';
+import { formatterPeriode, månedsNavn } from '../../utils/datoUtils';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import { GrønnBoks } from './InntekterFraTiltaketSpørsmål';
@@ -13,6 +13,13 @@ type Props = {
 };
 
 const InntekterFraTiltaketSvar: FunctionComponent<Props> = (props) => {
+    const refusjonNummer = `${props.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr}-${props.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer}`;
+    const periode = formatterPeriode(
+        props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom,
+        props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddTom,
+        'DD.MM'
+    );
+
     if (
         props.refusjonsgrunnlag.inntekterKunFraTiltaket === null ||
         props.refusjonsgrunnlag.inntekterKunFraTiltaket === undefined
@@ -29,6 +36,8 @@ const InntekterFraTiltaketSvar: FunctionComponent<Props> = (props) => {
         return null;
     }
 
+    const månedNavn = månedsNavn(props.refusjonsgrunnlag.tilskuddsgrunnlag.tilskuddFom);
+
     return (
         <div>
             <GrønnBoks>
@@ -40,11 +49,16 @@ const InntekterFraTiltaketSvar: FunctionComponent<Props> = (props) => {
                     )}
                 </Heading>
                 <VerticalSpacer rem={1} />
-                <InntekterOpptjentIPeriodeTabell inntekter={props.refusjonsgrunnlag.inntektsgrunnlag.inntekter} />
+                <InntekterOpptjentIPeriodeTabell
+                    inntekter={props.refusjonsgrunnlag.inntektsgrunnlag.inntekter}
+                    månedsNavn={månedNavn}
+                />
                 <VerticalSpacer rem={2} />
                 <Label>
-                    Er inntektene du har valgt ({formatterPenger(valgtBruttoLønn as number)}) kun fra tiltaket{' '}
-                    {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?{' '}
+                    Er inntektene du har huket av ({formatterPenger(valgtBruttoLønn as number)}) tilknyttet
+                    refusjonssnummer {refusjonNummer} <br />
+                    for perioden {periode} for tiltaket{' '}
+                    {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?
                 </Label>
                 <BodyShort size="small">{props.refusjonsgrunnlag.inntekterKunFraTiltaket ? 'Ja' : 'Nei'}</BodyShort>
                 {props.refusjonsgrunnlag.endretBruttoLønn !== null &&

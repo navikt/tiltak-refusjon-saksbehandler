@@ -3,7 +3,7 @@ import { Refusjon, Tiltak, RefusjonStatus } from '@/refusjon/refusjon';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-    title: 'KvitteringSide',
+    title: 'Refusjons Saksbehandler/KvitteringSide',
     component: KvitteringSide,
     parameters: {
         // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -110,6 +110,7 @@ const refusjonMinusbelop: Refusjon = {
             fratrekkLønnFerie: -35000,
             tidligereRefundertBeløp: 0,
             sumUtgifterFratrukketRefundertBeløp: -43015,
+            overFemGrunnbeløp: false,
             id: '01HMGZ7T8YJKQ2YGQKZTPEQ764',
         },
     },

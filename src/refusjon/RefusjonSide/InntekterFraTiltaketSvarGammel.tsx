@@ -1,10 +1,10 @@
-import _ from 'lodash';
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import { BodyShort, Label } from '@navikt/ds-react';
+import sumBy from 'lodash.sumby';
 
 const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
     if (!props.refusjonsgrunnlag.inntektsgrunnlag) {
@@ -25,7 +25,7 @@ const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Ref
     const inntekterHuketAvForOpptjentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag!!.inntekter.filter(
         (inntekt) => inntekt.erOpptjentIPeriode
     );
-    const sumInntekterOpptjentIPeriode = _.sumBy(inntekterHuketAvForOpptjentIPeriode, 'beløp');
+    const sumInntekterOpptjentIPeriode = sumBy(inntekterHuketAvForOpptjentIPeriode, 'beløp');
 
     return (
         <div>

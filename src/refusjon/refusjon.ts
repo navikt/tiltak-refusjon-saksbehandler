@@ -74,6 +74,8 @@ export interface Tilskuddsgrunnlag {
     arbeidsgiveravgiftSats: number;
     avtaleId: string;
     avtaleNr: number;
+    avtaleFom?: string;
+    avtaleTom?: string;
     løpenummer: number;
     bedriftNavn: string;
     bedriftNr: string;
@@ -126,6 +128,7 @@ export interface Beregning {
     sumUtgifterFratrukketRefundertBeløp: number;
     lønnFratrukketFerie: number;
     tidligereRefundertBeløp: number;
+    overFemGrunnbeløp: boolean;
 }
 
 export enum Korreksjonsgrunn {

@@ -1,6 +1,4 @@
-import { Calender, File, FileContent, Money, Office1, People, Warning } from '@navikt/ds-icons';
 import React, { FunctionComponent } from 'react';
-import styled from 'styled-components';
 import EksternLenke from '../../komponenter/EksternLenke/EksternLenke';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import { tiltakstypeTekst } from '../../messages';
@@ -8,19 +6,9 @@ import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '../..
 import { formatterPenger } from '../../utils/PengeUtils';
 import { Tilskuddsgrunnlag } from '../refusjon';
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
+import Rad from '@/komponenter/Rad/Rad';
+import Boks from '@/komponenter/Boks/Boks';
 
-const IkonRad = styled.div`
-    display: flex;
-    * {
-        margin-right: 0.5rem;
-    }
-`;
-
-const GråBoks = styled.div`
-    background-color: #eee;
-    border-radius: 4px;
-    padding: 1.5rem;
-`;
 
 const InformasjonFraAvtalen: FunctionComponent<{
     tilskuddsgrunnlag: Tilskuddsgrunnlag;
@@ -34,55 +22,40 @@ const InformasjonFraAvtalen: FunctionComponent<{
     const refusjonsnummer = `${props.tilskuddsgrunnlag.avtaleNr}-${props.tilskuddsgrunnlag.løpenummer}`;
 
     return (
-        <GråBoks>
+        <Boks variant='grå'>
             <Heading size="small">Informasjon hentet fra avtalen</Heading>
             <VerticalSpacer rem={1} />
-            <IkonRad>
+            <Rad>
                 <EksternLenke href={avtaleLenke}>
-                    <File />
-                    Avtale om {tiltakstypeTekst[props.tilskuddsgrunnlag.tiltakstype]}
+                        Avtale om {tiltakstypeTekst[props.tilskuddsgrunnlag.tiltakstype]}
                 </EksternLenke>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <Office1 style={{ marginTop: '0.125rem' }} />
-                <div>
-                    <div style={{ display: 'flex' }}>
-                        <Label>Bedriftsnavn: </Label>
-                        <BodyShort size="small">{props.tilskuddsgrunnlag.bedriftNavn}</BodyShort>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        <Label>Virksomhetsnummer: </Label>
-                        <BodyShort size="small">{props.tilskuddsgrunnlag.bedriftNr}</BodyShort>
-                    </div>
-                </div>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <File />
+            </Rad>
+            <Rad noSpace={true}>
+                <Label>Bedriftsnavn: </Label>
+                <BodyShort size="small">{props.tilskuddsgrunnlag.bedriftNavn}</BodyShort>
+            </Rad>
+            <Rad>    
+                <Label>Virksomhetsnummer: </Label>
+                <BodyShort size="small">{props.tilskuddsgrunnlag.bedriftNr}</BodyShort>
+            </Rad>
+            <Rad>
                 <Label>Refusjonsnummer: </Label>
                 <BodyShort size="small">{refusjonsnummer}</BodyShort>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <People />
+            </Rad>
+            <Rad>
                 <Label>Deltaker: </Label>
                 <BodyShort size="small">
                     {props.tilskuddsgrunnlag.deltakerFornavn} {props.tilskuddsgrunnlag.deltakerEtternavn}
                 </BodyShort>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <Calender />
+            </Rad>
+            <Rad>
                 <Label>Periode: </Label>
                 <BodyShort size="small">
                     {formatterPeriode(props.tilskuddsgrunnlag.tilskuddFom, props.tilskuddsgrunnlag.tilskuddTom)}
                 </BodyShort>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
+            </Rad>
             {props.fristForGodkjenning && (
-                <IkonRad>
-                    <Warning />
+                <Rad>
                     <Label>Frist: </Label>
                     <BodyShort size="small">
                         {formatterDato(props.fristForGodkjenning)}
@@ -90,17 +63,13 @@ const InformasjonFraAvtalen: FunctionComponent<{
                             ? `  (tidligere frist: ${formatterDato(props.forrigeFristForGodkjenning)})`
                             : ''}
                     </BodyShort>
-                </IkonRad>
+                </Rad>
             )}
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <FileContent />
+            <Rad>
                 <Label>Avtalt beløp for perioden:</Label>
                 <BodyShort size="small">Inntil {formatterPenger(props.tilskuddsgrunnlag.tilskuddsbeløp)}</BodyShort>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <Money />
+            </Rad>
+            <Rad>
                 <Label>Kontonummer:</Label>
                 <BodyShort size="small">
                     {props.bedriftKontonummerInnhentetTidspunkt ? (
@@ -112,14 +81,12 @@ const InformasjonFraAvtalen: FunctionComponent<{
                         'Ikke oppgitt'
                     )}
                 </BodyShort>
-            </IkonRad>
-            <VerticalSpacer rem={1} />
-            <IkonRad>
-                <Money />
+            </Rad>
+            <Rad noSpace={true}>
                 <Label>KID:</Label>
                 <BodyShort size="small">{props.bedriftKid ? props.bedriftKid : 'Ikke oppgitt'}</BodyShort>
-            </IkonRad>
-        </GråBoks>
+            </Rad>
+        </Boks>
     );
 };
 

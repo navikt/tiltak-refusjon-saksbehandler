@@ -1,12 +1,9 @@
 .utregning-rad {
-    &__lesmer {
-        margin-bottom: 0.75rem;
-    }
-
     &__utregning-wrapper {
+        padding: 0 1rem;
         border-bottom: 1px solid #c6c2bf;
         &--tykkbunn {
-            border-bottom: 1.25px solid #3e3832;
+            border-bottom: 2px solid #3e3832;
         }
         &--ingen-bunn {
             border-bottom: none;
@@ -15,8 +12,8 @@
 
     &__utregning-rad {
         display: flex;
-        flex-direction: row;
         align-content: center;
+        justify-content: space-between;
         height: 3.5rem;
 
         svg {
@@ -32,22 +29,20 @@
         margin-top: 0.4rem;
     }
 
-    &__utregning-label,
     &__label-innhold {
-        width: 100%;
         display: flex;
+    }
+
+    &__utregning-label {
+        min-width: 60%;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         padding-right: 0.5rem;
     }
 
-    &__utregning-label {
-        justify-content: space-between;
-    }
-
     &__utregning-verdi {
-        width: 75%;
         display: flex;
-        justify-content: flex-end;
         align-items: center;
     }
 
@@ -62,26 +57,13 @@
         min-width: 5rem;
     }
 
+    &__utgår {
+        text-decoration: line-through;
+    }
+    
     &__ikon-placeholder {
         width: 1.25rem;
         height: 1.25rem;
         margin-right: 0.5rem;
-    }
-
-    &__summeringsboks {
-        display: flex;
-        flex-direction: row;
-        margin: 2rem 0;
-        border: 3px solid #cce1f3;
-        border-radius: 4px;
-        padding: 1.75rem;
-    }
-
-    &__summering-ikon {
-        padding-right: 1.5rem;
-    }
-
-    &__bekrefthandling {
-        margin-bottom: 1.5rem;
     }
 }

@@ -4,7 +4,7 @@ import Utregning from '@/refusjon/RefusjonSide/Utregning';
 import { Tiltak } from '@/refusjon/refusjon';
 
 const meta = {
-    title: 'Utregning',
+    title: 'Refusjons Saksbehandler/Utregning',
     args: {},
     parameters: {
         layout: 'fullscreen',
@@ -15,6 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const refusjondata = {
+    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
     forrigeRefusjonMinusBeløp: 0,
     beregning: {
         lønn: 42846,
@@ -35,8 +36,8 @@ const refusjondata = {
     },
     tilskuddsgrunnlag: {
         avtaleId: 'f2cd0387-b5ca-49f8-aa4e-d77b25ccb9a1',
-        avtaleFom: null,
-        avtaleTom: null,
+        avtaleFom: undefined,
+        avtaleTom: undefined,
         tilskuddsperiodeId: '75b2fdf6-1657-4288-acc5-927fe63d00a0',
         deltakerFornavn: 'Bjørnstjerne',
         deltakerEtternavn: 'Bjørnson',

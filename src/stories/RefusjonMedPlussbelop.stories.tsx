@@ -3,7 +3,7 @@ import { Refusjon, Tiltak, RefusjonStatus } from '@/refusjon/refusjon';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-    title: 'KvitteringSide',
+    title: 'Refusjons Saksbehandler/KvitteringSide',
     component: KvitteringSide,
     parameters: {
         // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -53,7 +53,7 @@ const refusjonPlussbelop: Refusjon = {
                 },
                 {
                     inntektType: 'LOENNSINNTEKT',
-                    beskrivelse: 'fastloenn',
+                    beskrivelse: 'loennUtbetaltAvVeldedigEllerAllmennyttigInstitusjonEllerOrganisasjon',
                     beløp: 10000.0,
                     måned: '2023-12',
                     opptjeningsperiodeFom: '2023-12-01',
@@ -121,6 +121,7 @@ const refusjonPlussbelop: Refusjon = {
             fratrekkLønnFerie: -1200,
             tidligereRefundertBeløp: 0,
             sumUtgifterFratrukketRefundertBeløp: 14078,
+            overFemGrunnbeløp: false,
             id: '01HMGY3Q0VWAMGBX1VVZSCN93P',
         },
     },

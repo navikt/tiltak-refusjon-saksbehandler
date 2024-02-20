@@ -4,7 +4,7 @@ import Utregning from '@/refusjon/RefusjonSide/Utregning';
 import { Tiltak } from '@/refusjon/refusjon';
 
 const meta = {
-    title: 'Example/Utregning',
+    title: 'Refusjons Saksbehandler/Utregning',
     component: Utregning,
     parameters: {
         // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -16,6 +16,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const fratrekkData = {
+    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
     forrigeRefusjonMinusBeløp: -6558,
     beregning: {
         lønn: 108115,
@@ -31,6 +32,7 @@ const fratrekkData = {
         fratrekkLønnFerie: 0,
         tidligereRefundertBeløp: 0,
         sumUtgifterFratrukketRefundertBeløp: 140926,
+        overFemGrunnbeløp: false,
         id: '01HKM6MGVB5ENFQRXTSSFAJN8C',
     },
     tilskuddsgrunnlag: {
@@ -65,6 +67,7 @@ const fratrekkData = {
 export const OppgjortMinusbeløp: Story = {
     name: 'Oppgjort minusbeløp',
     args: fratrekkData,
+
     decorators: [
         (Story, args) => (
             <div>
@@ -84,6 +87,7 @@ export const MangeInntektslinjer: Story = {
     name: 'Minusbeløp og mange inntektslinjer',
     args: {
         forrigeRefusjonMinusBeløp: -6558,
+        refusjonsnummer: {avtalenr: 123, løpenummer: 3},
         beregning: {
             lønn: 108115,
             lønnFratrukketFerie: 108115,
@@ -98,6 +102,7 @@ export const MangeInntektslinjer: Story = {
             fratrekkLønnFerie: 0,
             tidligereRefundertBeløp: 0,
             sumUtgifterFratrukketRefundertBeløp: 140926,
+            overFemGrunnbeløp: false,
             id: '01HKM7YXHNFW7V5N92MG5D89RE',
         },
         tilskuddsgrunnlag: {
@@ -141,6 +146,7 @@ export const MangeInntektslinjer: Story = {
 
 export const KorreksjonTidligereUtbetalt: Story = {
     args: {
+        refusjonsnummer: {avtalenr: 123, løpenummer: 3},
         beregning: {
             lønn: 32000,
             lønnFratrukketFerie: -3000,
@@ -155,6 +161,7 @@ export const KorreksjonTidligereUtbetalt: Story = {
             fratrekkLønnFerie: -35000,
             tidligereRefundertBeløp: 0,
             sumUtgifterFratrukketRefundertBeløp: -3910,
+            overFemGrunnbeløp: false,
             id: '01HKM6F11VQ5PCFQF5HYTQRJ4D',
         },
         tilskuddsgrunnlag: {

@@ -61,7 +61,7 @@ const RefusjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <InntekterFraAMeldingen
                 inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag}
-                kvitteringVisning={true}
+                kvitteringVisning={false}
                 refusjonsgrunnlag={refusjon.refusjonsgrunnlag}
                 unntakOmInntekterFremitid={refusjon.unntakOmInntekterFremitid}
             />
@@ -72,6 +72,10 @@ const RefusjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning
+                refusjonsnummer={{
+                    avtalenr: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                    løpenummer: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+                }}
                     beregning={refusjon.refusjonsgrunnlag.beregning}
                     tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                     forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}

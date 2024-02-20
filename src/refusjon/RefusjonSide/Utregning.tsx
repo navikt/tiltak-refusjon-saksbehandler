@@ -33,7 +33,7 @@ interface Props {
 }
 
 const Utregning: FunctionComponent<Props> = (props) => {
-    const cls = BEMHelper('utregning')
+    const cls = BEMHelper('utregning');
 
     const { beregning, tilskuddsgrunnlag, forrigeRefusjonMinusBeløp } = props;
     const bruttoLønnsInntekter = props.inntektsgrunnlag?.inntekter.filter(
@@ -45,8 +45,8 @@ const Utregning: FunctionComponent<Props> = (props) => {
 
     const harMinusBeløp = forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0;
     const refusjonsnummer = props.refusjonsnummer.avtalenr + '-' + props.refusjonsnummer.løpenummer;
-    const beløpOverMaks = beregning && beregning.overTilskuddsbeløp;
     const beløpOver5G = beregning?.overFemGrunnbeløp;
+    const beløpOverMaks = beregning && (beregning.overTilskuddsbeløp || beløpOver5G);
     const erKorreksjon = beregning?.tidligereUtbetalt !== 0;
 
     const tilUtbetaling = (tykkBunn: boolean) => (
@@ -71,10 +71,10 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 verdi={beregning?.lønn || 0}
                 inntekter={bruttoLønnsInntekter}
             >
-                   <UtregningsradHvaInngårIDette
-                        inntekter={bruttoLønnsInntekter || []}
-                        tilskuddsgrunnlag={props.tilskuddsgrunnlag}
-                    />
+                <UtregningsradHvaInngårIDette
+                    inntekter={bruttoLønnsInntekter || []}
+                    tilskuddsgrunnlag={props.tilskuddsgrunnlag}
+                />
             </Utregningsrad>
             {beregning && beregning.fratrekkLønnFerie !== 0 && (
                 <Utregningsrad
@@ -156,7 +156,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
             </>
 
             <VerticalSpacer rem={2} />
-            {beregning && (beregning.overTilskuddsbeløp || beregning.tidligereUtbetalt !== 0 || harMinusBeløp) && (
+            {beregning && (beløpOverMaks || beregning.tidligereUtbetalt !== 0 || harMinusBeløp) && (
                 <Utregningsrad
                     utgår={beløpOverMaks}
                     labelTekst={
@@ -164,10 +164,10 @@ const Utregning: FunctionComponent<Props> = (props) => {
                             Beregning basert på innhentede inntekter
                             {beløpOverMaks ? <b> UTGÅR</b> : null}
                         </>
-                    } 
+                    }
                     verdiOperator={<ErlikTegn />}
                     verdi={beregning.beregnetBeløp}
-                    border={erKorreksjon ? 'INGEN' : 'NORMAL'} 
+                    border={erKorreksjon ? 'INGEN' : 'NORMAL'}
                 >
                     {beløpOverMaks && (
                         <ReadMore size="small" header="Hva betyr dette?">
@@ -239,15 +239,13 @@ const Utregning: FunctionComponent<Props> = (props) => {
                                         Den opprinnelige refusjonen medførte et trekk på{' '}
                                         {formatterPenger(Math.abs(props.beregning?.tidligereUtbetalt))}.
                                     </BodyShort>
-                                    <BodyShort size='small'>
-                                        Dette kompenseres for i denne beregningen.
-                                    </BodyShort>
+                                    <BodyShort size="small">Dette kompenseres for i denne beregningen.</BodyShort>
                                 </ReadMore>
                             )}
                             {props.beregning?.tidligereUtbetalt >= 0 && (
                                 <ReadMore size="small" header="Hva betyr dette?">
                                     <BodyShort size="small">
-                                        Den opprinnelige refusjonen medførte en utbetaling på {' '}
+                                        Den opprinnelige refusjonen medførte en utbetaling på{' '}
                                         {formatterPenger(Math.abs(props.beregning?.tidligereUtbetalt))} dette trekkes
                                         fra denne beregningen.
                                     </BodyShort>
@@ -286,11 +284,10 @@ const Utregning: FunctionComponent<Props> = (props) => {
                             ikkePenger={beregning === undefined}
                             border="TYKK"
                         />
-
                     )}
                     {tilUtbetaling(true)}
                 </>
-             )}
+            )}
         </div>
     );
 };

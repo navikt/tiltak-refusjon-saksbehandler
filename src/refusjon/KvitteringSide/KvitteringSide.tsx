@@ -51,8 +51,7 @@ const KvitteringSide: FunctionComponent<Props> = ({ refusjon, innloggetBruker })
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
                     refusjon.status !== RefusjonStatus.UTGÅTT &&
                     refusjon.status !== RefusjonStatus.GODKJENT_MINUSBELØP &&
-                    !refusjon.korreksjonId) ||
-                    (!refusjon.korreksjonId && featureToggles[Feature.OpprettNullBelopKorreksjon])) && (
+                    !refusjon.korreksjonId) &&
                     <OpprettKorreksjon />
                 )}
                 {featureToggles[Feature.Reberegning] && <SjekkReberegning />}

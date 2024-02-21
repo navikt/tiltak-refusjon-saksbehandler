@@ -50,7 +50,6 @@ const KvitteringSide: FunctionComponent<Props> = ({ refusjon, innloggetBruker })
                 {((innloggetBruker.harKorreksjonTilgang &&
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
                     refusjon.status !== RefusjonStatus.UTGÅTT &&
-                    refusjon.status !== RefusjonStatus.GODKJENT_MINUSBELØP &&
                     !refusjon.korreksjonId) &&
                     <OpprettKorreksjon />
                 )}

@@ -1,6 +1,5 @@
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import { useParams } from 'react-router';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import HvitBoks from '../komponenter/hvitboks/HvitBoks';
 import BekreftOppgjørKorreksjon from '../refusjon/RefusjonSide/BekreftOppgjørKorreksjon';
@@ -11,15 +10,15 @@ import InformasjonFraAvtalen from '../refusjon/RefusjonSide/InformasjonFraAvtale
 import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFraTiltaketSpørsmål';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
-import { KorreksjonStatus } from '../refusjon/refusjon';
-import { useHentKorreksjon } from '../services/rest-service';
+import { Korreksjon, KorreksjonStatus } from '../refusjon/refusjon';
 import OverstyrMinusbeløpOgFerietrekk from './OverstyrMinusbeløpOgFerietrekk';
 import TidligereRefunderbarBeløp from './TidligereRefunderbarBeløp';
 
-const KorreksjonSide: FunctionComponent = () => {
-    const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const korreksjon = useHentKorreksjon(korreksjonId!);
+type Props = {
+    korreksjon: Korreksjon;
+};
 
+const KorreksjonSide: FunctionComponent<Props> = ({ korreksjon }) => {
     const korreksjonstype = (): KorreksjonStatus | null => {
         if (!korreksjon.refusjonsgrunnlag.beregning) {
             return null;
@@ -82,6 +81,10 @@ const KorreksjonSide: FunctionComponent = () => {
                                         }
                                     />
                                     <Utregning
+                                        refusjonsnummer={{
+                                            avtalenr: korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                                            løpenummer: korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+                                        }}
                                         beregning={korreksjon.refusjonsgrunnlag.beregning}
                                         tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                                         forrigeRefusjonMinusBeløp={

@@ -21,7 +21,7 @@ import EksternLenke from '@/komponenter/EksternLenke/EksternLenke';
 import UtregningsradHvaInngårIDette from './UtregningsradHvaInngårIDette';
 
 interface Props {
-    refusjonsnummer?: {
+    refusjonsnummer: {
         avtalenr: number;
         løpenummer: number;
     };
@@ -44,7 +44,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
     );
 
     const harMinusBeløp = forrigeRefusjonMinusBeløp != null && forrigeRefusjonMinusBeløp < 0;
-    //const refusjonsnummer = props.refusjonsnummer.avtalenr + '-' + props.refusjonsnummer.løpenummer;
+    const refusjonsnummer = props.refusjonsnummer.avtalenr + '-' + props.refusjonsnummer.løpenummer;
     const beløpOver5G = beregning?.overFemGrunnbeløp;
     const beløpOverMaks = beregning && (beregning.overTilskuddsbeløp || beløpOver5G);
     const erKorreksjon = beregning?.tidligereUtbetalt !== 0;
@@ -227,7 +227,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     )}
                     {props.beregning?.tidligereUtbetalt != null && props.beregning?.tidligereUtbetalt !== 0 && (
                         <Utregningsrad
-                            labelTekst={'Opprinnelig refusjonsbeløp'}
+                            labelTekst={'Opprinnelig refusjonsbeløp fra refusjonsnummer ' + refusjonsnummer}
                             verdiOperator={props.beregning?.tidligereUtbetalt > 0 ? <MinusTegn /> : <PlussTegn />}
                             verdi={Math.abs(props.beregning?.tidligereUtbetalt ?? 0)}
                             ikkePenger={props.beregning === undefined}

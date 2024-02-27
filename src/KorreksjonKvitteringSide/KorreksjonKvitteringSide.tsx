@@ -16,7 +16,6 @@ import { Korreksjon, Refusjon } from '@/refusjon/refusjon';
 import { formatterPenger } from '@/utils/PengeUtils';
 
 type Props = {
-    refusjon?: Refusjon;
     korreksjon: Korreksjon;
 };
 
@@ -59,6 +58,10 @@ const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ korreksjon }) => {
             <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             <Utregning
+                refusjonsnummer={{
+                    avtalenr: korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                    løpenummer: korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+                }}
                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                 inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}

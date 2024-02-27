@@ -39,7 +39,7 @@ const Komponent: FunctionComponent = () => {
 
     switch (korreksjon.status) {
         case KorreksjonStatus.UTKAST:
-            return <KorreksjonSide />;
+            return <KorreksjonSide korreksjon={korreksjon} />;
         case KorreksjonStatus.TILBAKEKREVING:
         case KorreksjonStatus.OPPGJORT:
         case KorreksjonStatus.TILLEGSUTBETALING:

@@ -16,6 +16,7 @@ import { Korreksjon, Refusjon } from '@/refusjon/refusjon';
 import { formatterPenger } from '@/utils/PengeUtils';
 
 type Props = {
+    refusjon?: Refusjon;
     korreksjon: Korreksjon;
 };
 

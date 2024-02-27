@@ -12,7 +12,7 @@ import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldin
 import InntekterFraTiltaketSpørsmål from '../refusjon/RefusjonSide/InntekterFraTiltaketSpørsmål';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { KorreksjonStatus } from '../refusjon/refusjon';
-import { useHentKorreksjon, useHentRefusjon } from '../services/rest-service';
+import { useHentKorreksjon } from '../services/rest-service';
 import OverstyrMinusbeløpOgFerietrekk from './OverstyrMinusbeløpOgFerietrekk';
 import TidligereRefunderbarBeløp from './TidligereRefunderbarBeløp';
 

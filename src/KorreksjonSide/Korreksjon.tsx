@@ -1,7 +1,7 @@
 import React, { FunctionComponent, Suspense } from 'react';
 import { Alert } from '@navikt/ds-react';
 import { useParams } from 'react-router';
-import { useHentKorreksjon, useHentRefusjon } from '../services/rest-service';
+import { useHentKorreksjon } from '../services/rest-service';
 import { korreksjonsgrunnTekst } from '../messages';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
 import KorreksjonSide from './KorreksjonSide';

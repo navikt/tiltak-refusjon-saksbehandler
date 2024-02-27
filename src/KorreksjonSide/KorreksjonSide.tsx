@@ -18,8 +18,6 @@ import TidligereRefunderbarBeløp from './TidligereRefunderbarBeløp';
 
 const KorreksjonSide: FunctionComponent = () => {
     const { korreksjonId } = useParams<{ korreksjonId: string }>();
-    const { refusjonsId } = useParams<{ refusjonsId: string }>();
-    const refusjon = useHentRefusjon(refusjonsId!)
     const korreksjon = useHentKorreksjon(korreksjonId!);
 
     const korreksjonstype = (): KorreksjonStatus | null => {
@@ -84,10 +82,6 @@ const KorreksjonSide: FunctionComponent = () => {
                                         }
                                     />
                                     <Utregning
-                                       refusjonsnummer={{
-                                        avtalenr: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
-                                        løpenummer: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
-                                    }}
                                         beregning={korreksjon.refusjonsgrunnlag.beregning}
                                         tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                                         forrigeRefusjonMinusBeløp={

@@ -16,11 +16,10 @@ import { Korreksjon, Refusjon } from '@/refusjon/refusjon';
 import { formatterPenger } from '@/utils/PengeUtils';
 
 type Props = {
-    refusjon: Refusjon;
     korreksjon: Korreksjon;
 };
 
-const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ refusjon, korreksjon }) => {
+const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ korreksjon }) => {
     return (
         <HvitBoks>
             <VerticalSpacer rem={2} />
@@ -59,10 +58,6 @@ const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ refusjon, korreksj
             <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             <Utregning
-               refusjonsnummer={{
-                avtalenr: refusjon!.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
-                løpenummer: refusjon!.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
-            }}
                 beregning={korreksjon.refusjonsgrunnlag.beregning}
                 tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                 inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
@@ -70,28 +65,23 @@ const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ refusjon, korreksj
             />
             <VerticalSpacer rem={2} />
             {(korreksjon.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0) >= 0 && (
-             <Alert variant='info'>
-                <BodyShort>
-                    <b>Beslutter NAV:</b>{' '}Beløp blir automatisk utbetalt til arbeidsgiver. 
-                    Midlene blir kostnadsført på enhet {korreksjon.kostnadssted}.
-                </BodyShort>
-         
-   
-             </Alert>
+                <Alert variant="info">
+                    <BodyShort>
+                        <b>Beslutter NAV:</b> Beløp blir automatisk utbetalt til arbeidsgiver. Midlene blir kostnadsført
+                        på enhet {korreksjon.kostnadssted}.
+                    </BodyShort>
+                </Alert>
             )}
             {(korreksjon.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0) < 0 && (
-             <Alert variant='warning'>
-                <BodyShort>
-                    <b>Beslutter NAV:</b>{' '}Du må vurdere tilbakekreving i samsvar med gjeldene rutine på {' '}
-                    <b>{formatterPenger(Math.abs(korreksjon.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0))}</b>
-                </BodyShort>
-             </Alert>
+                <Alert variant="warning">
+                    <BodyShort>
+                        <b>Beslutter NAV:</b> Du må vurdere tilbakekreving i samsvar med gjeldene rutine på{' '}
+                        <b>{formatterPenger(Math.abs(korreksjon.refusjonsgrunnlag.beregning?.refusjonsbeløp || 0))}</b>
+                    </BodyShort>
+                </Alert>
             )}
             <VerticalSpacer rem={2} />
-            <KorreksjonSummeringBoks
-                refusjonsgrunnlag={korreksjon.refusjonsgrunnlag}
-                korreksjon={korreksjon}
-            />
+            <KorreksjonSummeringBoks refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} korreksjon={korreksjon} />
         </HvitBoks>
     );
 };

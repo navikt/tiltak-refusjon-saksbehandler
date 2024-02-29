@@ -1,3 +1,5 @@
+import { Korreksjon } from '@/refusjon/refusjon';
+import { formatterPenger } from '@/utils/PengeUtils';
 import { Alert, BodyShort, Heading, Tag } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import VerticalSpacer from '../komponenter/VerticalSpacer';
@@ -12,8 +14,6 @@ import TidligereRefunderbarBeløpKvittering from '../refusjon/RefusjonSide/Tidli
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { storForbokstav } from '../utils/stringUtils';
 import KorreksjonSummeringBoks from './KorreksjonSummeringsBoks';
-import { Korreksjon, Refusjon } from '@/refusjon/refusjon';
-import { formatterPenger } from '@/utils/PengeUtils';
 
 type Props = {
     korreksjon: Korreksjon;

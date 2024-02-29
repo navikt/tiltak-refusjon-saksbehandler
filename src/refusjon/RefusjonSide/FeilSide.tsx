@@ -1,12 +1,11 @@
-import React, { FunctionComponent } from 'react';
 import { Alert, Heading } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
-import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
+import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { tiltakstypeTekst } from '../../messages';
 import { useHentRefusjon } from '../../services/rest-service';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
-import OpprettKorreksjon from './OpprettKorreksjon';
 
 type AlertStripeType = 'info' | 'success' | 'warning' | 'error';
 
@@ -21,12 +20,6 @@ const FeilSide: FunctionComponent<Props> = (props) => {
 
     return (
         <HvitBoks>
-            {!refusjon.korreksjonId && (
-                <>
-                    <OpprettKorreksjon />
-                    <VerticalSpacer rem={1} />
-                </>
-            )}
             <Alert variant={props.advarselType} size="small">
                 {props.feiltekst}
             </Alert>

@@ -1,5 +1,8 @@
 import { Heading, Tag } from '@navikt/ds-react';
 import { FunctionComponent, ReactElement } from 'react';
+import { InnloggetBruker } from '../../bruker/BrukerContextType';
+import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
+import { Feature } from '../../featureToggles/features';
 import VerticalSpacer from '../../komponenter/VerticalSpacer';
 import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { statusTekst } from '../../messages';
@@ -13,14 +16,11 @@ import InntekterFraTiltaketSvarGammel from '../RefusjonSide/InntekterFraTiltaket
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
 import SjekkReberegning from '../RefusjonSide/SjekkReberegning';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
+import SummeringBoksNullbeløp from '../RefusjonSide/SummeringBoksNullbeløp';
 import TidligereRefunderbarBeløpKvittering from '../RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../RefusjonSide/Utregning';
 import { Refusjon, RefusjonStatus } from '../refusjon';
 import Statusmelding from './Statusmelding';
-import { InnloggetBruker } from '../../bruker/BrukerContextType';
-import { useFeatureToggles } from '../../featureToggles/FeatureToggleProvider';
-import { Feature } from '../../featureToggles/features';
-import SummeringBoksNullbeløp from '../RefusjonSide/SummeringBoksNullbeløp';
 
 const etikettForRefusjonStatus = (refusjon: Refusjon): ReactElement => {
     if (refusjon.status === RefusjonStatus.UTBETALING_FEILET) {
@@ -47,12 +47,9 @@ const KvitteringSide: FunctionComponent<Props> = ({ refusjon, innloggetBruker })
     return (
         <HvitBoks>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {((innloggetBruker.harKorreksjonTilgang &&
+                {innloggetBruker.harKorreksjonTilgang &&
                     refusjon.status !== RefusjonStatus.UTBETALING_FEILET &&
-                    refusjon.status !== RefusjonStatus.UTGÅTT &&
-                    !refusjon.korreksjonId) &&
-                    <OpprettKorreksjon />
-                )}
+                    !refusjon.korreksjonId && <OpprettKorreksjon />}
                 {featureToggles[Feature.Reberegning] && <SjekkReberegning />}
             </div>
             <VerticalSpacer rem={2} />
@@ -104,10 +101,10 @@ const KvitteringSide: FunctionComponent<Props> = ({ refusjon, innloggetBruker })
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning
-                refusjonsnummer={{
-                    avtalenr: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
-                    løpenummer: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
-                }}
+                    refusjonsnummer={{
+                        avtalenr: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                        løpenummer: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+                    }}
                     beregning={refusjonsgrunnlag.beregning}
                     tilskuddsgrunnlag={refusjonsgrunnlag.tilskuddsgrunnlag}
                     forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}

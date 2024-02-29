@@ -1,5 +1,5 @@
 import KorreksjonKvitteringSide from '@/KorreksjonKvitteringSide/KorreksjonKvitteringSide';
-import { Korreksjon, Korreksjonsgrunn, Tiltak, KorreksjonStatus, Refusjon, RefusjonStatus } from '@/refusjon/refusjon';
+import { Korreksjon, Korreksjonsgrunn, Tiltak, KorreksjonStatus } from '@/refusjon/refusjon';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

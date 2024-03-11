@@ -4,6 +4,23 @@ import path from 'path';
 import svgr from 'vite-plugin-svgr';
 const axios = require('axios');
 
+function parseCookies(request) {
+    const list = {};
+    const cookieHeader = request.headers?.cookie;
+    if (!cookieHeader) return list;
+
+    cookieHeader.split(`;`).forEach(function (cookie) {
+        let [name, ...rest] = cookie.split(`=`);
+        name = name?.trim();
+        if (!name) return;
+        const value = rest.join(`=`).trim();
+        if (!value) return;
+        list[name] = decodeURIComponent(value);
+    });
+
+    return list;
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
     preview: {
@@ -19,22 +36,43 @@ export default defineConfig({
     server: {
         port: 3000,
         proxy: {
-            '/api': { target: 'http://localhost:8081', changeOrigin: true },
+            '/api': {
+                target: 'http://localhost:8081',
+                changeOrigin: true,
+                bypass(req, res, options) {
+                    const token = parseCookies(req)['aad-token'];
+                    const headers = req.headers;
+                    if (token) {
+                        headers['Authorization'] = 'Bearer ' + token;
+                    }
+                    res.appendHeader('content-type', 'application/json');
+                    axios.get('http://localhost:8081' + req.url, { headers }).then(
+                        (response) => {
+                            res.end(JSON.stringify(response.data));
+                        },
+                        (error) => {
+                            res.end();
+                        }
+                    );
+                },
+            },
             '/modiacontextholder/api/decorator': {
                 target: 'http://localhost:8081',
                 bypass(req, res, options) {
-                    axios
-                        .get('http://localhost:8081/api/saksbehandler/innlogget-bruker', {
-                            headers: req.headers,
-                        })
-                        .then(
-                            (response) => {
-                                res.end(JSON.stringify({ ...response.data, ident: response.data.identifikator || '' }));
-                            },
-                            (error) => {
-                                res.end(JSON.stringify({ authenticated: false }));
-                            }
-                        );
+                    const token = parseCookies(req)['aad-token'];
+                    const headers = req.headers;
+                    if (token) {
+                        headers['Authorization'] = 'Bearer ' + token;
+                    }
+                    res.appendHeader('content-type', 'application/json');
+                    axios.get('http://localhost:8081/api/saksbehandler/innlogget-bruker', { headers }).then(
+                        (response) => {
+                            res.end(JSON.stringify({ ...response.data, ident: response.data.identifikator || '' }));
+                        },
+                        (error) => {
+                            res.end(JSON.stringify({ authenticated: false }));
+                        }
+                    );
                 },
             },
             '/internarbeidsflatedecorator': {

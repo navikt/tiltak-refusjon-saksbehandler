@@ -20,7 +20,7 @@ const LokalLogin: FunctionComponent<Props> = (props) => {
         const response = await axios.get(
             `https://tiltak-fakelogin.ekstern.dev.nav.no/token?aud=aud-aad&iss=aad&sub=${subject}&NAVident=${subject}`
         );
-        document.cookie = `${AAD_COOKIE_NAME}=${response.data};expires=Tue, 15 Jan 2044 21:47:38 GMT;domain=${window.location.hostname};path=/`;
+        document.cookie = `${AAD_COOKIE_NAME}=${response.data};expires=Tue, 15 Jan 2044 21:47:38 GMT;domain=${window.location.hostname};path=/;SameSite=None;Secure`;
         window.location.reload();
     };
 

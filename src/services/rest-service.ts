@@ -106,6 +106,15 @@ export const merkForUnntakOmInntekterToMånederFrem = async (refusjonId: string,
     return response.data;
 };
 
+export const merkForUnntakOmInntekterFremITid = async (refusjonId: string, merking: number) => {
+    const response = await api.post<Refusjon>(`/refusjon/${refusjonId}/merk-for-unntak-om-inntekter-frem-i-tid`, {
+        merking,
+    });
+    await mutate(`/refusjon/${refusjonId}`);
+    return response.data;
+};
+
+
 export const opprettKorreksjonsutkast = async (
     refusjonId: string,
     korreksjonsgrunner: Korreksjonsgrunn[],

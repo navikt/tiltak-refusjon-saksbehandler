@@ -9,7 +9,7 @@ import { useHentRefusjon } from '../../services/rest-service';
 import { formatterDato } from '../../utils/datoUtils';
 import ForlengFrist from '../ForlengFrist/ForlengFrist';
 import KvitteringSide from '../KvitteringSide/KvitteringSide';
-import MerkForUnntakOmInntekterToMånederFrem from '../MerkForUnntakOmInntekterToMånederFrem/MerkForUnntakOmInntekterToMånederFrem';
+import MerkForUnntakOmInntekterToMånederFrem from '../MerkForUnntakOmInntekterFremITid/MerkForUnntakOmInntekterFremITid';
 import { RefusjonStatus } from '../refusjon';
 import FeilSide from './FeilSide';
 import HenterInntekterBoks from './HenterInntekterBoks';
@@ -72,7 +72,7 @@ const Komponent: FunctionComponent = () => {
                     <Fleks>
                         <ForlengFrist />
                         {brukerContext.innloggetBruker.harKorreksjonTilgang && (
-                            <MerkForUnntakOmInntekterToMånederFrem />
+                            <MerkForUnntakOmInntekterToMånederFrem refusjon={refusjon} />
                         )}
                         <HendelsesLogg refusjonId={refusjonId} />
                     </Fleks>

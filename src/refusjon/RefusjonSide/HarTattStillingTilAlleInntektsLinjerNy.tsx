@@ -23,7 +23,6 @@ const HarTattStillingTilAlleInntektsLinjerNy: FunctionComponent<Props> = (props)
         props.refusjonsgrunnlag.inntekterKunFraTiltaket === undefined)
 
     ) {
-        console.log("HEPP");
         return null;
     }
 

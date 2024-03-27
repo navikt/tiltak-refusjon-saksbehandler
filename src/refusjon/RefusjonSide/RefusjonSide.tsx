@@ -17,15 +17,6 @@ import InntekterFraTiltaketSvar from './HarTattStillingTilAlleInntektsLinjerNy';
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
- 
-    const gammelrefusjoner = refusjon.refusjonsgrunnlag?.inntektsgrunnlag?.inntekter.find(
-        // Dersom det ikke finnes en eneste inntektslinje som har blitt huket av (ja eller nei), så viser vi gammel versjon av InntekterFraAMeldingen
-        (i) => i.erOpptjentIPeriode === null
-    )
-
-    console.log({refusjon});
-
-    console.log("har intekter i alle måneder",refusjon.harInntektIAlleMåneder);
 
     return (
         <HvitBoks>
@@ -76,10 +67,10 @@ const RefusjonSide: FunctionComponent = () => {
                 unntakOmInntekterFremitid={refusjon.unntakOmInntekterFremitid}
             />
             <VerticalSpacer rem={2} />
-            {!gammelrefusjoner && refusjon.harTattStillingTilAlleInntektslinjer && (
+            {refusjon.harTattStillingTilAlleInntektslinjer ? (
                 <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
-            )}
-            {gammelrefusjoner && (
+            ) :
+            (
                 <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
             )
             }

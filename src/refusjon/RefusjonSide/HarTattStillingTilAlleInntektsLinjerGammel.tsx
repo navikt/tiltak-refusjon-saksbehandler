@@ -5,22 +5,12 @@ import { formatterPenger } from '../../utils/PengeUtils';
 import { Refusjonsgrunnlag } from '../refusjon';
 import { BodyShort, Label } from '@navikt/ds-react';
 import sumBy from 'lodash.sumby';
+import InntekterKunFraTiltaketSvar from './InntekterKunFraTiltaketSvar';
 
-const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
+const HarTattStillingTilAlleInntektsLinjerGammel: FunctionComponent<{ refusjonsgrunnlag: Refusjonsgrunnlag }> = (props) => {
     if (!props.refusjonsgrunnlag.inntektsgrunnlag) {
         return null;
     }
-
-    const svar = () => {
-        switch (props.refusjonsgrunnlag.inntekterKunFraTiltaket) {
-            case true:
-                return 'Ja';
-            case false:
-                return 'Nei';
-            default:
-                return 'Ikke besvart';
-        }
-    };
 
     const inntekterHuketAvForOpptjentIPeriode = props.refusjonsgrunnlag.inntektsgrunnlag!!.inntekter.filter(
         (inntekt) => inntekt.erOpptjentIPeriode
@@ -33,7 +23,7 @@ const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Ref
                 Er inntektene som vi har hentet ({formatterPenger(sumInntekterOpptjentIPeriode)}) kun fra tiltaket{' '}
                 {tiltakstypeTekst[props.refusjonsgrunnlag.tilskuddsgrunnlag.tiltakstype]}?{' '}
             </Label>
-            <BodyShort size="small">{svar()}</BodyShort>
+            <InntekterKunFraTiltaketSvar inntekterKunFraTiltaket={props.refusjonsgrunnlag.inntekterKunFraTiltaket}/>
             {props.refusjonsgrunnlag.endretBruttoLønn !== null &&
                 props.refusjonsgrunnlag.endretBruttoLønn !== undefined && (
                     <>
@@ -46,4 +36,4 @@ const InntekterFraTiltaketSvarGammel: FunctionComponent<{ refusjonsgrunnlag: Ref
     );
 };
 
-export default InntekterFraTiltaketSvarGammel;
+export default HarTattStillingTilAlleInntektsLinjerGammel;

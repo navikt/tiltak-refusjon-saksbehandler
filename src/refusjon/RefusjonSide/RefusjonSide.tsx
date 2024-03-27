@@ -8,10 +8,11 @@ import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { useHentRefusjon } from '../../services/rest-service';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
 import InntekterFraAMeldingen from './InntekterFraAMeldingen/InntekterFraAMeldingen';
-import InntekterFraTiltaketSvarGammel from './InntekterFraTiltaketSvarGammel';
+import InntekterFraTiltaketSvarGammel from './HarTattStillingTilAlleInntektsLinjerGammel';
 import './RefusjonSide.less';
 import TidligereRefunderbarBeløpKvittering from './TidligereRefunderbarBeløpKvittering';
 import Utregning from './Utregning';
+import InntekterFraTiltaketSvar from './HarTattStillingTilAlleInntektsLinjerNy';
 
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
@@ -66,7 +67,13 @@ const RefusjonSide: FunctionComponent = () => {
                 unntakOmInntekterFremitid={refusjon.unntakOmInntekterFremitid}
             />
             <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
+            {refusjon.harTattStillingTilAlleInntektslinjer ? (
+                <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
+            ) :
+            (
+                <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
+            )
+            }
             <VerticalSpacer rem={2} />
             <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />

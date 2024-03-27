@@ -11,8 +11,8 @@ import { storForbokstav } from '../../utils/stringUtils';
 import InformasjonFraAvtalen from '../RefusjonSide/InformasjonFraAvtalen';
 import InntekterFraAMeldingen from '../RefusjonSide/InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraAMeldingenGammel from '../RefusjonSide/InntekterFraAmeldingenGammel';
-import InntekterFraTiltaketSvar from '../RefusjonSide/InntekterFraTiltaketSvar';
-import InntekterFraTiltaketSvarGammel from '../RefusjonSide/InntekterFraTiltaketSvarGammel';
+import HarTattStillingTilAlleInntektsLinjerNy from '../RefusjonSide/HarTattStillingTilAlleInntektsLinjerNy';
+import HarTattStillingTilAlleInntektsLinjerGammel from '../RefusjonSide/HarTattStillingTilAlleInntektsLinjerGammel';
 import OpprettKorreksjon from '../RefusjonSide/OpprettKorreksjon';
 import SjekkReberegning from '../RefusjonSide/SjekkReberegning';
 import SummeringBoks from '../RefusjonSide/SummeringBoks';
@@ -85,7 +85,7 @@ const KvitteringSide: FunctionComponent<Props> = ({ refusjon, innloggetBruker })
                         unntakOmInntekterFremitid={refusjon.unntakOmInntekterFremitid}
                     />
                     <VerticalSpacer rem={2} />
-                    <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjonsgrunnlag} />
+                    <HarTattStillingTilAlleInntektsLinjerNy refusjonsgrunnlag={refusjonsgrunnlag} />
                     <VerticalSpacer rem={2} />
                     <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
                 </>
@@ -93,7 +93,7 @@ const KvitteringSide: FunctionComponent<Props> = ({ refusjon, innloggetBruker })
                 <>
                     <InntekterFraAMeldingenGammel inntektsgrunnlag={refusjonsgrunnlag.inntektsgrunnlag} />
                     <VerticalSpacer rem={2} />
-                    <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjonsgrunnlag} />
+                    <HarTattStillingTilAlleInntektsLinjerGammel refusjonsgrunnlag={refusjonsgrunnlag} />
                     <VerticalSpacer rem={2} />
                     <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
                 </>

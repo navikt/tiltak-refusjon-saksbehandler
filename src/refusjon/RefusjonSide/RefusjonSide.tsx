@@ -8,14 +8,24 @@ import HvitBoks from '../../komponenter/hvitboks/HvitBoks';
 import { useHentRefusjon } from '../../services/rest-service';
 import InformasjonFraAvtalen from './InformasjonFraAvtalen';
 import InntekterFraAMeldingen from './InntekterFraAMeldingen/InntekterFraAMeldingen';
-import InntekterFraTiltaketSvarGammel from './InntekterFraTiltaketSvarGammel';
+import InntekterFraTiltaketSvarGammel from './HarTattStillingTilAlleInntektsLinjerGammel';
 import './RefusjonSide.less';
 import TidligereRefunderbarBeløpKvittering from './TidligereRefunderbarBeløpKvittering';
 import Utregning from './Utregning';
+import InntekterFraTiltaketSvar from './HarTattStillingTilAlleInntektsLinjerNy';
 
 const RefusjonSide: FunctionComponent = () => {
     const { refusjonId } = useParams<{ refusjonId: string }>();
     const refusjon = useHentRefusjon(refusjonId!);
+ 
+    const gammelrefusjoner = refusjon.refusjonsgrunnlag?.inntektsgrunnlag?.inntekter.find(
+        // Dersom det ikke finnes en eneste inntektslinje som har blitt huket av (ja eller nei), så viser vi gammel versjon av InntekterFraAMeldingen
+        (i) => i.erOpptjentIPeriode === null
+    )
+
+    console.log({refusjon});
+
+    console.log("har intekter i alle måneder",refusjon.harInntektIAlleMåneder);
 
     return (
         <HvitBoks>
@@ -66,7 +76,13 @@ const RefusjonSide: FunctionComponent = () => {
                 unntakOmInntekterFremitid={refusjon.unntakOmInntekterFremitid}
             />
             <VerticalSpacer rem={2} />
-            <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
+            {!gammelrefusjoner && refusjon.harTattStillingTilAlleInntektslinjer && (
+                <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
+            )}
+            {gammelrefusjoner && (
+                <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
+            )
+            }
             <VerticalSpacer rem={2} />
             <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />

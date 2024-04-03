@@ -59,7 +59,6 @@ const removeEmpty = (obj: any) => {
 
 export const useHentRefusjon = (refusjonId: string) => {
     const { data } = useSWR<Refusjon>(`/refusjon/${refusjonId}`, swrConfig);
-    console.log("data",data);
     return data!;
 };
 

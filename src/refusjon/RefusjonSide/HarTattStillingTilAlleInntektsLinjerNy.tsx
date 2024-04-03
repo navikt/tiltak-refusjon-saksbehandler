@@ -49,8 +49,6 @@ const HarTattStillingTilAlleInntektsLinjerNy: FunctionComponent<Props> = (props)
                 />
                 <VerticalSpacer rem={2} />
                 <InntekterFraTiltaketSvarNyLabel refusjonsgrunnlag={props.refusjonsgrunnlag} />
-
-
                 <InntekterKunFraTiltaketSvar inntekterKunFraTiltaket={props.refusjonsgrunnlag.inntekterKunFraTiltaket} />
                 {props.refusjonsgrunnlag.endretBruttoLønn !== null &&
                     props.refusjonsgrunnlag.endretBruttoLønn !== undefined && (

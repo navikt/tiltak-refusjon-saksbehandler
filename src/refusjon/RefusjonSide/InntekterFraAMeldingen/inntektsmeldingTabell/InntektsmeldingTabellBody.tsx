@@ -28,7 +28,6 @@ const InntektsmeldingTabellBody: FunctionComponent<Props> = (props) => {
                 <tr key={inntekt.id}>
                     <td>{inntektBeskrivelse(inntekt.beskrivelse)}</td>
                     <td>{formatterDato(inntekt.måned, NORSK_MÅNEDÅR_FORMAT)}</td>
-
                     <td>
                         {inntekt.opptjeningsperiodeFom && inntekt.opptjeningsperiodeTom ? (
                             formatterPeriode(inntekt.opptjeningsperiodeFom, inntekt.opptjeningsperiodeTom, 'DD.MM')

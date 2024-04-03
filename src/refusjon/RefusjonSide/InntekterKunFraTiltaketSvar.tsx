@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 
-const InntekterKunFraTiltaketSvar  : FunctionComponent<{inntekterKunFraTiltaket : boolean | undefined}> = (inntekterKunFraTiltaket: any) => {
 
+const InntekterKunFraTiltaketSvar  : FunctionComponent<{inntekterKunFraTiltaket : boolean | undefined}> = ({inntekterKunFraTiltaket}) => {
     const svar = () => {
         switch (inntekterKunFraTiltaket) {
             case true:

@@ -62,18 +62,17 @@ const RefusjonSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <InntekterFraAMeldingen
                 inntektsgrunnlag={refusjon.refusjonsgrunnlag.inntektsgrunnlag}
-                kvitteringVisning={false}
+                kvitteringVisning={true}
                 refusjonsgrunnlag={refusjon.refusjonsgrunnlag}
                 unntakOmInntekterFremitid={refusjon.unntakOmInntekterFremitid}
             />
             <VerticalSpacer rem={2} />
-            {refusjon.harTattStillingTilAlleInntektslinjer ? (
+            {refusjon.harTattStillingTilAlleInntektslinjer && (
                 <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
-            ) :
-            (
+            )}
+            {(!refusjon.harTattStillingTilAlleInntektslinjer && refusjon.status !== 'KLAR_FOR_INNSENDING') && (
                 <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
-            )
-            }
+            )}
             <VerticalSpacer rem={2} />
             <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />

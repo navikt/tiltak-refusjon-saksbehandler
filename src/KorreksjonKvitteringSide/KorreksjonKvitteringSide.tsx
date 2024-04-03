@@ -8,8 +8,8 @@ import { korreksjonStatusTekst } from '../messages';
 import InformasjonFraAvtalen from '../refusjon/RefusjonSide/InformasjonFraAvtalen';
 import InntekterFraAMeldingen from '../refusjon/RefusjonSide/InntekterFraAMeldingen/InntekterFraAMeldingen';
 import InntekterFraAMeldingenGammel from '../refusjon/RefusjonSide/InntekterFraAmeldingenGammel';
-import InntekterFraTiltaketSvar from '../refusjon/RefusjonSide/InntekterFraTiltaketSvar';
-import InntekterFraTiltaketSvarGammel from '../refusjon/RefusjonSide/InntekterFraTiltaketSvarGammel';
+import HarTattStillingTilAlleInntektsLinjerNy from '../refusjon/RefusjonSide/HarTattStillingTilAlleInntektsLinjerNy';
+import HarTattStillingTilAlleInntektsLinjerGammel from '../refusjon/RefusjonSide/HarTattStillingTilAlleInntektsLinjerGammel';
 import TidligereRefunderbarBeløpKvittering from '../refusjon/RefusjonSide/TidligereRefunderbarBeløpKvittering';
 import Utregning from '../refusjon/RefusjonSide/Utregning';
 import { storForbokstav } from '../utils/stringUtils';
@@ -47,12 +47,12 @@ const KorreksjonKvitteringSide: FunctionComponent<Props> = ({ korreksjon }) => {
                         unntakOmInntekterFremitid={0}
                     />
                     <VerticalSpacer rem={2} />
-                    <InntekterFraTiltaketSvar refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                    <HarTattStillingTilAlleInntektsLinjerNy refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
                 </>
             ) : (
                 <>
                     <InntekterFraAMeldingenGammel inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag} />
-                    <InntekterFraTiltaketSvarGammel refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
+                    <HarTattStillingTilAlleInntektsLinjerGammel refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />
                 </>
             )}
             <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={korreksjon.refusjonsgrunnlag} />

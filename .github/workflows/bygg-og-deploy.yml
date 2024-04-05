@@ -12,8 +12,8 @@ jobs:
       id-token: write    
     name: Bygg og deploy
     runs-on: ubuntu-latest
-      outputs:
-    image: ${{ steps.docker-build-push.outputs.image }}
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v4

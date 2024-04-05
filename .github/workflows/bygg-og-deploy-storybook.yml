@@ -48,7 +48,6 @@ jobs:
       - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_TEAMTILTAK }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais-dev-gcp-storybook.yml
-          PRINT_PAYLOAD: true
+          VAR: image=${{ needs.bygg.outputs.image }}

@@ -6,7 +6,7 @@ on:
 jobs:
   bygg:
     permissions:
-       contents: read
+      contents: read
       id-token: write   
     name: Bygg og deploy
     runs-on: ubuntu-latest

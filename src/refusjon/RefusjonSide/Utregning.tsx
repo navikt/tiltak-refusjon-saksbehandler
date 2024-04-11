@@ -66,11 +66,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
                 Utregningen
             </Heading>
             <VerticalSpacer rem={1} />
-            <Utregningsrad
-                labelTekst={'Bruttolønn i perioden'}
-                verdi={beregning?.lønn || 0}
-                inntekter={bruttoLønnsInntekter}
-            >
+            <Utregningsrad labelTekst={'Bruttolønn i perioden'} verdi={beregning?.lønn || 0}>
                 <UtregningsradHvaInngårIDette
                     inntekter={bruttoLønnsInntekter || []}
                     tilskuddsgrunnlag={props.tilskuddsgrunnlag}
@@ -156,7 +152,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
             </>
 
             <VerticalSpacer rem={2} />
-            {beregning && (beløpOverMaks || beregning.tidligereUtbetalt !== 0 || harMinusBeløp) && (
+            {beregning && (beløpOverMaks || erKorreksjon || harMinusBeløp) && (
                 <Utregningsrad
                     utgår={beløpOverMaks}
                     labelTekst={
@@ -166,8 +162,8 @@ const Utregning: FunctionComponent<Props> = (props) => {
                         </>
                     }
                     verdiOperator={<ErlikTegn />}
-                    verdi={beregning.beregnetBeløp}
                     border={erKorreksjon ? 'INGEN' : 'NORMAL'}
+                    verdi={beregning.beregnetBeløp}
                 >
                     {beløpOverMaks && (
                         <ReadMore size="small" header="Hva betyr dette?" defaultOpen={true}>
@@ -207,7 +203,7 @@ const Utregning: FunctionComponent<Props> = (props) => {
             )}
             {erKorreksjon && (
                 <div className={beløpOverMaks ? cls.element('korreksjons-oppsummering') : ''}>
-                    {beløpOverMaks && beregning && beregning.tidligereUtbetalt !== 0 && (
+                    {beløpOverMaks && beregning && (
                         <Utregningsrad
                             labelIkon={<Pengesekken />}
                             labelTekst="Avtalt tilskuddsbeløp brukes som beregningsgrunnlag"
@@ -256,12 +252,11 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     {tilUtbetaling(false)}
                 </div>
             )}
-            {beregning && beregning.overTilskuddsbeløp && beregning.tidligereUtbetalt > 0 && (
+            {beregning && beregning.overTilskuddsbeløp && harMinusBeløp && (
                 <Utregningsrad
                     labelIkon={<Pengesekken />}
                     labelTekst="Tilskuddsbeløp (avtalt beløp for perioden)"
                     verdi={props.tilskuddsgrunnlag.tilskuddsbeløp}
-                    border="TYKK"
                 />
             )}
             {harMinusBeløp && (
@@ -269,11 +264,11 @@ const Utregning: FunctionComponent<Props> = (props) => {
                     labelIkon={<Endret />}
                     labelTekst={'Resterende fratrekk for ferie fra tidligere refusjoner'}
                     verdiOperator={<MinusTegn />}
-                    verdi={forrigeRefusjonMinusBeløp}
+                    verdi={Math.abs(forrigeRefusjonMinusBeløp)}
                     border="TYKK"
                 />
             )}
-            {beregning?.tidligereUtbetalt === 0 && (
+            {!erKorreksjon && (
                 <>
                     {beløpOverMaks && beregning && beregning.tidligereUtbetalt !== 0 && (
                         <Utregningsrad

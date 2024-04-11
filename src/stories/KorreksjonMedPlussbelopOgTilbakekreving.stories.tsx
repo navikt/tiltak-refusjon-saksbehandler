@@ -110,7 +110,7 @@ const korreksjon: Korreksjon = {
             fratrekkLønnFerie: -35000,
             tidligereRefundertBeløp: 0,
             sumUtgifterFratrukketRefundertBeløp: 32587,
-            overFemGrunnbeløp: true,
+            overFemGrunnbeløp: false,
             id: '01HMRW9XMVT78J74YMEZSVM1KD',
         },
     },

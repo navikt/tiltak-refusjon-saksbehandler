@@ -15,7 +15,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const refusjonsdata = {
-    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
+    refusjonsnummer: { avtalenr: 123, løpenummer: 3 },
+    erKorreksjon: false,
     beregning: {
         lønn: 20423,
         lønnFratrukketFerie: 20423,
@@ -113,7 +114,8 @@ const refusjonsdata = {
 };
 
 const korreksjonsdata = {
-    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
+    refusjonsnummer: { avtalenr: 123, løpenummer: 3 },
+    erKorreksjon: true,
     beregning: {
         lønn: 44846,
         lønnFratrukketFerie: 43646,
@@ -278,7 +280,6 @@ const korreksjonsdata = {
         id: '01HKMSX7EDBF2VCT9H35NBC2NA',
         innhentetTidspunkt: '2024-01-08T16:08:55.629546',
     },
-    korreksjonSide: true,
 };
 
 export const MinusbelopKorreksjon: Story = {

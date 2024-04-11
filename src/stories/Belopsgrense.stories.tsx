@@ -16,6 +16,7 @@ type Story = StoryObj<typeof meta>;
 
 const refusjondata = {
     refusjonsnummer: { avtalenr: 123, løpenummer: 3 },
+    erKorreksjon: false,
     forrigeRefusjonMinusBeløp: 0,
     beregning: {
         lønn: 42846,
@@ -189,6 +190,7 @@ const refusjondata5G = {
         avtalenr: 1234,
         løpenummer: 2,
     },
+    erKorreksjon: false,
     forrigeRefusjonMinusBeløp: 0,
     beregning: {
         lønn: 42846,

@@ -85,13 +85,13 @@ const KorreksjonSide: FunctionComponent<Props> = ({ korreksjon }) => {
                                             avtalenr: korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
                                             løpenummer: korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
                                         }}
+                                        erKorreksjon={true}
                                         beregning={korreksjon.refusjonsgrunnlag.beregning}
                                         tilskuddsgrunnlag={korreksjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                                         forrigeRefusjonMinusBeløp={
                                             korreksjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp
                                         }
                                         inntektsgrunnlag={korreksjon.refusjonsgrunnlag.inntektsgrunnlag}
-                                        korreksjonSide={true}
                                     />
                                     <VerticalSpacer rem={1} />
                                     {korreksjonstype() === 'TILLEGSUTBETALING' && <BekreftUtbetalKorreksjon />}

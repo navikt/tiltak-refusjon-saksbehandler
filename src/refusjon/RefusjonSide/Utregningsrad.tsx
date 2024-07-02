@@ -3,7 +3,7 @@ import React, { FunctionComponent, PropsWithChildren, ReactNode } from 'react';
 import { formatterPenger } from '../../utils/PengeUtils';
 import BEMHelper from '../../utils/bem';
 import { visSatsMedNorskFormatering } from '../../utils/utregningUtil';
-import { Inntektslinje, Tilskuddsgrunnlag } from '../refusjon';
+import { Tilskuddsgrunnlag } from '../refusjon';
 import './Utregningsrad.less';
 
 interface Props {

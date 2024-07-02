@@ -17,6 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 const fratrekkData = {
     refusjonsnummer: { avtalenr: 123, løpenummer: 3 },
+    erKorreksjon: false,
     forrigeRefusjonMinusBeløp: -6558,
     beregning: {
         lønn: 108115,
@@ -88,6 +89,7 @@ export const MangeInntektslinjer: Story = {
     args: {
         forrigeRefusjonMinusBeløp: -6558,
         refusjonsnummer: { avtalenr: 123, løpenummer: 3 },
+        erKorreksjon: false,
         beregning: {
             lønn: 108115,
             lønnFratrukketFerie: 108115,
@@ -147,6 +149,7 @@ export const MangeInntektslinjer: Story = {
 export const KorreksjonTidligereUtbetalt: Story = {
     args: {
         refusjonsnummer: { avtalenr: 123, løpenummer: 3 },
+        erKorreksjon: true,
         beregning: {
             lønn: 32000,
             lønnFratrukketFerie: -3000,
@@ -192,7 +195,6 @@ export const KorreksjonTidligereUtbetalt: Story = {
             bruttoLønn: 62000,
             innhentetTidspunkt: '2024-01-08T10:29:07.387322',
         },
-        korreksjonSide: true,
     },
     decorators: [
         (Story, args) => (

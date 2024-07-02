@@ -68,20 +68,21 @@ const RefusjonSide: FunctionComponent = () => {
             />
             <VerticalSpacer rem={2} />
             {refusjon.harTattStillingTilAlleInntektslinjer && (
-                <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
+                <InntekterFraTiltaketSvar refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             )}
-            {(!refusjon.harTattStillingTilAlleInntektslinjer && refusjon.status !== 'KLAR_FOR_INNSENDING') && (
-                <HarTattStillingTilAlleInntektsLinjerGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag}/>
+            {!refusjon.harTattStillingTilAlleInntektslinjer && refusjon.status !== 'KLAR_FOR_INNSENDING' && (
+                <HarTattStillingTilAlleInntektsLinjerGammel refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             )}
             <VerticalSpacer rem={2} />
             <TidligereRefunderbarBeløpKvittering refusjonsgrunnlag={refusjon.refusjonsgrunnlag} />
             <VerticalSpacer rem={2} />
             {refusjon.refusjonsgrunnlag.beregning && (
                 <Utregning
-                refusjonsnummer={{
-                    avtalenr: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
-                    løpenummer: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
-                }}
+                    refusjonsnummer={{
+                        avtalenr: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.avtaleNr,
+                        løpenummer: refusjon.refusjonsgrunnlag.tilskuddsgrunnlag.løpenummer,
+                    }}
+                    erKorreksjon={false}
                     beregning={refusjon.refusjonsgrunnlag.beregning}
                     tilskuddsgrunnlag={refusjon.refusjonsgrunnlag.tilskuddsgrunnlag}
                     forrigeRefusjonMinusBeløp={refusjon.refusjonsgrunnlag.forrigeRefusjonMinusBeløp}

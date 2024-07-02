@@ -15,8 +15,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const refusjon1 = {
-    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
+    refusjonsnummer: { avtalenr: 123, løpenummer: 3 },
     forrigeRefusjonMinusBeløp: 0,
+    erKorreksjon: false,
     beregning: {
         lønn: 20000,
         lønnFratrukketFerie: -5000,
@@ -87,7 +88,8 @@ const refusjon1 = {
 };
 
 const refusjon2 = {
-    refusjonsnummer: {avtalenr: 123, løpenummer: 3},
+    refusjonsnummer: { avtalenr: 123, løpenummer: 3 },
+    erKorreksjon: false,
     forrigeRefusjonMinusBeløp: -3966,
     beregning: {
         lønn: 20000,

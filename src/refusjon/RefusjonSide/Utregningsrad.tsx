@@ -14,7 +14,6 @@ interface Props {
     verdi: number | string;
     ikkePenger?: boolean;
     border?: 'NORMAL' | 'TYKK' | 'INGEN';
-    inntekter?: Inntektslinje[];
     tilskuddsgunnlag?: Tilskuddsgrunnlag;
     className?: String;
     utgår?: boolean;

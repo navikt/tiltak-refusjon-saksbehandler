@@ -1,5 +1,5 @@
-import 'dotenv/config';
-import logger from './logger';
+require('dotenv/config');
+const logger = require('./logger');
 
 const envVar = ({ name, required = true }) => {
     if (!process.env[name] && required) {
@@ -50,7 +50,7 @@ const decorator = () => {
     };
 };
 
-export default {
+module.exports = {
     server,
     azureAd,
     api,

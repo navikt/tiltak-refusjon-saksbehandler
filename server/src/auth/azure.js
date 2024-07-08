@@ -1,8 +1,8 @@
-import { custom, Issuer } from 'openid-client';
-import config from '../config';
-import httpProxy from '../proxy/http-proxy';
-import logger from '../logger';
-import jwksClient from 'jwks-rsa';
+const { custom, Issuer } = require('openid-client');
+const config = require('../config');
+const httpProxy = require('../proxy/http-proxy');
+const logger = require('../logger');
+const jwksClient = require('jwks-rsa');
 
 const metadata = () => {
     const azureAdConfig = config.azureAd();
@@ -48,4 +48,4 @@ const azureTokenEndpoint = async () => {
     return issuer.token_endpoint;
 };
 
-export default { client, azureTokenEndpoint, azureJwksClient };
+module.exports = { client, azureTokenEndpoint, azureJwksClient };

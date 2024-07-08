@@ -1,5 +1,5 @@
-import config from '../config';
-import logger from '../logger';
+const config = require('../config');
+const logger = require('../logger');
 
 const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req) => {
     return new Promise((resolve, reject) => {
@@ -42,7 +42,7 @@ const createOnBehalfOfScope = (api) => {
     }
 };
 
-export default {
+module.exports = {
     getOnBehalfOfAccessToken,
     appendDefaultScope,
 };

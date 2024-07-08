@@ -1,9 +1,9 @@
-import azure from './auth/azure';
-import routes from './routes';
-import cors from './cors';
-import express from 'express';
-import logger from './logger';
-import { startLabs } from './labs';
+const azure = require('./auth/azure');
+const routes = require('./routes');
+const cors = require('./cors');
+const express = require('express');
+const logger = require('./logger');
+const { startLabs } = require('./labs');
 
 const server = express();
 

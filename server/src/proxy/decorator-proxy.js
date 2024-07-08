@@ -1,6 +1,6 @@
-import config from '../config';
-import authUtils from '../auth/utils';
-import axios from 'axios';
+const config = require('../config');
+const authUtils = require('../auth/utils');
+const axios = require('axios');
 const asyncHandler = require('express-async-handler');
 
 const setup = (router, authClient, tokenEndpoint) => {
@@ -20,4 +20,4 @@ const setup = (router, authClient, tokenEndpoint) => {
     });
 };
 
-export default { setup };
+module.exports = { setup };

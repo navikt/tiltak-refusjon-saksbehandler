@@ -1,7 +1,7 @@
-import express from 'express';
-import path from 'path';
-import { createProxyMiddleware } from 'http-proxy-middleware';
-import logger from './logger';
+const express = require('express');
+const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const logger = require('./logger');
 
 async function startLabs(server) {
     const page = path.resolve(__dirname, '../build', 'index.html');
@@ -36,4 +36,4 @@ async function startLabs(server) {
     }
 }
 
-export { startLabs };
+module.exports = { startLabs };

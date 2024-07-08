@@ -23,10 +23,7 @@ jobs:
         run: npm ci
       - name: Server yarn install
         working-directory: ./server
-        run: yarn install
-      - name: Server yarn build
-        working-directory: ./server
-        run: yarn build
+        run: npm ci install
       - name: Frontend - test, lint og bygg
         run: npm run test-and-build
       - name: Push docker image to GAR

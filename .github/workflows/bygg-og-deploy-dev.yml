@@ -65,7 +65,7 @@ jobs:
       - name: Sjekk ut kode
         uses: actions/checkout@v4
       - name: Deploy til dev-gcp
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais-dev-gcp-labs.yml

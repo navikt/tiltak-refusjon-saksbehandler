@@ -1,9 +1,9 @@
-import express from 'express';
-import path from 'path';
-import jwt from 'jsonwebtoken';
-import apiProxy from './proxy/api-proxy';
-import decoratorProxy from './proxy/decorator-proxy';
-import config from './config';
+const express = require('express');
+const path = require('path');
+const jwt = require('jsonwebtoken');
+const apiProxy = require('./proxy/api-proxy');
+const decoratorProxy = require('./proxy/decorator-proxy');
+const config = require('./config');
 
 const router = express.Router();
 
@@ -59,4 +59,4 @@ const setup = (authClient, tokenEndpoint, azureJwksClient) => {
     return router;
 };
 
-export default { setup };
+module.exports = { setup };

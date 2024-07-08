@@ -1,8 +1,8 @@
-import proxy from 'express-http-proxy';
-import jwt from 'jsonwebtoken';
-import authUtils from '../auth/utils';
-import config from '../config';
-import NodeCache from 'node-cache';
+const proxy = require('express-http-proxy');
+const jwt = require('jsonwebtoken');
+const authUtils = require('../auth/utils');
+const config = require('../config');
+const NodeCache = require('node-cache');
 
 const setup = (router, authClient, tokenEndpoint) => {
     const oboTokenCache = new NodeCache({ stdTTL: 60 });
@@ -44,4 +44,4 @@ const setup = (router, authClient, tokenEndpoint) => {
     );
 };
 
-export default { setup };
+module.exports = { setup };

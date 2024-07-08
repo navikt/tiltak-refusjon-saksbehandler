@@ -21,9 +21,9 @@ jobs:
           node-version: 20
       - name: Frontend npm install
         run: npm ci
-      - name: Server yarn install
+      - name: Server npm install
         working-directory: ./server
-        run: npm ci install
+        run: npm ci
       - name: Frontend - test, lint og bygg
         run: npm run test-and-build
       - name: Push docker image to GAR

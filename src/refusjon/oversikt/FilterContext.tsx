@@ -80,7 +80,7 @@ export const FilterProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const oppdaterFilter = (nyttFilter: Partial<Filter>) => {
         // Ved å sette inn "page: 0" i midten av objektet oppnår vi at alle andre endringer
         // i filter fører til at paginering nullstilles, med mindre endringen ER paginering
-        // (da overstyres "page: 0" av den valgte siden)
+        // (da overstyres "page: 0" av den valgte siden i stedet)
         const nyttMergedFilter = { ...filter, page: 0, ...nyttFilter };
         setFilter(nyttMergedFilter);
         filterCookie.oppdatereSokeVerdiCookie({ ...nyttMergedFilter });

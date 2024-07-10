@@ -78,8 +78,8 @@ export const FilterProvider: FunctionComponent<PropsWithChildren> = (props) => {
     };
 
     const oppdaterFilter = (nyttFilter: Partial<Filter>) => {
-        setFilter({ ...filter, ...nyttFilter });
-        filterCookie.oppdatereSokeVerdiCookie({ ...{ ...filter, ...nyttFilter } });
+        setFilter({ ...filter, page: 1, ...nyttFilter });
+        filterCookie.oppdatereSokeVerdiCookie({ ...{ ...filter, page: 1, ...nyttFilter } });
     };
 
     return (

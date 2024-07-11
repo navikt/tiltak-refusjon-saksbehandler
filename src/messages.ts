@@ -212,4 +212,5 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     RefusjonForkortet: 'Forkortet',
     TilskuddsperioderIRefusjonAnnullertManuelt: 'Annullert manuelt',
     SaksbehandlerMerketForInntekterLengerFrem: 'Merket for inntekter lenger frem',
+    KryssetAvForFravær: 'Krysset av for fravær',
 };

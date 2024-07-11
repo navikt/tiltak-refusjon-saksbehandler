@@ -168,6 +168,7 @@ export enum HendelseType {
     RefusjonForkortet = 'RefusjonForkortet',
     TilskuddsperioderIRefusjonAnnullertManuelt = 'TilskuddsperioderIRefusjonAnnullertManuelt',
     SaksbehandlerMerketForInntekterLengerFrem = 'SaksbehandlerMerketForInntekterLengerFrem',
+    KryssetAvForFravær = 'KryssetAvForFravær',
 }
 
 export interface Hendelse {

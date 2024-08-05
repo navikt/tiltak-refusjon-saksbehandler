@@ -8,6 +8,7 @@ ENV NODE_EXTRA_CA_CERTS /etc/ssl/ca-bundle.pem
 COPY ./server/node_modules ./node_modules
 COPY ./server/src .
 COPY ./dist ./build
+COPY ./package-lock.json ./build/package-lock.json
 
 EXPOSE 3000
 

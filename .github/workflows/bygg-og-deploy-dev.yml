@@ -19,12 +19,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Frontend npm install
-        run: npm ci
-      - name: Server npm install
-        working-directory: ./server
+      - name: npm install
         run: npm ci
       - name: Frontend - test, lint og bygg
+        working-directory: ./application
         run: npm run test-and-build
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0

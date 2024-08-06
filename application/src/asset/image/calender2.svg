@@ -1,0 +1,7 @@
+<svg height="16" width="16" viewBox="0 0 18 18" focusable="false" style="pointer-events: none;" xmlns="http://www.w3.org/2000/svg">
+    <title>Kalenderikon</title>
+    <g stroke="#0067C5" fill="none" fill-rule="evenodd">
+        <path d="M4 2.667H1.333v14h15.334v-14H14"></path>
+        <path d="M4 1.333h2V4H4zm8 0h2V4h-2zM6 2h6M1.333 6h15.334"></path>
+    </g>
+</svg>

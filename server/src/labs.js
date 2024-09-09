@@ -23,7 +23,7 @@ async function startLabs(server) {
                 changeOrigin: true,
                 onProxyReq: (proxyReq, req, res, options) => {
                     const cookies = req.headers?.cookie?.split(';');
-                    const cookieWithFakeToken = cookies?.filter((c) => c === 'tokenx-token');
+                    const cookieWithFakeToken = cookies?.filter((c) => c.includes('aad-token'));
                     if (!cookieWithFakeToken?.length) {
                         res.writeHead(401);
                         res.end();

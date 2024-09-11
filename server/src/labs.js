@@ -16,10 +16,28 @@ async function startLabs(server) {
 
         server.use(express.static(path.join(__dirname, '../build')));
 
-        server.use('/api', createProxyMiddleware({ target: 'http://tiltak-refusjon-api-labs', changeOrigin: true }));
+        server.use(
+            '/api',
+            createProxyMiddleware({
+                target: 'http://tiltak-refusjon-api-labs/api',
+                changeOrigin: true,
+                on: {
+                    proxyReq: (proxyReq, req, res, options) => {
+                        const cookies = req.headers?.cookie?.split(';');
+                        const cookieWithFakeToken = cookies?.filter((c) => c.includes('aad-token'));
+                        if (!cookieWithFakeToken?.length) {
+                            res.writeHead(401);
+                            res.end();
+                            return;
+                        }
+                        const accessToken = cookieWithFakeToken[0].split('=')[1];
+                        proxyReq.setHeader('Authorization', `Bearer ${accessToken}`);
+                    },
+                },
+            })
+        );
 
         server.use('/logout', (req, res) => {
-            res.clearCookie('tokenx-token');
             res.clearCookie('aad-token');
             res.redirect('/');
         });

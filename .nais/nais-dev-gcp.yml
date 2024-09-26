@@ -46,6 +46,8 @@ spec:
       value: http://tiltak-refusjon-api
     - name: HOST
       value: https://tiltak-refusjon.intern.dev.nav.no
+    - name: DECORATOR_CORS
+      value: https://modiacontextholder.intern.dev.nav.no
   observability:
     autoInstrumentation:
       enabled: true

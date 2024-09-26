@@ -23,7 +23,7 @@ spec:
     - name: MILJO
       value: dev-gcp-labs
     - name: DECORATOR_HOST
-      value: https://navikt.github.io
+      value: https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/
     - name: API_URL
       value: http://tiltak-refusjon-api-labs
     - name: HOST

@@ -37,16 +37,6 @@ export default defineConfig({
                         );
                 },
             },
-            '/internarbeidsflatedecorator': {
-                target: 'https://navikt.github.io/',
-                changeOrigin: true,
-                rewrite(path) {
-                    return path.replace(
-                        '/internarbeidsflatedecorator',
-                        'https://navikt.github.io/internarbeidsflatedecorator'
-                    );
-                },
-            },
         },
     },
 });

@@ -32,6 +32,8 @@ spec:
   env:
     - name: MILJO
       value: dev-gcp
+    - name: VITE_ENV
+      value: q2
     - name: AAD_REDIRECT_URL
       value: https://tiltak-refusjon.intern.dev.nav.no/oauth2/callback
     - name: AAD_LOGOUT_REDIRECT_URL

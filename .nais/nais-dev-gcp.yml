@@ -41,7 +41,7 @@ spec:
     - name: API_CLIENT_ID
       value: dev-gcp.arbeidsgiver.tiltak-refusjon-api
     - name: DECORATOR_HOST
-      value: https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/
+      value: https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist
     - name: API_URL
       value: http://tiltak-refusjon-api
     - name: HOST

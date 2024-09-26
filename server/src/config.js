@@ -55,4 +55,5 @@ module.exports = {
     azureAd,
     api,
     decorator,
+    envVar,
 };

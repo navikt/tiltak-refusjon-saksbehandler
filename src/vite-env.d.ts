@@ -3,5 +3,6 @@
 
 interface ImportMetaEnv {
     readonly VITE_ENV: 'q2' | 'prod';
+    readonly VITE_MILJO: 'prod' | 'dev';
     // more env variables...
 }

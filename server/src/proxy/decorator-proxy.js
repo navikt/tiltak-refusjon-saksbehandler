@@ -16,7 +16,7 @@ const setup = (router, authClient, tokenEndpoint) => {
     );
 
     router.use('/internarbeidsflatedecorator', (req, res) => {
-        res.redirect(config.decorator().host + req.originalUrl.replace('^/internarbeidsflatedecorator', ''));
+        res.redirect(config.decorator().host + req.originalUrl.replace('/internarbeidsflatedecorator', ''));
     });
 };
 

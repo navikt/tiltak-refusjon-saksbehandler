@@ -75,7 +75,7 @@ const InternflateDekoratør: FunctionComponent = () => {
             showEnheter={false}
             showSearchArea={false}
             showHotkeys={false}
-            environment={import.meta.VITE_ENV}
+            environment={import.meta.env.VITE_ENV}
             urlFormat="ANSATT"
         />
     );

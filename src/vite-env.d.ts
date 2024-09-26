@@ -2,6 +2,6 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-    readonly VITE_ENV: 'dev' | 'prod';
+    readonly VITE_ENV: 'q2' | 'prod';
     // more env variables...
 }

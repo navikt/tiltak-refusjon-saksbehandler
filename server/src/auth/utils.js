@@ -1,7 +1,7 @@
 const config = require('../config');
 const logger = require('../logger');
 
-const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req) => {
+const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req, scope) => {
     return new Promise((resolve, reject) => {
         const apiConfig = config.api();
         const token = req.headers.authorization.replace('Bearer', '').trim();
@@ -11,7 +11,7 @@ const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req) => {
                     grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
                     client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                     requested_token_use: 'on_behalf_of',
-                    scope: createOnBehalfOfScope(apiConfig),
+                    scope: scope !== undefined ? scope : formatClientIdScopeForV2Clients(apiConfig.clientId),
                     assertion: token,
                 },
                 {
@@ -33,14 +33,6 @@ const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req) => {
 const appendDefaultScope = (scope) => `${scope}/.default`;
 
 const formatClientIdScopeForV2Clients = (clientId) => appendDefaultScope(`api://${clientId}`);
-
-const createOnBehalfOfScope = (api) => {
-    if (api.scopes && api.scopes.length > 0) {
-        return `${api.scopes.join(' ')}`;
-    } else {
-        return `${formatClientIdScopeForV2Clients(api.clientId)}`;
-    }
-};
 
 module.exports = {
     getOnBehalfOfAccessToken,

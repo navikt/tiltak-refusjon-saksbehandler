@@ -7,7 +7,12 @@ const setup = (router, authClient, tokenEndpoint) => {
         '/modiacontextholder',
         async (req, res, next) => {
             try {
-                const accessToken = await authUtils.getOnBehalfOfAccessToken(authClient, tokenEndpoint, req);
+                const accessToken = await authUtils.getOnBehalfOfAccessToken(
+                    authClient,
+                    tokenEndpoint,
+                    req,
+                    config.envVar({ name: 'MODIA_CONTEXT_HOLDER_SCOPE', required: true })
+                );
                 req.headers.authorization = `Bearer ${accessToken}`;
                 next();
             } catch (e) {

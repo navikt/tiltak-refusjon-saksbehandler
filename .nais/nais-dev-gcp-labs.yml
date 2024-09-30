@@ -34,6 +34,8 @@ spec:
     outbound:
       rules:
         - application: tiltak-refusjon-api-labs
+        - application: modiacontextholder
+          namespace: personoversikt
       external:
         - host: navikt.github.io
         - host: login.microsoftonline.com

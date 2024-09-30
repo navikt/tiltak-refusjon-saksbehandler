@@ -54,6 +54,8 @@ spec:
     outbound:
       rules:
         - application: tiltak-refusjon-api
+        - application: modiacontextholder
+          namespace: personoversikt
       external:
         - host: internarbeidsflatedecorator.intern.nav.no
         - host: login.microsoftonline.com

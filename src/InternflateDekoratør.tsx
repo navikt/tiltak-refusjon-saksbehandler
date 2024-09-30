@@ -67,7 +67,7 @@ const InternflateDekoratør: FunctionComponent = () => {
     return (
         <InternflateDecorator
             appName="Tiltaksrefusjon"
-            // proxy={'/modiacontextholder'}
+            proxy={'/modiacontextholder'}
             onEnhetChanged={() => {}}
             onFnrChanged={() => {}}
             fetchActiveUserOnMount={false}
@@ -75,8 +75,8 @@ const InternflateDekoratør: FunctionComponent = () => {
             showEnheter={false}
             showSearchArea={false}
             showHotkeys={false}
-            environment={import.meta.env.VITE_ENV}
-            urlFormat="ANSATT"
+            environment={'q2'}
+            urlFormat="NAV_NO"
         />
     );
 };

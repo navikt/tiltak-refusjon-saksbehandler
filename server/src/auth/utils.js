@@ -11,7 +11,7 @@ const getOnBehalfOfAccessToken = (authClient, tokenEndpoint, req, scope) => {
                     grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
                     client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                     requested_token_use: 'on_behalf_of',
-                    scope: scope !== undefined ? scope : formatClientIdScopeForV2Clients(apiConfig.clientId),
+                    scope: scope ?? formatClientIdScopeForV2Clients(apiConfig.clientId),
                     assertion: token,
                 },
                 {

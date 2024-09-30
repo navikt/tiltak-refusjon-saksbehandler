@@ -1,3 +1,4 @@
+const config = require('../config');
 const authUtils = require('../auth/utils');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
@@ -20,6 +21,10 @@ const setup = (router, authClient, tokenEndpoint) => {
             changeOrigin: true,
         })
     );
+
+    router.use('/internarbeidsflatedecorator', (req, res) => {
+        res.redirect(config.decorator().host + req.originalUrl);
+    });
 };
 
 module.exports = { setup };

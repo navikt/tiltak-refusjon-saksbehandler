@@ -77,7 +77,7 @@ const InternflateDekoratør: FunctionComponent = () => {
     return (
         <InternflateDecorator
             appName="Tiltaksrefusjon"
-            proxy={'/modiacontextholder'}
+            proxy="/modiacontextholder"
             onEnhetChanged={() => {}}
             onFnrChanged={() => {}}
             fetchActiveUserOnMount={false}

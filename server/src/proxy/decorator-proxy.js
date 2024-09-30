@@ -1,4 +1,5 @@
 const authUtils = require('../auth/utils');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const setup = (router, authClient, tokenEndpoint) => {
     router.use(

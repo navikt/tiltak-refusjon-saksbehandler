@@ -11,7 +11,7 @@ const setup = (router, authClient, tokenEndpoint) => {
                     authClient,
                     tokenEndpoint,
                     req,
-                    config.envVar({ name: 'MODIA_CONTEXT_HOLDER_SCOPE', required: true })
+                    config.envVar({ name: 'MODIA_CONTEXT_HOLDER_SCOPE', required: false })
                 );
                 req.headers.authorization = `Bearer ${accessToken}`;
                 next();

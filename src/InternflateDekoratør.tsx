@@ -63,6 +63,16 @@ export type Hotkey = ActionHotKey | DocumentingHotKey;
 
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflate-decorator-v3');
 
+const env = () => {
+    if (window.location.hostname.includes('localhost')) {
+        return 'local';
+    }
+    if (window.location.hostname.includes('intern.dev.nav.no')) {
+        return 'dev';
+    }
+    return 'prod';
+};
+
 const InternflateDekoratør: FunctionComponent = () => {
     return (
         <InternflateDecorator
@@ -75,7 +85,7 @@ const InternflateDekoratør: FunctionComponent = () => {
             showEnheter={false}
             showSearchArea={false}
             showHotkeys={false}
-            environment={'q2'}
+            environment={env() === 'prod' ? 'prod' : 'q2'}
             urlFormat="NAV_NO"
         />
     );

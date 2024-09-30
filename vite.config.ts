@@ -20,6 +20,11 @@ export default defineConfig({
         port: 3000,
         proxy: {
             '/api': { target: 'http://localhost:8081', changeOrigin: true },
+            '/internarbeidsflatedecorator': {
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/internarbeidsflatedecorator/, ''),
+                target: 'http://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist',
+            },
             '/modiacontextholder/api/decorator': {
                 target: 'http://localhost:8081',
                 bypass(req, res, options) {
@@ -35,16 +40,6 @@ export default defineConfig({
                                 res.end(JSON.stringify({ authenticated: false }));
                             }
                         );
-                },
-            },
-            '/internarbeidsflatedecorator': {
-                target: 'https://navikt.github.io/',
-                changeOrigin: true,
-                rewrite(path) {
-                    return path.replace(
-                        '/internarbeidsflatedecorator',
-                        'https://navikt.github.io/internarbeidsflatedecorator'
-                    );
                 },
             },
         },

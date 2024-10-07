@@ -1,29 +1,29 @@
-import { Table, Label } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 
 const TableHeader = () => {
     return (
         <Table.Header>
             <Table.Row>
                 <Table.HeaderCell scope="col">
-                <Label>Refusjon</Label>
+                Refusjon
                 </Table.HeaderCell>
                 <Table.HeaderCell scope="col">
-                <Label>Veileder</Label>
+                Veileder
                 </Table.HeaderCell>
                 <Table.HeaderCell scope="col">
-                <Label>Deltaker</Label>
+                Deltaker
                 </Table.HeaderCell>
                 <Table.HeaderCell scope="col">
-                <Label>Arbeidsgiver</Label>
+                Arbeidsgiver
                 </Table.HeaderCell>
                 <Table.HeaderCell scope="col">
-                <Label>Enhet</Label>
+                Enhet
                 </Table.HeaderCell>
                 <Table.HeaderCell scope="col">
-                <Label>Status</Label>
+                Status
                 </Table.HeaderCell>
                 <Table.HeaderCell scope="col">
-                <Label>Frist for godkjenning</Label>
+                Frist for godkjenning
                 </Table.HeaderCell>
             </Table.Row>
         </Table.Header>

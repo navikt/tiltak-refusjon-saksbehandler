@@ -3,6 +3,7 @@ export enum Tiltak {
     MIDLERTIDIG_LØNNSTILSKUDD = 'MIDLERTIDIG_LONNSTILSKUDD',
     VARIG_LØNNSTILSKUDD = 'VARIG_LONNSTILSKUDD',
     SOMMERJOBB = 'SOMMERJOBB',
+    VTAO = 'VTAO',
 }
 
 export enum RefusjonStatus {

@@ -37,6 +37,7 @@ const Filtermeny: FunctionComponent = () => {
         { value: Tiltak.MIDLERTIDIG_LØNNSTILSKUDD, label: 'Midlertidig lønnstilskudd' },
         { value: Tiltak.VARIG_LØNNSTILSKUDD, label: 'Varig lønnstilskudd' },
         { value: Tiltak.SOMMERJOBB, label: 'Sommerjobb' },
+        { value: Tiltak.VTAO, label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
     ];
 
     return (

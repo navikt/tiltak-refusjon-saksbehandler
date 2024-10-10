@@ -82,8 +82,8 @@ const InternflateDekoratør: FunctionComponent = () => {
             proxy="/modiacontextholder"
             onEnhetChanged={() => {}}
             onFnrChanged={() => {}}
-            fetchActiveUserOnMount={false}
-            fetchActiveEnhetOnMount={false}
+            fetchActiveUserOnMount={true}
+            fetchActiveEnhetOnMount={true}
             fnrSyncMode="writeOnly"
             enhetSyncMode="writeOnly"
             showEnheter={false}

@@ -1,15 +1,16 @@
 import React from 'react';
-import Skeleton from 'react-loading-skeleton';
-import LabelRad from '../../refusjon/oversikt/LabelRad';
 import BEMHelper from '../../utils/bem';
+import TableHeader from '@/refusjon/oversikt/TableHeader';
+import { Table } from '@navikt/ds-react';
 
-const cls = BEMHelper('oversikt');
+const cls = BEMHelper('oversiktTabell');
 
 export default function OversiktSkeleton() {
     return (
-        <div className={cls.className}>
-            <LabelRad />
-            <Skeleton count={3} className={cls.element('rad')} />
-        </div>
+            <Table className={cls.className}>
+                <TableHeader/>
+            </Table>
+         
+   
     );
 }
